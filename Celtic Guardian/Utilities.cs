@@ -82,9 +82,7 @@ namespace Celtic_Guardian
         public static string ByteArrayToString(byte[] Data, bool TrimDelim = true)
         {
             var Hex = BitConverter.ToString(Data);
-            if (TrimDelim)
-                return Hex.Replace("-", "");
-            return Hex;
+            return TrimDelim ? Hex.Replace("-", "") : Hex;
         }
 
         public static string GetText(byte[] Message, bool RemoveNull = true)
@@ -95,6 +93,25 @@ namespace Celtic_Guardian
                 StrContent = StrContent.Replace("\0", string.Empty);
 
             return StrContent;
+        }
+
+        private static readonly string[] SizeSuffixes =
+            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+
+        public static string GiveFileSize(long Value, int DecimalPlaces = 1)
+        {
+            if (Value < 0)
+            {
+                return "-" + GiveFileSize(-Value);
+            }
+            var I = 0;
+            decimal DValue = Value;
+            while (Math.Round(DValue, DecimalPlaces) >= 1000)
+            {
+                DValue /= 1024;
+                I++;
+            }
+            return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
     }
 }

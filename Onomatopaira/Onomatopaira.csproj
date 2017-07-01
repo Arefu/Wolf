@@ -54,7 +54,7 @@
   <ItemGroup>
     <Reference Include="Celtic Guardian, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\Release\Celtic Guardian.dll</HintPath>
+      <HintPath>..\bin\Debug\Celtic Guardian.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

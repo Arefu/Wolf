@@ -35,7 +35,6 @@ namespace Onomatopaira
                         LineData[2])); //Add To List For Manip.
                 }
             }
-
             DatReader = new BinaryReader(File.Open(Args[0].Replace(".toc", ".dat"), FileMode.Open));
 
             foreach (var Item in Data)
