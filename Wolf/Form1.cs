@@ -1,14 +1,12 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Celtic_Guardian;
+using Microsoft.Win32;
 
 namespace Wolf
 {
@@ -18,21 +16,25 @@ namespace Wolf
         public static StreamReader Reader;
         public static List<FileData> Data = new List<FileData>();
 
+        private TreeNode _EndNode; //Recursive Func, Needs To Be Outside.
+
         public Form1()
         {
             InitializeComponent();
             FileQuickViewList.ImageList = NodeImages;
             MainFileView.SmallImageList = NodeImages;
         }
+
         private void Form1_Load(object Sender, EventArgs Args)
         {
             try
             {
                 using (var Root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 {
-                    using (var Key = Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
+                    using (var Key =
+                        Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
                     {
-                        InstallDir = Key.GetValue("InstallLocation").ToString();
+                        InstallDir = Key?.GetValue("InstallLocation").ToString();
                     }
                 }
             }
@@ -49,7 +51,9 @@ namespace Wolf
         {
             if (Reader.BaseStream != null)
             {
-                var Reply = MessageBox.Show(this, "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?", "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                var Reply = MessageBox.Show(this,
+                    "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
+                    "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (Reply != DialogResult.Yes) return;
 
                 Reader.Dispose();
@@ -76,12 +80,17 @@ namespace Wolf
                 Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
                 var LineData = Line.Split(' ');
                 Data.Add(new FileData(Utilities.HexToDec(LineData[0]), Utilities.HexToDec(LineData[1]), LineData[2]));
-                LineData[2].Split('\\').Aggregate(RootNode, (Current, File) => Current.Nodes.ContainsKey(File) ? Current.Nodes[File] : Current.Nodes.Add(File, File));
+                LineData[2].Split('\\').Aggregate(RootNode,
+                    (Current, File) => Current.Nodes.ContainsKey(File)
+                        ? Current.Nodes[File]
+                        : Current.Nodes.Add(File, File));
             }
             Reader?.Close();
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
             FileQuickViewList.SelectedNode = FileQuickViewList.Nodes[0];
+            FileQuickViewList_NodeMouseClick(new object(),
+                new TreeNodeMouseClickEventArgs(FileQuickViewList.Nodes[0], MouseButtons.Left, 1, 0, 0));
         }
 
         private void CloseToolStripMenuItem_Click(object Sender, EventArgs Args)
@@ -103,16 +112,15 @@ namespace Wolf
             for (var Node = 0; Node < Args.Node.Nodes.Count; Node++)
             {
                 var Items = new ListViewItem(Args.Node.Nodes[Node].Name);
-                var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text)).Select(NodeSize => NodeSize.Item1).FirstOrDefault();
+                var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text))
+                    .Select(NodeSize => NodeSize.Item1).FirstOrDefault();
 
                 Items.SubItems.Add(Utilities.GiveFileSize(FileSizeObject));
                 MainFileView.Items.Add(Items);
 
                 MainFileView.Items[Node].ImageIndex = Args.Node.Nodes[Node].Nodes.Count == 0 ? 1 : 0;
                 if (Args.Node.Nodes[Node].Name.EndsWith(".png") || Args.Node.Nodes[Node].Name.EndsWith(".jpg"))
-                {
                     MainFileView.Items[Node].ImageIndex = 2;
-                }
             }
 
             MainFileView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -122,10 +130,14 @@ namespace Wolf
         private void MainFileView_MouseDoubleClick(object Sender, MouseEventArgs Args)
         {
             var SelectMe = GetNode(FileQuickViewList.Nodes[0]);
-            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            if (SelectMe.ImageIndex != 0) return;
+
+            SelectMe.Expand();
+            FileQuickViewList.SelectedNode = SelectMe;
+            FileQuickViewList_NodeMouseClick(new object(),
+                new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
         }
 
-        private TreeNode _EndNode;
         private TreeNode GetNode(TreeNode CurrentNode)
         {
             foreach (TreeNode Node in CurrentNode.Nodes)
@@ -133,13 +145,10 @@ namespace Wolf
                 if (Node.Text == MainFileView.SelectedItems[0].Text)
                 {
                     _EndNode = Node;
-                    _EndNode.Expand();
-                    FileQuickViewList.SelectedNode = _EndNode;
-                    return _EndNode;
+                    return Node;
                 }
                 GetNode(Node);
             }
-
             return _EndNode;
         }
 

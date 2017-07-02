@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Microsoft.Win32;
 
 namespace Celtic_Guardian
 {
@@ -14,6 +15,9 @@ namespace Celtic_Guardian
             Error = 2,
             Alert = 3
         }
+
+        private static readonly string[] SizeSuffixes =
+            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
 
         public static void Log(string Message, Event LogLevel, bool ShouldQuit = false, int ExitCode = 0)
         {
@@ -41,7 +45,6 @@ namespace Celtic_Guardian
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(LogLevel), LogLevel, null);
-
             }
             Console.WriteLine(Message);
 
@@ -57,6 +60,11 @@ namespace Celtic_Guardian
         public static int HexToDec(string HexValue)
         {
             return int.Parse(HexValue, NumberStyles.HexNumber);
+        }
+
+        public static string DecToHex(string DecValue)
+        {
+            return Int32.Parse(DecValue).ToString("x");
         }
 
         public static int GetIntFromByteArray(byte[] Data)
@@ -95,15 +103,10 @@ namespace Celtic_Guardian
             return StrContent;
         }
 
-        private static readonly string[] SizeSuffixes =
-            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
-
         public static string GiveFileSize(long Value, int DecimalPlaces = 1)
         {
             if (Value < 0)
-            {
                 return "-" + GiveFileSize(-Value);
-            }
             var I = 0;
             decimal DValue = Value;
             while (Math.Round(DValue, DecimalPlaces) >= 1000)
@@ -111,12 +114,33 @@ namespace Celtic_Guardian
                 DValue /= 1024;
                 I++;
             }
-            return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
+            return string.Format("{{0:n" + DecimalPlaces + "}} {1}", DValue, SizeSuffixes[I]);
         }
 
         public static bool IsImage(string FileName)
         {
             return FileName.ToLower().EndsWith("jpg") || FileName.ToLower().EndsWith("png");
+        }
+
+        public static string GetInstallDir()
+        {
+            string InstallDir;
+            try
+            {
+                using (var Root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+                {
+                    using (var Key =
+                        Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
+                    {
+                        InstallDir = Key?.GetValue("InstallLocation").ToString();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw new FileNotFoundException("Can't Find Game");
+            }
+            return InstallDir;
         }
     }
 }

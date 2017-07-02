@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Celtic_Guardian;
@@ -11,10 +12,11 @@ namespace Relinquished
 
         private static void Main(string[] Args)
         {
+            Console.Title = "Relinquished";
             if (Args.Length <= 0)
-                Utilities.Log("Please Drag A ZIB File On To Me!", Utilities.Event.Information, true, 1);
+                Utilities.Log("Please Drag A ZIB File On To Me!", Utilities.Event.Error, true, 1);
             if (!Utilities.IsExt(Args[0], ".zib"))
-                Utilities.Log("Please Make Sure You're Using A ZIB File!", Utilities.Event.Information, true, 1);
+                Utilities.Log("Please Make Sure You're Using A ZIB File!", Utilities.Event.Error, true, 1);
 
             var ZibFileName = new FileInfo(Args[0]).Name;
 
