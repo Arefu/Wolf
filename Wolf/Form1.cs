@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -58,16 +59,13 @@ namespace Wolf
 
         private void OpenToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            //Setup StreamReader for TOC File.
             Reader?.Close();
             Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
             Reader.ReadLine();
 
-            //UI Information.
             GameLocLabel.ForeColor = Color.Green;
             GameLocLabel.Text = "Game Loaded";
 
-            //Read TOC File.
             var RootNode = new TreeNode("YGO_DATA");
             FileQuickViewList.Nodes.Add(RootNode);
             while (!Reader.EndOfStream)
@@ -79,20 +77,18 @@ namespace Wolf
                 var LineData = Line.Split(' ');
                 Data.Add(new FileData(Utilities.HexToDec(LineData[0]), Utilities.HexToDec(LineData[1]), LineData[2]));
                 LineData[2].Split('\\').Aggregate(RootNode, (Current, File) => Current.Nodes.ContainsKey(File) ? Current.Nodes[File] : Current.Nodes.Add(File, File));
-
-                LineData[2].Split('\\').Aggregate(RootNode, (Current, File) => Current.Nodes.ContainsKey(File) ? Current.Nodes[File] : Current.Nodes.Add(File, File));
             }
+
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
-
-
-            //Load Side Bar AND Main Bar. (Seperate Thread???) (Eh...)
-            //Do Things And Stuff.
+            FileQuickViewList.SelectedNode = FileQuickViewList.Nodes[0];
         }
 
         private void CloseToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            Reader.Close();
+            MainFileView.Items.Clear();
+            FileQuickViewList.Nodes.Clear();
+            Reader?.Close();
             GameLocLabel.ForeColor = Color.Red;
             GameLocLabel.Text = "Game Not Loaded";
         }
@@ -100,29 +96,23 @@ namespace Wolf
         private void FileQuickViewList_NodeMouseClick(object Sender, TreeNodeMouseClickEventArgs Args)
         {
             if (Args.Node.Nodes.Count <= 0) return;
+
             MainFileView.Items.Clear();
             MainFileView.LargeImageList = NodeImages;
-            switch (Args.Button)
+
+            for (var Node = 0; Node < Args.Node.Nodes.Count; Node++)
             {
-                case MouseButtons.Left:
-                    for (var Node = 0; Node < Args.Node.Nodes.Count; Node++)
-                    {
-                        var Items = new ListViewItem(Args.Node.Nodes[Node].Name);
-                        var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text)).Select(NodeSize => NodeSize.Item1).FirstOrDefault();
+                var Items = new ListViewItem(Args.Node.Nodes[Node].Name);
+                var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text)).Select(NodeSize => NodeSize.Item1).FirstOrDefault();
 
-                        Items.SubItems.Add(Utilities.GiveFileSize(FileSizeObject));
-                        MainFileView.Items.Add(Items);
+                Items.SubItems.Add(Utilities.GiveFileSize(FileSizeObject));
+                MainFileView.Items.Add(Items);
 
-
-                        MainFileView.Items[Node].ImageIndex = Args.Node.Nodes[Node].Nodes.Count == 0 ? 1 : 0;
-                        if (Args.Node.Nodes[Node].Name.EndsWith(".png") || Args.Node.Nodes[Node].Name.EndsWith(".jpg"))
-                        {
-                            MainFileView.Items[Node].ImageIndex = 2;
-                        }
-                    }
-                    break;
-                case MouseButtons.Right:
-                    break;
+                MainFileView.Items[Node].ImageIndex = Args.Node.Nodes[Node].Nodes.Count == 0 ? 1 : 0;
+                if (Args.Node.Nodes[Node].Name.EndsWith(".png") || Args.Node.Nodes[Node].Name.EndsWith(".jpg"))
+                {
+                    MainFileView.Items[Node].ImageIndex = 2;
+                }
             }
 
             MainFileView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -130,27 +120,28 @@ namespace Wolf
 
         }
 
-        private void MainFileView_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void MainFileView_MouseDoubleClick(object Sender, MouseEventArgs Args)
         {
-            if (MainFileView.SelectedItems[0].ImageIndex != 0) return;
-
             var SelectMe = GetNode(FileQuickViewList.Nodes[0]);
-            FileQuickViewList_NodeMouseClick(new object(),
-                new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
         }
 
+        private TreeNode _EndNode;
         private TreeNode GetNode(TreeNode CurrentNode)
         {
-            var EndNode = new TreeNode();
             foreach (TreeNode Node in CurrentNode.Nodes)
             {
                 if (Node.Text == MainFileView.SelectedItems[0].Text)
-                    return Node;
-
+                {
+                    _EndNode = Node;
+                    _EndNode.Expand();
+                    FileQuickViewList.SelectedNode = _EndNode;
+                    return _EndNode;
+                }
                 GetNode(Node);
             }
 
-            return EndNode;
+            return _EndNode;
         }
 
         private static void GiveIcons(TreeNode RootNode)
@@ -173,6 +164,44 @@ namespace Wolf
                     Node.SelectedImageIndex = 1;
                 }
                 GiveIcons(Node);
+            }
+        }
+
+        private void MainFileView_MouseClick(object Sender, MouseEventArgs Args)
+        {
+            if (Args.Button != MouseButtons.Right) return;
+            if (MainFileView.SelectedItems[0].ImageIndex == 0) return; //It's A Folder
+
+            RightClickMenu.Show(Cursor.Position);
+            
+        }
+
+        private void RightClickMenu_ItemClicked(object Sender, ToolStripItemClickedEventArgs Args)
+        {
+            throw new NotImplementedException();
+            var ItemToBeExtractedData = Data.First(Item => Item.Item3.Contains(MainFileView.SelectedItems[0].Text));
+            long TotalSize = 0;
+            foreach (var Item in Data)
+            {
+                if (Item.Item3 == ItemToBeExtractedData.Item3)
+                    break;
+
+                while (Item.Item1 % 4 == 0)
+                    Item.Item1 = Item.Item1 + 1;
+
+                TotalSize = TotalSize + Item.Item1;
+            }
+
+
+            using (var Reader = new BinaryReader(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.Read)))
+            {
+                Reader.BaseStream.Position = TotalSize;
+                new FileInfo("YGO_DATA/" + ItemToBeExtractedData.Item3).Directory?.Create();
+                using (var Writer = new BinaryWriter(File.Open(ItemToBeExtractedData.Item3, FileMode.Create, FileAccess.Write)))
+                {
+                    Writer.Write(Reader.ReadBytes(ItemToBeExtractedData.Item1));
+                    Writer.Close();
+                }
             }
         }
     }

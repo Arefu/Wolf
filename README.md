@@ -5,12 +5,15 @@ Wolf is a simple content editor for [Yu-Gi-Oh! Legacy of the Duelist](http://sto
 
 Currently I have published these "tools".
 
-* [Onomatopaira](https://github.com/Arefu/Wolf/tree/master/Onomatopaira) - Content-Extractor Tool.
-* [Relinquished](https://github.com/Arefu/Wolf/tree/master/Relinquished) - ZIB Extractor.
-* [Abaki](https://github.com/Arefu/Wolf/tree/master/Abaki) - BIN File Parser.
-* [Celtic Guardian](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian) - C# Utility Wrapper.
+* [Wolf](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian) - The GUI For These Tools. (W.I.P)
+* [Onomatopaira](https://github.com/Arefu/Wolf/tree/master/Onomatopaira) - Content-Extractor Tool. (Complete)
+* [Relinquished](https://github.com/Arefu/Wolf/tree/master/Relinquished) - ZIB Extractor. (Complete)
+* [Abaki](https://github.com/Arefu/Wolf/tree/master/Abaki) - BIN File Parser. (W.I.P)
+* [Celtic Guardian](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian) - C# Utility Wrapper. (W.I.P)
 
 For more information on these programs refer to their own README File or you can check out the  [Wiki](https://github.com/Arefu/Wolf/wiki).
+
+
 
 Thanks to [What The Commit!](http://whatthecommit.com/) for my commit messages.
 Thanks to everyone I've pestered, I'm looking at you [LinkerMod](https://github.com/Nukem9/LinkerMod) Team!
