@@ -78,7 +78,7 @@ namespace Wolf
                 Data.Add(new FileData(Utilities.HexToDec(LineData[0]), Utilities.HexToDec(LineData[1]), LineData[2]));
                 LineData[2].Split('\\').Aggregate(RootNode, (Current, File) => Current.Nodes.ContainsKey(File) ? Current.Nodes[File] : Current.Nodes.Add(File, File));
             }
-
+            Reader?.Close();
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
             FileQuickViewList.SelectedNode = FileQuickViewList.Nodes[0];
@@ -117,7 +117,6 @@ namespace Wolf
 
             MainFileView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
             MainFileView.Columns[1].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
-
         }
 
         private void MainFileView_MouseDoubleClick(object Sender, MouseEventArgs Args)
@@ -164,44 +163,6 @@ namespace Wolf
                     Node.SelectedImageIndex = 1;
                 }
                 GiveIcons(Node);
-            }
-        }
-
-        private void MainFileView_MouseClick(object Sender, MouseEventArgs Args)
-        {
-            if (Args.Button != MouseButtons.Right) return;
-            if (MainFileView.SelectedItems[0].ImageIndex == 0) return; //It's A Folder
-
-            RightClickMenu.Show(Cursor.Position);
-            
-        }
-
-        private void RightClickMenu_ItemClicked(object Sender, ToolStripItemClickedEventArgs Args)
-        {
-            throw new NotImplementedException();
-            var ItemToBeExtractedData = Data.First(Item => Item.Item3.Contains(MainFileView.SelectedItems[0].Text));
-            long TotalSize = 0;
-            foreach (var Item in Data)
-            {
-                if (Item.Item3 == ItemToBeExtractedData.Item3)
-                    break;
-
-                while (Item.Item1 % 4 == 0)
-                    Item.Item1 = Item.Item1 + 1;
-
-                TotalSize = TotalSize + Item.Item1;
-            }
-
-
-            using (var Reader = new BinaryReader(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.Read)))
-            {
-                Reader.BaseStream.Position = TotalSize;
-                new FileInfo("YGO_DATA/" + ItemToBeExtractedData.Item3).Directory?.Create();
-                using (var Writer = new BinaryWriter(File.Open(ItemToBeExtractedData.Item3, FileMode.Create, FileAccess.Write)))
-                {
-                    Writer.Write(Reader.ReadBytes(ItemToBeExtractedData.Item1));
-                    Writer.Close();
-                }
             }
         }
     }

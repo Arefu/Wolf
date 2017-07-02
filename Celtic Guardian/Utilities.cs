@@ -113,5 +113,10 @@ namespace Celtic_Guardian
             }
             return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
+
+        public static bool IsImage(string FileName)
+        {
+            return FileName.ToLower().EndsWith("jpg") || FileName.ToLower().EndsWith("png");
+        }
     }
 }
