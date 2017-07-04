@@ -78,13 +78,11 @@ namespace Celtic_Guardian
             var RawData = new byte[WorkingData.Length / 2];
             for (var I = 0; I < RawData.Length; I++)
                 RawData[I] = Convert.ToByte(WorkingData.Substring(I * 2, 2), 16);
-            if (RemovewhiteSpace)
-            {
-                var Formatted = Encoding.ASCII.GetString(RawData);
-                Formatted = Formatted.Replace("\0", "");
-                return Formatted;
-            }
-            return Encoding.ASCII.GetString(RawData);
+            if (!RemovewhiteSpace) return Encoding.ASCII.GetString(RawData);
+
+            var Formatted = Encoding.ASCII.GetString(RawData);
+            Formatted = Formatted.Replace("\0", "");
+            return Formatted;
         }
 
         public static string ByteArrayToString(byte[] Data, bool TrimDelim = true)
@@ -114,7 +112,7 @@ namespace Celtic_Guardian
                 DValue /= 1024;
                 I++;
             }
-            return string.Format("{{0:n" + DecimalPlaces + "}} {1}", DValue, SizeSuffixes[I]);
+            return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
         public static bool IsImage(string FileName)

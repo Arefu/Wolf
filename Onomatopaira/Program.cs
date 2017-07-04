@@ -37,20 +37,20 @@ namespace Onomatopaira
                         LineData[2])); //Add To List For Manip.
                 }
             }
+
             DatReader = new BinaryReader(File.Open(Args[0].Replace(".toc", ".dat"), FileMode.Open));
 
             foreach (var Item in Data)
             {
-                var ExtraToRead = 0;
+                var ExtraByte = Item.Item1;
                 if (Item.Item1 % 4 != 0) //THIS IS BULLSHIT!
                 {
                     Utilities.Log($"{Item.Item3} Not Aligned To 4 Bytes!", Utilities.Event.Warning);
-                    var ExtraByte = Item.Item1;
+
                     while (ExtraByte % 4 != 0)
                     {
                         ExtraByte = ExtraByte + 1;
                     }
-                    ExtraToRead = ExtraByte - Item.Item1;
                 }
 
                 new FileInfo("YGO_DATA/" + Item.Item3).Directory?.Create();
@@ -59,20 +59,16 @@ namespace Onomatopaira
                 FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Item.Item3, FileMode.Create,
                     FileAccess.Write));
                 FileWriter.Write(DatReader.ReadBytes(Item.Item1));
-                DatReader.BaseStream.Position += ExtraToRead;
+                DatReader.BaseStream.Position += ExtraByte - Item.Item1;
                 FileWriter.Close();
 
-                Utilities.Log(
-                    $"Done Extracting YGO_DATA/{Item.Item3}. It's Size Is: {new FileInfo("YGO_DATA/" + Item.Item3).Length}",
-                    Utilities.Event.Information);
-
-                if (Item.Item1 != new FileInfo("YGO_DATA/" + Item.Item3).Length)
-                    Utilities.Log("Mismatch In Size! Possible I/O Error?", Utilities.Event.Warning);
-                else
-                    Utilities.Log("File Sizes Are Both Correct. Moving On!", Utilities.Event.Alert);
+                Utilities.Log($"Done Extracting YGO_DATA/{Item.Item3}. It's Size Is: {new FileInfo("YGO_DATA/" + Item.Item3).Length}", Utilities.Event.Information);
             }
 
             Utilities.Log($"Finished Exporting {Data.Count} Files!", Utilities.Event.Alert);
+
+            DatReader?.Close();
+            DatReader?.Dispose();
         }
     }
 }
