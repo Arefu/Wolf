@@ -38,7 +38,6 @@ namespace Vortex
                         }
                         var BufferSize = FileSize - new FileInfo(Item).Length;
 
-                        //This Does Not Work Currently.
                         var Chunk = Reader.ReadBytes((int)new FileInfo(Item).Length);
                         Writer.Write(Chunk);
                         Utilities.Log($"Packing {Item3}. It has the size: {Item1}.", Utilities.Event.Information);
@@ -58,6 +57,8 @@ namespace Vortex
                 Data.Add(new PackData(Item1, Item2, Item3));
             }
             File.AppendAllText("YGO_DATA.toc", $"UT{Environment.NewLine}");
+            //Read Original TOC File, Input Updated Values.
+            //Game Reads TOC Information In "Order", It'll Either Crash Or Just Break A Few Things.
             foreach (var Item in Data)
             {
                 while (Item.Item1.Length != 12)
