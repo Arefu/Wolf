@@ -1,6 +1,9 @@
 # Wolf
 
-Currently this tool can only view the file structure of a DAT file, I made this tool last and I will try adopt it to be more like [OpenIV](http://openiv.com/) so you can do more within it without the need for the other external tools.
+This is a pretty simplistic tool, and that's what it was designed for, it was to give people a change before extracting the files to view how they will be laid out, later
+down the road I might add a few handy little features like a simple packer and unpacker so you don't need to keep repacking the whole file whenever you want to change
+something, but for now so I can release these and be happy that they're stable I am leaving it at the simple tool it is.
+
  
 
 Run Options:

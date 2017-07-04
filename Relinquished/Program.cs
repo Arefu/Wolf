@@ -75,11 +75,11 @@ namespace Relinquished
                     var CurrentFileName = CurrentChunk.Take(FileNameReadSize).ToArray();
 
                     Utilities.Log(
-                        $"Found {Utilities.GetRealTextFromByteArray(CurrentFileName, true)} At: {Utilities.GetIntFromByteArray(CurrentStartOffset)} With Size: {Utilities.GetIntFromByteArray(CurrentFileSize)}",
+                        $"Found {Utilities.GetRealTextFromByteArray(CurrentFileName, true)} At: {Utilities.HexToDec(CurrentStartOffset)} With Size: {Utilities.HexToDec(CurrentFileSize)}",
                         Utilities.Event.Information);
 
-                    var RealOffset = Utilities.GetIntFromByteArray(CurrentStartOffset);
-                    var RealSize = Utilities.GetIntFromByteArray(CurrentFileSize);
+                    var RealOffset = Utilities.HexToDec(CurrentStartOffset);
+                    var RealSize = Utilities.HexToDec(CurrentFileSize);
                     var RealName = Utilities.GetRealTextFromByteArray(CurrentFileName, true);
 
                     if (RealName == "adriangecko_neutral.png") //Start Offset Is WRONG In ZIB For Some Reason.

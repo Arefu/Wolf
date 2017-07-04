@@ -1,6 +1,8 @@
 # Onomatopaira
 
-This is the main program, it handles all parsing and extracting of the DAT file. It doesn't do any flashy stuff aside from just extract the content and put it in a YGO_DATA folder. You will need to compile [Celtic Guardian](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian) as this currently depends on a few of it's functions.
+This is where the magic happens, this is the main program it extracts the YGO_DATA.DAT file, as a note please make sure the game isn't running 
+as to not confuse this tool. There isn't much needing to be said about this as its source code isn't that hard to read through albeit slightly 
+inefficient.
 
 Run Options:
 ``

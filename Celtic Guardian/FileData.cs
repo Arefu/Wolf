@@ -37,4 +37,14 @@
         public string Item2 { get; set; }
         public string Item3 { get; set; }
     }
+
+    public class FileNames
+    {
+        public FileNames(string FileName)
+        {
+            this.FileName = FileName;
+        }
+
+        public string FileName { get; set; }
+    }
 }

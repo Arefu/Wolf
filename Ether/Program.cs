@@ -53,6 +53,29 @@ namespace Ether
                                 $"Result: {Utilities.DecToHex(new FileInfo(Result).Length.ToString())} Bytes.");
                         }
                         break;
+                    case 5:
+                        if (!Directory.Exists($"{Utilities.GetInstallDir()}\\Backed Up Files"))
+                            Directory.CreateDirectory($"{Utilities.GetInstallDir()}\\Backed Up Files");
+
+                        File.Copy($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC",
+                            $"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.TOC", true);
+                        File.Copy($"{Utilities.GetInstallDir()}\\YGO_DATA.DAT",
+                            $"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT", true);
+                        break;
+                    case 6:
+                        Console.WriteLine($"YGO_DATA.TOC Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
+                        Console.WriteLine($"YGO_DATA.DAT Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
+                        break;
+                    case 7:
+                        if (!Directory.Exists($"{Utilities.GetInstallDir()}\\Backed Up Files"))
+                            Utilities.Log("Back Ups Not Found! Restore Through Steam.", Utilities.Event.Error, true, 1);
+
+                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.TOC", $"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", true);
+                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT", $"{Utilities.GetInstallDir()}\\YGO_DATA.DAT", true);
+                        break;
+                    case 8:
+                        PrintCommandList();
+                        break;
                 }
             } while (Choice != 9);
         }
@@ -71,7 +94,21 @@ namespace Ether
 
             Console.WriteLine("");
 
+            Console.WriteLine("------ORIGINAL FILES------");
+            Console.WriteLine("5: Back Up Original TOC and DAT.");
+            Console.WriteLine("6: Get MD5 Of TOC and DAT.");
+
+            Console.WriteLine("");
+
+            Console.WriteLine("------OTHER FUNCTIONS------");
+            Console.WriteLine("7: Restore Original TOC and DAT.");
+            Console.WriteLine("8: Print Menu Again.");
+
+            Console.WriteLine("");
+
             Console.WriteLine("9: Quit");
+
+            Console.WriteLine("");
         }
     }
 }

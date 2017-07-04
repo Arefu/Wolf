@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Win32;
 
 namespace Celtic_Guardian
@@ -67,7 +70,7 @@ namespace Celtic_Guardian
             return Int32.Parse(DecValue).ToString("x");
         }
 
-        public static int GetIntFromByteArray(byte[] Data)
+        public static int HexToDec(byte[] Data)
         {
             return HexToDec(BitConverter.ToString(Data).Replace("-", ""));
         }
@@ -139,6 +142,38 @@ namespace Celtic_Guardian
                 throw new FileNotFoundException("Can't Find Game");
             }
             return InstallDir;
+        }
+
+        public static string GetHashOfFile(string FileName)
+        {
+            using (var Hash = MD5.Create())
+            {
+                using (var Stream = File.OpenRead(FileName))
+                {
+                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
+                }
+            }
+        }
+
+        public static List<FileNames> GetFileNamesFromToc()
+        {
+            var Files = new List<FileNames>();
+
+            using (var Reader = new StreamReader($"{GetInstallDir()}\\YGO_DATA.TOC"))
+            {
+                Reader.ReadLine(); //Dispose First Line.
+                while (!Reader.EndOfStream)
+                {
+                    var Line = Reader.ReadLine();
+                    if (Line == null) continue;
+
+                    Line = Line.TrimStart(' '); //Trim Starting Spaces.
+                    Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
+                    var LineData = Line.Split(' '); //Split Into Chunks.
+                    Files.Add(new FileNames(LineData[2])); //Add To List For Manip.
+                }
+            }
+            return Files;
         }
     }
 }
