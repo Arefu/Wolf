@@ -4,15 +4,19 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 {
 	switch (ul_reason_for_call)
 	{
-	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-		MessageBox(NULL, "Hello! I'm A MessageBox.", "MessageBox Example!", NULL);
-		break;
+		case DLL_PROCESS_ATTACH:
+		case DLL_THREAD_ATTACH:
+			MessageBox(nullptr, "Hello! I'm A MessageBox.", "MessageBox Example!", NULL);
+			break;
 
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		MessageBox(NULL, "Goodbye! I Was A MessageBox.", "MessageBox Example!", NULL);
-		return EXIT_SUCCESS;
-		break;
+		case DLL_THREAD_DETACH:
+		case DLL_PROCESS_DETACH:
+			MessageBox(nullptr, "Goodbye! I Was A MessageBox.", "MessageBox Example!", NULL);
+			break;
+
+		default:
+			return EXIT_SUCCESS;
 	}
+
+	return EXIT_SUCCESS;
 }
