@@ -67,7 +67,7 @@ namespace Celtic_Guardian
 
         public static string DecToHex(string DecValue)
         {
-            return Int32.Parse(DecValue).ToString("x");
+            return int.Parse(DecValue).ToString("x");
         }
 
         public static int HexToDec(byte[] Data)

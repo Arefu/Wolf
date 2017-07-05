@@ -63,15 +63,19 @@ namespace Ether
                             $"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT", true);
                         break;
                     case 6:
-                        Console.WriteLine($"YGO_DATA.TOC Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
-                        Console.WriteLine($"YGO_DATA.DAT Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
+                        Console.WriteLine(
+                            $"YGO_DATA.TOC Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
+                        Console.WriteLine(
+                            $"YGO_DATA.DAT Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
                         break;
                     case 7:
                         if (!Directory.Exists($"{Utilities.GetInstallDir()}\\Backed Up Files"))
                             Utilities.Log("Back Ups Not Found! Restore Through Steam.", Utilities.Event.Error, true, 1);
 
-                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.TOC", $"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", true);
-                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT", $"{Utilities.GetInstallDir()}\\YGO_DATA.DAT", true);
+                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.TOC",
+                            $"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", true);
+                        File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT",
+                            $"{Utilities.GetInstallDir()}\\YGO_DATA.DAT", true);
                         break;
                     case 8:
                         PrintCommandList();

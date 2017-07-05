@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -48,9 +47,7 @@ namespace Onomatopaira
                     Utilities.Log($"{Item.Item3} Not Aligned To 4 Bytes!", Utilities.Event.Warning);
 
                     while (ExtraByte % 4 != 0)
-                    {
                         ExtraByte = ExtraByte + 1;
-                    }
                 }
 
                 new FileInfo("YGO_DATA/" + Item.Item3).Directory?.Create();
@@ -62,7 +59,9 @@ namespace Onomatopaira
                 DatReader.BaseStream.Position += ExtraByte - Item.Item1;
                 FileWriter.Close();
 
-                Utilities.Log($"Done Extracting YGO_DATA/{Item.Item3}. It's Size Is: {new FileInfo("YGO_DATA/" + Item.Item3).Length}", Utilities.Event.Information);
+                Utilities.Log(
+                    $"Done Extracting YGO_DATA/{Item.Item3}. It's Size Is: {new FileInfo("YGO_DATA/" + Item.Item3).Length}",
+                    Utilities.Event.Information);
             }
 
             Utilities.Log($"Finished Exporting {Data.Count} Files!", Utilities.Event.Alert);
