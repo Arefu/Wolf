@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using Celtic_Guardian;
 
 namespace Abaki
 {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -141,10 +140,9 @@ namespace Wolf
 
         private static void ExtractFile(ListViewItem Item)
         {
-            var FileToExport= Data.First(File => File.Item3.Contains(Item.Text));
+            var FileToExport = Data.First(File => File.Item3.Contains(Item.Text));
             Directory.CreateDirectory(new FileInfo(FileToExport.Item3).Directory.FullName);
             var BytesToRead = 0L;
-            var count = 0;
             foreach (var File in Data)
             {
                 if (File.Item3 == FileToExport.Item3)
@@ -158,14 +156,13 @@ namespace Wolf
                 BytesToRead = AligneSize + BytesToRead;
 
                 if (File.Item3 == FileToExport.Item3)
-                {
                     break;
-                }
-                count++;
             }
-            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
+            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open,
+                FileAccess.Read)))
             {
-                using (var Writer = new BinaryWriter(File.Open(FileToExport.Item3, FileMode.OpenOrCreate, FileAccess.Write)))
+                using (var Writer =
+                    new BinaryWriter(File.Open(FileToExport.Item3, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
                     BReader.BaseStream.Position = BytesToRead;
                     Writer.Write(BReader.ReadBytes(FileToExport.Item1));
