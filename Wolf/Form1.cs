@@ -147,23 +147,32 @@ namespace Wolf
             foreach (var File in Data)
             {
                 var TempSize = File.Item1;
-                if (TempSize % 4 == 0)
-                    TempSize = TempSize + 1;
-
-                BytesToRead = BytesToRead + TempSize;
                 if (File.Item3 == FileToExport.Item3)
+                {
+                    TempSize = IsAligned(File.Item1);
+                    BytesToRead = File.Item1;
                     break;
-
+                }
+                TempSize = IsAligned(TempSize);
+                BytesToRead = BytesToRead + TempSize;
             }
             using (var Reader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
             {
-                using (var Writer = new BinaryWriter(File.Open(FileToExport.Item3, FileMode.CreateNew, FileAccess.Write)))
+                using (var Writer = new BinaryWriter(File.Open(FileToExport.Item3, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
                     Reader.BaseStream.Position = BytesToRead;
                     Writer.Write(Reader.ReadBytes(FileToExport.Item1));
                     Writer.Close();
                 }
             }
+        }
+
+        private static int IsAligned(int Number)
+        {
+            while (Number % 4 != 0)
+                Number = Number + 1;
+
+            return Number;
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)

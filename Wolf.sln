@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onomatopaira", "Onomatopaira\Onomatopaira.csproj", "{471F031F-BDBB-48B4-8128-1399723BA10F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -56,6 +56,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CreateThread", "CreateThread", "{331E1BAC-EC9B-43AE-9F0A-F8D389375589}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateThread", "CreateThread\CreateThread.vcxproj", "{5FFE868C-50A3-479F-804A-0CB2D6864066}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{47291BAB-BBE4-4733-A367-00D2A58F3E69}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BetterMP", "BetterMP\BetterMP.vcxproj", "{26E97D2E-C93B-445D-954E-C3E323D9F705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -182,6 +186,16 @@ Global
 		{5FFE868C-50A3-479F-804A-0CB2D6864066}.Release|x64.Build.0 = Release|x64
 		{5FFE868C-50A3-479F-804A-0CB2D6864066}.Release|x86.ActiveCfg = Release|Win32
 		{5FFE868C-50A3-479F-804A-0CB2D6864066}.Release|x86.Build.0 = Release|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Debug|x64.ActiveCfg = Debug|x64
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Debug|x64.Build.0 = Debug|x64
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Debug|x86.ActiveCfg = Debug|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Debug|x86.Build.0 = Debug|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Release|Any CPU.ActiveCfg = Release|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Release|x64.ActiveCfg = Release|x64
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Release|x64.Build.0 = Release|x64
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Release|x86.ActiveCfg = Release|Win32
+		{26E97D2E-C93B-445D-954E-C3E323D9F705}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,5 +213,6 @@ Global
 		{82DD79BD-8E10-4AB6-BA02-6F1D78B497E1} = {20E27FC9-45E3-41EF-8ADD-CB3A010C051F}
 		{331E1BAC-EC9B-43AE-9F0A-F8D389375589} = {20E27FC9-45E3-41EF-8ADD-CB3A010C051F}
 		{5FFE868C-50A3-479F-804A-0CB2D6864066} = {331E1BAC-EC9B-43AE-9F0A-F8D389375589}
+		{26E97D2E-C93B-445D-954E-C3E323D9F705} = {47291BAB-BBE4-4733-A367-00D2A58F3E69}
 	EndGlobalSection
 EndGlobal
