@@ -16,7 +16,7 @@ namespace Wolf
         public static StreamReader Reader;
         public static List<FileData> Data = new List<FileData>();
 
-        private TreeNode _EndNode; //Recursive Func, Needs To Be Outside.
+        private TreeNode _endNode; //Recursive Func, Needs To Be Outside.
 
         public Form1()
         {
@@ -130,12 +130,29 @@ namespace Wolf
         private void MainFileView_MouseDoubleClick(object Sender, MouseEventArgs Args)
         {
             var SelectMe = GetNode(FileQuickViewList.Nodes[0]);
-            if (SelectMe.ImageIndex != 0) return;
+            if (SelectMe.ImageIndex != 0) ExtractFile(MainFileView.SelectedItems[0]);
 
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
             FileQuickViewList_NodeMouseClick(new object(),
                 new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+        }
+
+        private static void ExtractFile(ListViewItem Item)
+        {
+            var FileLoc = Data.First(File => File.Item3.Contains(Item.Text)).Item3;
+            if (!Directory.Exists(FileLoc))
+                Directory.CreateDirectory(FileLoc);
+
+            var BytesToRead = 0L;
+            foreach (var File in Data)
+            {
+                BytesToRead = BytesToRead + File.Item1;
+                if (File.Item3 == FileLoc)
+                    break;
+
+            }
+            MessageBox.Show(BytesToRead.ToString());
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
@@ -144,12 +161,12 @@ namespace Wolf
             {
                 if (Node.Text == MainFileView.SelectedItems[0].Text)
                 {
-                    _EndNode = Node;
+                    _endNode = Node;
                     return Node;
                 }
                 GetNode(Node);
             }
-            return _EndNode;
+            return _endNode;
         }
 
         private static void GiveIcons(TreeNode RootNode)

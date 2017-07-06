@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Celtic_Guardian;
+﻿using Celtic_Guardian;
+using System;
 
 namespace Embargo
 {
@@ -19,7 +15,7 @@ namespace Embargo
             
             var Result = Injector.Inject("YuGiOh",Args[0]);
 
-            Utilities.Log(Result.ToString(),Utilities.Event.Information);
+            Utilities.Log($"Result: {Result}",Utilities.Event.Information);
         }
     }
 }
