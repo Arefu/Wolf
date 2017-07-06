@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -140,19 +141,29 @@ namespace Wolf
 
         private static void ExtractFile(ListViewItem Item)
         {
-            var FileLoc = Data.First(File => File.Item3.Contains(Item.Text)).Item3;
-            if (!Directory.Exists(FileLoc))
-                Directory.CreateDirectory(FileLoc);
+            var FileToExport= Data.First(File => File.Item3.Contains(Item.Text));
 
             var BytesToRead = 0L;
             foreach (var File in Data)
             {
-                BytesToRead = BytesToRead + File.Item1;
-                if (File.Item3 == FileLoc)
+                var TempSize = File.Item1;
+                if (TempSize % 4 == 0)
+                    TempSize = TempSize + 1;
+
+                BytesToRead = BytesToRead + TempSize;
+                if (File.Item3 == FileToExport.Item3)
                     break;
 
             }
-            MessageBox.Show(BytesToRead.ToString());
+            using (var Reader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
+            {
+                using (var Writer = new BinaryWriter(File.Open(FileToExport.Item3, FileMode.CreateNew, FileAccess.Write)))
+                {
+                    Reader.BaseStream.Position = BytesToRead;
+                    Writer.Write(Reader.ReadBytes(FileToExport.Item1));
+                    Writer.Close();
+                }
+            }
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
