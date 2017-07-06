@@ -142,33 +142,44 @@ namespace Wolf
         private static void ExtractFile(ListViewItem Item)
         {
             var FileToExport= Data.First(File => File.Item3.Contains(Item.Text));
-
+            Directory.CreateDirectory(new FileInfo(FileToExport.Item3).Directory.FullName);
             var BytesToRead = 0L;
+            var count = 0;
             foreach (var File in Data)
             {
-                var TempSize = File.Item1;
                 if (File.Item3 == FileToExport.Item3)
                 {
-                    TempSize = IsAligned(File.Item1);
-                    BytesToRead = File.Item1;
+                    if (File.Item1 == Data.First().Item1)
+                        BytesToRead = 0;
+
                     break;
                 }
-                TempSize = IsAligned(TempSize);
-                BytesToRead = BytesToRead + TempSize;
+                var AligneSize = IsAligned(File.Item1);
+                BytesToRead = AligneSize + BytesToRead;
+
+                if (File.Item3 == FileToExport.Item3)
+                {
+                    break;
+                }
+                count++;
             }
-            using (var Reader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
+            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
             {
                 using (var Writer = new BinaryWriter(File.Open(FileToExport.Item3, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
-                    Reader.BaseStream.Position = BytesToRead;
-                    Writer.Write(Reader.ReadBytes(FileToExport.Item1));
+                    BReader.BaseStream.Position = BytesToRead;
+                    Writer.Write(BReader.ReadBytes(FileToExport.Item1));
                     Writer.Close();
+                    Writer.Dispose();
+                    BReader.Dispose();
                 }
             }
         }
 
         private static int IsAligned(int Number)
         {
+            if (Number % 4 == 0) return Number;
+
             while (Number % 4 != 0)
                 Number = Number + 1;
 
