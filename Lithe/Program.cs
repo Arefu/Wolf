@@ -51,13 +51,12 @@ namespace Lithe
                                 default:
                                     Writer.Write(new byte[] {Convert.ToByte(Char), 0x00});
                                     break;
-                            }
-
-                            
+                            } 
                         }
                     }
                 }
             }
+            Utilities.Log("Finished Encoding.", Utilities.Event.Information);
         }
     }
 }
