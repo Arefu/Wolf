@@ -1,4 +1,6 @@
-﻿namespace Celtic_Guardian
+﻿using System;
+
+namespace Celtic_Guardian
 {
     /// <summary>
     ///     Item1: Start Offset / File Size.
@@ -46,5 +48,15 @@
         }
 
         public string FileName { get; set; }
+    }
+
+    public class Offsets
+    {
+        public Offsets(int Offset)
+        {
+            this.Offset = Offset;
+        }
+
+        public int Offset { get; set; }
     }
 }
