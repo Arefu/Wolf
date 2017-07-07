@@ -17,7 +17,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	return true;
 }
 
-DWORD WINAPI MessageBoxThread(LPVOID) {
+DWORD WINAPI MessageBoxThread(LPVOID)
+{
 	MessageBox(nullptr, "Hello From A Thread!", "Hello!", NULL);
 	return 0;
 }

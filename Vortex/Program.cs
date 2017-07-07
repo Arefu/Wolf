@@ -36,9 +36,11 @@ namespace Vortex
                 foreach (var Item in Files)
                 {
                     //Read Current File.
+
                     var CurrentFileName = FilesToPack
                         ?.First(File => File.Replace(".\\YGO_DATA\\", string.Empty) == Item.FileName)
                         .Replace(".\\YGO_DATA\\", string.Empty);
+                    Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
                     var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName.Length.ToString());
                     var CurrentFileSize =
                         Utilities.DecToHex(new FileInfo($".\\YGO_DATA\\{CurrentFileName}").Length.ToString());
@@ -65,7 +67,6 @@ namespace Vortex
                         }
                     File.AppendAllText("YGO_DATA.toc",
                         $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName}\n");
-                    Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
                 }
             }
         }
