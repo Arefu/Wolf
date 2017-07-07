@@ -31,15 +31,9 @@ namespace Abaki
                     {
                         Reader.BaseStream.Position = OffsetList[CurrentIndex].Offset;
                         try
-                        {
-                            Writer.Write(Utilities.GetText(Reader.ReadBytes(OffsetList[CurrentIndex + 1].Offset -
-                                                          (int)Reader.BaseStream.Position)) + "\r\n");
-                        }
+                            Writer.Write(Utilities.GetText(Reader.ReadBytes(OffsetList[CurrentIndex + 1].Offset - (int)Reader.BaseStream.Position)) + "\r\n");
                         catch
-                        {
-                            Writer.Write(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Length - OffsetList[CurrentIndex].Offset)) +
-                                         "\r\n");
-                        }
+                            Writer.Write(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Length - OffsetList[CurrentIndex].Offset)) + "\r\n");
                     }
                 }
             }

@@ -6,6 +6,7 @@ Wolf is a collection of tools that allow you to edit content for [Yu-Gi-Oh! Lega
 There are no present or future plans to port any of these tools to allow editing content from the Play Station 4 or Xbox One, if anyone else feels upto it, by all means! I've documentated everything I know in the Wiki so feel free to check it out on there.
 
 * [Abaki](https://github.com/Arefu/Wolf/tree/master/Abaki) 
+* [Lithe](https://github.com/Arefu/Wolf/tree/master/Lithe) 
 * [Embargo](https://github.com/Arefu/Wolf/tree/master/Embargo)
 * [Celtic Guardian](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian)
 * [Ether](https://github.com/Arefu/Wolf/tree/master/Ether)
