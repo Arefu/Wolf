@@ -10,7 +10,7 @@ namespace Abaki
         public static List<Offsets> OffsetList = new List<Offsets>();
         private static void Main(string[] Args)
         {
-            Console.Title = "Embargo";
+            Console.Title = "Abaki";
             if (Args.Length <= 0)
                 Utilities.Log("Please Specify A BND To Parse!", Utilities.Event.Error, true, 1);
             if (!Utilities.IsExt(Args[0].ToLower(), ".bnd"))
