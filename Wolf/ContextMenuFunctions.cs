@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Wolf
 {
@@ -15,35 +18,35 @@ namespace Wolf
             if (DirectoryInfo != null)
                 Directory.CreateDirectory(DirectoryInfo.FullName);
 
+            Directory.CreateDirectory("Exported");
+            
             var BytesToRead = 0L;
             foreach (var File in Form1.Data)
             {
                 if (File.Item3 == FileToExport.Item3)
-                {
-                    if (File.Item1 == Form1.Data.First().Item1)
-                        BytesToRead = 0;
-
                     break;
-                }
+
                 var AligneSize = Utilities.IsAligned(File.Item1);
                 BytesToRead = AligneSize + BytesToRead;
 
                 if (File.Item3 == FileToExport.Item3)
                     break;
             }
-            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open,
-                FileAccess.Read)))
+            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
             {
                 if (ExportPath == "")
-                    ExportPath = FileToExport.Item3;
-                using (var Writer =
-                    new BinaryWriter(File.Open(ExportPath, FileMode.OpenOrCreate, FileAccess.Write)))
+                    ExportPath = $"Exported\\{FileToExport.Item3}";
+
+                using (var Writer = new BinaryWriter(File.Open(ExportPath, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
-                    BReader.BaseStream.Position = BytesToRead;
-                    Writer.Write(BReader.ReadBytes(FileToExport.Item1));
-                    Writer.Close();
-                    Writer.Dispose();
-                    BReader.Dispose();
+                    Task.Run(() =>
+                    {
+                        BReader.BaseStream.Position = BytesToRead;
+                        Writer.Write(BReader.ReadBytes(FileToExport.Item1));
+                        Writer.Close();
+                        Writer.Dispose();
+                        BReader.Dispose();
+                    });
                 }
             }
         }
@@ -54,6 +57,26 @@ namespace Wolf
             ExtractFile(Item, $"{Path.GetTempPath()}\\{RandFileName}");
             var Viewer = new ImageViewer($"{Path.GetTempPath()}\\{RandFileName}");
             Viewer.ShowDialog();
+        }
+
+        public static void ExecUtil(ListViewItem Item)
+        {
+            var ProgramPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            ExtractFile(Item,$"{ProgramPath}\\{Item.Text}");
+            if (Item.Text.ToLower().EndsWith(".zib"))
+            {
+                MessageBox.Show($"{ProgramPath}\\{Item.Text}");
+                var ProcStartInfo = new ProcessStartInfo
+                {
+                    Arguments = $"{Item.Text}",
+                    FileName = $"{ProgramPath}\\Relinquished.exe"
+                };
+                new Process {StartInfo = ProcStartInfo}.Start();
+                File.Delete($"{ProgramPath}\\{Item.Text}");
+            }
+            if (Item.Text.ToLower().EndsWith("credits.dat") || Item.Text.ToLower() == "credits.dat")
+            { }
+                //Extract, Run Lith
         }
     }
 }

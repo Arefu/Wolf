@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Wolf
 {
@@ -173,11 +173,14 @@ namespace Wolf
                     if (MainFileView.SelectedItems[0].ImageIndex != 0)
                         ContextMenuFunctions.ExtractFile(MainFileView.SelectedItems[0]);
                     break;
+
                 case "View":
                     if (MainFileView.SelectedItems[0].ImageIndex == 2)
                         ContextMenuFunctions.ViewImage(MainFileView.SelectedItems[0]);
                     break;
+
                 case "Exec Util On":
+                    ContextMenuFunctions.ExecUtil(MainFileView.SelectedItems[0]);
                     break;
             }
         }

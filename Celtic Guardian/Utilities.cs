@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Win32;
 
 namespace Celtic_Guardian
 {
@@ -41,21 +41,25 @@ namespace Celtic_Guardian
                     Console.Write("[Warning]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Information:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("[Information]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Error:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("[Error]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Alert:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("[Information]: ");
                     Console.ResetColor();
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(LogLevel), LogLevel, null);
             }
@@ -125,9 +129,7 @@ namespace Celtic_Guardian
                 DValue /= 1024;
                 I++;
             }
-
-            // Fixing It Causes Decimal Point Rounding To Break.
-            return String.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
+            return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
         public static bool IsImage(string FileName)

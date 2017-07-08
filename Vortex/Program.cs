@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Celtic_Guardian;
 
 namespace Vortex
 {
@@ -68,12 +68,12 @@ namespace Vortex
                         NewSize = NewSize + 1;
 
                     var BufferSize = NewSize - new FileInfo(Token).Length;
-                    Writer.Write(Reader.ReadBytes((int) new FileInfo(Token).Length));
+                    Writer.Write(Reader.ReadBytes((int)new FileInfo(Token).Length));
 
                     if (BufferSize > 0)
                         while (BufferSize != 0)
                         {
-                            Writer.Write(new byte[] {00});
+                            Writer.Write(new byte[] { 00 });
                             BufferSize = BufferSize - 1;
                         }
                     File.AppendAllText("YGO_DATA.toc",

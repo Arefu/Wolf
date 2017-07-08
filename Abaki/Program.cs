@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Celtic_Guardian;
+using System.Linq;
 
 namespace Abaki
 {
@@ -17,39 +18,25 @@ namespace Abaki
             if (!Utilities.IsExt(Args[0].ToLower(), ".bnd"))
                 Utilities.Log("This File Isn't A BND.", Utilities.Event.Error, true, 1);
 
-            var LocalizationFile = Args[0].ToLower();
+            var LocalizationFile = Args[0];
 
-            using (var Writer = new BinaryWriter(File.Open(LocalizationFile.Replace("bnd", "txt"),
-                FileMode.OpenOrCreate, FileAccess.Write)))
+            using (var Writer = new BinaryWriter(File.Open(LocalizationFile.Replace("BND", "TXT"), FileMode.OpenOrCreate, FileAccess.Write)))
             {
                 using (var Reader = new BinaryReader(File.Open(LocalizationFile, FileMode.Open, FileAccess.Read)))
                 {
-                    Reader.ReadBytes(
-                        4); //First 4 Bytes Tell How Many Strings There Are, We Don't Care So We'll Discard Them.
-                    while (Reader.BaseStream.Position != 0x11CC) //Data Starts Here.
-                        OffsetList.Add(new Offsets(Utilities.HexToDec(Reader.ReadBytes(4))));
-                    for (var CurrentIndex = 0; CurrentIndex < OffsetList.Count; CurrentIndex++)
+                    var AmountOfStrings = Utilities.HexToDec(Reader.ReadBytes(4));
+                    do
                     {
-                        Reader.BaseStream.Position = OffsetList[CurrentIndex].Offset;
-                        try
-                        {
-                            Console.WriteLine(Reader.BaseStream.Position);
-                            var BytesToWrite =
-                                Utilities.GetRealTextFromByteArray(
-                                    Reader.ReadBytes(OffsetList[CurrentIndex + 1].Offset -
-                                                     (int) Reader.BaseStream.Position), true) + "\r\n";
-                            Writer.Write(BytesToWrite);
-                            Console.WriteLine(Reader.BaseStream.Position);
+                        OffsetList.Add(new Offsets(Utilities.HexToDec(Reader.ReadBytes(4))));
+                    } while (OffsetList.Count != AmountOfStrings);
 
-                            return;
-                        }
-                        catch
-                        {
-                            Writer.Write(Utilities.GetText(
-                                             Reader.ReadBytes((int) Reader.BaseStream.Length -
-                                                              OffsetList[CurrentIndex].Offset)) + "\r\n");
-                        }
+                    for (var Count = 0; Count < OffsetList.Count; Count++)
+                    {
+                        Reader.BaseStream.Position = OffsetList[Count].Offset;
+                        Console.WriteLine($"Reading From: {Reader.BaseStream.Position}");
+                        //Implement Parser
                     }
+
                 }
             }
         }
