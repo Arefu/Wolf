@@ -22,6 +22,16 @@ namespace Celtic_Guardian
         private static readonly string[] SizeSuffixes =
             {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
 
+        public static int IsAligned(int Number)
+        {
+            if (Number % 4 == 0) return Number;
+
+            while (Number % 4 != 0)
+                Number = Number + 1;
+
+            return Number;
+        }
+
         public static void Log(string Message, Event LogLevel, bool ShouldQuit = false, int ExitCode = 0)
         {
             switch (LogLevel)
@@ -62,12 +72,12 @@ namespace Celtic_Guardian
 
         public static int HexToDec(string HexValue)
         {
-            return int.Parse(HexValue, NumberStyles.HexNumber);
+            return Int32.Parse(HexValue, NumberStyles.HexNumber);
         }
 
         public static string DecToHex(string DecValue)
         {
-            return int.Parse(DecValue).ToString("x");
+            return Int32.Parse(DecValue).ToString("x");
         }
 
         public static int HexToDec(byte[] Data)
@@ -99,7 +109,7 @@ namespace Celtic_Guardian
             var StrContent = Encoding.ASCII.GetString(Message);
 
             if (RemoveNull)
-                StrContent = StrContent.Replace("\0", string.Empty);
+                StrContent = StrContent.Replace("\0", String.Empty);
 
             return StrContent;
         }
@@ -115,7 +125,9 @@ namespace Celtic_Guardian
                 DValue /= 1024;
                 I++;
             }
-            return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
+
+            // Fixing It Causes Decimal Point Rounding To Break.
+            return String.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
         public static bool IsImage(string FileName)
@@ -150,7 +162,7 @@ namespace Celtic_Guardian
             {
                 using (var Stream = File.OpenRead(FileName))
                 {
-                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
+                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", String.Empty).ToLower();
                 }
             }
         }

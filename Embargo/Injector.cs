@@ -23,8 +23,7 @@ namespace Embargo
             if (!File.Exists(DllPath))
                 return InjectionStatus.DllNotFound;
 
-            var Proc = (from Process in Process.GetProcesses() where Process.ProcessName == ProcName select Process.Id)
-                       ?.FirstOrDefault() ?? 0;
+            var Proc = (from Process in Process.GetProcesses() where Process.ProcessName == ProcName select Process.Id).FirstOrDefault();
 
             if (Proc == 0)
                 return InjectionStatus.GameProcessNotFound;

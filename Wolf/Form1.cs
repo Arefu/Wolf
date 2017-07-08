@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Celtic_Guardian;
-using Microsoft.Win32;
 
 namespace Wolf
 {
@@ -16,7 +15,7 @@ namespace Wolf
         public static StreamReader Reader;
         public static List<FileData> Data = new List<FileData>();
 
-        private TreeNode _endNode; //Recursive Func, Needs To Be Outside.
+        private TreeNode _EndNode; //Recursive Func, Needs To Be Outside.
 
         public Form1()
         {
@@ -27,21 +26,7 @@ namespace Wolf
 
         private void Form1_Load(object Sender, EventArgs Args)
         {
-            try
-            {
-                using (var Root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-                {
-                    using (var Key =
-                        Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
-                    {
-                        InstallDir = Key?.GetValue("InstallLocation").ToString();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                throw new FileNotFoundException("Can't Find Game");
-            }
+            InstallDir = Utilities.GetInstallDir();
 
             GameLocLabel.ForeColor = Color.Red;
             GameLocLabel.Text = "Game Not Loaded";
@@ -130,57 +115,11 @@ namespace Wolf
         private void MainFileView_MouseDoubleClick(object Sender, MouseEventArgs Args)
         {
             var SelectMe = GetNode(FileQuickViewList.Nodes[0]);
-            if (SelectMe.ImageIndex != 0) ExtractFile(MainFileView.SelectedItems[0]);
 
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
             FileQuickViewList_NodeMouseClick(new object(),
                 new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
-        }
-
-        private static void ExtractFile(ListViewItem Item)
-        {
-            var FileToExport = Data.First(File => File.Item3.Contains(Item.Text));
-            Directory.CreateDirectory(new FileInfo(FileToExport.Item3).Directory.FullName);
-            var BytesToRead = 0L;
-            foreach (var File in Data)
-            {
-                if (File.Item3 == FileToExport.Item3)
-                {
-                    if (File.Item1 == Data.First().Item1)
-                        BytesToRead = 0;
-
-                    break;
-                }
-                var AligneSize = IsAligned(File.Item1);
-                BytesToRead = AligneSize + BytesToRead;
-
-                if (File.Item3 == FileToExport.Item3)
-                    break;
-            }
-            using (var BReader = new BinaryReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.dat", FileMode.Open,
-                FileAccess.Read)))
-            {
-                using (var Writer =
-                    new BinaryWriter(File.Open(FileToExport.Item3, FileMode.OpenOrCreate, FileAccess.Write)))
-                {
-                    BReader.BaseStream.Position = BytesToRead;
-                    Writer.Write(BReader.ReadBytes(FileToExport.Item1));
-                    Writer.Close();
-                    Writer.Dispose();
-                    BReader.Dispose();
-                }
-            }
-        }
-
-        private static int IsAligned(int Number)
-        {
-            if (Number % 4 == 0) return Number;
-
-            while (Number % 4 != 0)
-                Number = Number + 1;
-
-            return Number;
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
@@ -189,12 +128,12 @@ namespace Wolf
             {
                 if (Node.Text == MainFileView.SelectedItems[0].Text)
                 {
-                    _endNode = Node;
+                    _EndNode = Node;
                     return Node;
                 }
                 GetNode(Node);
             }
-            return _endNode;
+            return _EndNode;
         }
 
         private static void GiveIcons(TreeNode RootNode)
@@ -217,6 +156,29 @@ namespace Wolf
                     Node.SelectedImageIndex = 1;
                 }
                 GiveIcons(Node);
+            }
+        }
+
+        private void MainFileView_MouseClick(object Sender, MouseEventArgs Args)
+        {
+            if (Args.Button != MouseButtons.Right) return;
+            FileHandleMenu.Show(MousePosition);
+        }
+
+        private void FileHandleMenu_ItemClicked(object Sender, ToolStripItemClickedEventArgs Args)
+        {
+            switch (Args.ClickedItem.Text)
+            {
+                case "Extract":
+                    if (MainFileView.SelectedItems[0].ImageIndex != 0)
+                        ContextMenuFunctions.ExtractFile(MainFileView.SelectedItems[0]);
+                    break;
+                case "View":
+                    if (MainFileView.SelectedItems[0].ImageIndex == 2)
+                        ContextMenuFunctions.ViewImage(MainFileView.SelectedItems[0]);
+                    break;
+                case "Exec Util On":
+                    break;
             }
         }
     }

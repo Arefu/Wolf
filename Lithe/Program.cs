@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Celtic_Guardian;
 
 namespace Lithe
@@ -25,8 +23,12 @@ namespace Lithe
             {
                 using (var Reader = new BinaryReader(File.Open(Credits, FileMode.Open, FileAccess.Read)))
                 {
-                    var CreditsContent = Reader.ReadBytes((int)new FileInfo(Credits).Length);
-                    File.WriteAllText("credits.txt", Utilities.GetText(CreditsContent).Replace("?", String.Empty));
+                    var CreditsContent = Reader.ReadBytes((int) new FileInfo(Credits).Length);
+                    File.WriteAllText("credits.txt",
+                        Utilities.GetText(CreditsContent)
+                            .Replace("?",
+                                String
+                                    .Empty)); //Two Start Characters Are A Magic Byte Letting The Game Know To In-Line Images
                     Utilities.Log("Finished Parsing.", Utilities.Event.Information);
                 }
             }
@@ -36,27 +38,25 @@ namespace Lithe
                 {
                     using (var Reader = new BinaryReader(File.Open("credits.txt", FileMode.Open, FileAccess.Read)))
                     {
-                        var Content = Reader.ReadBytes((int)Reader.BaseStream.Length);
-                        Writer.Write(new byte[] { 0xFF, 0xFE });
+                        var Content = Reader.ReadBytes((int) Reader.BaseStream.Length);
+                        Writer.Write(new byte[] {0xFF, 0xFE});
                         foreach (var Char in Encoding.ASCII.GetString(Content))
-                        {
                             switch (Char)
                             {
                                 case '\r':
-                                    Writer.Write(new byte[] { 0x0D, 0x00 });
+                                    Writer.Write(new byte[] {0x0D, 0x00});
                                     break;
                                 case '\n':
-                                    Writer.Write(new byte[] { 0x0A, 0x00 });
+                                    Writer.Write(new byte[] {0x0A, 0x00});
                                     break;
                                 default:
                                     Writer.Write(new byte[] {Convert.ToByte(Char), 0x00});
                                     break;
-                            } 
-                        }
+                            }
                     }
                 }
+                Utilities.Log("Finished Encoding.", Utilities.Event.Information);
             }
-            Utilities.Log("Finished Encoding.", Utilities.Event.Information);
         }
     }
 }

@@ -9,6 +9,8 @@ Vortex.exe [PATH TO YGO_DATA]
 ``
 
 Optional Argumens:
-``
-None
-``
+
+``-autocopy [Auto Copies The DAT and TOC File To Game Dir]``
+
+``-autostart [Starts The Game Once Packed]``
+

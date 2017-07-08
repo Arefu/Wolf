@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Celtic_Guardian;
@@ -11,6 +12,7 @@ namespace Vortex
         public static List<PackData> Data = new List<PackData>();
         public static List<FileNames> Files = new List<FileNames>();
         public static string[] FilesToPack;
+        public static bool AutoCopy, AutoStart;
 
         private static void Main(string[] Args)
         {
@@ -26,6 +28,15 @@ namespace Vortex
                 File.Delete($"{Args[0]}\\YGO_DATA.dat");
                 File.Delete($"{Args[0]}\\YGO_DATA.toc");
             }
+            if (Args.Any(Arg => Arg == "-autocopy"))
+            {
+                Utilities.Log("Auto-Copy Specified!", Utilities.Event.Information);
+                AutoCopy = true;
+            }
+            if (Args.Any(Arg => Arg == "-autostart"))
+                Utilities.Log("Auto-Start Specified!", Utilities.Event.Information);
+            AutoStart = true;
+
             Files = Utilities.GetFileNamesFromToc();
             FilesToPack = Directory.GetFiles($"{Args[0]}\\YGO_DATA", "*.*", SearchOption.AllDirectories);
 
@@ -69,6 +80,16 @@ namespace Vortex
                         $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName}\n");
                 }
             }
+            Utilities.Log("Finished Packing Files.", Utilities.Event.Information);
+            if (!AutoCopy) return;
+
+            File.Copy("YGO_DATA.toc", $"{Utilities.GetInstallDir()}\\YGO_DATA.toc", true);
+            File.Copy("YGO_DATA.dat", $"{Utilities.GetInstallDir()}\\YGO_DATA.dat", true);
+            Utilities.Log("Finished Packing, And Moved Files.", Utilities.Event.Information);
+
+            if (!AutoStart) return;
+
+            Process.Start($"{Utilities.GetInstallDir()}\\YuGiOh.exe");
         }
     }
 }

@@ -44,12 +44,18 @@
             this.GameLocLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.NodeImages = new System.Windows.Forms.ImageList(this.components);
+            this.FileHandleMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.extractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.parseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.FileHandleMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -139,6 +145,7 @@
             this.MainFileView.TabIndex = 0;
             this.MainFileView.UseCompatibleStateImageBehavior = false;
             this.MainFileView.View = System.Windows.Forms.View.Details;
+            this.MainFileView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainFileView_MouseClick);
             this.MainFileView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainFileView_MouseDoubleClick);
             // 
             // columnHeader1
@@ -174,6 +181,40 @@
             this.NodeImages.Images.SetKeyName(1, "Text.png");
             this.NodeImages.Images.SetKeyName(2, "Image.png");
             // 
+            // FileHandleMenu
+            // 
+            this.FileHandleMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.extractToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.viewToolStripMenuItem,
+            this.parseToolStripMenuItem});
+            this.FileHandleMenu.Name = "FileHandleMenu";
+            this.FileHandleMenu.Size = new System.Drawing.Size(153, 98);
+            this.FileHandleMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FileHandleMenu_ItemClicked);
+            // 
+            // extractToolStripMenuItem
+            // 
+            this.extractToolStripMenuItem.Name = "extractToolStripMenuItem";
+            this.extractToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.extractToolStripMenuItem.Text = "Extract";
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // parseToolStripMenuItem
+            // 
+            this.parseToolStripMenuItem.Name = "parseToolStripMenuItem";
+            this.parseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.parseToolStripMenuItem.Text = "Exec Util On";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,6 +237,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.FileHandleMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,6 +258,11 @@
         private System.Windows.Forms.ToolStripStatusLabel GameLocLabel;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ImageList NodeImages;
+        private System.Windows.Forms.ContextMenuStrip FileHandleMenu;
+        private System.Windows.Forms.ToolStripMenuItem extractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem parseToolStripMenuItem;
     }
 }
 
