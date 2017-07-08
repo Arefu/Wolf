@@ -60,6 +60,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InjectionStatus.cs" />
     <Compile Include="Injector.cs" />
     <Compile Include="NaitiveMethods.cs" />
     <Compile Include="Program.cs" />

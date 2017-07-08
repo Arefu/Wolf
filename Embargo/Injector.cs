@@ -6,14 +6,6 @@ using System.Text;
 
 namespace Embargo
 {
-    public enum InjectionStatus
-    {
-        DllNotFound,
-        GameProcessNotFound,
-        InjectionFailed,
-        Success
-    }
-
     public static class Injector
     {
         private static readonly IntPtr StaticZero = (IntPtr)0;

@@ -62,6 +62,7 @@ namespace Wolf
         public static void ExecUtil(ListViewItem Item)
         {
             var ProgramPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
             ExtractFile(Item,$"{ProgramPath}\\{Item.Text}");
             if (Item.Text.ToLower().EndsWith(".zib"))
             {
@@ -74,6 +75,7 @@ namespace Wolf
                 new Process {StartInfo = ProcStartInfo}.Start();
                 File.Delete($"{ProgramPath}\\{Item.Text}");
             }
+
             if (Item.Text.ToLower().EndsWith("credits.dat") || Item.Text.ToLower() == "credits.dat")
             { }
                 //Extract, Run Lith
