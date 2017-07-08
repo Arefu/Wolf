@@ -172,15 +172,22 @@ namespace Wolf
                 case "Extract":
                     if (MainFileView.SelectedItems[0].ImageIndex != 0)
                         ContextMenuFunctions.ExtractFile(MainFileView.SelectedItems[0]);
+                    else
+                        MessageBox.Show(this,"This Build Can't Extract Whole Folders, Use Onomatoparia","Can't Extract Folders",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     break;
 
                 case "View":
                     if (MainFileView.SelectedItems[0].ImageIndex == 2)
                         ContextMenuFunctions.ViewImage(MainFileView.SelectedItems[0]);
+                    else
+                        MessageBox.Show(this, "You Can't VIEW A Folder","Can't View Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
 
                 case "Exec Util On":
-                    ContextMenuFunctions.ExecUtil(MainFileView.SelectedItems[0]);
+                    if (MainFileView.SelectedItems[0].ImageIndex != 0)
+                        ContextMenuFunctions.ExecUtil(MainFileView.SelectedItems[0]);
+                    else
+                        MessageBox.Show(this, "There are currently no Utils for folders.", "No Util Program Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }
