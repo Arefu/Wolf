@@ -79,33 +79,14 @@ namespace Celtic_Guardian
             return Int32.Parse(HexValue, NumberStyles.HexNumber);
         }
 
-        public static string DecToHex(string DecValue)
-        {
-            return Int32.Parse(DecValue).ToString("x");
-        }
-
         public static int HexToDec(byte[] Data)
         {
             return HexToDec(BitConverter.ToString(Data).Replace("-", ""));
         }
 
-        public static string GetRealTextFromByteArray(byte[] Data, bool RemovewhiteSpace = false)
+        public static string DecToHex(string DecValue)
         {
-            var WorkingData = BitConverter.ToString(Data).Replace("-", "");
-            var RawData = new byte[WorkingData.Length / 2];
-            for (var I = 0; I < RawData.Length; I++)
-                RawData[I] = Convert.ToByte(WorkingData.Substring(I * 2, 2), 16);
-            if (!RemovewhiteSpace) return Encoding.ASCII.GetString(RawData);
-
-            var Formatted = Encoding.ASCII.GetString(RawData);
-            Formatted = Formatted.Replace("\0", "");
-            return Formatted;
-        }
-
-        public static string ByteArrayToString(byte[] Data, bool TrimDelim = true)
-        {
-            var Hex = BitConverter.ToString(Data);
-            return TrimDelim ? Hex.Replace("-", "") : Hex;
+            return Int32.Parse(DecValue).ToString("x");
         }
 
         public static string GetText(byte[] Message, bool RemoveNull = true)
@@ -134,7 +115,7 @@ namespace Celtic_Guardian
 
         public static bool IsImage(string FileName)
         {
-            return FileName.ToLower().EndsWith("jpg") || FileName.ToLower().EndsWith("png");
+            return IsExt(FileName,".jpg") || IsExt(FileName, ".png");
         }
 
         public static string GetInstallDir()
@@ -169,7 +150,7 @@ namespace Celtic_Guardian
             }
         }
 
-        public static List<FileNames> GetFileNamesFromToc()
+        public static List<FileNames> ParseTocFile()
         {
             var Files = new List<FileNames>();
 

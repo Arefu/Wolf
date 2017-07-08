@@ -74,8 +74,7 @@ namespace Wolf
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
             FileQuickViewList.SelectedNode = FileQuickViewList.Nodes[0];
-            FileQuickViewList_NodeMouseClick(new object(),
-                new TreeNodeMouseClickEventArgs(FileQuickViewList.Nodes[0], MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(FileQuickViewList.Nodes[0], MouseButtons.Left, 1, 0, 0));
         }
 
         private void CloseToolStripMenuItem_Click(object Sender, EventArgs Args)
@@ -99,13 +98,14 @@ namespace Wolf
                 var Items = new ListViewItem(Args.Node.Nodes[Node].Name);
                 var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text))
                     .Select(NodeSize => NodeSize.Item1).FirstOrDefault();
-
-                Items.SubItems.Add(Utilities.GiveFileSize(FileSizeObject));
+                
+                
                 MainFileView.Items.Add(Items);
-
                 MainFileView.Items[Node].ImageIndex = Args.Node.Nodes[Node].Nodes.Count == 0 ? 1 : 0;
                 if (Args.Node.Nodes[Node].Name.EndsWith(".png") || Args.Node.Nodes[Node].Name.EndsWith(".jpg"))
                     MainFileView.Items[Node].ImageIndex = 2;
+
+                Items.SubItems.Add(Items.ImageIndex != 0 ? Utilities.GiveFileSize(FileSizeObject) : "Directory");
             }
 
             MainFileView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);

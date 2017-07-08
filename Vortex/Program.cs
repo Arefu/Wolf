@@ -37,7 +37,7 @@ namespace Vortex
                 Utilities.Log("Auto-Start Specified!", Utilities.Event.Information);
             AutoStart = true;
 
-            Files = Utilities.GetFileNamesFromToc();
+            Files = Utilities.ParseTocFile();
             FilesToPack = Directory.GetFiles($"{Args[0]}\\YGO_DATA", "*.*", SearchOption.AllDirectories);
 
             File.AppendAllText("YGO_DATA.toc", "UT\n");
