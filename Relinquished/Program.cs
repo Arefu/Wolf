@@ -21,7 +21,10 @@ namespace Relinquished
             var ZibFileName = new FileInfo(Args[0]).Name;
 
             if (!Directory.Exists($"Unpacked_{ZibFileName}"))
+            {
                 Directory.CreateDirectory($"Unpacked_{ZibFileName}");
+                File.Create($"Unpacked_{ZibFileName}\\.zib");
+            }
 
             long DataStartOffset = 0x0;
             int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
@@ -80,12 +83,12 @@ namespace Relinquished
                     var CurrentFileName = CurrentChunk.Take(FileNameReadSize).ToArray();
 
                     Utilities.Log(
-                        $"Found {Utilities.GetText(CurrentFileName, true)} At: {Utilities.HexToDec(CurrentStartOffset)} With Size: {Utilities.HexToDec(CurrentFileSize)}",
+                        $"Found {Utilities.GetText(CurrentFileName)} At: {Utilities.HexToDec(CurrentStartOffset)} With Size: {Utilities.HexToDec(CurrentFileSize)}",
                         Utilities.Event.Information);
 
                     var RealOffset = Utilities.HexToDec(CurrentStartOffset);
                     var RealSize = Utilities.HexToDec(CurrentFileSize);
-                    var RealName = Utilities.GetText(CurrentFileName, true);
+                    var RealName = Utilities.GetText(CurrentFileName);
 
                     if (RealName == "adriangecko_neutral.png") //Start Offset Is WRONG In ZIB For Some Reason.
                         RealOffset = RealOffset - 1;
