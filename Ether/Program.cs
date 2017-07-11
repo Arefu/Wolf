@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Ether
 {
@@ -27,11 +27,13 @@ namespace Ether
                         Result = Utilities.DecToHex(Console.ReadLine());
                         Console.WriteLine($"Result: {Result}");
                         break;
+
                     case 2:
                         Console.Write("Hex To Translate: ");
                         Result = Utilities.HexToDec(Console.ReadLine()).ToString();
                         Console.WriteLine($"Result: {Result}");
                         break;
+
                     case 3:
                         using (var Ofd = new OpenFileDialog())
                         {
@@ -42,6 +44,7 @@ namespace Ether
                             Console.WriteLine($"Result: {new FileInfo(Result).Length} Bytes.");
                         }
                         break;
+
                     case 4:
                         using (var Ofd = new OpenFileDialog())
                         {
@@ -53,6 +56,7 @@ namespace Ether
                                 $"Result: {Utilities.DecToHex(new FileInfo(Result).Length.ToString())} Bytes.");
                         }
                         break;
+
                     case 5:
                         if (!Directory.Exists($"{Utilities.GetInstallDir()}\\Backed Up Files"))
                             Directory.CreateDirectory($"{Utilities.GetInstallDir()}\\Backed Up Files");
@@ -62,12 +66,14 @@ namespace Ether
                         File.Copy($"{Utilities.GetInstallDir()}\\YGO_DATA.DAT",
                             $"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT", true);
                         break;
+
                     case 6:
                         Console.WriteLine(
                             $"YGO_DATA.TOC Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
                         Console.WriteLine(
                             $"YGO_DATA.DAT Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
                         break;
+
                     case 7:
                         if (!Directory.Exists($"{Utilities.GetInstallDir()}\\Backed Up Files"))
                             Utilities.Log("Back Ups Not Found! Restore Through Steam.", Utilities.Event.Error, true, 1);
@@ -77,6 +83,7 @@ namespace Ether
                         File.Copy($"{Utilities.GetInstallDir()}\\Backed Up Files\\YGO_DATA.DAT",
                             $"{Utilities.GetInstallDir()}\\YGO_DATA.DAT", true);
                         break;
+
                     case 8:
                         PrintCommandList();
                         break;

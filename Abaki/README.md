@@ -1,10 +1,10 @@
 # Abaki
 
-This program hasn't been started yet, but it is going to be the BIN parser, as of such it currently just throws an "NotImplementedException" exception.
+This program has finally found a home, and that home is letting you parse the BND files in the "\strings" folder. This way you can add your own localization files to the game!
 
 Run Options:
 ``
-Abaki.exe <BIN FILE>
+Abaki.exe <BND FILE>
 ``
 
 Optional Argumens:

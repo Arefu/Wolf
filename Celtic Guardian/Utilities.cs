@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Win32;
 
 namespace Celtic_Guardian
 {
@@ -22,6 +22,16 @@ namespace Celtic_Guardian
         private static readonly string[] SizeSuffixes =
             {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
 
+        public static int IsAligned(int Number)
+        {
+            if (Number % 4 == 0) return Number;
+
+            while (Number % 4 != 0)
+                Number = Number + 1;
+
+            return Number;
+        }
+
         public static void Log(string Message, Event LogLevel, bool ShouldQuit = false, int ExitCode = 0)
         {
             switch (LogLevel)
@@ -31,21 +41,25 @@ namespace Celtic_Guardian
                     Console.Write("[Warning]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Information:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write("[Information]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Error:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("[Error]: ");
                     Console.ResetColor();
                     break;
+
                 case Event.Alert:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("[Information]: ");
                     Console.ResetColor();
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(LogLevel), LogLevel, null);
             }
@@ -62,12 +76,7 @@ namespace Celtic_Guardian
 
         public static int HexToDec(string HexValue)
         {
-            return int.Parse(HexValue, NumberStyles.HexNumber);
-        }
-
-        public static string DecToHex(string DecValue)
-        {
-            return int.Parse(DecValue).ToString("x");
+            return Int32.Parse(HexValue, NumberStyles.HexNumber);
         }
 
         public static int HexToDec(byte[] Data)
@@ -75,23 +84,9 @@ namespace Celtic_Guardian
             return HexToDec(BitConverter.ToString(Data).Replace("-", ""));
         }
 
-        public static string GetRealTextFromByteArray(byte[] Data, bool RemovewhiteSpace = false)
+        public static string DecToHex(string DecValue)
         {
-            var WorkingData = BitConverter.ToString(Data).Replace("-", "");
-            var RawData = new byte[WorkingData.Length / 2];
-            for (var I = 0; I < RawData.Length; I++)
-                RawData[I] = Convert.ToByte(WorkingData.Substring(I * 2, 2), 16);
-            if (!RemovewhiteSpace) return Encoding.ASCII.GetString(RawData);
-
-            var Formatted = Encoding.ASCII.GetString(RawData);
-            Formatted = Formatted.Replace("\0", "");
-            return Formatted;
-        }
-
-        public static string ByteArrayToString(byte[] Data, bool TrimDelim = true)
-        {
-            var Hex = BitConverter.ToString(Data);
-            return TrimDelim ? Hex.Replace("-", "") : Hex;
+            return Int32.Parse(DecValue).ToString("x");
         }
 
         public static string GetText(byte[] Message, bool RemoveNull = true)
@@ -99,7 +94,7 @@ namespace Celtic_Guardian
             var StrContent = Encoding.ASCII.GetString(Message);
 
             if (RemoveNull)
-                StrContent = StrContent.Replace("\0", string.Empty);
+                StrContent = StrContent.Replace("\0", String.Empty);
 
             return StrContent;
         }
@@ -120,7 +115,7 @@ namespace Celtic_Guardian
 
         public static bool IsImage(string FileName)
         {
-            return FileName.ToLower().EndsWith("jpg") || FileName.ToLower().EndsWith("png");
+            return IsExt(FileName,".jpg") || IsExt(FileName, ".png");
         }
 
         public static string GetInstallDir()
@@ -150,12 +145,12 @@ namespace Celtic_Guardian
             {
                 using (var Stream = File.OpenRead(FileName))
                 {
-                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
+                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", String.Empty).ToLower();
                 }
             }
         }
 
-        public static List<FileNames> GetFileNamesFromToc()
+        public static List<FileNames> ParseTocFile()
         {
             var Files = new List<FileNames>();
 
