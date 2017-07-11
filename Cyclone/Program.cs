@@ -20,14 +20,53 @@ namespace Cyclone
 
             if (Args.Any(Arg => Arg == "-autovortex"))
             {
-                if (Args[0].Contains("Vortex") || Directory.GetFiles(Args[0]).Contains("Vortex"))
-                {
-                    //Vortex, Copy and Pack.
-                }
-                else
-                {
-                    Utilities.Log("Can't Find Vortex!",Utilities.Event.Error);
-                }
+               //Look For Vortex && YGO_DATA
+            }
+
+            long DataStartOffset = 0x0; //Photos Should Start At This Point
+            int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
+
+            var ExtractedFolderName = Path.GetFileName(new FileInfo(Args[0]).Directory.Name).Replace("Unpacked_",string.Empty);
+            switch (ExtractedFolderName)
+            {
+                case "cardcropHD400.jpg.zib":
+                    OffsetReadSize = 8;
+                    SizeReadSize = 8;
+                    FileNameReadSize = 48;
+                    DataStartOffset = 0x69F10;
+                    break;
+
+                case "cardcropHD401.jpg.zib":
+                    OffsetReadSize = 8;
+                    SizeReadSize = 8;
+                    FileNameReadSize = 48;
+                    DataStartOffset = 0xC810;
+                    break;
+
+                case "busts.zib":
+                    OffsetReadSize = 4;
+                    SizeReadSize = 4;
+                    FileNameReadSize = 56;
+                    DataStartOffset = 0x2390;
+                    break;
+
+                case "decks.zib":
+                    OffsetReadSize = 4;
+                    SizeReadSize = 4;
+                    FileNameReadSize = 56;
+                    DataStartOffset = 0x8650;
+                    break;
+
+                case "packs.zib":
+                    OffsetReadSize = 4;
+                    SizeReadSize = 4;
+                    FileNameReadSize = 56;
+                    DataStartOffset = 0x750;
+                    break;
+
+                default:
+                    Utilities.Log("Unkown ZIB File! What!?!", Utilities.Event.Error, true, 1);
+                    break;
             }
         }
     }
