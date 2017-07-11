@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,6 +18,16 @@ namespace Celtic_Guardian
             Information = 1,
             Error = 2,
             Alert = 3
+        }
+
+        public static long DirSize(DirectoryInfo Directory)
+        {
+            var FileInfo = Directory.GetFiles();
+            var Size = FileInfo.Sum(Info => Info.Length);
+            var DirSized = Directory.GetDirectories();
+            Size += DirSized.Sum(Dir => DirSize(Dir));
+
+            return Size;
         }
 
         private static readonly string[] SizeSuffixes =
