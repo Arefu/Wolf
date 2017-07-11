@@ -182,13 +182,6 @@ namespace Wolf
                     else
                         MessageBox.Show(this, "You Can't VIEW A Folder","Can't View Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
-
-                case "Exec Util On":
-                    if (MainFileView.SelectedItems[0].ImageIndex != 0)
-                        ContextMenuFunctions.ExecUtil(MainFileView.SelectedItems[0]);
-                    else
-                        MessageBox.Show(this, "There are currently no Utils for folders.", "No Util Program Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
             }
         }
     }
