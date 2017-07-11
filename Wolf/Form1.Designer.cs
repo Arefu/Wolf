@@ -46,9 +46,8 @@
             this.NodeImages = new System.Windows.Forms.ImageList(this.components);
             this.FileHandleMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.parseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -186,10 +185,9 @@
             this.FileHandleMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.extractToolStripMenuItem,
             this.toolStripSeparator2,
-            this.viewToolStripMenuItem,
-            this.parseToolStripMenuItem});
+            this.viewToolStripMenuItem});
             this.FileHandleMenu.Name = "FileHandleMenu";
-            this.FileHandleMenu.Size = new System.Drawing.Size(153, 98);
+            this.FileHandleMenu.Size = new System.Drawing.Size(153, 76);
             this.FileHandleMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FileHandleMenu_ItemClicked);
             // 
             // extractToolStripMenuItem
@@ -198,22 +196,16 @@
             this.extractToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.extractToolStripMenuItem.Text = "Extract";
             // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
-            // parseToolStripMenuItem
+            // viewToolStripMenuItem
             // 
-            this.parseToolStripMenuItem.Name = "parseToolStripMenuItem";
-            this.parseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.parseToolStripMenuItem.Text = "Exec Util On";
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.viewToolStripMenuItem.Text = "View";
             // 
             // Form1
             // 
@@ -262,7 +254,6 @@
         private System.Windows.Forms.ToolStripMenuItem extractToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parseToolStripMenuItem;
     }
 }
 

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Wolf
@@ -8,7 +9,14 @@ namespace Wolf
         public ImageViewer(string Pic)
         {
             InitializeComponent();
-            pictureBox1.Image = Image.FromFile(Pic);
+            Image Img;
+            using (var Temp = new Bitmap(Pic))
+            {
+                Img = new Bitmap(Temp);
+            }
+            pictureBox1.Image = Img;
+            File.Delete(Pic);
         }
+        
     }
 }
