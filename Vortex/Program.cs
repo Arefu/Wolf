@@ -34,8 +34,10 @@ namespace Vortex
                 AutoCopy = true;
             }
             if (Args.Any(Arg => Arg == "-autostart"))
+            {
                 Utilities.Log("Auto-Start Specified!", Utilities.Event.Information);
-            AutoStart = true;
+                AutoStart = true;
+            }
 
             Files = Utilities.ParseTocFile();
             FilesToPack = Directory.GetFiles($"{Args[0]}\\YGO_DATA", "*.*", SearchOption.AllDirectories);
