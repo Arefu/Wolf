@@ -20,7 +20,7 @@ namespace Relinquished
 
             var ZibFileName = new FileInfo(Args[0]).Name;
 
-            if (!Directory.Exists($"Unpacked_{ZibFileName}"))
+            if (!Directory.Exists($"Unpacked_{ZibFileName}") || !File.Exists($"Unpacked_{ZibFileName}\\.zib"))
             {
                 Directory.CreateDirectory($"Unpacked_{ZibFileName}");
                 File.Create($"Unpacked_{ZibFileName}\\.zib");
@@ -70,7 +70,7 @@ namespace Relinquished
                     Utilities.Log("Unkown ZIB File! What!?!", Utilities.Event.Error, true, 1);
                     break;
             }
-
+            
             using (var Reader = new BinaryReader(File.Open(Args[0], FileMode.Open, FileAccess.Read)))
             {
                 while (Reader.BaseStream.Position + 64 <= DataStartOffset)

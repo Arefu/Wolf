@@ -43,6 +43,14 @@ namespace Celtic_Guardian
             return Number;
         }
 
+        public static void CreateDummyFile(string FileName, long Length)
+        {
+            using (var Stream = new FileStream(FileName, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                Stream.SetLength(Length);
+            }
+        }
+
         public static void Log(string Message, Event LogLevel, bool ShouldQuit = false, int ExitCode = 0)
         {
             switch (LogLevel)

@@ -24,64 +24,23 @@ namespace Cyclone
             {
                 //Look For Vortex && YGO_DATA
             }
-
-            long DataStartOffset = 0x0; //Photos Should Start At This Point
-            int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
-
             var ExtractedFolderName = Path.GetFileName(new FileInfo(Args[0]).Directory.Name).Replace("Unpacked_", string.Empty);
-            switch (ExtractedFolderName)
-            {
-                case "cardcropHD400.jpg.zib":
-                    OffsetReadSize = 8; //Write 8 Bytes, Fill 00 In Front
-                    SizeReadSize = 8; //Write 8 Bytes, Fill 00 In Front
-                    FileNameReadSize = 48; //Write 9> Bytes, Fill 00 In Back.
-                    DataStartOffset = 0x69F10; //Probably Won't Be Needed. But Have It Here Incase.
-                    break;
-
-                case "cardcropHD401.jpg.zib":
-                    OffsetReadSize = 8;
-                    SizeReadSize = 8;
-                    FileNameReadSize = 48;
-                    DataStartOffset = 0xC810;
-                    break;
-
-                case "busts.zib":
-                    OffsetReadSize = 4;
-                    SizeReadSize = 4;
-                    FileNameReadSize = 56;
-                    DataStartOffset = 0x2390;
-                    break;
-
-                case "decks.zib":
-                    OffsetReadSize = 4;
-                    SizeReadSize = 4;
-                    FileNameReadSize = 56;
-                    DataStartOffset = 0x8650;
-                    break;
-
-                case "packs.zib":
-                    OffsetReadSize = 4;
-                    SizeReadSize = 4;
-                    FileNameReadSize = 56;
-                    DataStartOffset = 0x750;
-                    break;
-
-                default:
-                    Utilities.Log("Unkown ZIB File! What!?!", Utilities.Event.Error, true, 1);
-                    break;
-            }
 
             //File.Delete($"{Args[0]}\\.zib"); //Clean Up.
+            Utilities.CreateDummyFile(ExtractedFolderName, Utilities.DirSize(new DirectoryInfo(Args[0])));
 
-            foreach (var Item in Directory.GetFiles(Args[0]))
+            foreach (var Item in Directory.GetFiles(Args[0]).Reverse()) //Reverse To Fill Images In, Then Offset Information. (HAS TO BE BETTER WAY D:)
             {
                 var FileInformation = new FileInfo(Item);
-                var DataStart = Utilities.DirSize(new DirectoryInfo(Args[0]));
+                var FileSize = Utilities.DecToHex(FileInformation.Length.ToString());
+                var FileName = FileInformation.Name;
+                var FileOffset = 0x0; //HEXify, and Figure out
+                var Reader = new BinaryReader();
+                
 
-                Data.Add(new PackData("","",""));
-                //Get Size
-                //Get Name
-                //Figure Out How To Store LATER in File
+
+
+
             }
         }
     }
