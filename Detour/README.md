@@ -1,1 +1,1 @@
-You will need to compile and link the third party library [https://github.com/Nukem9/detours](Detours) by Nukem9 in order to compile this.
+You will need to compile and link the third party library Detours by Nukem9 in order to compile this.

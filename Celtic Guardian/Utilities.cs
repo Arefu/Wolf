@@ -93,14 +93,18 @@ namespace Celtic_Guardian
             return new FileInfo(File).Extension.ToLower() == Extension;
         }
 
-        public static int HexToDec(string HexValue)
+        public static int HexToDec(string HexValue,bool CheckAlignment=false)
         {
-            return Int32.Parse(HexValue, NumberStyles.HexNumber);
+            var Number = Int32.Parse(HexValue, NumberStyles.HexNumber);
+            if (CheckAlignment)
+                Number = IsAligned(Number);
+
+            return Number;
         }
 
-        public static int HexToDec(byte[] Data)
+        public static int HexToDec(byte[] Data, bool CheckAlignment = false)
         {
-            return HexToDec(BitConverter.ToString(Data).Replace("-", ""));
+            return HexToDec(BitConverter.ToString(Data).Replace("-", ""),true);
         }
 
         public static string DecToHex(string DecValue)

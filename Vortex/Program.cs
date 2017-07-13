@@ -78,6 +78,7 @@ namespace Vortex
                             Writer.Write(new byte[] { 00 });
                             BufferSize = BufferSize - 1;
                         }
+
                     File.AppendAllText("YGO_DATA.toc",
                         $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName}\n");
                 }

@@ -87,11 +87,11 @@ namespace Relinquished
                         Utilities.Event.Information);
 
                     var RealOffset = Utilities.HexToDec(CurrentStartOffset);
-                    var RealSize = Utilities.HexToDec(CurrentFileSize);
+                    var RealSize = Utilities.HexToDec(CurrentFileSize,true);
                     var RealName = Utilities.GetText(CurrentFileName);
 
                     if (RealName == "adriangecko_neutral.png") //Start Offset Is WRONG In ZIB For Some Reason.
-                        RealOffset = RealOffset - 1;
+                        RealOffset = 0x2390;
 
                     Data.Add(new FileData(RealOffset, RealSize, RealName));
                 }
