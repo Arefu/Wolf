@@ -20,7 +20,7 @@ namespace Onomatopaira
             {
                 FileDialog.Title = "Open Yu-Gi-Oh TOC File...";
                 FileDialog.Filter = "Yu-Gi-Oh! LOTD TOC File |*.toc";
-                FileDialog.ShowDialog();
+                if (FileDialog.ShowDialog() != DialogResult.OK) return;
 
                 try
                 {
@@ -36,10 +36,12 @@ namespace Onomatopaira
                             if (Line == null) continue;
 
                             Line = Line.TrimStart(' '); //Trim Starting Spaces.
-                            Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
+                            Line = Regex.Replace(Line, @"  +", " ",
+                                RegexOptions.Compiled); //Remove All Extra Spaces.
                             var LineData = Line.Split(' '); //Split Into Chunks.
 
-                            Utilities.Log($"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)",
+                            Utilities.Log(
+                                $"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)",
                                 Utilities.Event.Information);
 
                             //Create Item's Folder.
