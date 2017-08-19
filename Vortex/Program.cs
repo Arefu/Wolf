@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Vortex
 {
@@ -39,7 +40,7 @@ namespace Vortex
                 AutoStart = true;
             }
 
-            Files = Utilities.ParseTocFile();
+            Files = ParseTocFile();
             FilesToPack = Directory.GetFiles($"{Args[0]}\\YGO_DATA", "*.*", SearchOption.AllDirectories);
 
             File.AppendAllText("YGO_DATA.toc", "UT\n");
@@ -93,6 +94,27 @@ namespace Vortex
             if (!AutoStart) return;
 
             Process.Start($"{Utilities.GetInstallDir()}\\YuGiOh.exe");
+        }
+
+        private static List<FileNames> ParseTocFile()
+        {
+            var Files = new List<FileNames>();
+
+            using (var Reader = new StreamReader($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC"))
+            {
+                Reader.ReadLine(); //Dispose First Line.
+                while (!Reader.EndOfStream)
+                {
+                    var Line = Reader.ReadLine();
+                    if (Line == null) continue;
+
+                    Line = Line.TrimStart(' '); //Trim Starting Spaces.
+                    Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
+                    var LineData = Line.Split(' '); //Split Into Chunks.
+                    Files.Add(new FileNames(LineData[2])); //Add To List For Manip.
+                }
+            }
+            return Files;
         }
     }
 }

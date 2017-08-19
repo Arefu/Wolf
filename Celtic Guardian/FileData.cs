@@ -1,4 +1,4 @@
-﻿namespace Celtic_Guardian
+namespace Celtic_Guardian
 {
     /// <summary>
     ///     Item1: Start Offset / File Size.

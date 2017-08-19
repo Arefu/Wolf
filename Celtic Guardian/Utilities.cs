@@ -136,11 +136,6 @@ namespace Celtic_Guardian
             return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
-        public static bool IsImage(string FileName)
-        {
-            return IsExt(FileName,".jpg") || IsExt(FileName, ".png");
-        }
-
         public static string GetInstallDir()
         {
             string InstallDir;
@@ -173,25 +168,6 @@ namespace Celtic_Guardian
             }
         }
 
-        public static List<FileNames> ParseTocFile()
-        {
-            var Files = new List<FileNames>();
-
-            using (var Reader = new StreamReader($"{GetInstallDir()}\\YGO_DATA.TOC"))
-            {
-                Reader.ReadLine(); //Dispose First Line.
-                while (!Reader.EndOfStream)
-                {
-                    var Line = Reader.ReadLine();
-                    if (Line == null) continue;
-
-                    Line = Line.TrimStart(' '); //Trim Starting Spaces.
-                    Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
-                    var LineData = Line.Split(' '); //Split Into Chunks.
-                    Files.Add(new FileNames(LineData[2])); //Add To List For Manip.
-                }
-            }
-            return Files;
-        }
+        
     }
 }

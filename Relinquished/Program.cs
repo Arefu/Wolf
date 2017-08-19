@@ -90,7 +90,7 @@ namespace Relinquished
                     var RealSize = Utilities.HexToDec(CurrentFileSize,true);
                     var RealName = Utilities.GetText(CurrentFileName);
 
-                    if (RealName == "adriangecko_neutral.png") //Start Offset Is WRONG In ZIB For Some Reason.
+                    if (RealName == "adriangecko_neutral.png") //Start Offset Is WRONG In ZIB For Some Reason, or maybe I am *que xfiles
                         RealOffset = 0x2390;
 
                     Data.Add(new FileData(RealOffset, RealSize, RealName));
