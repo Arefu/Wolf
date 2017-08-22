@@ -52,6 +52,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(1280, 720);
             this.Name = "ImageViewer";
             this.Text = "ImageViewer";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

@@ -16,7 +16,13 @@ namespace Wolf
             }
             pictureBox1.Image = Img;
             File.Delete(Pic);
+            Closed += ImageViewer_Closed;
         }
-        
+
+        private void ImageViewer_Closed(object Sender, System.EventArgs Args)
+        {
+            pictureBox1.Image = null;
+            pictureBox1.Dispose();
+        }
     }
 }
