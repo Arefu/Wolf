@@ -33,6 +33,7 @@ namespace Wolf
                 if (ExportPath == "")
                     ExportPath = $"{FileToExport.Item3}";
 
+                Directory.CreateDirectory(FileToExport.Item3);
                 using (var Writer = new BinaryWriter(File.Open(ExportPath, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
                         BReader.BaseStream.Position = BytesToRead;

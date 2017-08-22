@@ -48,6 +48,7 @@ namespace Wolf
 
         private void OpenToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
+            if (FileQuickViewList.Nodes.Count != 0) return;
             Reader?.Close();
             Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
             Reader.ReadLine();
