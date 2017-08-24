@@ -26,8 +26,6 @@ namespace Wolf
 
         private void Form1_Load(object Sender, EventArgs Args)
         {
-            InstallDir = Utilities.GetInstallDir();
-
             GameLocLabel.ForeColor = Color.Red;
             GameLocLabel.Text = "Game Not Loaded";
         }
@@ -50,7 +48,31 @@ namespace Wolf
         {
             if (FileQuickViewList.Nodes.Count != 0) return;
             Reader?.Close();
-            Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
+            try
+            {
+                InstallDir = Utilities.GetInstallDir();
+                Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
+            }
+            catch
+            {
+                var Reply = MessageBox.Show(this, "Do You Want To Locate Game?", "Game Not Fuond!",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                if (Reply == DialogResult.No) Environment.Exit(1);
+                else
+                {
+                    using (var OFD = new OpenFileDialog())
+                    {
+                        OFD.Title = "Select YuGiOh.exe";
+                        OFD.Filter = "YuGiOh.exe | YuGiOh.exe";
+                        var Result = OFD.ShowDialog();
+                        if (Result != DialogResult.OK) Environment.Exit(1);
+                        Reader = new StreamReader(File.Open($"{new FileInfo(OFD.FileName).DirectoryName}\\YGO_DATA.TOC",
+                            FileMode.Open, FileAccess.Read));
+                        InstallDir=new FileInfo(OFD.FileName).DirectoryName;
+                    }
+                }
+            }
+
             Reader.ReadLine();
 
             GameLocLabel.ForeColor = Color.Green;
@@ -99,8 +121,8 @@ namespace Wolf
                 var Items = new ListViewItem(Args.Node.Nodes[Node].Name);
                 var FileSizeObject = Data.Where(Item => Item.Item3.Contains(Args.Node.Nodes[Node].Text))
                     .Select(NodeSize => NodeSize.Item1).FirstOrDefault();
-                
-                
+
+
                 MainFileView.Items.Add(Items);
                 MainFileView.Items[Node].ImageIndex = Args.Node.Nodes[Node].Nodes.Count == 0 ? 1 : 0;
                 if (Args.Node.Nodes[Node].Name.EndsWith(".png") || Args.Node.Nodes[Node].Name.EndsWith(".jpg"))
@@ -174,14 +196,14 @@ namespace Wolf
                     if (MainFileView.SelectedItems[0].ImageIndex != 0)
                         ContextMenuFunctions.ExtractFile(MainFileView.SelectedItems[0]);
                     else
-                        MessageBox.Show(this,"This Build Can't Extract Whole Folders, Use Onomatoparia","Can't Extract Folders",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        MessageBox.Show(this, "This Build Can't Extract Whole Folders, Use Onomatoparia", "Can't Extract Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
 
                 case "View":
                     if (MainFileView.SelectedItems[0].ImageIndex == 2)
                         ContextMenuFunctions.ViewImage(MainFileView.SelectedItems[0]);
                     else
-                        MessageBox.Show(this, "You Can't VIEW A Folder","Can't View Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "You Can't View This File Type", "Can't View File/Folder", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }

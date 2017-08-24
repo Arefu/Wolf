@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Celtic_Guardian
 {
@@ -136,6 +137,7 @@ namespace Celtic_Guardian
             return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
+        [STAThread]
         public static string GetInstallDir()
         {
             string InstallDir;
@@ -152,7 +154,7 @@ namespace Celtic_Guardian
             }
             catch (Exception)
             {
-                throw new FileNotFoundException("Can't Find Game");
+                throw new Exception("Game Not Found");
             }
             return InstallDir;
         }
