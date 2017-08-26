@@ -1,13 +1,11 @@
 # Abaki
 
-This program has finally found a home, and that home is letting you parse the BND files in the "\strings" folder. This way you can add your own localization files to the game!
+#### Helpful Links
+
+* [Wiki](https://github.com/Arefu/Wolf/wiki/Abaki) 
 
 Run Options:
-``
-Abaki.exe <BND FILE>
-``
+``Abaki.exe``
 
 Optional Argumens:
-``
-N/A
-``
+``N/A``

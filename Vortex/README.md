@@ -1,16 +1,11 @@
 # Vortex
 
-This is one of what I like to consider the 3 main tools. It handles pulling all the files back together and turning them into the DAT file
-It also generates the TOC file for you, as a note, you need to point this file at the YGO_DATA directory of the extracted files.
+#### Helpful Links
+
+* [Wiki](https://github.com/Arefu/Wolf/wiki/Vortex) 
 
 Run Options:
-``
-Vortex.exe [PATH TO YGO_DATA]
-``
+``Vortex.exe``
 
 Optional Argumens:
-
-``-autocopy [Auto Copies The DAT and TOC File To Game Dir]``
-
-``-autostart [Starts The Game Once Packed]``
-
+``N/A``

@@ -1,13 +1,12 @@
 # Embargo
 
-A VERY basic DLL Injector for the game, it will likely be the base for my MP tracking and a basic Anti-Cheat to clean up online.
+#### Helpful Links
+
+* [Wiki](https://github.com/Arefu/Wolf/wiki/Embargo) 
 
 Run Options:
-``
-Embargo.exe <Full Path To DLL>
-``
+``Embargo.exe``
 
 Optional Argumens:
-``
-N/A
-``
+``N/A``
+

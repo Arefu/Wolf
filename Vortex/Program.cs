@@ -1,10 +1,8 @@
 ﻿using Celtic_Guardian;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Vortex
@@ -12,45 +10,36 @@ namespace Vortex
 
     internal class Program
     {
-        public static List<PackData> Data = new List<PackData>();
         public static List<FileNames> Files = new List<FileNames>();
         public static string[] FilesToPack;
-        public static bool AutoCopy, AutoStart;
-        public static StreamReader Reader;
 
         [STAThread]
-        private static void Main(string[] Args)
+        private static void Main()
         {
             Console.Title = "Vortex";
+
+            if (File.Exists("YGO_DATA.dat"))
+                File.Delete("YGO_DATA.dat");
+            if (File.Exists("YGO_DATA.toc"))
+                File.Delete("YGO_DATA.toc");
+
             var YgoFolder = "";
-            using (var FBD = new FolderBrowserDialog())
+            using (var Fbd = new FolderBrowserDialog())
             {
-                FBD.ShowNewFolderButton = false;
-                FBD.Description = "Select the YGO_DATA folder.";
+                Fbd.ShowNewFolderButton = false;
+                Fbd.Description = "Select the YGO_DATA folder.";
+                Fbd.SelectedPath = Application.StartupPath;
 
-                var Reply = FBD.ShowDialog();
-                if (Reply != DialogResult.OK) Environment.Exit(1);
-                else YgoFolder = FBD.SelectedPath;
-            }
-
-            if (File.Exists($"{YgoFolder}\\YGO_DATA.dat") && File.Exists($"{YgoFolder}\\YGO_DATA.toc"))
-            {
-                Utilities.Log("Pre-Exported Files Found! Cleaning Working Directory.", Utilities.Event.Warning);
-                File.Delete($"{YgoFolder}\\YGO_DATA.dat");
-                File.Delete($"{YgoFolder}\\YGO_DATA.toc");
-            }
-            if (Args.Any(Arg => Arg == "-autocopy"))
-            {
-                Utilities.Log("Auto-Copy Specified!", Utilities.Event.Information);
-                AutoCopy = true;
-            }
-            if (Args.Any(Arg => Arg == "-autostart"))
-            {
-                Utilities.Log("Auto-Start Specified!", Utilities.Event.Information);
-                AutoStart = true;
+                if (Fbd.ShowDialog() != DialogResult.OK)
+                    Environment.Exit(1);
+                else
+                    YgoFolder = Fbd.SelectedPath;
             }
 
-            Files = ParseTocFile();
+            if (!YgoFolder.Contains("YGO_DATA"))
+                throw new Exception("YGO_DATA Folder Not Found!");
+
+            Files = Utilities.ParseTocFile();
             FilesToPack = Directory.GetFiles($"{YgoFolder}", "*.*", SearchOption.AllDirectories);
 
             File.AppendAllText("YGO_DATA.toc", "UT\n");
@@ -59,29 +48,24 @@ namespace Vortex
             {
                 foreach (var Item in Files)
                 {
-                    //Read Current File.
+                    var CurrentFileName = FilesToPack?.First(File => File.Contains(Item.FileName));
 
-                    var CurrentFileName = FilesToPack
-                        ?.First(File => File.Contains(Item.FileName))
-                      ;
                     Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
-                    var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName.Length.ToString());
-                    var CurrentFileSize =
-                        Utilities.DecToHex(new FileInfo($".\\{CurrentFileName}").Length.ToString());
+                    var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName.Split(new[] { "YGO_DATA" }, StringSplitOptions.None).Last().TrimStart('\\').Length.ToString());
+                    var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{CurrentFileName}").Length.ToString());
 
                     while (CurrentFileSize.Length != 12)
                         CurrentFileSize = CurrentFileSize.Insert(0, " ");
                     while (CurrentFileNameLength.Length != 2)
                         CurrentFileNameLength = CurrentFileNameLength.Insert(0, " ");
 
-                    var Token = $".\\YGO_DATA\\{CurrentFileName}";
-                    var Reader = new BinaryReader(File.Open(Token, FileMode.Open, FileAccess.Read));
-                    var NewSize = new FileInfo(Token).Length;
+                    var Reader = new BinaryReader(File.Open(CurrentFileName, FileMode.Open, FileAccess.Read));
+                    var NewSize = new FileInfo(CurrentFileName).Length;
                     while (NewSize % 4 != 0)
                         NewSize = NewSize + 1;
 
-                    var BufferSize = NewSize - new FileInfo(Token).Length;
-                    Writer.Write(Reader.ReadBytes((int)new FileInfo(Token).Length));
+                    var BufferSize = NewSize - new FileInfo(CurrentFileName).Length;
+                    Writer.Write(Reader.ReadBytes((int)new FileInfo(CurrentFileName).Length));
 
                     if (BufferSize > 0)
                         while (BufferSize != 0)
@@ -90,54 +74,10 @@ namespace Vortex
                             BufferSize = BufferSize - 1;
                         }
 
-                    File.AppendAllText("YGO_DATA.toc",
-                        $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName}\n");
+                    File.AppendAllText("YGO_DATA.toc", $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName.Split(new[] { "YGO_DATA\\" }, StringSplitOptions.None).Last()}\n");
                 }
             }
             Utilities.Log("Finished Packing Files.", Utilities.Event.Information);
-            if (!AutoCopy) return;
-
-            File.Copy("YGO_DATA.toc", $"{Utilities.GetInstallDir()}\\YGO_DATA.toc", true);
-            File.Copy("YGO_DATA.dat", $"{Utilities.GetInstallDir()}\\YGO_DATA.dat", true);
-            Utilities.Log("Finished Packing, And Moved Files.", Utilities.Event.Information);
-
-            if (!AutoStart) return;
-
-            Process.Start($"{Utilities.GetInstallDir()}\\YuGiOh.exe");
-        }
-
-        private static List<FileNames> ParseTocFile()
-        {
-            var Files = new List<FileNames>();
-            try
-            {
-                var Reader = new StreamReader($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC");
-            }
-            catch (Exception e)
-            {
-                using (var OFD = new OpenFileDialog())
-                {
-                    OFD.Title = "Select YuGiOh.exe";
-                    OFD.Filter = "YuGiOh.exe | YuGiOh.exe";
-                    var Result = OFD.ShowDialog();
-                    if (Result != DialogResult.OK) Environment.Exit(1);
-                    Reader = new StreamReader(File.Open($"{new FileInfo(OFD.FileName).DirectoryName}\\YGO_DATA.TOC",
-                        FileMode.Open, FileAccess.Read));
-                }
-            }
-            Reader.ReadLine(); //Dispose First Line.
-            while (!Reader.EndOfStream)
-            {
-                var Line = Reader.ReadLine();
-                if (Line == null) continue;
-
-                Line = Line.TrimStart(' '); //Trim Starting Spaces.
-                Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
-                var LineData = Line.Split(' '); //Split Into Chunks.
-                Files.Add(new FileNames(LineData[2])); //Add To List For Manip.
-            }
-
-            return Files;
         }
     }
 }

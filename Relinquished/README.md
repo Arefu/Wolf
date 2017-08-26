@@ -1,15 +1,11 @@
 # Relinquished
 
-This program extracts any .ZIB file. Refer to the [Wiki](https://github.com/Arefu/Wolf/wiki) for more informatioin on the ZIB file structure.
+#### Helpful Links
+
+* [Wiki](https://github.com/Arefu/Wolf/wiki/Relinquished) 
 
 Run Options:
-
-``
-N/A
-``
+``Relinquished.exe``
 
 Optional Argumens:
-
-``
-None
-``
+``N/A``

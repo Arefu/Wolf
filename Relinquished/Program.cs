@@ -17,7 +17,7 @@ namespace Relinquished
             Console.Title = "Relinquished";
             using (var FileDialog = new OpenFileDialog())
             {
-                FileDialog.Title = "Open Yu-Gi-Oh TOC File...";
+                FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
                 FileDialog.Filter = "Yu-Gi-Oh! LOTD ZIB File |*.zib";
                 if (FileDialog.ShowDialog() != DialogResult.OK) return;
 
@@ -74,6 +74,7 @@ namespace Relinquished
                     }
                     using (var Reader = new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
                     {
+                        var AmountofFiles = 0;
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
                         {
                             var CurrentChunk = Reader.ReadBytes(64); //40 In HEX is 64 in DEC
@@ -83,7 +84,7 @@ namespace Relinquished
                             CurrentChunk = CurrentChunk.Skip(SizeReadSize).ToArray();
                             var CurrentFileName = Utilities.GetText(CurrentChunk.Take(FileNameReadSize).ToArray());
 
-                            //Start Offset Is WRONG In ZIB For Some Reason, or maybe I am *que xfiles
+                            //Start Offset Is WRONG In ZIB For Some Reason, or maybe I am...
                             if (CurrentFileName == "adriangecko_neutral.png")
                                 CurrentStartOffset = 0x2390;
 
@@ -98,7 +99,9 @@ namespace Relinquished
                                 Writer.Close();
                             }
                             Reader.BaseStream.Position = SnapBack;
+                            AmountofFiles++;
                         }
+                        Console.WriteLine(AmountofFiles);
                     }
                 }
                 catch (Exception Ex)

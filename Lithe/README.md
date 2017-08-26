@@ -1,18 +1,12 @@
 # Lithe
 
-This program lets you edit the credits.dat file, it might be useful if you plan on making a mod package and want to mention people who helped.
+#### Helpful Links
 
-Run Options To Parse To Text:
-``
-Lithe.exe <Credits.dat>
-``
+* [Wiki](https://github.com/Arefu/Wolf/wiki/Lithe) 
 
-Run Options To Parse Back To DAT:
-``
-Lithe.exe <Credits.dat>
-``
+Run Options:
+``Lithe.exe``
 
 Optional Argumens:
-``
-N/A
-``
+``N/A``
+

@@ -2,22 +2,28 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Lithe
 {
     internal class Program
     {
-        private static void Main(string[] Args)
+        [STAThread]
+        private static void Main()
         {
             Console.Title = "Lithe";
-            if (Args.Length <= 0)
-                Utilities.Log("Please Drag The \"credits.dat\" File On To Me!", Utilities.Event.Error, true, 1);
-            if (!Args[0].ToLower().EndsWith("credits.dat") && !Args[0].ToLower().EndsWith("credits.txt"))
-                Utilities.Log("\"credits.dat\" or \"credits.txt\" not specified!", Utilities.Event.Error, true, 1);
+            var Credits = "";
+            using (var Ofd = new OpenFileDialog())
+            {
+                Ofd.Title = "Select Credits To Encode/Decode";
+                Ofd.Filter = "Credits file (*.dat, *.txt) | *.dat; *.txt";
+                if (Ofd.ShowDialog() == DialogResult.OK)
+                    Credits = Ofd.FileName;
+                else
+                    Environment.Exit(1);
+            }
 
-            var Credits = Args[0];
-
-            var PackOrUnpack = Credits.EndsWith("credits.dat"); //False Pack, True Parse.
+                var PackOrUnpack = Credits.EndsWith("credits.dat"); //False Pack, True Parse.
 
             if (PackOrUnpack)
             {
@@ -25,7 +31,7 @@ namespace Lithe
                 {
                     var CreditsContent = Reader.ReadBytes((int)new FileInfo(Credits).Length);
                     File.WriteAllText("credits.txt",
-                        Utilities.GetText(CreditsContent).Replace("?", String.Empty)); //Two Start Characters Are A Magic Byte Letting The Game Know To In-Line Images
+                        Utilities.GetText(CreditsContent).Replace("?", string.Empty)); //Two Start Characters Are A Magic Byte Letting The Game Know To In-Line Images
                     Utilities.Log("Finished Parsing.", Utilities.Event.Information);
                 }
             }

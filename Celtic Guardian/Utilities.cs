@@ -103,6 +103,41 @@ namespace Celtic_Guardian
             return Number;
         }
 
+        public static List<FileNames> ParseTocFile()
+        {
+            StreamReader Reader;
+            var LocalVarFiles = new List<FileNames>();
+            try
+            {
+                Reader = new StreamReader($"{GetInstallDir()}\\YGO_DATA.TOC");
+            }
+            catch (Exception)
+            {
+                using (var Ofd = new OpenFileDialog())
+                {
+                    Ofd.Title = "Select YuGiOh.exe";
+                    Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
+                    var Result = Ofd.ShowDialog();
+                    if (Result != DialogResult.OK) Environment.Exit(1);
+                    Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC",
+                        FileMode.Open, FileAccess.Read));
+                }
+            }
+            Reader.ReadLine(); //Dispose First Line.
+            while (!Reader.EndOfStream)
+            {
+                var Line = Reader.ReadLine();
+                if (Line == null) continue;
+
+                Line = Line.TrimStart(' '); //Trim Starting Spaces.
+                Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
+                var LineData = Line.Split(' '); //Split Into Chunks.
+                LocalVarFiles.Add(new FileNames(LineData[2])); //Add To List For Manip.
+            }
+
+            return LocalVarFiles;
+        }
+
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)
         {
             return HexToDec(BitConverter.ToString(Data).Replace("-", ""),true);
