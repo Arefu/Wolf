@@ -1,8 +1,8 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Abaki
 {
@@ -10,34 +10,25 @@ namespace Abaki
     {
         public static List<Offsets> OffsetList = new List<Offsets>();
 
+        [STAThread]
         private static void Main(string[] Args)
         {
             Console.Title = "Abaki";
-            if (Args.Length <= 0)
-                Utilities.Log("Please Specify A BND To Parse!", Utilities.Event.Error, true, 1);
-            if (!Utilities.IsExt(Args[0].ToLower(), ".bnd"))
-                Utilities.Log("This File Isn't A BND.", Utilities.Event.Error, true, 1);
+            var BndFile = "";
 
-            var LocalizationFile = Args[0];
-
-            using (var Writer = new BinaryWriter(File.Open(LocalizationFile.Replace("BND", "TXT"), FileMode.OpenOrCreate, FileAccess.Write)))
+            using (var Ofd = new OpenFileDialog())
             {
-                using (var Reader = new BinaryReader(File.Open(LocalizationFile, FileMode.Open, FileAccess.Read)))
-                {
-                    var AmountOfStrings = Utilities.HexToDec(Reader.ReadBytes(4));
-                    do
-                    {
-                        OffsetList.Add(new Offsets(Utilities.HexToDec(Reader.ReadBytes(4))));
-                    } while (OffsetList.Count != AmountOfStrings);
+                Ofd.Title = "Select File To Encode/Decode";
+                Ofd.Filter = "Language file (*.bnd, *.txt) | *.bnd; *.txt";
+                if (Ofd.ShowDialog() == DialogResult.OK)
+                    BndFile = Ofd.FileName;
+                else
+                    Environment.Exit(1);
+            }
 
-                    for (var Count = 0; Count < OffsetList.Count; Count++)
-                    {
-                        Reader.BaseStream.Position = OffsetList[Count].Offset;
-                        Console.WriteLine($"Reading From: {Reader.BaseStream.Position}");
-                        //Implement Parser
-                    }
-
-                }
+            if (Utilities.IsExt(BndFile, ".bnd"))
+            {
+                //Read in 4 Bytes, Get
             }
         }
     }

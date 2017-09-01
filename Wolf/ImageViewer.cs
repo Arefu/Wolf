@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -19,7 +20,7 @@ namespace Wolf
             Closed += ImageViewer_Closed;
         }
 
-        private void ImageViewer_Closed(object Sender, System.EventArgs Args)
+        private void ImageViewer_Closed(object Sender, EventArgs Args)
         {
             pictureBox1.Image = null;
             pictureBox1.Dispose();

@@ -1,13 +1,12 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Vortex
 {
-
     internal class Program
     {
         public static List<FileNames> Files = new List<FileNames>();
@@ -51,7 +50,8 @@ namespace Vortex
                     var CurrentFileName = FilesToPack?.First(File => File.Contains(Item.FileName));
 
                     Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
-                    var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName.Split(new[] { "YGO_DATA" }, StringSplitOptions.None).Last().TrimStart('\\').Length.ToString());
+                    var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName
+                        .Split(new[] {"YGO_DATA"}, StringSplitOptions.None).Last().TrimStart('\\').Length.ToString());
                     var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{CurrentFileName}").Length.ToString());
 
                     while (CurrentFileSize.Length != 12)
@@ -65,16 +65,17 @@ namespace Vortex
                         NewSize = NewSize + 1;
 
                     var BufferSize = NewSize - new FileInfo(CurrentFileName).Length;
-                    Writer.Write(Reader.ReadBytes((int)new FileInfo(CurrentFileName).Length));
+                    Writer.Write(Reader.ReadBytes((int) new FileInfo(CurrentFileName).Length));
 
                     if (BufferSize > 0)
                         while (BufferSize != 0)
                         {
-                            Writer.Write(new byte[] { 00 });
+                            Writer.Write(new byte[] {00});
                             BufferSize = BufferSize - 1;
                         }
 
-                    File.AppendAllText("YGO_DATA.toc", $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName.Split(new[] { "YGO_DATA\\" }, StringSplitOptions.None).Last()}\n");
+                    File.AppendAllText("YGO_DATA.toc",
+                        $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName.Split(new[] {"YGO_DATA\\"}, StringSplitOptions.None).Last()}\n");
                 }
             }
             Utilities.Log("Finished Packing Files.", Utilities.Event.Information);

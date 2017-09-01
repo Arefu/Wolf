@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -8,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Celtic_Guardian
 {
@@ -21,6 +21,9 @@ namespace Celtic_Guardian
             Alert = 3
         }
 
+        private static readonly string[] SizeSuffixes =
+            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+
         public static long DirSize(DirectoryInfo Directory)
         {
             var FileInfo = Directory.GetFiles();
@@ -30,9 +33,6 @@ namespace Celtic_Guardian
 
             return Size;
         }
-
-        private static readonly string[] SizeSuffixes =
-            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
 
         public static int IsAligned(int Number)
         {
@@ -94,9 +94,9 @@ namespace Celtic_Guardian
             return new FileInfo(File).Extension.ToLower() == Extension;
         }
 
-        public static int HexToDec(string HexValue,bool CheckAlignment=false)
+        public static int HexToDec(string HexValue, bool CheckAlignment = false)
         {
-            var Number = Int32.Parse(HexValue, NumberStyles.HexNumber);
+            var Number = int.Parse(HexValue, NumberStyles.HexNumber);
             if (CheckAlignment)
                 Number = IsAligned(Number);
 
@@ -140,12 +140,12 @@ namespace Celtic_Guardian
 
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)
         {
-            return HexToDec(BitConverter.ToString(Data).Replace("-", ""),true);
+            return HexToDec(BitConverter.ToString(Data).Replace("-", ""), true);
         }
 
         public static string DecToHex(string DecValue)
         {
-            return Int32.Parse(DecValue).ToString("x");
+            return int.Parse(DecValue).ToString("x");
         }
 
         public static string GetText(byte[] Message, bool RemoveNull = true)
@@ -153,7 +153,7 @@ namespace Celtic_Guardian
             var StrContent = Encoding.ASCII.GetString(Message);
 
             if (RemoveNull)
-                StrContent = StrContent.Replace("\0", String.Empty);
+                StrContent = StrContent.Replace("\0", string.Empty);
 
             return StrContent;
         }
@@ -200,11 +200,9 @@ namespace Celtic_Guardian
             {
                 using (var Stream = File.OpenRead(FileName))
                 {
-                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", String.Empty).ToLower();
+                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
                 }
             }
         }
-
-        
     }
 }

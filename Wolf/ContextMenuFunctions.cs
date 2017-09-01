@@ -1,8 +1,8 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Wolf
 {
@@ -25,7 +25,8 @@ namespace Wolf
                 if (File.Item3 == FileToExport.Item3)
                     break;
             }
-            using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
+            using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open,
+                FileAccess.Read)))
             {
                 if (ExportPath == "")
                     ExportPath = $"{FileToExport.Item3}";
@@ -33,11 +34,11 @@ namespace Wolf
                 Directory.CreateDirectory(FileToExport.Item3);
                 using (var Writer = new BinaryWriter(File.Open(ExportPath, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
-                        BReader.BaseStream.Position = BytesToRead;
-                        Writer.Write(BReader.ReadBytes(FileToExport.Item1));
-                        Writer.Close();
-                        Writer.Dispose();
-                        BReader.Dispose();
+                    BReader.BaseStream.Position = BytesToRead;
+                    Writer.Write(BReader.ReadBytes(FileToExport.Item1));
+                    Writer.Close();
+                    Writer.Dispose();
+                    BReader.Dispose();
                 }
             }
         }

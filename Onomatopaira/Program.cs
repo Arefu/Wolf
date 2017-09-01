@@ -54,7 +54,9 @@ namespace Onomatopaira
                                     ExtraBytes = ExtraBytes + 1;
 
                             //Write File
-                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + LineData[2], FileMode.Create, FileAccess.Write)))
+                            using (var FileWriter =
+                                new BinaryWriter(
+                                    File.Open("YGO_DATA/" + LineData[2], FileMode.Create, FileAccess.Write)))
                             {
                                 FileWriter.Write(DatReader.ReadBytes(Utilities.HexToDec(LineData[0])));
                                 FileWriter.Flush();

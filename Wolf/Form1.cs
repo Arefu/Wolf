@@ -1,11 +1,11 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Wolf
 {
@@ -59,7 +59,6 @@ namespace Wolf
                     MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
                 if (Reply == DialogResult.No) Environment.Exit(1);
                 else
-                {
                     using (var OFD = new OpenFileDialog())
                     {
                         OFD.Title = "Select YuGiOh.exe";
@@ -68,9 +67,8 @@ namespace Wolf
                         if (Result != DialogResult.OK) Environment.Exit(1);
                         Reader = new StreamReader(File.Open($"{new FileInfo(OFD.FileName).DirectoryName}\\YGO_DATA.TOC",
                             FileMode.Open, FileAccess.Read));
-                        InstallDir=new FileInfo(OFD.FileName).DirectoryName;
+                        InstallDir = new FileInfo(OFD.FileName).DirectoryName;
                     }
-                }
             }
 
             Reader.ReadLine();
@@ -97,7 +95,8 @@ namespace Wolf
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
             FileQuickViewList.SelectedNode = FileQuickViewList.Nodes[0];
-            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(FileQuickViewList.Nodes[0], MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(),
+                new TreeNodeMouseClickEventArgs(FileQuickViewList.Nodes[0], MouseButtons.Left, 1, 0, 0));
         }
 
         private void CloseToolStripMenuItem_Click(object Sender, EventArgs Args)
@@ -196,14 +195,16 @@ namespace Wolf
                     if (MainFileView.SelectedItems[0].ImageIndex != 0)
                         ContextMenuFunctions.ExtractFile(MainFileView.SelectedItems[0]);
                     else
-                        MessageBox.Show(this, "This Build Can't Extract Whole Folders, Use Onomatoparia", "Can't Extract Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "This Build Can't Extract Whole Folders, Use Onomatoparia",
+                            "Can't Extract Folders", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
 
                 case "View":
                     if (MainFileView.SelectedItems[0].ImageIndex == 2)
                         ContextMenuFunctions.ViewImage(MainFileView.SelectedItems[0]);
                     else
-                        MessageBox.Show(this, "You Can't View This File Type", "Can't View File/Folder", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(this, "You Can't View This File Type", "Can't View File/Folder",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }

@@ -1,9 +1,9 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Relinquished
 {
@@ -30,7 +30,8 @@ namespace Relinquished
 
                     Directory.CreateDirectory($"{ZibFileName} Unpacked");
                     File.Create($"{ZibFileName} Unpacked/.zib");
-                    File.SetAttributes($"{ZibFileName} Unpacked/.zib", File.GetAttributes($"{ZibFileName} Unpacked/.zib") | FileAttributes.Hidden);
+                    File.SetAttributes($"{ZibFileName} Unpacked/.zib",
+                        File.GetAttributes($"{ZibFileName} Unpacked/.zib") | FileAttributes.Hidden);
 
                     long DataStartOffset = 0x0;
                     int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
@@ -72,7 +73,8 @@ namespace Relinquished
                             DataStartOffset = 0x750;
                             break;
                     }
-                    using (var Reader = new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
+                    using (var Reader =
+                        new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
                     {
                         var AmountofFiles = 0;
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
@@ -80,7 +82,7 @@ namespace Relinquished
                             var CurrentChunk = Reader.ReadBytes(64); //40 In HEX is 64 in DEC
                             var CurrentStartOffset = Utilities.HexToDec(CurrentChunk.Take(OffsetReadSize).ToArray());
                             CurrentChunk = CurrentChunk.Skip(OffsetReadSize).ToArray();
-                            var CurrentFileSize = Utilities.HexToDec(CurrentChunk.Take(SizeReadSize).ToArray(), true); 
+                            var CurrentFileSize = Utilities.HexToDec(CurrentChunk.Take(SizeReadSize).ToArray(), true);
                             CurrentChunk = CurrentChunk.Skip(SizeReadSize).ToArray();
                             var CurrentFileName = Utilities.GetText(CurrentChunk.Take(FileNameReadSize).ToArray());
 
@@ -88,7 +90,8 @@ namespace Relinquished
                             if (CurrentFileName == "adriangecko_neutral.png")
                                 CurrentStartOffset = 0x2390;
 
-                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)", Utilities.Event.Information);
+                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)",
+                                Utilities.Event.Information);
 
                             var SnapBack = Reader.BaseStream.Position;
                             Reader.BaseStream.Position = CurrentStartOffset;

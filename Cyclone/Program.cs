@@ -1,8 +1,6 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using Celtic_Guardian;
 
 namespace Cyclone
 {
