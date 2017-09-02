@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Celtic_Guardian;
@@ -28,7 +29,18 @@ namespace Abaki
 
             if (Utilities.IsExt(BndFile, ".bnd"))
             {
-                //Read in 4 Bytes, Get
+                using (var Reader = new BinaryReader(File.Open(BndFile, FileMode.Open, FileAccess.Read)))
+                {
+                    Reader.ReadBytes(4); //Firt 4 Bytes is Number of Strings
+                    int Counter = 0;
+                    do
+                    {
+                        Reader.ReadBytes(4);
+                        Counter++;
+                    } while (Counter < 1138); //First String Starts Here.
+                    Console.WriteLine(Reader.BaseStream.Position);
+                    Console.ReadLine();
+                }
             }
         }
     }
