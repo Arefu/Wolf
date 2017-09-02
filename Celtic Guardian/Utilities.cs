@@ -140,7 +140,7 @@ namespace Celtic_Guardian
 
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)
         {
-            return HexToDec(BitConverter.ToString(Data).Replace("-", ""), true);
+            return HexToDec(BitConverter.ToString(Data).Replace("-", ""), CheckAlignment);
         }
 
         public static string DecToHex(string DecValue)
