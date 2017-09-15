@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\bin\Debug\Examples\</OutDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\examples\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,7 +88,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\bin\Release\Examples</OutDir>
+    <OutDir>$(SolutionDir)\bin\$(Configuration)\examples\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,11 +97,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DETOUR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalLibraryDirectories>
+      <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,11 +112,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;DETOUR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalLibraryDirectories>
       <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,13 +129,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DETOUR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalLibraryDirectories>
+      <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,13 +148,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;DETOUR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories);D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries</AdditionalLibraryDirectories>
+      <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

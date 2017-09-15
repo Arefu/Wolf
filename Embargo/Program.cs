@@ -1,21 +1,33 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Windows.Forms;
 using Celtic_Guardian;
 
 namespace Embargo
 {
     internal class Program
     {
+        [STAThread]
         private static void Main(string[] Args)
         {
             Console.Title = "Embargo";
-            if (Args.Length <= 0)
-                Utilities.Log("Please Specify A DLL To \"Inject\"!", Utilities.Event.Error, true, 1);
-            if (!Utilities.IsExt(Args[0], ".dll"))
-                Utilities.Log("This File Isn't A DLL...", Utilities.Event.Error, true, 1);
 
-            var Result = Injector.Inject("YuGiOh", Args[0]);
+            using (var Ofd = new OpenFileDialog())
+            {
+                Ofd.Title = "Select DLL To Inject";
+                Ofd.Filter = "Language file (*.dll) | *.dll";
+                if (Ofd.ShowDialog() == DialogResult.OK)
+                    Process.Start("Steam://run/480650");
+                else
+                    Environment.Exit(1);
 
-            Utilities.Log($"Result: {Result}", Utilities.Event.Information);
+
+                Thread.Sleep(1000);
+                Console.ReadLine();
+                Utilities.Log($"Result: {Injector.Inject("YuGiOh", Ofd.FileName)}", Utilities.Event.Information);
+                Thread.Sleep(1000);
+            }
         }
     }
 }

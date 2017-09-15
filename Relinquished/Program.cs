@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Celtic_Guardian;
 
@@ -21,62 +22,59 @@ namespace Relinquished
                 FileDialog.Filter = "Yu-Gi-Oh! LOTD ZIB File |*.zib";
                 if (FileDialog.ShowDialog() != DialogResult.OK) return;
 
-                try
+                var ZibFileName = new FileInfo(FileDialog.FileName).Name;
+
+                if (Directory.Exists($"{ZibFileName} Unpacked") || File.Exists($"{ZibFileName} Unpacked/Index.zib"))
+                    return;
+
+                Directory.CreateDirectory($"{ZibFileName} Unpacked");
+                File.Create($"{ZibFileName} Unpacked/Index.zib").Close();
+                File.SetAttributes($"{ZibFileName} Unpacked/Index.zib", File.GetAttributes($"{ZibFileName} Unpacked/Index.zib") | FileAttributes.Hidden);
+
+                long DataStartOffset = 0x0;
+                int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
+
+                switch (ZibFileName)
                 {
-                    var ZibFileName = new FileInfo(FileDialog.FileName).Name;
+                    case "cardcropHD400.jpg.zib":
+                        OffsetReadSize = 8;
+                        SizeReadSize = 8;
+                        FileNameReadSize = 48;
+                        DataStartOffset = 0x69F10;
+                        break;
 
-                    if (Directory.Exists($"{ZibFileName} Unpacked") || File.Exists($"{ZibFileName} Unpacked/.zib"))
-                        return;
+                    case "cardcropHD401.jpg.zib":
+                        OffsetReadSize = 8;
+                        SizeReadSize = 8;
+                        FileNameReadSize = 48;
+                        DataStartOffset = 0xC810;
+                        break;
 
-                    Directory.CreateDirectory($"{ZibFileName} Unpacked");
-                    File.Create($"{ZibFileName} Unpacked/.zib");
-                    File.SetAttributes($"{ZibFileName} Unpacked/.zib",
-                        File.GetAttributes($"{ZibFileName} Unpacked/.zib") | FileAttributes.Hidden);
+                    case "busts.zib":
+                        OffsetReadSize = 4;
+                        SizeReadSize = 4;
+                        FileNameReadSize = 56;
+                        DataStartOffset = 0x2390;
+                        break;
 
-                    long DataStartOffset = 0x0;
-                    int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
+                    case "decks.zib":
+                        OffsetReadSize = 4;
+                        SizeReadSize = 4;
+                        FileNameReadSize = 56;
+                        DataStartOffset = 0x8650;
+                        break;
 
-                    switch (ZibFileName)
+                    case "packs.zib":
+                        OffsetReadSize = 4;
+                        SizeReadSize = 4;
+                        FileNameReadSize = 56;
+                        DataStartOffset = 0x750;
+                        break;
+                }
+                using (var IndexWriter = new StreamWriter(File.Open($"{ZibFileName} Unpacked/Index.zib", FileMode.Open, FileAccess.Write)))
+                {
+                    using (var Reader = new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
                     {
-                        case "cardcropHD400.jpg.zib":
-                            OffsetReadSize = 8;
-                            SizeReadSize = 8;
-                            FileNameReadSize = 48;
-                            DataStartOffset = 0x69F10;
-                            break;
-
-                        case "cardcropHD401.jpg.zib":
-                            OffsetReadSize = 8;
-                            SizeReadSize = 8;
-                            FileNameReadSize = 48;
-                            DataStartOffset = 0xC810;
-                            break;
-
-                        case "busts.zib":
-                            OffsetReadSize = 4;
-                            SizeReadSize = 4;
-                            FileNameReadSize = 56;
-                            DataStartOffset = 0x2390;
-                            break;
-
-                        case "decks.zib":
-                            OffsetReadSize = 4;
-                            SizeReadSize = 4;
-                            FileNameReadSize = 56;
-                            DataStartOffset = 0x8650;
-                            break;
-
-                        case "packs.zib":
-                            OffsetReadSize = 4;
-                            SizeReadSize = 4;
-                            FileNameReadSize = 56;
-                            DataStartOffset = 0x750;
-                            break;
-                    }
-                    using (var Reader =
-                        new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
-                    {
-                        var AmountofFiles = 0;
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
                         {
                             var CurrentChunk = Reader.ReadBytes(64); //40 In HEX is 64 in DEC
@@ -90,26 +88,19 @@ namespace Relinquished
                             if (CurrentFileName == "adriangecko_neutral.png")
                                 CurrentStartOffset = 0x2390;
 
-                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)",
-                                Utilities.Event.Information);
+                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)", Utilities.Event.Information);
 
                             var SnapBack = Reader.BaseStream.Position;
                             Reader.BaseStream.Position = CurrentStartOffset;
-                            using (var Writer = new BinaryWriter(File.Open($"{ZibFileName} Unpacked/" + CurrentFileName,
-                                FileMode.Create, FileAccess.Write)))
+                            using (var Writer = new BinaryWriter(File.Open($"{ZibFileName} Unpacked/" + CurrentFileName, FileMode.Create, FileAccess.Write)))
                             {
                                 Writer.Write(Reader.ReadBytes(CurrentFileSize));
                                 Writer.Close();
+                                IndexWriter.Write(CurrentFileName + "\n");
                             }
                             Reader.BaseStream.Position = SnapBack;
-                            AmountofFiles++;
                         }
-                        Console.WriteLine(AmountofFiles);
                     }
-                }
-                catch (Exception Ex)
-                {
-                    Utilities.Log($"Exception Caught: {Ex.Message}", Utilities.Event.Error, true, 1);
                 }
             }
         }

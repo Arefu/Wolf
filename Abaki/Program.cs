@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using Celtic_Guardian;
 
@@ -26,7 +24,11 @@ namespace Abaki
                     Environment.Exit(1);
             }
 
+            if (!Directory.Exists("Exported Strings"))
+                Directory.CreateDirectory("Exported Strings");
+
             var StringIndex = new List<long>();
+
             using (var Reader = new BinaryReader(File.Open(BndFile, FileMode.Open, FileAccess.Read)))
             {
                 var AmountOfStringsToRead = Utilities.HexToDec(Reader.ReadBytes(4));
@@ -47,28 +49,24 @@ namespace Abaki
             {
                 Reader.ReadBytes(4); //Discard First 4 Bytes.
                 for (var Count = 0; Count < StringIndex.Count; Count++)
-                {
                     do
                     {
-                        using (var Writer = new BinaryWriter(File.Open($"{new FileInfo(BndFilePath).DirectoryName}\\String_{Count}.txt", FileMode.OpenOrCreate, FileAccess.Write)))
+                        using (var Writer = new BinaryWriter(File.Open($"{new FileInfo(BndFilePath).DirectoryName}\\Exported Strings\\String_{Count}.txt", FileMode.OpenOrCreate, FileAccess.Write)))
                         {
-                            try
+                            if(Count < StringIndex.Count - 1)
                             {
                                 Reader.BaseStream.Position = StringIndex[Count];
-                                Writer.Write(
-                                    Reader.ReadBytes((int) StringIndex[Count + 1] - (int) Reader.BaseStream.Position));
+                                Writer.Write(Reader.ReadBytes((int)StringIndex[Count + 1] - (int)Reader.BaseStream.Position));
                                 Count++;
                             }
-                            catch
+                            else
                             {
                                 Reader.BaseStream.Position = StringIndex[Count];
-                                Writer.Write(
-                                    Reader.ReadBytes((int)Reader.BaseStream.Length - (int)Reader.BaseStream.Position));
+                                Writer.Write(Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position));
                                 Count++;
                             }
                         }
                     } while (Count < StringIndex.Count);
-                }
             }
         }
     }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Flareon
@@ -32,7 +28,6 @@ namespace Flareon
 
             if (File.Exists($"{ZibFolder}.zib"))
                 File.Delete($"{ZibFolder}.zib");
-
         }
     }
 }
