@@ -1,4 +1,4 @@
-#include <Detours.h>
+#include <detours.h>
 #include <Windows.h>
 
 void MyFunc();
@@ -29,7 +29,8 @@ void WINAPI MyFunc()
 	{
 		HasRun = true;
 		MessageBox(nullptr, "We're Starting", "Start", 0);
-		Detours::X64::DetourFunction((PBYTE)0x14097B8F0, (PBYTE)&MyBox,Detours::X64Option::USE_PUSH_RET);
+		DetourTransactionBegin();
+
 		MessageBox(nullptr, "We're Finish", "Start", 0);
 	}
 }

@@ -35,33 +35,37 @@ namespace Cyclone
             if (File.Exists($"{ZibFolder}\\Index.zib"))
                 FileNamesToReadInOrder = File.ReadAllLines($"{ZibFolder}\\Index.zib").ToList();
 
-            using (var Writer = new BinaryWriter(File.Open(ZibFolder.Replace("Unpacked", ""), FileMode.CreateNew, FileAccess.Write)))
+            using (var Writer = new BinaryWriter(File.Open(ZibFolder.Replace("Unpacked", ""), FileMode.OpenOrCreate, FileAccess.Write)))
             {
                 var CurrentOffset = (Directory.GetFiles(ZibFolder).Length - 1) * 64 + 16; //First should be Number of Files * 64 + 16.
                 foreach (var FileToPack in FileNamesToReadInOrder)
                 {
                     var OffSet = CurrentOffset;
-                    var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{ZibFolder}\\{FileToPack}").Length.ToString());
-                    CurrentOffset += Convert.ToInt32(Utilities.HexToDec(CurrentFileSize));
+                    var CurrentFileSize = new FileInfo($"{ZibFolder}\\{FileToPack}").Length.ToString();
+                    CurrentOffset += Convert.ToInt32(CurrentFileSize);
 
-                    var CurrentSafeFileName = new FileInfo(FileToPack).Name; //ONLY the file name not the whole dir.
-                    Writer.Write(new byte[] { 0x00, 0x00, 0x00, 0x00 }); //Write 4 Byte Buffer
-                    var OffsetSize = Utilities.DecToHex(OffSet.ToString()).Length;
-                    while (OffsetSize < 6)
-                    {
-                        Writer.Write((byte)0x00);
-                        OffsetSize++;
-                    }
-                    Writer.Write(OffSet); //Array Reverse :/
+                    Writer.Write(0x00);
+                    Writer.Write(SwapBytes(OffSet));
+                    Writer.Write(0x00);
+                    Writer.Write(SwapBytes((int) new FileInfo($"{ZibFolder}\\{FileToPack}").Length));
 
-                    //Write Start Offset filled to 4 bytes
-                    //write 4 byte buffer 
-                    //write File size to 4 bytes
-                    //Write 4 File name.
-                    //Write till total == 64 bytes
-                    return;
+                    Writer.Write(Encoding.ASCII.GetBytes(FileToPack));
+
+                    //Write Empty Buffer.}
+                    Writer.Write(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
+                }
+                foreach (var FileToPack in FileNamesToReadInOrder)
+                {
+                    Writer.Write(File.ReadAllBytes($"{ZibFolder}\\{FileToPack}"));
                 }
             }
+
+        }
+
+        public static int SwapBytes(int Bytes)
+        {
+            Bytes = (Bytes >> 16) | (Bytes << 16);
+            return (int)((Bytes & 0xFF00FF00) >> 8) | ((Bytes & 0x00FF00FF) << 8);
         }
     }
 }
