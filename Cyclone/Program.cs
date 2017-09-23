@@ -1,11 +1,10 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Cyclone
 {
@@ -55,17 +54,14 @@ namespace Cyclone
                     Writer.Write(new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
                 }
                 foreach (var FileToPack in FileNamesToReadInOrder)
-                {
                     Writer.Write(File.ReadAllBytes($"{ZibFolder}\\{FileToPack}"));
-                }
             }
-
         }
 
         public static int SwapBytes(int Bytes)
         {
             Bytes = (Bytes >> 16) | (Bytes << 16);
-            return (int)((Bytes & 0xFF00FF00) >> 8) | ((Bytes & 0x00FF00FF) << 8);
+            return (int) ((Bytes & 0xFF00FF00) >> 8) | ((Bytes & 0x00FF00FF) << 8);
         }
     }
 }

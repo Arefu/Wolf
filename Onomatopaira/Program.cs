@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Onomatopaira
 {
     internal class Program
     {
         [STAThread]
-        private static void Main(string[] Arguments)
+        private static void Main()
         {
-            var ShouldGarbageCollect = Arguments.Any(Argument => Argument.ToLower() == "-gc");
 
             Console.Title = "Onomatopaira";
 
@@ -54,15 +52,10 @@ namespace Onomatopaira
                                     ExtraBytes = ExtraBytes + 1;
 
                             //Write File
-                            using (var FileWriter =
-                                new BinaryWriter(
-                                    File.Open("YGO_DATA/" + LineData[2], FileMode.Create, FileAccess.Write)))
+                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + LineData[2], FileMode.Create, FileAccess.Write)))
                             {
                                 FileWriter.Write(DatReader.ReadBytes(Utilities.HexToDec(LineData[0])));
                                 FileWriter.Flush();
-
-                                if (ShouldGarbageCollect)
-                                    GC.Collect(GC.MaxGeneration);
                             }
 
                             //Advance Stream

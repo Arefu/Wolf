@@ -9,7 +9,7 @@ namespace Embargo
     internal class Program
     {
         [STAThread]
-        private static void Main(string[] Args)
+        private static void Main()
         {
             Console.Title = "Embargo";
 

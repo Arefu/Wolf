@@ -49,7 +49,6 @@ namespace Abaki
             {
                 Reader.ReadBytes(4); //Discard First 4 Bytes.
                 for (var Count = 0; Count < StringIndex.Count; Count++)
-                {
                     do
                     {
                         using (var Writer = new BinaryWriter(File.Open($"{new FileInfo(BndFilePath).DirectoryName}\\Exported Strings\\String_{Count}.txt", FileMode.OpenOrCreate, FileAccess.Write)))
@@ -57,18 +56,17 @@ namespace Abaki
                             if (Count < StringIndex.Count - 1)
                             {
                                 Reader.BaseStream.Position = StringIndex[Count];
-                                Writer.Write(Reader.ReadBytes((int)StringIndex[Count + 1] - (int)Reader.BaseStream.Position));
+                                Writer.Write(Reader.ReadBytes((int) StringIndex[Count + 1] - (int) Reader.BaseStream.Position));
                                 Count++;
                             }
                             else
                             {
                                 Reader.BaseStream.Position = StringIndex[Count];
-                                Writer.Write(Reader.ReadBytes((int)Reader.BaseStream.Length - (int)Reader.BaseStream.Position));
+                                Writer.Write(Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position));
                                 Count++;
                             }
                         }
                     } while (Count < StringIndex.Count);
-                }
             }
         }
     }
