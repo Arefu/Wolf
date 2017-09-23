@@ -1,41 +1,32 @@
-#include <detours.h>
-#include <Windows.h>
-
-void MyFunc();
-void MyBox();
-static bool HasRun = false;
-
+#include "stdafx.h"
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-		MyFunc();
+		InitDetours();
 		break;
+	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
 	default:
 		break;
 	}
 
-	return false;
+	return true;
 }
 
-void WINAPI MyFunc()
+void WINAPI InitDetours()
 {
-	if (HasRun == false)
-	{
-		HasRun = true;
-		MessageBox(nullptr, "We're Starting", "Start", 0);
 		DetourTransactionBegin();
-
-		MessageBox(nullptr, "We're Finish", "Start", 0);
-	}
+		DetourUpdateThread(GetCurrentThread());
+		OldFunction = (Address)(0x1408FB380);
+		DetourAttach((PVOID*)&OldFunction, MyFunction);
+		DetourTransactionCommit();
 }
-
-void MyBox()
+__int64 MyFunction()
 {
 	MessageBox(nullptr, "We're Here Now", "Start", 0);
+	return OldFunction();
 }
