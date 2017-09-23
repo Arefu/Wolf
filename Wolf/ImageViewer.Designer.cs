@@ -1,11 +1,14 @@
-﻿namespace Wolf
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Wolf
 {
     partial class ImageViewer
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -63,6 +66,6 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private PictureBox pictureBox1;
     }
 }

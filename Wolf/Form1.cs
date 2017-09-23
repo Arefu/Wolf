@@ -15,7 +15,7 @@ namespace Wolf
         public static StreamReader Reader;
         public static List<FileData> Data = new List<FileData>();
 
-        private TreeNode _EndNode; //Recursive Func, Needs To Be Outside.
+        private TreeNode _endNode; //Recursive Func, Needs To Be Outside.
 
         public Form1()
         {
@@ -32,7 +32,7 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            if (Reader.BaseStream != null)
+            if (Reader.BaseStream.CanRead)
             {
                 var Reply = MessageBox.Show(this,
                     "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
@@ -59,15 +59,15 @@ namespace Wolf
                     MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
                 if (Reply == DialogResult.No) Environment.Exit(1);
                 else
-                    using (var OFD = new OpenFileDialog())
+                    using (var Ofd = new OpenFileDialog())
                     {
-                        OFD.Title = "Select YuGiOh.exe";
-                        OFD.Filter = "YuGiOh.exe | YuGiOh.exe";
-                        var Result = OFD.ShowDialog();
+                        Ofd.Title = "Select YuGiOh.exe";
+                        Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
+                        var Result = Ofd.ShowDialog();
                         if (Result != DialogResult.OK) Environment.Exit(1);
-                        Reader = new StreamReader(File.Open($"{new FileInfo(OFD.FileName).DirectoryName}\\YGO_DATA.TOC",
+                        Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC",
                             FileMode.Open, FileAccess.Read));
-                        InstallDir = new FileInfo(OFD.FileName).DirectoryName;
+                        InstallDir = new FileInfo(Ofd.FileName).DirectoryName;
                     }
             }
 
@@ -150,12 +150,12 @@ namespace Wolf
             {
                 if (Node.Text == MainFileView.SelectedItems[0].Text)
                 {
-                    _EndNode = Node;
+                    _endNode = Node;
                     return Node;
                 }
                 GetNode(Node);
             }
-            return _EndNode;
+            return _endNode;
         }
 
         private static void GiveIcons(TreeNode RootNode)

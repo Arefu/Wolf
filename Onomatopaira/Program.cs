@@ -1,8 +1,8 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Onomatopaira
 {
@@ -24,8 +24,7 @@ namespace Onomatopaira
                 {
                     using (var Reader = new StreamReader(FileDialog.FileName))
                     {
-                        var DatReader =
-                            new BinaryReader(File.Open(FileDialog.FileName.Replace(".toc", ".dat"), FileMode.Open));
+                        var DatReader = new BinaryReader(File.Open(FileDialog.FileName.Replace(".toc", ".dat"), FileMode.Open));
                         Reader.ReadLine(); //Dispose First Line.
 
                         while (!Reader.EndOfStream)
@@ -38,12 +37,10 @@ namespace Onomatopaira
                                 RegexOptions.Compiled); //Remove All Extra Spaces.
                             var LineData = Line.Split(' '); //Split Into Chunks.
 
-                            Utilities.Log(
-                                $"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)",
-                                Utilities.Event.Information);
+                            Utilities.Log($"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)", Utilities.Event.Information);
 
                             //Create Item's Folder.
-                            new FileInfo("YGO_DATA/" + LineData[2]).Directory?.Create();
+                            new FileInfo("YGO_DATA/" + LineData[2]).Directory.Create();
 
                             //Check Alignment
                             var ExtraBytes = Utilities.HexToDec(LineData[0]);

@@ -1,11 +1,14 @@
-﻿namespace Wolf
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+
+namespace Wolf
 {
     partial class Form1
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -236,24 +239,24 @@
         }
 
         #endregion
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView FileQuickViewList;
-        private System.Windows.Forms.ListView MainFileView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ToolStripStatusLabel GameLocLabel;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ImageList NodeImages;
-        private System.Windows.Forms.ContextMenuStrip FileHandleMenu;
-        private System.Windows.Forms.ToolStripMenuItem extractToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem openToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem closeToolStripMenuItem;
+        private SplitContainer splitContainer1;
+        private TreeView FileQuickViewList;
+        private ListView MainFileView;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ToolStripStatusLabel GameLocLabel;
+        private StatusStrip statusStrip1;
+        private ImageList NodeImages;
+        private ContextMenuStrip FileHandleMenu;
+        private ToolStripMenuItem extractToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem viewToolStripMenuItem;
     }
 }
 
