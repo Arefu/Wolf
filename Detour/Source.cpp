@@ -25,6 +25,7 @@ void WINAPI InitDetours()
 		DetourAttach((PVOID*)&OldFunction, MyFunction);
 		DetourTransactionCommit();
 }
+
 __int64 MyFunction()
 {
 	MessageBox(nullptr, "We're Here Now", "Start", 0);
