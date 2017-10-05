@@ -1,11 +1,9 @@
-# Detour (Example)
+# Chrtter
 
 #### Build Information
 
-* [Detours Library](https://github.com/Nukem9/detours) by Nukem.
 * Build **x64**, **x86** will NOT work.
 
-#### Example
-This example shows how you can hook events in-game.
-In this case, when you press "Singer Player" it'll show a message box before returning control to the game. 
-
+#### Information
+This Plugin will open a console that uses IRC to communicate with other players or execute other plugin commands.
+Please put this in the "plugins" directory where the game is installed and use launch_ldr (not yet created) to inject it **NOT** embargo._
