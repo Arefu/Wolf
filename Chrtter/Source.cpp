@@ -28,6 +28,6 @@ void WINAPI InitConsole()
 
 void WINAPI InitIRC()
 {
-	std::cout << "[!----- CHRTTER" << std::endl;
+	Log(Information, "Starting CHRTTER...");
 	//Start IRC
 }
