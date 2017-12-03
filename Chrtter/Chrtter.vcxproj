@@ -77,9 +77,6 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Detour\README.md" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

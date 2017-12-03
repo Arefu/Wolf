@@ -27,7 +27,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Detour\README.md" />
-  </ItemGroup>
 </Project>
