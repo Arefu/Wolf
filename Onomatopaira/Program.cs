@@ -11,7 +11,6 @@ namespace Onomatopaira
         [STAThread]
         private static void Main()
         {
-
             Console.Title = "Onomatopaira";
 
             using (var FileDialog = new OpenFileDialog())

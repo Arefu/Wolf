@@ -26,17 +26,22 @@ namespace Cyclone
             switch (new DirectoryInfo(ZibFolder).Name.Replace(" Unpacked", string.Empty))
             {
                 case "busts.zib":
+                    Packer.Pack(ZibFolder, 0x2390);
                     break;
                 case "cardcropHD400.jpg.zib":
-                    CardCrop.Extract(4, 4, 39, 40, 9, ZibFolder);
+                    Packer.Pack(ZibFolder);
                     break;
                 case "cardcropHD401.jpg.zib":
-                    CardCrop.Extract(4, 4, 39, 40, 9, ZibFolder);
+                    Packer.Pack(ZibFolder);
                     break;
                 case "decks.zib":
+                    Packer.Pack(ZibFolder, 0x8650);
                     break;
                 case "packs.zib":
+                    Packer.Pack(ZibFolder, 0x750);
                     break;
+                default:
+                    throw new Exception("This is either an unsupported ZIB, or a corrupted extraction.");
             }
         }
     }

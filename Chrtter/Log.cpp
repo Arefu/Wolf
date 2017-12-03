@@ -7,7 +7,6 @@ void Log(MessageType LogType, char* LogMessage)
 	case 0:
 		std::cout << "[ERROR]: " << LogMessage << std::endl;
 		std::cout << "Program Needs To Quit Due To Error...";
-		getchar();
 		exit(1);
 		break;
 	case 1:

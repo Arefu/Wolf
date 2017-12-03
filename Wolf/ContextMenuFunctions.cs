@@ -36,8 +36,6 @@ namespace Wolf
                 {
                     BReader.BaseStream.Position = BytesToRead;
                     Writer.Write(BReader.ReadBytes(FileToExport.Item1));
-                    Writer.Close();
-                    Writer.Dispose();
                     BReader.Dispose();
                 }
             }

@@ -21,14 +21,14 @@ namespace Celtic_Guardian
             Alert = 3
         }
 
+        private static readonly string[] SizeSuffixes =
+            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+
         public static uint SwapBytes(uint x)
         {
             x = (x >> 16) | (x << 16);
             return ((x & 0xFF00FF00) >> 8) | ((x & 0x00FF00FF) << 8);
         }
-
-        private static readonly string[] SizeSuffixes =
-            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
 
         public static long DirSize(DirectoryInfo Directory)
         {

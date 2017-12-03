@@ -21,8 +21,8 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 void WINAPI InitConsole()
 {
 	AllocConsole();
-	freopen("CONOUT$", "w", stdout);
-	freopen("CONIN$", "r", stdin);
+	FILE* ConOutRes = freopen("CONOUT$", "w", stdout);
+	FILE* ConInRes = freopen("CONIN$", "r", stdin);
 	SetConsoleTitle("Yu-Gi-Oh! Legacy Of The Duelist: Chrtter");
 }
 

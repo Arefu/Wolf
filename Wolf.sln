@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onomatopaira", "Onomatopaira\Onomatopaira.csproj", "{471F031F-BDBB-48B4-8128-1399723BA10F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -26,10 +26,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolf", "Wolf\Wolf.csproj", 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ether", "Ether\Ether.csproj", "{470E8CA5-3741-4FB6-BD16-5FDB6805FCC3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vortex", "Vortex\Vortex.csproj", "{2FD46374-78BE-493F-8AB5-D03B4899A04B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Embargo", "Embargo\Embargo.csproj", "{F4978EA4-45F2-402E-8620-D6F7C6B13D96}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template DLL Files", "Template DLL Files", "{20E27FC9-45E3-41EF-8ADD-CB3A010C051F}"
 EndProject
@@ -42,6 +51,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateThread", "CreateThread\CreateThread.vcxproj", "{5FFE868C-50A3-479F-804A-0CB2D6864066}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lithe", "Lithe\Lithe.csproj", "{E576B329-63AA-4D3C-B6C8-984A435302F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Detour", "Detour", "{B8F6145F-0333-4E5D-A1A6-84F6AC3ED0DD}"
 EndProject
@@ -60,6 +72,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chrtter", "Chrtter\Chrtter.vcxproj", "{45B58769-76F6-4A29-BB11-07079380A70A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elroy", "Elroy\Elroy.csproj", "{4F1A9570-E596-4083-B269-AC0DAC3D224F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chrtter", "Chrtter", "{8D10985E-5AEC-4AC5-8BDE-5FB3ED500FB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -258,8 +275,9 @@ Global
 		{B8F6145F-0333-4E5D-A1A6-84F6AC3ED0DD} = {20E27FC9-45E3-41EF-8ADD-CB3A010C051F}
 		{EE4C6258-83B8-4455-B5EB-FFDA3FFA0743} = {B8F6145F-0333-4E5D-A1A6-84F6AC3ED0DD}
 		{917D25F9-6BC1-4FD1-845B-0801374FF792} = {53604621-FE8D-489F-BE5F-6E375CEBD1A7}
-		{45B58769-76F6-4A29-BB11-07079380A70A} = {CC572502-6B13-4A7E-A66F-71CF3D1E412F}
+		{45B58769-76F6-4A29-BB11-07079380A70A} = {8D10985E-5AEC-4AC5-8BDE-5FB3ED500FB0}
 		{4F1A9570-E596-4083-B269-AC0DAC3D224F} = {1F6BD197-59AE-4436-B4AF-526B2C8FF3A4}
+		{8D10985E-5AEC-4AC5-8BDE-5FB3ED500FB0} = {CC572502-6B13-4A7E-A66F-71CF3D1E412F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D850726B-11D0-404F-AE1F-4AD8A19B8D49}

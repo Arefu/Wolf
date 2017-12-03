@@ -83,9 +83,13 @@ namespace Relinquished
                             CurrentChunk = CurrentChunk.Skip(SizeReadSize).ToArray();
                             var CurrentFileName = Utilities.GetText(CurrentChunk.Take(FileNameReadSize).ToArray());
 
-                            //Start Offset Is WRONG In ZIB For Some Reason, or maybe I am...
+                            //Start Offsets Are WRONG In ZIB For Some Reason, Or Maybe I Am... (Thanks thomasneff for other files)
                             if (CurrentFileName == "adriangecko_neutral.png")
                                 CurrentStartOffset = 0x2390;
+                            if (CurrentFileName == "1classic_01a_yugimuto.ydc")
+                                CurrentStartOffset = 0x8650;
+                            if (CurrentFileName == "bpack_BattlePack1.bin")
+                                CurrentStartOffset = 0x750;
 
                             Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)", Utilities.Event.Information);
 
@@ -94,7 +98,6 @@ namespace Relinquished
                             using (var Writer = new BinaryWriter(File.Open($"{ZibFileName} Unpacked/" + CurrentFileName, FileMode.Create, FileAccess.Write)))
                             {
                                 Writer.Write(Reader.ReadBytes(CurrentFileSize));
-                                Writer.Close();
                                 IndexWriter.Write(CurrentFileName + "\n");
                             }
                             Reader.BaseStream.Position = SnapBack;

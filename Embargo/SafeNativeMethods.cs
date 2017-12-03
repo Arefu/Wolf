@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Embargo
 {
-    public static class NaitiveMethods
+    public static class SafeNativeMethods
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr OpenProcess(uint DwDesiredAccess, int BInheritHandle, uint DwProcessId);
@@ -11,10 +11,10 @@ namespace Embargo
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern int CloseHandle(IntPtr HObject);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr GetProcAddress(IntPtr HModule, string LpProcName);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr GetModuleHandle(string LpModuleName);
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -22,11 +22,9 @@ namespace Embargo
             uint FlAllocationType, uint FlProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern int WriteProcessMemory(IntPtr HProcess, IntPtr LpBaseAddress, byte[] Buffer, uint Size,
-            int LpNumberOfBytesWritten);
+        internal static extern int WriteProcessMemory(IntPtr HProcess, IntPtr LpBaseAddress, byte[] Buffer, int Size, int LpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern IntPtr CreateRemoteThread(IntPtr HProcess, IntPtr LpThreadAttribute, IntPtr DwStackSize,
-            IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
+        internal static extern IntPtr CreateRemoteThread(IntPtr HProcess, IntPtr LpThreadAttribute, IntPtr DwStackSize, IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
     }
 }

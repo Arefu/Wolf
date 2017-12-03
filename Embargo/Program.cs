@@ -17,7 +17,7 @@ namespace Embargo
                 Ofd.Filter = "Language file (*.dll) | *.dll";
                 if (Ofd.ShowDialog() != DialogResult.OK)
                     Environment.Exit(1);
-                
+
                 Utilities.Log($"Result: {Injector.Inject("YuGiOh", Ofd.FileName)}", Utilities.Event.Information);
                 Console.ReadLine();
             }

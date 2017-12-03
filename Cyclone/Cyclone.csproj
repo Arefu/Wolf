@@ -47,10 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Busts.cs" />
-    <Compile Include="CardCrop.cs" />
-    <Compile Include="Packs.cs" />
-    <Compile Include="Decks.cs" />
+    <Compile Include="Packer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
