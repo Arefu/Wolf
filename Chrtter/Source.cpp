@@ -24,49 +24,20 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	return true;
 }
 
-void WINAPI InitConsole()
+void InitConsole()
 {
 	if (ConsoleAlloc == false)
 	{
 		ConsoleAlloc = true;
 		AllocConsole();
-		freopen_s((FILE**)stdout, "CONOUT$", "r", stdout);
-		freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-		InitIRC();
+		freopen("CONIN$", "r", stdin);
+		freopen("CONOUT$", "w", stdout);
+		freopen("CONOUT$", "w", stderr);
+		CreateThread(nullptr, NULL, InitIRC, nullptr, NULL, nullptr);
 	}
 }
 
-void WINAPI InitIRC()
-{
-	//Start IRC
-	std::cout << "\"IRC\" Started. Type /HELP For Commands" << std::endl;
-	CreateThread(nullptr, NULL, MessageListen, nullptr, NULL, nullptr);
-}
 
-DWORD WINAPI MessageListen(LPVOID)
-{
-	std::string CurrentMessage;
-		std::cout << ">: ";
-		std::getline(std::cin, CurrentMessage);
-
-		if (CurrentMessage == "/HELP")
-		{
-			std::cout << "** HELP **" << std::endl;
-			std::cout << "/HELP - Print This Message." << std::endl;
-			std::cout << "/MAKE - Make A Chat/Channel." << std::endl;
-			std::cout << "/JOIN <KEY> - Replace <KEY> With Your Private Key To Join A Game." << std::endl;
-			std::cout << "/PART or /QUIT - Quits Game And IRC." << std::endl;
-		}
-		else if (CurrentMessage == "/MAKE")
-		{
-			//
-		}
-		else if (CurrentMessage == "/PART" || CurrentMessage == "/QUIT")
-		{
-			exit(0);
-		}
-		return 0;
-}
 
 void InitHook()
 {
@@ -81,7 +52,5 @@ void InitHook()
 bool Main()
 {
 	InitConsole();
-
-
 	return OldFunction();
 }

@@ -41,7 +41,7 @@ namespace Cyclone
                     Packer.Pack(ZibFolder, 0x750);
                     break;
                 default:
-                    throw new Exception("This is either an unsupported ZIB, or a corrupted extraction.");
+                    throw new Exception("This is either an unsupported ZIB");
             }
         }
     }

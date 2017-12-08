@@ -39,7 +39,7 @@ namespace Onomatopaira
                             Utilities.Log($"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)", Utilities.Event.Information);
 
                             //Create Item's Folder.
-                            new FileInfo("YGO_DATA/" + LineData[2]).Directory.Create();
+                            new FileInfo("YGO_DATA/" + LineData[2]).Directory?.Create();
 
                             //Check Alignment
                             var ExtraBytes = Utilities.HexToDec(LineData[0]);

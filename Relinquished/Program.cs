@@ -69,6 +69,8 @@ namespace Relinquished
                         FileNameReadSize = 56;
                         DataStartOffset = 0x750;
                         break;
+                    default:
+                        throw new Exception("Not valid ZIB File");
                 }
                 using (var IndexWriter = new StreamWriter(File.Open($"{ZibFileName} Unpacked/Index.zib", FileMode.Open, FileAccess.Write)))
                 {
