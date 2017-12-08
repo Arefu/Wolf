@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Embargo
 {
-    public static class SafeNativeMethods
+    public static class NativeMethods
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr OpenProcess(uint DwDesiredAccess, int BInheritHandle, uint DwProcessId);
@@ -11,10 +11,10 @@ namespace Embargo
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern int CloseHandle(IntPtr HObject);
 
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr GetProcAddress(IntPtr HModule, string LpProcName);
 
-        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern IntPtr GetModuleHandle(string LpModuleName);
 
         [DllImport("kernel32.dll", SetLastError = true)]

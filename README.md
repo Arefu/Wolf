@@ -4,20 +4,7 @@
 Wolf is a collection of tools that allow you to edit content for [Yu-Gi-Oh! Legacy of the Duelist!](http://store.steampowered.com/app/480650/YuGiOh_Legacy_of_the_Duelist/) on PC.
 
 There are no present or future plans to port any of these tools to allow editing content from the Play Station 4 or Xbox One, if anyone else feels upto it, by all means! I've documentated everything I know in the Wiki so feel free to check it out on there.
-
-* [Abaki](https://github.com/Arefu/Wolf/tree/master/Abaki) 
-* [Lithe](https://github.com/Arefu/Wolf/tree/master/Lithe) 
-* [Embargo](https://github.com/Arefu/Wolf/tree/master/Embargo)
-* [Celtic Guardian](https://github.com/Arefu/Wolf/tree/master/Celtic%20Guardian)
-* [Ether](https://github.com/Arefu/Wolf/tree/master/Ether)
-* [Onomatopaira](https://github.com/Arefu/Wolf/tree/master/Onomatopaira)
-* [Relinquished](https://github.com/Arefu/Wolf/tree/master/Relinquished)
-* [Vortex](https://github.com/Arefu/Wolf/tree/master/Vortex)
-* [Wolf](https://github.com/Arefu/Wolf/tree/master/Wolf)
-* [Cyclone](https://github.com/Arefu/Wolf/tree/master/Cyclone)
-
-
-For more information on these programs refer to their own README File.
+Even with me saying there are no plans, if someone can provide a legal way to obtain a disk image, I may take a look and see if these tools can be adjusted.
 
 If you're looking for "Engine Research" check out the [Wiki](https://github.com/Arefu/Wolf/wiki).
 

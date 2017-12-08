@@ -2,10 +2,14 @@
 
 #include <Windows.h>
 #include <iostream>
+#include <string>
+#include "detours.h"
 
 void InitConsole();
 void InitIRC();
+void InitHook();
+DWORD WINAPI MessageListen(LPVOID);
 
-//Log.cpp
-enum MessageType { Error = 0, Warning = 1, Information = 2 };
-void Log(MessageType, char*);
+typedef INT64(__stdcall* Address)();
+Address OldFunction = NULL;
+bool Main();
