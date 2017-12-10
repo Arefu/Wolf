@@ -80,7 +80,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chrtter", "Chrtter", "{8D10
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{E4718F54-8DCF-4601-8C29-347CACDDE5CE}"
 	ProjectSection(SolutionItems) = preProject
-		Tutorials\Vortex\Vortex.md = Tutorials\Vortex\Vortex.md
+		Tutorials\Abaki.md = Tutorials\Abaki.md
+		Tutorials\Celtic Guardian.md = Tutorials\Celtic Guardian.md
+		Tutorials\Chrtter.md = Tutorials\Chrtter.md
+		Tutorials\CreateThread.md = Tutorials\CreateThread.md
+		Tutorials\Cyclone.md = Tutorials\Cyclone.md
+		Tutorials\Detour.md = Tutorials\Detour.md
+		Tutorials\Elroy.md = Tutorials\Elroy.md
+		Tutorials\Embargo.md = Tutorials\Embargo.md
+		Tutorials\Ether.md = Tutorials\Ether.md
+		Tutorials\Lithe.md = Tutorials\Lithe.md
+		Tutorials\MessageBox.md = Tutorials\MessageBox.md
+		Tutorials\Onomatopaira.md = Tutorials\Onomatopaira.md
+		Tutorials\Relinquished.md = Tutorials\Relinquished.md
+		Tutorials\Vortex.md = Tutorials\Vortex.md
+		Tutorials\Wolf.md = Tutorials\Wolf.md
 	EndProjectSection
 EndProject
 Global
