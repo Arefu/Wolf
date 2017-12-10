@@ -1,7 +1,0 @@
-sub_1408FB3D0(__int64 a1) //Something to do with lobby invites
-sub_140688440(__int64 a1, __int64 a2, int a3, int a4) Stuff
-sub_14068AA90(__int64 a1) //Looks to be the MAIN function for handling everything to do with the game, the main core updater and all.
-
-
-
-Adding "-vsync" as a startup param unlocks the frame rate.
