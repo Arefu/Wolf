@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onomatopaira", "Onomatopaira\Onomatopaira.csproj", "{471F031F-BDBB-48B4-8128-1399723BA10F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -77,6 +77,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elroy", "Elroy\Elroy.csproj
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chrtter", "Chrtter", "{8D10985E-5AEC-4AC5-8BDE-5FB3ED500FB0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{E4718F54-8DCF-4601-8C29-347CACDDE5CE}"
+	ProjectSection(SolutionItems) = preProject
+		Tutorials\Vortex\Vortex.md = Tutorials\Vortex\Vortex.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

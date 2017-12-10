@@ -2,16 +2,14 @@
 
 #include <Windows.h>
 #include <iostream>
+#include <vector>
 #include <string>
+#include <sstream>
+#include <iterator>
+#include <algorithm>
 #include "detours.h"
-#include "ircdef.h"
 
-void InitConsole();
-
+void Init();
 void InitHook();
-
-typedef INT64(__stdcall* Address)();
-Address OldFunction = NULL;
-bool Main();
-
-using namespace std; //What are you going to do about it?
+bool Start();
+std::string strtoup(std::string);
