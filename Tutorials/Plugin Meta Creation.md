@@ -11,7 +11,8 @@ going on, it can also help end users determine if you have any dependancies that
   "Description": "A Template Meta.JSON",
   "Injection_Addresses": [ 0, 0, 0 ],
   "Depends": [ "Nothing" ]
-}```
+}
+```
 
 Currently, Launch_LDR will look at the Depends section and throw a *WARNING* that the file doesn't exist, but will not stop the game from launching.
 You should pull the whole DLL name in extension included for this to work properly.
