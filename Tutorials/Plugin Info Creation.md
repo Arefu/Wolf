@@ -18,5 +18,4 @@ Currently, Launch_LDR will look at the Depends section and throw a *WARNING* tha
 You should pull the whole DLL name in extension included for this to work properly.
 
 
-They should be called ``PluginName_info.js
-on``
+They should be called ``PluginName_info.json``
