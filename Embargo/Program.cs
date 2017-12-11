@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Embargo
 {
@@ -18,8 +17,9 @@ namespace Embargo
                 if (Ofd.ShowDialog() != DialogResult.OK)
                     Environment.Exit(1);
 
-                Utilities.Log($"Result: {Injector.Inject("YuGiOh", Ofd.FileName)}", Utilities.Event.Information);
-                Console.ReadLine();
+                var ResultStatus = Injector.Inject("YuGiOh", Ofd.FileName);
+                if (ResultStatus != InjectionStatus.Success)
+                    MessageBox.Show("Error Status: " + ResultStatus, "Error During Inject!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Flatiron.Properties
+namespace Abaki.Properties
 {
 
 

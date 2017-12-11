@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="camera2.Position" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdNaWNyb3NvZnQuRGlyZWN0WCwgVmVyc2lvbj0xLjAuMjkwMi4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTMxYmYzODU2YWQzNjRlMzUFAQAAABlNaWNy
-        b3NvZnQuRGlyZWN0WC5WZWN0b3IzAwAAAAFYAVkBWgAAAAsLCwIAAAAAAAAAAABAQAAAoMAL
-</value>
-  </data>
-  <data name="camera2.Target" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdNaWNyb3NvZnQuRGlyZWN0WCwgVmVyc2lvbj0xLjAuMjkwMi4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTMxYmYzODU2YWQzNjRlMzUFAQAAABlNaWNy
-        b3NvZnQuRGlyZWN0WC5WZWN0b3IzAwAAAAFYAVkBWgAAAAsLCwIAAAAAAAAAAAAAAAAAAAAL
-</value>
-  </data>
-  <data name="camera2.UpVector" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdNaWNyb3NvZnQuRGlyZWN0WCwgVmVyc2lvbj0xLjAuMjkwMi4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPTMxYmYzODU2YWQzNjRlMzUFAQAAABlNaWNy
-        b3NvZnQuRGlyZWN0WC5WZWN0b3IzAwAAAAFYAVkBWgAAAAsLCwIAAAAAAAAAAACAPwAAAAAL
-</value>
-  </data>
+  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

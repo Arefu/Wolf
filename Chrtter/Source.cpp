@@ -1,10 +1,15 @@
 #include "stdafx.h" 
+#include "ircdef.h"
+
+using namespace std;
 
 BOOL ConsoleAlloc = false;
+BOOL RanHook = false;
+typedef INT64(__stdcall* Address)();
+Address OldFunction = (Address)(0x1408FAF50);
+
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
-	BOOL RanHook = false;
-
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
@@ -20,37 +25,33 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	default:
 		break;
 	}
-
 	return true;
 }
 
-void InitConsole()
+void Init()
 {
 	if (ConsoleAlloc == false)
 	{
-		ConsoleAlloc = true;
 		AllocConsole();
 		freopen("CONIN$", "r", stdin);
 		freopen("CONOUT$", "w", stdout);
 		freopen("CONOUT$", "w", stderr);
 		CreateThread(nullptr, NULL, InitIRC, nullptr, NULL, nullptr);
+		ConsoleAlloc = true;
 	}
 }
-
-
 
 void InitHook()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	OldFunction = (Address)(0x1408FAF50);
-	DetourAttach((PVOID*)&OldFunction, Main);
+	DetourAttach((PVOID*)&OldFunction, Start);
 	DetourTransactionCommit();
-
 }
 
-bool Main()
+bool Start()
 {
-	InitConsole();
+	Init();
+	DetourDetach((PVOID*)&OldFunction, Start);
 	return OldFunction();
 }
