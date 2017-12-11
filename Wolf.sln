@@ -87,6 +87,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{
 		Tutorials\Lithe.md = Tutorials\Lithe.md
 		Tutorials\MessageBox.md = Tutorials\MessageBox.md
 		Tutorials\Onomatopaira.md = Tutorials\Onomatopaira.md
+		Tutorials\Plugin Info Creation.md = Tutorials\Plugin Info Creation.md
 		Tutorials\Relinquished.md = Tutorials\Relinquished.md
 		Tutorials\Vortex.md = Tutorials\Vortex.md
 		Tutorials\Wolf.md = Tutorials\Wolf.md

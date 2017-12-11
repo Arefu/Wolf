@@ -1,4 +1,4 @@
-# Plugin Meta Creation Tutorial
+# Plugin Info Creation Tutorial
 
 ### Why You Should Make One
 As with anything you need to ask yourself; "Why should I do this when I don't need to?". Well, think of other developers for one,
@@ -8,7 +8,7 @@ going on, it can also help end users determine if you have any dependancies that
 #### Layout
 ```{
   "Name": "Plugin Name",
-  "Description": "A Template Meta.JSON",
+  "Description": "A Template info.JSON",
   "Injection_Addresses": [ 0, 0, 0 ],
   "Depends": [ "Nothing" ]
 }
@@ -16,3 +16,7 @@ going on, it can also help end users determine if you have any dependancies that
 
 Currently, Launch_LDR will look at the Depends section and throw a *WARNING* that the file doesn't exist, but will not stop the game from launching.
 You should pull the whole DLL name in extension included for this to work properly.
+
+
+They should be called ``PluginName_info.js
+on``
