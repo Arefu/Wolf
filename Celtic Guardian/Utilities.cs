@@ -18,7 +18,8 @@ namespace Celtic_Guardian
             Warning = 0,
             Information = 1,
             Error = 2,
-            Alert = 3
+            Alert = 3,
+            Meta = 4
         }
 
         private static readonly string[] SizeSuffixes =
@@ -83,6 +84,12 @@ namespace Celtic_Guardian
                 case Event.Alert:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("[Information]: ");
+                    Console.ResetColor();
+                    break;
+
+                case Event.Meta:
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.Write("[Meta Information]: ");
                     Console.ResetColor();
                     break;
 
