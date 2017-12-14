@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Web.Script.Serialization;
 
@@ -10,8 +11,12 @@ namespace Launch_Ldr
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] Args)
         {
+            bool RequireMeta = false;
+            if (Args.Any(Arg => Arg.ToLower() == "-agro"))
+                RequireMeta = true;
+
             Utilities.Log("Looking For Plugins.", Utilities.Event.Information);
             var Plugins = new List<string>();
 
@@ -24,17 +29,29 @@ namespace Launch_Ldr
                     Utilities.Log($"Name: {MetaData.Name}", Utilities.Event.Meta);
                     Utilities.Log($"Description: {MetaData.Description}", Utilities.Event.Meta);
                     foreach (var Address in MetaData.Injection_Addresses)
+                    {
                         Utilities.Log($"Injection Address: {Address}", Utilities.Event.Meta);
+                    }
                     foreach (var Dependancy in MetaData.Depends)
                     {
                         Utilities.Log($"Depends On: {Dependancy}", Utilities.Event.Meta);
+                        if(!File.Exists($"Plugins/{Dependancy}"))
+                        {
+                            Utilities.Log($"I Can't Find {Dependancy}!", Utilities.Event.Warning);
+                        }
                     }
                 }
                 else
                 {
-                    Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
+                    if (!RequireMeta)
+                    {
+                        Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
+                        Plugins.Add(new FileInfo(Plugin).FullName);
+                    }
+                        
+                    else
+                        Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.", Utilities.Event.Error);
                 }
-                Plugins.Add(new FileInfo(Plugin).FullName);
             }
             Process.Start("steam://run/480650");
             Thread.Sleep(TimeSpan.FromSeconds(2.5));

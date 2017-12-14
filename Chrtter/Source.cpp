@@ -36,8 +36,10 @@ void Init()
 		freopen("CONIN$", "r", stdin);
 		freopen("CONOUT$", "w", stdout);
 		freopen("CONOUT$", "w", stderr);
-		CreateThread(nullptr, NULL, InitIRC, nullptr, NULL, nullptr);
 		ConsoleAlloc = true;
+
+		//Start IRC On Thread.
+		CreateThread(nullptr, NULL, InitIRC, nullptr, NULL, nullptr);
 	}
 }
 
@@ -52,6 +54,5 @@ void InitHook()
 bool Start()
 {
 	Init();
-	DetourDetach((PVOID*)&OldFunction, Start);
 	return OldFunction();
 }

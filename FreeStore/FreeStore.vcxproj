@@ -54,10 +54,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\joh\Documents\Visual Studio 2017\Project\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\joh\Documents\Visual Studio 2017\Project\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -69,12 +69,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\joh\Documents\Visual Studio 2017\Project\Wolf\Libraries;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\Johnathon\Documents\Visual Studio 2017\Projects\Wolf\Libraries;C:\Users\joh\Documents\Visual Studio 2017\Project\Wolf\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
