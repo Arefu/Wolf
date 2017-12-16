@@ -32,15 +32,6 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            if (Reader.BaseStream.CanRead)
-            {
-                var Reply = MessageBox.Show(this,
-                    "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
-                    "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                if (Reply != DialogResult.Yes) return;
-
-                Reader.Dispose();
-            }
             Application.Exit();
         }
 
@@ -140,8 +131,8 @@ namespace Wolf
 
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
-            FileQuickViewList_NodeMouseClick(new object(),
-                new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            CurrentPathLBL.Text = FileQuickViewList.SelectedNode.FullPath;
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
