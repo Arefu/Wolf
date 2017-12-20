@@ -1,11 +1,11 @@
-#include "stdafx.h" 
+#include "stdafx.h"
 #include "ircdef.h"
 
 using namespace std;
 
 BOOL ConsoleAlloc = false;
 BOOL RanHook = false;
-typedef INT64(__stdcall* Address)();
+typedef INT64 (__stdcall* Address)();
 Address OldFunction = (Address)(0x1408FAF50);
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

@@ -1,5 +1,4 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,12 +18,15 @@ namespace Wolf
                 if (File.Item3 == FileToExport.Item3)
                     break;
 
-                var AligneSize = Utilities.IsAligned(File.Item1);
-                BytesToRead = AligneSize + BytesToRead;
+                while (File.Item1 % 4 != 0)
+                    File.Item1 = File.Item1 + 1;
+
+                BytesToRead = File.Item1 + BytesToRead;
 
                 if (File.Item3 == FileToExport.Item3)
                     break;
             }
+
             using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open,
                 FileAccess.Read)))
             {

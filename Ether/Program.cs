@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using Celtic_Guardian;
 
@@ -43,6 +44,7 @@ namespace Ether
                             Result = Ofd.FileName;
                             Console.WriteLine($"Result: {new FileInfo(Result).Length} Bytes.");
                         }
+
                         break;
 
                     case 4:
@@ -53,8 +55,9 @@ namespace Ether
                             if (Ofd.ShowDialog() != DialogResult.OK) return;
                             Result = Ofd.FileName;
                             Console.WriteLine(
-                                $"Result: {Utilities.DecToHex(new FileInfo(Result).Length.ToString())} Bytes.");
+                                $"Result: {Utilities.DecToHex(new FileInfo(Result).Length)} Bytes.");
                         }
+
                         break;
 
                     case 5:
@@ -69,9 +72,9 @@ namespace Ether
 
                     case 6:
                         Console.WriteLine(
-                            $"YGO_DATA.TOC Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
+                            $"YGO_DATA.TOC Hash: {GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.TOC")}");
                         Console.WriteLine(
-                            $"YGO_DATA.DAT Hash: {Utilities.GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
+                            $"YGO_DATA.DAT Hash: {GetHashOfFile(Utilities.GetInstallDir() + "\\YGO_DATA.DAT")}");
                         break;
 
                     case 7:
@@ -120,6 +123,17 @@ namespace Ether
             Console.WriteLine("9: Quit");
 
             Console.WriteLine("");
+        }
+
+        private static string GetHashOfFile(string FileName)
+        {
+            using (var Hash = MD5.Create())
+            {
+                using (var Stream = File.OpenRead(FileName))
+                {
+                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
+                }
+            }
         }
     }
 }

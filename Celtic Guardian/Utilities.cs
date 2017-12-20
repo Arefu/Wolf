@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -22,9 +21,6 @@ namespace Celtic_Guardian
             Meta = 4
         }
 
-        private static readonly string[] SizeSuffixes =
-            {"bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
-
         public static uint SwapBytes(uint x)
         {
             x = (x >> 16) | (x << 16);
@@ -33,22 +29,11 @@ namespace Celtic_Guardian
 
         public static long DirSize(DirectoryInfo Directory)
         {
-            var FileInfo = Directory.GetFiles();
-            var Size = FileInfo.Sum(Info => Info.Length);
-            var DirSized = Directory.GetDirectories();
-            Size += DirSized.Sum(Dir => DirSize(Dir));
+            var Size = Directory.GetFiles().Sum(File => File.Length);
+            var SubDirs = Directory.GetDirectories();
+            Size += SubDirs.Sum(SubDir => DirSize(SubDir));
 
             return Size;
-        }
-
-        public static int IsAligned(int Number)
-        {
-            if (Number % 4 == 0) return Number;
-
-            while (Number % 4 != 0)
-                Number = Number + 1;
-
-            return Number;
         }
 
         public static void CreateDummyFile(string FileName, long Length)
@@ -96,6 +81,7 @@ namespace Celtic_Guardian
                 default:
                     throw new ArgumentOutOfRangeException(nameof(LogLevel), LogLevel, null);
             }
+
             Console.WriteLine(Message);
 
             if (ShouldQuit)
@@ -107,19 +93,10 @@ namespace Celtic_Guardian
             return new FileInfo(File).Extension.ToLower() == Extension;
         }
 
-        public static int HexToDec(string HexValue, bool CheckAlignment = false)
-        {
-            var Number = int.Parse(HexValue, NumberStyles.HexNumber);
-            if (CheckAlignment)
-                Number = IsAligned(Number);
-
-            return Number;
-        }
-
-        public static List<FileNames> ParseTocFile()
+        public static List<string> ParseTocFile()
         {
             StreamReader Reader;
-            var LocalVarFiles = new List<FileNames>();
+            var LocalVarFiles = new List<string>();
             try
             {
                 Reader = new StreamReader($"{GetInstallDir()}\\YGO_DATA.TOC");
@@ -136,6 +113,7 @@ namespace Celtic_Guardian
                         FileMode.Open, FileAccess.Read));
                 }
             }
+
             Reader.ReadLine(); //Dispose First Line.
             while (!Reader.EndOfStream)
             {
@@ -145,10 +123,20 @@ namespace Celtic_Guardian
                 Line = Line.TrimStart(' '); //Trim Starting Spaces.
                 Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
                 var LineData = Line.Split(' '); //Split Into Chunks.
-                LocalVarFiles.Add(new FileNames(LineData[2])); //Add To List For Manip.
+                LocalVarFiles.Add(LineData[2]); //Add To List For Manip.
             }
 
             return LocalVarFiles;
+        }
+
+        public static int HexToDec(string HexValue, bool CheckAlignment = false)
+        {
+            var Number = int.Parse(HexValue, NumberStyles.HexNumber);
+            if (CheckAlignment)
+                while (Number % 4 != 0)
+                    Number = Number + 1;
+
+            return Number;
         }
 
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)
@@ -159,6 +147,11 @@ namespace Celtic_Guardian
         public static string DecToHex(string DecValue)
         {
             return int.Parse(DecValue).ToString("x");
+        }
+
+        public static string DecToHex(long DecValue)
+        {
+            return DecValue.ToString("x");
         }
 
         public static string GetText(byte[] Message, bool RemoveNull = true)
@@ -173,6 +166,7 @@ namespace Celtic_Guardian
 
         public static string GiveFileSize(long Value, int DecimalPlaces = 1)
         {
+            var SizeSuffixes = new[] {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
             if (Value < 0)
                 return "-" + GiveFileSize(-Value);
             var I = 0;
@@ -182,13 +176,12 @@ namespace Celtic_Guardian
                 DValue /= 1024;
                 I++;
             }
+
             return string.Format("{0:n" + DecimalPlaces + "} {1}", DValue, SizeSuffixes[I]);
         }
 
-        [STAThread]
         public static string GetInstallDir()
         {
-            string InstallDir;
             try
             {
                 using (var Root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
@@ -196,25 +189,13 @@ namespace Celtic_Guardian
                     using (var Key =
                         Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
                     {
-                        InstallDir = Key?.GetValue("InstallLocation").ToString();
+                        return Key?.GetValue("InstallLocation").ToString();
                     }
                 }
             }
             catch (Exception)
             {
                 throw new Exception("Game Not Found");
-            }
-            return InstallDir;
-        }
-
-        public static string GetHashOfFile(string FileName)
-        {
-            using (var Hash = MD5.Create())
-            {
-                using (var Stream = File.OpenRead(FileName))
-                {
-                    return BitConverter.ToString(Hash.ComputeHash(Stream)).Replace("-", string.Empty).ToLower();
-                }
             }
         }
     }

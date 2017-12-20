@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Celtic_Guardian;
@@ -9,53 +11,65 @@ namespace Onomatopaira
     internal class Program
     {
         [STAThread]
-        private static void Main()
+        private static void Main(string[] Args)
         {
+            var UseArgs = false;
+            var TocFileLocation = "";
+
+            if (Args.Length > 0)
+            {
+                TocFileLocation = Args.FirstOrDefault(File.Exists);
+                if (TocFileLocation != null)
+                    UseArgs = true;
+                else
+                    Utilities.Log("Coun't Find TOC File.", Utilities.Event.Warning);
+            }
+
             Console.Title = "Onomatopaira";
 
             using (var FileDialog = new OpenFileDialog())
             {
                 FileDialog.Title = "Open Yu-Gi-Oh TOC File...";
                 FileDialog.Filter = "Yu-Gi-Oh! LOTD TOC File |*.toc";
-                if (FileDialog.ShowDialog() != DialogResult.OK) return;
+                if (UseArgs == false)
+                {
+                    if (FileDialog.ShowDialog() != DialogResult.OK) return;
+                    TocFileLocation = FileDialog.FileName;
+                }
 
                 try
                 {
-                    using (var Reader = new StreamReader(FileDialog.FileName))
+                    using (var Reader = new StreamReader(TocFileLocation))
                     {
-                        var DatReader = new BinaryReader(File.Open(FileDialog.FileName.Replace(".toc", ".dat"), FileMode.Open));
-                        Reader.ReadLine(); //Dispose First Line.
+                        if (!File.Exists(TocFileLocation.Replace(".toc", ".dat"))) Utilities.Log("Can't Find DAT File.", Utilities.Event.Error, true, 1);
+                        var DatReader = new BinaryReader(File.Open(TocFileLocation.Replace(".toc", ".dat"), FileMode.Open));
+                        Reader.ReadLine();
 
                         while (!Reader.EndOfStream)
                         {
                             var Line = Reader.ReadLine();
                             if (Line == null) continue;
 
-                            Line = Line.TrimStart(' '); //Trim Starting Spaces.
-                            Line = Regex.Replace(Line, @"  +", " ",
-                                RegexOptions.Compiled); //Remove All Extra Spaces.
-                            var LineData = Line.Split(' '); //Split Into Chunks.
+                            Line = Line.TrimStart(' ');
+                            Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
+                            var Data = new FileInformation(Line.Split(' '));
 
-                            Utilities.Log($"Extracting File: {new FileInfo(LineData[2]).Name} ({LineData[0]} Bytes)", Utilities.Event.Information);
+                            Utilities.Log($"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)", Utilities.Event.Information);
 
-                            //Create Item's Folder.
-                            new FileInfo("YGO_DATA/" + LineData[2]).Directory?.Create();
+                            new FileInfo("YGO_DATA/" + Data.FileName).Directory?.Create();
 
-                            //Check Alignment
-                            var ExtraBytes = Utilities.HexToDec(LineData[0]);
-                            if (Utilities.HexToDec(LineData[0]) % 4 != 0)
+                            var ExtraBytes = Utilities.HexToDec(Data.FileSize);
+                            if (Utilities.HexToDec(Data.FileSize) % 4 != 0)
                                 while (ExtraBytes % 4 != 0)
                                     ExtraBytes = ExtraBytes + 1;
 
-                            //Write File
-                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + LineData[2], FileMode.Create, FileAccess.Write)))
+                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Data.FileName, FileMode.Create, FileAccess.Write)))
                             {
-                                FileWriter.Write(DatReader.ReadBytes(Utilities.HexToDec(LineData[0])));
+                                FileWriter.Write(DatReader.ReadBytes(Utilities.HexToDec(Data.FileSize)));
                                 FileWriter.Flush();
                             }
 
-                            //Advance Stream
-                            DatReader.BaseStream.Position += ExtraBytes - Utilities.HexToDec(LineData[0]);
+                            DatReader.BaseStream.Position += ExtraBytes - Utilities.HexToDec(Data.FileSize);
                         }
                     }
                 }
@@ -64,6 +78,24 @@ namespace Onomatopaira
                     Utilities.Log($"Exception Caught: {Ex.Message}", Utilities.Event.Error, true, 1);
                 }
             }
+        }
+        
+        private struct FileInformation
+        {
+            public FileInformation(IReadOnlyList<string> Data)
+            {
+                if (Data.Count != 3 || Data.Count > 3)
+                    Utilities.Log("Can't Parse TOC File.", Utilities.Event.Error, true, 1);
+
+                FileSize = Data[0];
+                //FileNameLength = Data[1];
+                FileName = Data[2];
+            }
+
+            public readonly string FileSize;
+
+            //public string FileNameLength;
+            public readonly string FileName;
         }
     }
 }

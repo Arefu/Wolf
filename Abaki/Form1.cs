@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Abaki
 {
@@ -30,14 +29,12 @@ namespace Abaki
                     const long DataStartOffset = 0x11CD;
                     const long AmountOfStrings = 0x472;
                     var ListOfStringOffSets = new List<int>();
-
                 }
             }
         }
 
         private void ExportToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,8 +8,6 @@ namespace Relinquished
 {
     internal class Program
     {
-        public static List<FileData> Data = new List<FileData>();
-
         [STAThread]
         private static void Main()
         {
@@ -28,7 +25,8 @@ namespace Relinquished
 
                 Directory.CreateDirectory($"{ZibFileName} Unpacked");
                 File.Create($"{ZibFileName} Unpacked/Index.zib").Close();
-                File.SetAttributes($"{ZibFileName} Unpacked/Index.zib", File.GetAttributes($"{ZibFileName} Unpacked/Index.zib") | FileAttributes.Hidden);
+                File.SetAttributes($"{ZibFileName} Unpacked/Index.zib",
+                    File.GetAttributes($"{ZibFileName} Unpacked/Index.zib") | FileAttributes.Hidden);
 
                 long DataStartOffset = 0x0;
                 int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
@@ -72,9 +70,12 @@ namespace Relinquished
                     default:
                         throw new Exception("Not valid ZIB File");
                 }
-                using (var IndexWriter = new StreamWriter(File.Open($"{ZibFileName} Unpacked/Index.zib", FileMode.Open, FileAccess.Write)))
+
+                using (var IndexWriter = new StreamWriter(File.Open($"{ZibFileName} Unpacked/Index.zib", FileMode.Open,
+                    FileAccess.Write)))
                 {
-                    using (var Reader = new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
+                    using (var Reader =
+                        new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
                     {
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
                         {
@@ -93,15 +94,18 @@ namespace Relinquished
                             if (CurrentFileName == "bpack_BattlePack1.bin")
                                 CurrentStartOffset = 0x750;
 
-                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)", Utilities.Event.Information);
+                            Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)",
+                                Utilities.Event.Information);
 
                             var SnapBack = Reader.BaseStream.Position;
                             Reader.BaseStream.Position = CurrentStartOffset;
-                            using (var Writer = new BinaryWriter(File.Open($"{ZibFileName} Unpacked/" + CurrentFileName, FileMode.Create, FileAccess.Write)))
+                            using (var Writer = new BinaryWriter(File.Open($"{ZibFileName} Unpacked/" + CurrentFileName,
+                                FileMode.Create, FileAccess.Write)))
                             {
                                 Writer.Write(Reader.ReadBytes(CurrentFileSize));
                                 IndexWriter.Write(CurrentFileName + "\n");
                             }
+
                             Reader.BaseStream.Position = SnapBack;
                         }
                     }

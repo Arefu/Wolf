@@ -16,9 +16,12 @@ namespace Cyclone
 
             var FileNamesToReadInOrder = File.ReadAllLines($"{ZibFolder}\\Index.zib").ToList();
 
-            using (var Writer = new BinaryWriter(File.Open(ZibFolder.Replace(" Unpacked", string.Empty), FileMode.OpenOrCreate, FileAccess.Write)))
+            using (var Writer = new BinaryWriter(File.Open(ZibFolder.Replace(" Unpacked", string.Empty),
+                FileMode.OpenOrCreate, FileAccess.Write)))
             {
-                var CurrentOffset = (uint) (Directory.GetFiles(ZibFolder).Length - 1) * 64 + 16; //First should be Number of Files * 64 + 16.
+                var CurrentOffset =
+                    (uint) (Directory.GetFiles(ZibFolder).Length - 1) * 64 +
+                    16; //First should be Number of Files * 64 + 16.
                 foreach (var FileToPack in FileNamesToReadInOrder)
                 {
                     var CurrentFileSize = new FileInfo($"{ZibFolder}\\{FileToPack}").Length;
@@ -46,7 +49,8 @@ namespace Cyclone
                     var FileDataPadding = 16 * ((FileData.Length + 15) / 16);
                     Writer.Write(FileData);
                     Writer.Write(new byte[FileDataPadding - FileData.Length]);
-                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)", Utilities.Event.Information);
+                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)",
+                        Utilities.Event.Information);
                 }
             }
         }
@@ -58,7 +62,9 @@ namespace Cyclone
                 FileNamesToReadInOrder = File.ReadAllLines($"{ZibFolder}\\Index.zib").ToList();
 
             var Initial = true;
-            using (var Writer = new BinaryWriter(File.Open(new FileInfo(ZibFolder).Name.Replace(" Unpacked", string.Empty), FileMode.OpenOrCreate, FileAccess.Write)))
+            using (var Writer = new BinaryWriter(File.Open(
+                new FileInfo(ZibFolder).Name.Replace(" Unpacked", string.Empty), FileMode.OpenOrCreate,
+                FileAccess.Write)))
             {
                 foreach (var FileToPack in FileNamesToReadInOrder)
                 {
@@ -70,6 +76,7 @@ namespace Cyclone
                         OffSet = OffSet + 1;
                         Initial = false;
                     }
+
                     Writer.Write(Utilities.SwapBytes(OffSet));
                     Writer.Write(Utilities.SwapBytes((uint) new FileInfo($"{ZibFolder}\\{FileToPack}").Length));
                     Writer.Write(Encoding.ASCII.GetBytes(FileToPack));
@@ -90,7 +97,8 @@ namespace Cyclone
                     var FileBytesWithPadding = 16 * ((FileBytes.Length + 15) / 16);
                     Writer.Write(FileBytes);
                     Writer.Write(new byte[FileBytesWithPadding - FileBytes.Length]);
-                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)", Utilities.Event.Information);
+                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)",
+                        Utilities.Event.Information);
                 }
             }
         }
