@@ -44,20 +44,23 @@ namespace Wolf
             this.MainFileView = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.GameLocLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.NodeImages = new System.Windows.Forms.ImageList(this.components);
             this.FileHandleMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.GameLocLabel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.CurrentPathLBL = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.FileHandleMenu.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -122,7 +125,7 @@ namespace Wolf
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.MainFileView);
-            this.splitContainer1.Size = new System.Drawing.Size(624, 395);
+            this.splitContainer1.Size = new System.Drawing.Size(624, 417);
             this.splitContainer1.SplitterDistance = 208;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -131,7 +134,7 @@ namespace Wolf
             this.FileQuickViewList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FileQuickViewList.Location = new System.Drawing.Point(0, 0);
             this.FileQuickViewList.Name = "FileQuickViewList";
-            this.FileQuickViewList.Size = new System.Drawing.Size(208, 395);
+            this.FileQuickViewList.Size = new System.Drawing.Size(208, 417);
             this.FileQuickViewList.TabIndex = 0;
             this.FileQuickViewList.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.FileQuickViewList_NodeMouseClick);
             // 
@@ -143,7 +146,7 @@ namespace Wolf
             this.MainFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainFileView.Location = new System.Drawing.Point(0, 0);
             this.MainFileView.Name = "MainFileView";
-            this.MainFileView.Size = new System.Drawing.Size(412, 395);
+            this.MainFileView.Size = new System.Drawing.Size(412, 417);
             this.MainFileView.TabIndex = 0;
             this.MainFileView.UseCompatibleStateImageBehavior = false;
             this.MainFileView.View = System.Windows.Forms.View.Details;
@@ -157,23 +160,6 @@ namespace Wolf
             // columnHeader2
             // 
             this.columnHeader2.Text = "Size";
-            // 
-            // GameLocLabel
-            // 
-            this.GameLocLabel.Name = "GameLocLabel";
-            this.GameLocLabel.Size = new System.Drawing.Size(118, 17);
-            this.GameLocLabel.Text = "toolStripStatusLabel1";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.GameLocLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 419);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(624, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // NodeImages
             // 
@@ -190,33 +176,71 @@ namespace Wolf
             this.toolStripSeparator2,
             this.viewToolStripMenuItem});
             this.FileHandleMenu.Name = "FileHandleMenu";
-            this.FileHandleMenu.Size = new System.Drawing.Size(153, 76);
+            this.FileHandleMenu.Size = new System.Drawing.Size(110, 54);
             this.FileHandleMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.FileHandleMenu_ItemClicked);
             // 
             // extractToolStripMenuItem
             // 
             this.extractToolStripMenuItem.Name = "extractToolStripMenuItem";
-            this.extractToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.extractToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.extractToolStripMenuItem.Text = "Extract";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(106, 6);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.viewToolStripMenuItem.Text = "View";
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GameLocLabel,
+            this.toolStripSeparator3,
+            this.toolStripLabel2,
+            this.CurrentPathLBL});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 416);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(624, 25);
+            this.toolStrip1.TabIndex = 3;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // GameLocLabel
+            // 
+            this.GameLocLabel.Name = "GameLocLabel";
+            this.GameLocLabel.Size = new System.Drawing.Size(86, 22);
+            this.GameLocLabel.Text = "toolStripLabel1";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
+            this.toolStripLabel2.Text = "Current Path:";
+            // 
+            // CurrentPathLBL
+            // 
+            this.CurrentPathLBL.Name = "CurrentPathLBL";
+            this.CurrentPathLBL.Size = new System.Drawing.Size(29, 22);
+            this.CurrentPathLBL.Text = "N/A";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 441);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
@@ -230,9 +254,9 @@ namespace Wolf
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.FileHandleMenu.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,13 +274,16 @@ namespace Wolf
         private ListView MainFileView;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private ToolStripStatusLabel GameLocLabel;
-        private StatusStrip statusStrip1;
         private ImageList NodeImages;
         private ContextMenuStrip FileHandleMenu;
         private ToolStripMenuItem extractToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem viewToolStripMenuItem;
+        private ToolStrip toolStrip1;
+        private ToolStripLabel GameLocLabel;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripLabel CurrentPathLBL;
     }
 }
 

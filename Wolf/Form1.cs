@@ -32,6 +32,8 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
+<<<<<<< HEAD
+=======
             if (Reader.BaseStream.CanRead)
             {
                 var Reply = MessageBox.Show(this,
@@ -42,6 +44,7 @@ namespace Wolf
                 Reader.Dispose();
             }
 
+>>>>>>> master
             Application.Exit();
         }
 
@@ -142,8 +145,8 @@ namespace Wolf
 
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
-            FileQuickViewList_NodeMouseClick(new object(),
-                new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            CurrentPathLBL.Text = FileQuickViewList.SelectedNode.FullPath;
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
