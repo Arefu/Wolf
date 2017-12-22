@@ -10,8 +10,7 @@ namespace Wolf
         public static void ExtractFile(ListViewItem Item, string ExportPath = "")
         {
             var FileToExport = Form1.Data.First(File => File.Item3.Contains(Item.Text));
-
-            Directory.CreateDirectory("Exported");
+            
             var BytesToRead = 0L;
             foreach (var File in Form1.Data)
             {
@@ -27,13 +26,12 @@ namespace Wolf
                     break;
             }
 
-            using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open,
-                FileAccess.Read)))
+            using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
             {
                 if (ExportPath == "")
-                    ExportPath = $"{FileToExport.Item3}";
+                    ExportPath = $"Exported/{FileToExport.Item3}";
 
-                Directory.CreateDirectory(FileToExport.Item3);
+                new FileInfo(ExportPath).Directory?.Create();
                 using (var Writer = new BinaryWriter(File.Open(ExportPath, FileMode.OpenOrCreate, FileAccess.Write)))
                 {
                     BReader.BaseStream.Position = BytesToRead;
