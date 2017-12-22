@@ -9,7 +9,7 @@ namespace Vortex
 {
     internal class Program
     {
-        public static List<FileNames> Files = new List<FileNames>();
+        public static List<string> Files = new List<string>();
         public static string[] FilesToPack;
 
         [STAThread]
@@ -47,12 +47,12 @@ namespace Vortex
             {
                 foreach (var Item in Files)
                 {
-                    var CurrentFileName = FilesToPack?.First(File => File.Contains(Item.FileName));
+                    var CurrentFileName = FilesToPack?.First(File => File.Contains(Item));
 
                     Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
                     var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName
-                        .Split(new[] {"YGO_DATA"}, StringSplitOptions.None).Last().TrimStart('\\').Length.ToString());
-                    var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{CurrentFileName}").Length.ToString());
+                        .Split(new[] {"YGO_DATA"}, StringSplitOptions.None).Last().TrimStart('\\').Length);
+                    var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{CurrentFileName}").Length);
 
                     while (CurrentFileSize.Length != 12)
                         CurrentFileSize = CurrentFileSize.Insert(0, " ");
@@ -78,6 +78,7 @@ namespace Vortex
                         $"{CurrentFileSize} {CurrentFileNameLength} {CurrentFileName.Split(new[] {"YGO_DATA\\"}, StringSplitOptions.None).Last()}\n");
                 }
             }
+
             Utilities.Log("Finished Packing Files.", Utilities.Event.Information);
         }
     }

@@ -15,6 +15,7 @@ namespace Wolf
             {
                 Img = new Bitmap(Temp);
             }
+
             pictureBox1.Image = Img;
             File.Delete(Pic);
             Closed += ImageViewer_Closed;

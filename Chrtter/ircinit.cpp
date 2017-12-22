@@ -29,8 +29,8 @@ DWORD WINAPI InitIRC(LPVOID)
 		{
 			try
 			{
-			std::string GameToken = CurrentMessage.substr(CurrentMessage.find_first_of(' '));
-			GameToken.erase(::remove_if(GameToken.begin(), GameToken.end(), ::isspace), GameToken.end());
+				std::string GameToken = CurrentMessage.substr(CurrentMessage.find_first_of(' '));
+				GameToken.erase(remove_if(GameToken.begin(), GameToken.end(), isspace), GameToken.end());
 			}
 			catch (exception)
 			{
@@ -48,9 +48,10 @@ DWORD WINAPI InitIRC(LPVOID)
 		}
 		else
 		{
-			cout << "\"" << CurrentMessage << "\" Is Not Recognized As An Command, Type /HELP For A List." << endl;;
+			cout << "\"" << CurrentMessage << "\" Is Not Recognized As An Command, Type /HELP For A List." << endl;
 		}
-	} while (true);
+	}
+	while (true);
 }
 
 std::string strtoup(std::string str)

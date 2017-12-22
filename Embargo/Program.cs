@@ -19,7 +19,8 @@ namespace Embargo
 
                 var ResultStatus = Injector.Inject("YuGiOh", Ofd.FileName);
                 if (ResultStatus != InjectionStatus.Success)
-                    MessageBox.Show("Error Status: " + ResultStatus, "Error During Inject!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error Status: " + ResultStatus, "Error During Inject!", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
             }
         }
     }

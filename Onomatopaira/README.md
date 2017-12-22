@@ -1,7 +1,12 @@
 # Onomatopaira
+#### FINISHED
 
 Run Options:
+
 ``Onomatopaira.exe``
 
+``Onomatopaira.exe <PATH TO TOC FILE>``
+
 Optional Argumens:
-``N/A``
+
+``<PATH TO TOC FILE>``

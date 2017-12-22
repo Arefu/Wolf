@@ -19,11 +19,11 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 
 void WINAPI InitDetours()
 {
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-		OldFunction = (Address)(0x1408FB380);
-		DetourAttach((PVOID*)&OldFunction, MyFunction);
-		DetourTransactionCommit();
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	OldFunction = (Address)(0x1408FB380);
+	DetourAttach((PVOID*)&OldFunction, MyFunction);
+	DetourTransactionCommit();
 }
 
 __int64 MyFunction()

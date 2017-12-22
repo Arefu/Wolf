@@ -37,10 +37,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileData.cs" />
     <Compile Include="FileNames.cs" />
-    <Compile Include="Offsets.cs" />
-    <Compile Include="PackData.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -76,6 +76,21 @@ Reason: Handles giving points at end of duel.
 
 ***
 
+### Function Address
+
+* `sub_140618D80(int a1)`
+
+##### Points of Interest: 
+
+Calls: Multiple Refs to `SAVESTAT`
+
+
+Returns: `return result;`
+
+Reason: Handles SAVESTAT to SteamAPI.
+
+***
+
 # Parameters
 * `-vsync` unlocks the frame rate.
 

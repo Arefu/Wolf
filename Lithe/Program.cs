@@ -62,6 +62,7 @@ namespace Lithe
                             }
                     }
                 }
+
                 Utilities.Log("Finished Encoding.", Utilities.Event.Information);
             }
         }

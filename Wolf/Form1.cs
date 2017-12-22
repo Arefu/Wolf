@@ -1,11 +1,11 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Wolf
 {
@@ -32,6 +32,19 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
+<<<<<<< HEAD
+=======
+            if (Reader.BaseStream.CanRead)
+            {
+                var Reply = MessageBox.Show(this,
+                    "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
+                    "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (Reply != DialogResult.Yes) return;
+
+                Reader.Dispose();
+            }
+
+>>>>>>> master
             Application.Exit();
         }
 
@@ -82,6 +95,7 @@ namespace Wolf
                         ? Current.Nodes[File]
                         : Current.Nodes.Add(File, File));
             }
+
             Reader?.Close();
             GiveIcons(FileQuickViewList.Nodes[0]);
             FileQuickViewList.Nodes[0].Expand();
@@ -144,8 +158,10 @@ namespace Wolf
                     _endNode = Node;
                     return Node;
                 }
+
                 GetNode(Node);
             }
+
             return _endNode;
         }
 
@@ -168,6 +184,7 @@ namespace Wolf
                     Node.ImageIndex = 1;
                     Node.SelectedImageIndex = 1;
                 }
+
                 GiveIcons(Node);
             }
         }
@@ -198,6 +215,20 @@ namespace Wolf
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
+        }
+
+        public class FileData
+        {
+            public FileData(int Item1, int Item2, string Item3)
+            {
+                this.Item1 = Item1;
+                this.Item2 = Item2;
+                this.Item3 = Item3;
+            }
+
+            public int Item1 { get; set; }
+            public int Item2 { get; set; }
+            public string Item3 { get; set; }
         }
     }
 }

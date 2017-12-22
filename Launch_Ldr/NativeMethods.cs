@@ -22,9 +22,11 @@ namespace Launch_Ldr
             uint FlAllocationType, uint FlProtect);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern int WriteProcessMemory(IntPtr HProcess, IntPtr LpBaseAddress, byte[] Buffer, int Size, int LpNumberOfBytesWritten);
+        internal static extern int WriteProcessMemory(IntPtr HProcess, IntPtr LpBaseAddress, byte[] Buffer, int Size,
+            int LpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        internal static extern IntPtr CreateRemoteThread(IntPtr HProcess, IntPtr LpThreadAttribute, IntPtr DwStackSize, IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
+        internal static extern IntPtr CreateRemoteThread(IntPtr HProcess, IntPtr LpThreadAttribute, IntPtr DwStackSize,
+            IntPtr LpStartAddress, IntPtr LpParameter, uint DwCreationFlags, IntPtr LpThreadId);
     }
 }
