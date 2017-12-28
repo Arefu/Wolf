@@ -32,6 +32,18 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
+<<<<<<< Updated upstream
+=======
+            if (Reader.BaseStream.CanRead)
+            {
+                var Reply = MessageBox.Show(this,
+                    "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
+                    "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (Reply != DialogResult.Yes) return;
+
+                Reader.Dispose();
+            }
+>>>>>>> Stashed changes
             Application.Exit();
         }
 
