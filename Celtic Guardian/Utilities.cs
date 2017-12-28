@@ -21,6 +21,11 @@ namespace Celtic_Guardian
             Meta = 4
         }
 
+        public static string ByteArrayToString(byte[] Bytes)
+        {
+            return BitConverter.ToString(Bytes).Replace("-", "");
+        }
+
         public static uint SwapBytes(uint x)
         {
             x = (x >> 16) | (x << 16);

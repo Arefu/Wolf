@@ -32,25 +32,13 @@ namespace Wolf
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-<<<<<<< HEAD
-=======
-            if (Reader.BaseStream.CanRead)
-            {
-                var Reply = MessageBox.Show(this,
-                    "The Yu-Gi-Oh! Data File Is Still Loaded, Are You Sure You Want To Quit?",
-                    "Data File Still In Use...", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
-                if (Reply != DialogResult.Yes) return;
-
-                Reader.Dispose();
-            }
-
->>>>>>> master
             Application.Exit();
         }
 
         private void OpenToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
             if (FileQuickViewList.Nodes.Count != 0) return;
+
             Reader?.Close();
             try
             {
