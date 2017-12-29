@@ -1,6 +1,7 @@
 ﻿using Celtic_Guardian;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -46,12 +47,13 @@ namespace Abaki
                     for (Count = 0; Count < StringOffsets.Count; Count++)
                     {
                         if (Count != StringOffsets.Count - 1)
-                        {
-                            if ((int)Reader.BaseStream.Position > StringOffsets[Count + 1])
-                                listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Position - StringOffsets[Count + 1])));
-                            else
+                            //Un-Comment Once RePacking Logic Is Done.
+                        //{
+                        //    if ((int)Reader.BaseStream.Position > StringOffsets[Count + 1])
+                        //        listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Position - StringOffsets[Count + 1])));
+                        //    else
                                 listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes(StringOffsets[Count] - (int)Reader.BaseStream.Position)));
-                        }
+                        //}
                         else
                             listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Length - (int)Reader.BaseStream.Position)));
                     }
@@ -61,27 +63,43 @@ namespace Abaki
 
         private void ExportToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
+            if (listBox1.Items.Count == 0)
+                return;
+
             using (var Writer = new BinaryWriter(File.Open(LanguageFile, FileMode.OpenOrCreate, FileAccess.Write)))
             {
-                Writer.Write(new byte[] { 0x00, 0x00});
-                Writer.Write(Encoding.Default.GetBytes(listBox1.Items.Count.ToString()));
+                Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint)listBox1.Items.Count + 1))); //Might Not Need To Be + 1?
+                Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint)listBox1.Items.Count*4+4))); //QUick Maff Looks Wrong.
 
+                var OffsetSum = (listBox1.Items.Count * 4 + 4);
                 foreach (var Item in listBox1.Items)
                 {
-                    foreach (var Char in Item.ToString())
+                    if (Item.ToString() == "PSN! ") //Special String...
                     {
-                        Writer.Write(new byte[] { Convert.ToByte(Char), 0x00 });
+                        Writer.Write(new byte[] { 0x00 });
+                        Writer.Write(Encoding.Default.GetBytes("P"));
+                        Writer.Write(new byte[] { 0x00 });
+                        Writer.Write(Encoding.Default.GetBytes("S"));
+                        Writer.Write(new byte[] { 0x00 });
+                        Writer.Write(Encoding.Default.GetBytes("N"));
+                        Writer.Write(Encoding.Default.GetBytes("!"));
                     }
+                    foreach (var Letter in Item.ToString())
+                    {
+                        Debug.WriteLine(Letter);
+                    }
+                    //Get Length Of Each String.
+                    //Calculate Difference From Amount Of String PSN is +10 for example (Insert 0x00 between each char execpt PSN? Like: .P.S.N! ..) 0x20 for Space Obvs.
                 }
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             listBox1.Items[listBox1.SelectedIndex] = textBox1.Text;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             textBox1.Text = listBox1.GetItemText(listBox1.SelectedItem);
         }

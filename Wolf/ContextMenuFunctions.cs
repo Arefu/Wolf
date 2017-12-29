@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
 using System;
-=======
-﻿using System;
->>>>>>> Stashed changes
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;

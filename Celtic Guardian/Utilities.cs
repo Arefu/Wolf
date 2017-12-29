@@ -26,10 +26,10 @@ namespace Celtic_Guardian
             return BitConverter.ToString(Bytes).Replace("-", "");
         }
 
-        public static uint SwapBytes(uint x)
+        public static uint SwapBytes(uint Number)
         {
-            x = (x >> 16) | (x << 16);
-            return ((x & 0xFF00FF00) >> 8) | ((x & 0x00FF00FF) << 8);
+            Number = (Number >> 16) | (Number << 16);
+            return ((Number & 0xFF00FF00) >> 8) | ((Number & 0x00FF00FF) << 8);
         }
 
         public static long DirSize(DirectoryInfo Directory)

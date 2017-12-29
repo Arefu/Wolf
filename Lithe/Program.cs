@@ -40,8 +40,7 @@ namespace Lithe
             {
                 using (var Writer = new BinaryWriter(File.Open("credits.dat", FileMode.Append, FileAccess.Write)))
                 {
-                    using (var Reader =
-                        new BinaryReader(File.Open("credits.txt", FileMode.OpenOrCreate, FileAccess.Read)))
+                    using (var Reader = new BinaryReader(File.Open("credits.txt", FileMode.OpenOrCreate, FileAccess.Read)))
                     {
                         var Content = Reader.ReadBytes((int) Reader.BaseStream.Length);
                         Writer.Write(new byte[] {0xFF, 0xFE});
