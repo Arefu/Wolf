@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows.Forms;
 
@@ -33,7 +34,6 @@ namespace Abaki
                     var JumpTo = Convert.ToInt32(Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0')));
                     var CurrentPos = Reader.BaseStream.Position;
                     Reader.BaseStream.Position = JumpTo - 4;
-                    var LastOffset = Convert.ToInt32(Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0')));
                     Reader.BaseStream.Position = CurrentPos;
 
                     var Count = 0;
@@ -48,14 +48,14 @@ namespace Abaki
                     {
                         if (Count != StringOffsets.Count - 1)
                             //Un-Comment Once RePacking Logic Is Done.
-                        //{
-                        //    if ((int)Reader.BaseStream.Position > StringOffsets[Count + 1])
-                        //        listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Position - StringOffsets[Count + 1])));
-                        //    else
-                                listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes(StringOffsets[Count] - (int)Reader.BaseStream.Position)));
+                            //{
+                            //    if ((int)Reader.BaseStream.Position > StringOffsets[Count + 1])
+                            //        listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Position - StringOffsets[Count + 1])));
+                            //    else
+                            listBox1.Items.Add(System.Text.Encoding.BigEndianUnicode.GetString(Reader.ReadBytes(StringOffsets[Count] - (int)Reader.BaseStream.Position)));
                         //}
                         else
-                            listBox1.Items.Add(Utilities.GetText(Reader.ReadBytes((int)Reader.BaseStream.Length - (int)Reader.BaseStream.Position)));
+                            listBox1.Items.Add(System.Text.Encoding.BigEndianUnicode.GetString(Reader.ReadBytes((int)Reader.BaseStream.Length - (int)Reader.BaseStream.Position)));
                     }
                 }
             }
@@ -69,33 +69,46 @@ namespace Abaki
             using (var Writer = new BinaryWriter(File.Open(LanguageFile, FileMode.OpenOrCreate, FileAccess.Write)))
             {
                 Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint)listBox1.Items.Count + 1))); //Might Not Need To Be + 1?
-                Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint)listBox1.Items.Count*4+4))); //QUick Maff Looks Wrong.
 
-                var OffsetSum = (listBox1.Items.Count * 4 + 4);
+                long Sum = listBox1.Items.Count * 4;
+                //LanguageParse(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
                 foreach (var Item in listBox1.Items)
                 {
-                    if (Item.ToString() == "PSN! ") //Special String...
-                    {
-                        Writer.Write(new byte[] { 0x00 });
-                        Writer.Write(Encoding.Default.GetBytes("P"));
-                        Writer.Write(new byte[] { 0x00 });
-                        Writer.Write(Encoding.Default.GetBytes("S"));
-                        Writer.Write(new byte[] { 0x00 });
-                        Writer.Write(Encoding.Default.GetBytes("N"));
-                        Writer.Write(Encoding.Default.GetBytes("!"));
-                    }
-                    foreach (var Letter in Item.ToString())
-                    {
-                        Debug.WriteLine(Letter);
-                    }
-                    //Get Length Of Each String.
-                    //Calculate Difference From Amount Of String PSN is +10 for example (Insert 0x00 between each char execpt PSN? Like: .P.S.N! ..) 0x20 for Space Obvs.
+                    var Offset = 0L;
+                    Sum = Sum + LanguageParse(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
+                    Writer.Write(Utilities.SwapBytes((uint)Sum));
+                    Offset = Writer.BaseStream.Position;
+                    Writer.BaseStream.Position = Sum;
+                    Writer.Write(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
+                    Writer.BaseStream.Position = Offset;
                 }
             }
         }
 
+        //Please Rewrite me....
+        public static long LanguageParse(byte[] Bytes)
+        {
+            var HexString = new StringBuilder(Bytes.Length * 2);
+            foreach (var Byte in Bytes)
+            {
+                if (Byte == 0x00)
+                {
+                    HexString.Append('.');
+                }
+                else
+                {
+                    HexString.Append(Convert.ToChar(Byte));
+                }
+            }
+
+            return HexString.ToString().Length;
+        }
+
         private void Button1_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text.Length == 0)
+                listBox1.Items[listBox1.SelectedIndex] = "";
+
             listBox1.Items[listBox1.SelectedIndex] = textBox1.Text;
         }
 
