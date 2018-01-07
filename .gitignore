@@ -22,6 +22,10 @@ YGO_DATA/
 *.exe.config
 *.ipdb
 *.pdb
+*.dat
+*.toc
+*.bin
+*.bnd
 *.iobj
 
 # Visual Studio 2015 cache/options directory
