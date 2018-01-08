@@ -45,6 +45,9 @@ namespace Elroy
                     Reader.Close();
 
                     GetDeckNames(OFD.FileName);
+                    //GetFinishedLevels
+                    //GetCards? Might Not Do This, Might Just Make An Unlock All Button.
+                    //Misc Stuff?
                 }
             }
         }
