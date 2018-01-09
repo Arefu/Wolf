@@ -30,72 +30,95 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox39 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown28 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown27 = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.groupBox40 = new System.Windows.Forms.GroupBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
             this.numericUpDown43 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown42 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown40 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown29 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown39 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown38 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown37 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown36 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown35 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown41 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown34 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown33 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown32 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown31 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown30 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown29 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown28 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown27 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown26 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown25 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown23 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown22 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown21 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown20 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown19 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label43 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
+            this.numericUpDown30 = new System.Windows.Forms.NumericUpDown();
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.groupBox38 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.numericUpDown26 = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
+            this.numericUpDown21 = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
+            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown25 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.numericUpDown24 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDown9 = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.numericUpDown22 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown23 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown20 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown19 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.button32 = new System.Windows.Forms.Button();
@@ -179,69 +202,54 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox39 = new System.Windows.Forms.GroupBox();
-            this.groupBox40 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.groupBox38 = new System.Windows.Forms.GroupBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.numericUpDown42 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown41 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox39.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).BeginInit();
+            this.groupBox40.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown43)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown32)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).BeginInit();
+            this.groupBox38.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown26)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown25)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox32.SuspendLayout();
             this.groupBox31.SuspendLayout();
@@ -282,14 +290,6 @@
             this.groupBox34.SuspendLayout();
             this.groupBox33.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox39.SuspendLayout();
-            this.groupBox40.SuspendLayout();
-            this.groupBox38.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -317,6 +317,252 @@
             this.tabPage1.Text = "Save Stats";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox39
+            // 
+            this.groupBox39.Controls.Add(this.label1);
+            this.groupBox39.Controls.Add(this.numericUpDown1);
+            this.groupBox39.Controls.Add(this.numericUpDown2);
+            this.groupBox39.Controls.Add(this.numericUpDown3);
+            this.groupBox39.Controls.Add(this.numericUpDown4);
+            this.groupBox39.Controls.Add(this.numericUpDown14);
+            this.groupBox39.Controls.Add(this.numericUpDown15);
+            this.groupBox39.Controls.Add(this.numericUpDown16);
+            this.groupBox39.Controls.Add(this.numericUpDown17);
+            this.groupBox39.Controls.Add(this.numericUpDown28);
+            this.groupBox39.Controls.Add(this.numericUpDown27);
+            this.groupBox39.Controls.Add(this.label2);
+            this.groupBox39.Controls.Add(this.label3);
+            this.groupBox39.Controls.Add(this.label4);
+            this.groupBox39.Controls.Add(this.label14);
+            this.groupBox39.Controls.Add(this.label15);
+            this.groupBox39.Controls.Add(this.label16);
+            this.groupBox39.Controls.Add(this.label17);
+            this.groupBox39.Controls.Add(this.label27);
+            this.groupBox39.Controls.Add(this.label28);
+            this.groupBox39.Location = new System.Drawing.Point(6, 6);
+            this.groupBox39.Name = "groupBox39";
+            this.groupBox39.Size = new System.Drawing.Size(426, 604);
+            this.groupBox39.TabIndex = 87;
+            this.groupBox39.TabStop = false;
+            this.groupBox39.Text = "Single Player";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(169, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "SAVESTAT_GAMES_CAMPAIGN";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 43;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown2.TabIndex = 44;
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(300, 71);
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown3.TabIndex = 45;
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(300, 97);
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown4.TabIndex = 46;
+            // 
+            // numericUpDown14
+            // 
+            this.numericUpDown14.Location = new System.Drawing.Point(300, 123);
+            this.numericUpDown14.Name = "numericUpDown14";
+            this.numericUpDown14.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown14.TabIndex = 56;
+            // 
+            // numericUpDown15
+            // 
+            this.numericUpDown15.Location = new System.Drawing.Point(300, 149);
+            this.numericUpDown15.Name = "numericUpDown15";
+            this.numericUpDown15.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown15.TabIndex = 57;
+            // 
+            // numericUpDown16
+            // 
+            this.numericUpDown16.Location = new System.Drawing.Point(300, 175);
+            this.numericUpDown16.Name = "numericUpDown16";
+            this.numericUpDown16.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown16.TabIndex = 58;
+            // 
+            // numericUpDown17
+            // 
+            this.numericUpDown17.Location = new System.Drawing.Point(300, 201);
+            this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown17.TabIndex = 59;
+            // 
+            // numericUpDown28
+            // 
+            this.numericUpDown28.Location = new System.Drawing.Point(300, 253);
+            this.numericUpDown28.Name = "numericUpDown28";
+            this.numericUpDown28.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown28.TabIndex = 70;
+            // 
+            // numericUpDown27
+            // 
+            this.numericUpDown27.Location = new System.Drawing.Point(300, 227);
+            this.numericUpDown27.Name = "numericUpDown27";
+            this.numericUpDown27.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown27.TabIndex = 69;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(221, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "SAVESTAT_GAMES_CAMPAIGN_NORMAL";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 73);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(226, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "SAVESTAT_GAMES_CAMPAIGN_REVERSE";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 99);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(177, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "SAVESTAT_GAMES_CHALLENGE";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 125);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(160, 13);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "SAVESTAT_WINS_CAMPAIGN";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 150);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(212, 13);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "SAVESTAT_WINS_CAMPAIGN_NORMAL";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 176);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(217, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "SAVESTAT_WINS_CAMPAIGN_REVERSE";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 202);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(168, 13);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "SAVESTAT_WINS_CHALLENGE";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 229);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(142, 13);
+            this.label27.TabIndex = 26;
+            this.label27.Text = "SAVESTAT_WINS_MATCH";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 255);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(166, 13);
+            this.label28.TabIndex = 27;
+            this.label28.Text = "SAVESTAT_WINS_NONMATCH";
+            // 
+            // groupBox40
+            // 
+            this.groupBox40.Controls.Add(this.label42);
+            this.groupBox40.Controls.Add(this.label41);
+            this.groupBox40.Controls.Add(this.numericUpDown43);
+            this.groupBox40.Controls.Add(this.numericUpDown42);
+            this.groupBox40.Controls.Add(this.numericUpDown40);
+            this.groupBox40.Controls.Add(this.numericUpDown29);
+            this.groupBox40.Controls.Add(this.numericUpDown39);
+            this.groupBox40.Controls.Add(this.numericUpDown38);
+            this.groupBox40.Controls.Add(this.numericUpDown37);
+            this.groupBox40.Controls.Add(this.numericUpDown36);
+            this.groupBox40.Controls.Add(this.numericUpDown35);
+            this.groupBox40.Controls.Add(this.numericUpDown41);
+            this.groupBox40.Controls.Add(this.numericUpDown34);
+            this.groupBox40.Controls.Add(this.numericUpDown33);
+            this.groupBox40.Controls.Add(this.numericUpDown32);
+            this.groupBox40.Controls.Add(this.numericUpDown31);
+            this.groupBox40.Controls.Add(this.label40);
+            this.groupBox40.Controls.Add(this.numericUpDown30);
+            this.groupBox40.Controls.Add(this.label39);
+            this.groupBox40.Controls.Add(this.label38);
+            this.groupBox40.Controls.Add(this.label43);
+            this.groupBox40.Controls.Add(this.label37);
+            this.groupBox40.Controls.Add(this.label36);
+            this.groupBox40.Controls.Add(this.label29);
+            this.groupBox40.Controls.Add(this.label35);
+            this.groupBox40.Controls.Add(this.label30);
+            this.groupBox40.Controls.Add(this.label34);
+            this.groupBox40.Controls.Add(this.label31);
+            this.groupBox40.Controls.Add(this.label32);
+            this.groupBox40.Controls.Add(this.label33);
+            this.groupBox40.Location = new System.Drawing.Point(873, 6);
+            this.groupBox40.Name = "groupBox40";
+            this.groupBox40.Size = new System.Drawing.Size(426, 604);
+            this.groupBox40.TabIndex = 88;
+            this.groupBox40.TabStop = false;
+            this.groupBox40.Text = "Other";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(6, 359);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(162, 13);
+            this.label42.TabIndex = 41;
+            this.label42.Text = "SAVESTAT_DECKS_CREATED";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(6, 385);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(109, 13);
+            this.label41.TabIndex = 40;
+            this.label41.Text = "SAVESTAT_CHAINS";
+            // 
             // numericUpDown43
             // 
             this.numericUpDown43.Location = new System.Drawing.Point(300, 331);
@@ -324,12 +570,26 @@
             this.numericUpDown43.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown43.TabIndex = 85;
             // 
+            // numericUpDown42
+            // 
+            this.numericUpDown42.Location = new System.Drawing.Point(300, 357);
+            this.numericUpDown42.Name = "numericUpDown42";
+            this.numericUpDown42.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown42.TabIndex = 84;
+            // 
             // numericUpDown40
             // 
             this.numericUpDown40.Location = new System.Drawing.Point(300, 305);
             this.numericUpDown40.Name = "numericUpDown40";
             this.numericUpDown40.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown40.TabIndex = 82;
+            // 
+            // numericUpDown29
+            // 
+            this.numericUpDown29.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown29.Name = "numericUpDown29";
+            this.numericUpDown29.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown29.TabIndex = 71;
             // 
             // numericUpDown39
             // 
@@ -366,6 +626,13 @@
             this.numericUpDown35.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown35.TabIndex = 77;
             // 
+            // numericUpDown41
+            // 
+            this.numericUpDown41.Location = new System.Drawing.Point(300, 383);
+            this.numericUpDown41.Name = "numericUpDown41";
+            this.numericUpDown41.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown41.TabIndex = 83;
+            // 
             // numericUpDown34
             // 
             this.numericUpDown34.Location = new System.Drawing.Point(300, 149);
@@ -394,204 +661,6 @@
             this.numericUpDown31.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown31.TabIndex = 73;
             // 
-            // numericUpDown30
-            // 
-            this.numericUpDown30.Location = new System.Drawing.Point(300, 45);
-            this.numericUpDown30.Name = "numericUpDown30";
-            this.numericUpDown30.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown30.TabIndex = 72;
-            // 
-            // numericUpDown29
-            // 
-            this.numericUpDown29.Location = new System.Drawing.Point(300, 19);
-            this.numericUpDown29.Name = "numericUpDown29";
-            this.numericUpDown29.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown29.TabIndex = 71;
-            // 
-            // numericUpDown28
-            // 
-            this.numericUpDown28.Location = new System.Drawing.Point(300, 253);
-            this.numericUpDown28.Name = "numericUpDown28";
-            this.numericUpDown28.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown28.TabIndex = 70;
-            // 
-            // numericUpDown27
-            // 
-            this.numericUpDown27.Location = new System.Drawing.Point(300, 227);
-            this.numericUpDown27.Name = "numericUpDown27";
-            this.numericUpDown27.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown27.TabIndex = 69;
-            // 
-            // numericUpDown26
-            // 
-            this.numericUpDown26.Location = new System.Drawing.Point(300, 149);
-            this.numericUpDown26.Name = "numericUpDown26";
-            this.numericUpDown26.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown26.TabIndex = 68;
-            // 
-            // numericUpDown25
-            // 
-            this.numericUpDown25.Location = new System.Drawing.Point(300, 123);
-            this.numericUpDown25.Name = "numericUpDown25";
-            this.numericUpDown25.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown25.TabIndex = 67;
-            // 
-            // numericUpDown24
-            // 
-            this.numericUpDown24.Location = new System.Drawing.Point(300, 97);
-            this.numericUpDown24.Name = "numericUpDown24";
-            this.numericUpDown24.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown24.TabIndex = 66;
-            // 
-            // numericUpDown23
-            // 
-            this.numericUpDown23.Location = new System.Drawing.Point(300, 71);
-            this.numericUpDown23.Name = "numericUpDown23";
-            this.numericUpDown23.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown23.TabIndex = 65;
-            // 
-            // numericUpDown22
-            // 
-            this.numericUpDown22.Location = new System.Drawing.Point(300, 45);
-            this.numericUpDown22.Name = "numericUpDown22";
-            this.numericUpDown22.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown22.TabIndex = 64;
-            // 
-            // numericUpDown21
-            // 
-            this.numericUpDown21.Location = new System.Drawing.Point(300, 19);
-            this.numericUpDown21.Name = "numericUpDown21";
-            this.numericUpDown21.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown21.TabIndex = 63;
-            // 
-            // numericUpDown20
-            // 
-            this.numericUpDown20.Location = new System.Drawing.Point(300, 383);
-            this.numericUpDown20.Name = "numericUpDown20";
-            this.numericUpDown20.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown20.TabIndex = 62;
-            // 
-            // numericUpDown19
-            // 
-            this.numericUpDown19.Location = new System.Drawing.Point(300, 357);
-            this.numericUpDown19.Name = "numericUpDown19";
-            this.numericUpDown19.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown19.TabIndex = 61;
-            // 
-            // numericUpDown18
-            // 
-            this.numericUpDown18.Location = new System.Drawing.Point(300, 331);
-            this.numericUpDown18.Name = "numericUpDown18";
-            this.numericUpDown18.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown18.TabIndex = 60;
-            // 
-            // numericUpDown17
-            // 
-            this.numericUpDown17.Location = new System.Drawing.Point(300, 201);
-            this.numericUpDown17.Name = "numericUpDown17";
-            this.numericUpDown17.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown17.TabIndex = 59;
-            // 
-            // numericUpDown16
-            // 
-            this.numericUpDown16.Location = new System.Drawing.Point(300, 175);
-            this.numericUpDown16.Name = "numericUpDown16";
-            this.numericUpDown16.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown16.TabIndex = 58;
-            // 
-            // numericUpDown15
-            // 
-            this.numericUpDown15.Location = new System.Drawing.Point(300, 149);
-            this.numericUpDown15.Name = "numericUpDown15";
-            this.numericUpDown15.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown15.TabIndex = 57;
-            // 
-            // numericUpDown14
-            // 
-            this.numericUpDown14.Location = new System.Drawing.Point(300, 123);
-            this.numericUpDown14.Name = "numericUpDown14";
-            this.numericUpDown14.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown14.TabIndex = 56;
-            // 
-            // numericUpDown13
-            // 
-            this.numericUpDown13.Location = new System.Drawing.Point(300, 305);
-            this.numericUpDown13.Name = "numericUpDown13";
-            this.numericUpDown13.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown13.TabIndex = 55;
-            // 
-            // numericUpDown12
-            // 
-            this.numericUpDown12.Location = new System.Drawing.Point(300, 279);
-            this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown12.TabIndex = 54;
-            // 
-            // numericUpDown11
-            // 
-            this.numericUpDown11.Location = new System.Drawing.Point(300, 253);
-            this.numericUpDown11.Name = "numericUpDown11";
-            this.numericUpDown11.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown11.TabIndex = 53;
-            // 
-            // numericUpDown10
-            // 
-            this.numericUpDown10.Location = new System.Drawing.Point(300, 227);
-            this.numericUpDown10.Name = "numericUpDown10";
-            this.numericUpDown10.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown10.TabIndex = 52;
-            // 
-            // numericUpDown9
-            // 
-            this.numericUpDown9.Location = new System.Drawing.Point(300, 201);
-            this.numericUpDown9.Name = "numericUpDown9";
-            this.numericUpDown9.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown9.TabIndex = 51;
-            // 
-            // numericUpDown8
-            // 
-            this.numericUpDown8.Location = new System.Drawing.Point(300, 175);
-            this.numericUpDown8.Name = "numericUpDown8";
-            this.numericUpDown8.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown8.TabIndex = 50;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(300, 97);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown4.TabIndex = 46;
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(300, 71);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown3.TabIndex = 45;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(300, 45);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown2.TabIndex = 44;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(300, 19);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 43;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(6, 334);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(157, 13);
-            this.label43.TabIndex = 42;
-            this.label43.Text = "SAVESTAT_CARDS_EARNED";
-            // 
             // label40
             // 
             this.label40.AutoSize = true;
@@ -600,6 +669,13 @@
             this.label40.Size = new System.Drawing.Size(169, 13);
             this.label40.TabIndex = 39;
             this.label40.Text = "SAVESTAT_DAMAGE_REFLECT";
+            // 
+            // numericUpDown30
+            // 
+            this.numericUpDown30.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown30.Name = "numericUpDown30";
+            this.numericUpDown30.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown30.TabIndex = 72;
             // 
             // label39
             // 
@@ -619,6 +695,15 @@
             this.label38.TabIndex = 37;
             this.label38.Text = "SAVESTAT_DAMAGE_DIRECT";
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(6, 334);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(157, 13);
+            this.label43.TabIndex = 42;
+            this.label43.Text = "SAVESTAT_CARDS_EARNED";
+            // 
             // label37
             // 
             this.label37.AutoSize = true;
@@ -637,6 +722,15 @@
             this.label36.TabIndex = 35;
             this.label36.Text = "SAVESTAT_DAMAGE_ANY";
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 21);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(177, 13);
+            this.label29.TabIndex = 28;
+            this.label29.Text = "SAVESTAT_SUMMONS_NORMAL";
+            // 
             // label35
             // 
             this.label35.AutoSize = true;
@@ -645,42 +739,6 @@
             this.label35.Size = new System.Drawing.Size(192, 13);
             this.label35.TabIndex = 34;
             this.label35.Text = "SAVESTAT_SUMMONS_PENDULUM";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(6, 152);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(184, 13);
-            this.label34.TabIndex = 33;
-            this.label34.Text = "SAVESTAT_SUMMONS_SYNCHRO";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 126);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(152, 13);
-            this.label33.TabIndex = 32;
-            this.label33.Text = "SAVESTAT_SUMMONS_XYZ";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 99);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(171, 13);
-            this.label32.TabIndex = 31;
-            this.label32.Text = "SAVESTAT_SUMMONS_FUSION";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(6, 73);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(170, 13);
-            this.label31.TabIndex = 30;
-            this.label31.Text = "SAVESTAT_SUMMONS_RITUAL";
             // 
             // label30
             // 
@@ -691,14 +749,86 @@
             this.label30.TabIndex = 29;
             this.label30.Text = "SAVESTAT_SUMMONS_TRIBUTE";
             // 
-            // label29
+            // label34
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(6, 21);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(177, 13);
-            this.label29.TabIndex = 28;
-            this.label29.Text = "SAVESTAT_SUMMONS_NORMAL";
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(6, 152);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(184, 13);
+            this.label34.TabIndex = 33;
+            this.label34.Text = "SAVESTAT_SUMMONS_SYNCHRO";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(6, 73);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(170, 13);
+            this.label31.TabIndex = 30;
+            this.label31.Text = "SAVESTAT_SUMMONS_RITUAL";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 99);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(171, 13);
+            this.label32.TabIndex = 31;
+            this.label32.Text = "SAVESTAT_SUMMONS_FUSION";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 126);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(152, 13);
+            this.label33.TabIndex = 32;
+            this.label33.Text = "SAVESTAT_SUMMONS_XYZ";
+            // 
+            // groupBox38
+            // 
+            this.groupBox38.Controls.Add(this.label26);
+            this.groupBox38.Controls.Add(this.numericUpDown26);
+            this.groupBox38.Controls.Add(this.label25);
+            this.groupBox38.Controls.Add(this.numericUpDown21);
+            this.groupBox38.Controls.Add(this.label24);
+            this.groupBox38.Controls.Add(this.numericUpDown7);
+            this.groupBox38.Controls.Add(this.numericUpDown25);
+            this.groupBox38.Controls.Add(this.label7);
+            this.groupBox38.Controls.Add(this.label23);
+            this.groupBox38.Controls.Add(this.label21);
+            this.groupBox38.Controls.Add(this.label22);
+            this.groupBox38.Controls.Add(this.numericUpDown24);
+            this.groupBox38.Controls.Add(this.label6);
+            this.groupBox38.Controls.Add(this.label18);
+            this.groupBox38.Controls.Add(this.numericUpDown8);
+            this.groupBox38.Controls.Add(this.numericUpDown6);
+            this.groupBox38.Controls.Add(this.label19);
+            this.groupBox38.Controls.Add(this.numericUpDown9);
+            this.groupBox38.Controls.Add(this.label5);
+            this.groupBox38.Controls.Add(this.label20);
+            this.groupBox38.Controls.Add(this.numericUpDown22);
+            this.groupBox38.Controls.Add(this.numericUpDown10);
+            this.groupBox38.Controls.Add(this.numericUpDown23);
+            this.groupBox38.Controls.Add(this.numericUpDown5);
+            this.groupBox38.Controls.Add(this.numericUpDown11);
+            this.groupBox38.Controls.Add(this.numericUpDown20);
+            this.groupBox38.Controls.Add(this.numericUpDown12);
+            this.groupBox38.Controls.Add(this.numericUpDown19);
+            this.groupBox38.Controls.Add(this.numericUpDown13);
+            this.groupBox38.Controls.Add(this.numericUpDown18);
+            this.groupBox38.Controls.Add(this.label8);
+            this.groupBox38.Controls.Add(this.label13);
+            this.groupBox38.Controls.Add(this.label12);
+            this.groupBox38.Controls.Add(this.label11);
+            this.groupBox38.Controls.Add(this.label9);
+            this.groupBox38.Controls.Add(this.label10);
+            this.groupBox38.Location = new System.Drawing.Point(438, 6);
+            this.groupBox38.Name = "groupBox38";
+            this.groupBox38.Size = new System.Drawing.Size(426, 604);
+            this.groupBox38.TabIndex = 90;
+            this.groupBox38.TabStop = false;
+            this.groupBox38.Text = "Multi-Player";
             // 
             // label26
             // 
@@ -709,6 +839,13 @@
             this.label26.TabIndex = 25;
             this.label26.Text = "SAVESTAT_WINS_MULTIPLAYER_BATTLEPACK_3";
             // 
+            // numericUpDown26
+            // 
+            this.numericUpDown26.Location = new System.Drawing.Point(300, 149);
+            this.numericUpDown26.Name = "numericUpDown26";
+            this.numericUpDown26.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown26.TabIndex = 68;
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -717,6 +854,13 @@
             this.label25.Size = new System.Drawing.Size(266, 13);
             this.label25.TabIndex = 24;
             this.label25.Text = "SAVESTAT_WINS_MULTIPLAYER_BATTLEPACK_2";
+            // 
+            // numericUpDown21
+            // 
+            this.numericUpDown21.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown21.Name = "numericUpDown21";
+            this.numericUpDown21.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown21.TabIndex = 63;
             // 
             // label24
             // 
@@ -727,6 +871,29 @@
             this.label24.TabIndex = 23;
             this.label24.Text = "SAVESTAT_WINS_MULTIPLAYER_BATTLEPACK_1";
             // 
+            // numericUpDown7
+            // 
+            this.numericUpDown7.Location = new System.Drawing.Point(300, 461);
+            this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown7.TabIndex = 49;
+            // 
+            // numericUpDown25
+            // 
+            this.numericUpDown25.Location = new System.Drawing.Point(300, 123);
+            this.numericUpDown25.Name = "numericUpDown25";
+            this.numericUpDown25.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown25.TabIndex = 67;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 463);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(216, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "SAVESTAT_GAMES_MULTIPLAYER_TAG";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -735,15 +902,6 @@
             this.label23.Size = new System.Drawing.Size(282, 13);
             this.label23.TabIndex = 22;
             this.label23.Text = "SAVESTAT_WINS_MULTIPLAYER_BATTLEPACK_ANY";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 47);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(238, 13);
-            this.label22.TabIndex = 21;
-            this.label22.Text = "SAVESTAT_WINS_MULTIPLAYER_FRIENDLY";
             // 
             // label21
             // 
@@ -754,14 +912,53 @@
             this.label21.TabIndex = 20;
             this.label21.Text = "SAVESTAT_WINS_MULTIPLAYER_RANKED";
             // 
-            // label20
+            // label22
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 385);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(207, 13);
-            this.label20.TabIndex = 19;
-            this.label20.Text = "SAVESTAT_WINS_MULTIPLAYER_TAG";
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 47);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(238, 13);
+            this.label22.TabIndex = 21;
+            this.label22.Text = "SAVESTAT_WINS_MULTIPLAYER_FRIENDLY";
+            // 
+            // numericUpDown24
+            // 
+            this.numericUpDown24.Location = new System.Drawing.Point(300, 97);
+            this.numericUpDown24.Name = "numericUpDown24";
+            this.numericUpDown24.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown24.TabIndex = 66;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 437);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(213, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "SAVESTAT_GAMES_MULTIPLAYER_1V1";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(6, 333);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(179, 13);
+            this.label18.TabIndex = 17;
+            this.label18.Text = "SAVESTAT_WINS_MULTIPLAYER";
+            // 
+            // numericUpDown8
+            // 
+            this.numericUpDown8.Location = new System.Drawing.Point(300, 175);
+            this.numericUpDown8.Name = "numericUpDown8";
+            this.numericUpDown8.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown8.TabIndex = 50;
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(300, 435);
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown6.TabIndex = 48;
             // 
             // label19
             // 
@@ -772,14 +969,109 @@
             this.label19.TabIndex = 18;
             this.label19.Text = "SAVESTAT_WINS_MULTIPLAYER_1V1";
             // 
-            // label18
+            // numericUpDown9
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(6, 333);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(179, 13);
-            this.label18.TabIndex = 17;
-            this.label18.Text = "SAVESTAT_WINS_MULTIPLAYER";
+            this.numericUpDown9.Location = new System.Drawing.Point(300, 201);
+            this.numericUpDown9.Name = "numericUpDown9";
+            this.numericUpDown9.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown9.TabIndex = 51;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 411);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(188, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "SAVESTAT_GAMES_MULTIPLAYER";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 385);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(207, 13);
+            this.label20.TabIndex = 19;
+            this.label20.Text = "SAVESTAT_WINS_MULTIPLAYER_TAG";
+            // 
+            // numericUpDown22
+            // 
+            this.numericUpDown22.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown22.Name = "numericUpDown22";
+            this.numericUpDown22.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown22.TabIndex = 64;
+            // 
+            // numericUpDown10
+            // 
+            this.numericUpDown10.Location = new System.Drawing.Point(300, 227);
+            this.numericUpDown10.Name = "numericUpDown10";
+            this.numericUpDown10.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown10.TabIndex = 52;
+            // 
+            // numericUpDown23
+            // 
+            this.numericUpDown23.Location = new System.Drawing.Point(300, 71);
+            this.numericUpDown23.Name = "numericUpDown23";
+            this.numericUpDown23.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown23.TabIndex = 65;
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Location = new System.Drawing.Point(300, 409);
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown5.TabIndex = 47;
+            // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Location = new System.Drawing.Point(300, 253);
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown11.TabIndex = 53;
+            // 
+            // numericUpDown20
+            // 
+            this.numericUpDown20.Location = new System.Drawing.Point(300, 383);
+            this.numericUpDown20.Name = "numericUpDown20";
+            this.numericUpDown20.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown20.TabIndex = 62;
+            // 
+            // numericUpDown12
+            // 
+            this.numericUpDown12.Location = new System.Drawing.Point(300, 279);
+            this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown12.TabIndex = 54;
+            // 
+            // numericUpDown19
+            // 
+            this.numericUpDown19.Location = new System.Drawing.Point(300, 357);
+            this.numericUpDown19.Name = "numericUpDown19";
+            this.numericUpDown19.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown19.TabIndex = 61;
+            // 
+            // numericUpDown13
+            // 
+            this.numericUpDown13.Location = new System.Drawing.Point(300, 305);
+            this.numericUpDown13.Name = "numericUpDown13";
+            this.numericUpDown13.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown13.TabIndex = 55;
+            // 
+            // numericUpDown18
+            // 
+            this.numericUpDown18.Location = new System.Drawing.Point(300, 331);
+            this.numericUpDown18.Name = "numericUpDown18";
+            this.numericUpDown18.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown18.TabIndex = 60;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 176);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(239, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "SAVESTAT_GAMES_MULTIPLAYER_RANKED";
             // 
             // label13
             // 
@@ -808,15 +1100,6 @@
             this.label11.TabIndex = 10;
             this.label11.Text = "SAVESTAT_GAMES_MULTIPLAYER_BATTLEPACK_1";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 229);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(291, 13);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "SAVESTAT_GAMES_MULTIPLAYER_BATTLEPACK_ANY";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -826,14 +1109,14 @@
             this.label9.TabIndex = 8;
             this.label9.Text = "SAVESTAT_GAMES_MULTIPLAYER_FRIENDLY";
             // 
-            // label8
+            // label10
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 176);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(239, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "SAVESTAT_GAMES_MULTIPLAYER_RANKED";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 229);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(291, 13);
+            this.label10.TabIndex = 9;
+            this.label10.Text = "SAVESTAT_GAMES_MULTIPLAYER_BATTLEPACK_ANY";
             // 
             // tabPage2
             // 
@@ -886,7 +1169,7 @@
             this.groupBox32.Size = new System.Drawing.Size(200, 100);
             this.groupBox32.TabIndex = 4;
             this.groupBox32.TabStop = false;
-            this.groupBox32.Text = "Unused Deck 32";
+            this.groupBox32.Text = "Deck 32";
             // 
             // button32
             // 
@@ -908,7 +1191,7 @@
             this.groupBox31.Size = new System.Drawing.Size(200, 100);
             this.groupBox31.TabIndex = 4;
             this.groupBox31.TabStop = false;
-            this.groupBox31.Text = "Unused Deck 31";
+            this.groupBox31.Text = "Deck 31";
             // 
             // button31
             // 
@@ -930,7 +1213,7 @@
             this.groupBox30.Size = new System.Drawing.Size(200, 100);
             this.groupBox30.TabIndex = 3;
             this.groupBox30.TabStop = false;
-            this.groupBox30.Text = "Unused Deck 30";
+            this.groupBox30.Text = "Deck 30";
             // 
             // button30
             // 
@@ -952,7 +1235,7 @@
             this.groupBox29.Size = new System.Drawing.Size(200, 100);
             this.groupBox29.TabIndex = 3;
             this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "Unused Deck 29";
+            this.groupBox29.Text = "Deck 29";
             // 
             // button29
             // 
@@ -974,7 +1257,7 @@
             this.groupBox28.Size = new System.Drawing.Size(200, 100);
             this.groupBox28.TabIndex = 3;
             this.groupBox28.TabStop = false;
-            this.groupBox28.Text = "Unused Deck 28";
+            this.groupBox28.Text = "Deck 28";
             // 
             // button28
             // 
@@ -996,7 +1279,7 @@
             this.groupBox27.Size = new System.Drawing.Size(200, 100);
             this.groupBox27.TabIndex = 3;
             this.groupBox27.TabStop = false;
-            this.groupBox27.Text = "Unused Deck 27";
+            this.groupBox27.Text = "Deck 27";
             // 
             // button27
             // 
@@ -1018,7 +1301,7 @@
             this.groupBox26.Size = new System.Drawing.Size(200, 100);
             this.groupBox26.TabIndex = 3;
             this.groupBox26.TabStop = false;
-            this.groupBox26.Text = "Unused Deck 26";
+            this.groupBox26.Text = "Deck 26";
             // 
             // button26
             // 
@@ -1040,7 +1323,7 @@
             this.groupBox25.Size = new System.Drawing.Size(200, 100);
             this.groupBox25.TabIndex = 3;
             this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "Unused Deck 25";
+            this.groupBox25.Text = "Deck 25";
             // 
             // button25
             // 
@@ -1062,7 +1345,7 @@
             this.groupBox24.Size = new System.Drawing.Size(200, 100);
             this.groupBox24.TabIndex = 3;
             this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Unused Deck 24";
+            this.groupBox24.Text = "Deck 24";
             // 
             // button24
             // 
@@ -1084,7 +1367,7 @@
             this.groupBox23.Size = new System.Drawing.Size(200, 100);
             this.groupBox23.TabIndex = 3;
             this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Unused Deck 23";
+            this.groupBox23.Text = "Deck 23";
             // 
             // button23
             // 
@@ -1106,7 +1389,7 @@
             this.groupBox22.Size = new System.Drawing.Size(200, 100);
             this.groupBox22.TabIndex = 3;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "Unused Deck 22";
+            this.groupBox22.Text = "Deck 22";
             // 
             // button22
             // 
@@ -1128,7 +1411,7 @@
             this.groupBox21.Size = new System.Drawing.Size(200, 100);
             this.groupBox21.TabIndex = 3;
             this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "Unused Deck 21";
+            this.groupBox21.Text = "Deck 21";
             // 
             // button21
             // 
@@ -1150,7 +1433,7 @@
             this.groupBox20.Size = new System.Drawing.Size(200, 100);
             this.groupBox20.TabIndex = 3;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "Unused Deck 20";
+            this.groupBox20.Text = "Deck 20";
             // 
             // button20
             // 
@@ -1172,7 +1455,7 @@
             this.groupBox19.Size = new System.Drawing.Size(200, 100);
             this.groupBox19.TabIndex = 3;
             this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Unused Deck 19";
+            this.groupBox19.Text = "Deck 19";
             // 
             // button19
             // 
@@ -1194,7 +1477,7 @@
             this.groupBox18.Size = new System.Drawing.Size(200, 100);
             this.groupBox18.TabIndex = 3;
             this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "Unused Deck 18";
+            this.groupBox18.Text = "Deck 18";
             // 
             // button18
             // 
@@ -1216,7 +1499,7 @@
             this.groupBox17.Size = new System.Drawing.Size(200, 100);
             this.groupBox17.TabIndex = 3;
             this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Unused Deck 17";
+            this.groupBox17.Text = "Deck 17";
             // 
             // button17
             // 
@@ -1238,7 +1521,7 @@
             this.groupBox16.Size = new System.Drawing.Size(200, 100);
             this.groupBox16.TabIndex = 3;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Unused Deck 16";
+            this.groupBox16.Text = "Deck 16";
             // 
             // button16
             // 
@@ -1260,7 +1543,7 @@
             this.groupBox15.Size = new System.Drawing.Size(200, 100);
             this.groupBox15.TabIndex = 3;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Unused Deck 15";
+            this.groupBox15.Text = "Deck 15";
             // 
             // button15
             // 
@@ -1282,7 +1565,7 @@
             this.groupBox14.Size = new System.Drawing.Size(200, 100);
             this.groupBox14.TabIndex = 3;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Unused Deck 14";
+            this.groupBox14.Text = "Deck 14";
             // 
             // button14
             // 
@@ -1304,7 +1587,7 @@
             this.groupBox13.Size = new System.Drawing.Size(200, 100);
             this.groupBox13.TabIndex = 3;
             this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Unused Deck 13";
+            this.groupBox13.Text = "Deck 13";
             // 
             // button13
             // 
@@ -1326,7 +1609,7 @@
             this.groupBox12.Size = new System.Drawing.Size(200, 100);
             this.groupBox12.TabIndex = 3;
             this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Unused Deck 12";
+            this.groupBox12.Text = "Deck 12";
             // 
             // button12
             // 
@@ -1348,7 +1631,7 @@
             this.groupBox11.Size = new System.Drawing.Size(200, 100);
             this.groupBox11.TabIndex = 3;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Unused Deck 11";
+            this.groupBox11.Text = "Deck 11";
             // 
             // button11
             // 
@@ -1370,7 +1653,7 @@
             this.groupBox6.Size = new System.Drawing.Size(200, 100);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Unused Deck 6";
+            this.groupBox6.Text = "Deck 6";
             // 
             // button6
             // 
@@ -1392,7 +1675,7 @@
             this.groupBox5.Size = new System.Drawing.Size(200, 100);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Unused Deck 5";
+            this.groupBox5.Text = "Deck 5";
             // 
             // button5
             // 
@@ -1414,7 +1697,7 @@
             this.groupBox7.Size = new System.Drawing.Size(200, 100);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Unused Deck 7";
+            this.groupBox7.Text = "Deck 7";
             // 
             // button7
             // 
@@ -1436,7 +1719,7 @@
             this.groupBox4.Size = new System.Drawing.Size(200, 100);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Unused Deck 4";
+            this.groupBox4.Text = "Deck 4";
             // 
             // button4
             // 
@@ -1458,7 +1741,7 @@
             this.groupBox8.Size = new System.Drawing.Size(200, 100);
             this.groupBox8.TabIndex = 5;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Unused Deck 8";
+            this.groupBox8.Text = "Deck 8";
             // 
             // button8
             // 
@@ -1480,7 +1763,7 @@
             this.groupBox3.Size = new System.Drawing.Size(200, 100);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Unused Deck 3";
+            this.groupBox3.Text = "Deck 3";
             // 
             // button3
             // 
@@ -1502,7 +1785,7 @@
             this.groupBox9.Size = new System.Drawing.Size(200, 100);
             this.groupBox9.TabIndex = 6;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Unused Deck 9";
+            this.groupBox9.Text = "Deck 9";
             // 
             // button9
             // 
@@ -1524,7 +1807,7 @@
             this.groupBox10.Size = new System.Drawing.Size(200, 100);
             this.groupBox10.TabIndex = 2;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Unused Deck 10";
+            this.groupBox10.Text = "Deck 10";
             // 
             // button10
             // 
@@ -1546,7 +1829,7 @@
             this.groupBox2.Size = new System.Drawing.Size(200, 100);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Unused Deck 2";
+            this.groupBox2.Text = "Deck 2";
             // 
             // button2
             // 
@@ -1568,7 +1851,7 @@
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Unused Deck 1";
+            this.groupBox1.Text = "Deck 1";
             // 
             // button1
             // 
@@ -1972,310 +2255,28 @@
             // opemToolStripMenuItem
             // 
             this.opemToolStripMenuItem.Name = "opemToolStripMenuItem";
-            this.opemToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.opemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.opemToolStripMenuItem.Text = "Open";
             this.opemToolStripMenuItem.Click += new System.EventHandler(this.opemToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // groupBox39
-            // 
-            this.groupBox39.Controls.Add(this.label1);
-            this.groupBox39.Controls.Add(this.numericUpDown1);
-            this.groupBox39.Controls.Add(this.numericUpDown2);
-            this.groupBox39.Controls.Add(this.numericUpDown3);
-            this.groupBox39.Controls.Add(this.numericUpDown4);
-            this.groupBox39.Controls.Add(this.numericUpDown14);
-            this.groupBox39.Controls.Add(this.numericUpDown15);
-            this.groupBox39.Controls.Add(this.numericUpDown16);
-            this.groupBox39.Controls.Add(this.numericUpDown17);
-            this.groupBox39.Controls.Add(this.numericUpDown28);
-            this.groupBox39.Controls.Add(this.numericUpDown27);
-            this.groupBox39.Controls.Add(this.label2);
-            this.groupBox39.Controls.Add(this.label3);
-            this.groupBox39.Controls.Add(this.label4);
-            this.groupBox39.Controls.Add(this.label14);
-            this.groupBox39.Controls.Add(this.label15);
-            this.groupBox39.Controls.Add(this.label16);
-            this.groupBox39.Controls.Add(this.label17);
-            this.groupBox39.Controls.Add(this.label27);
-            this.groupBox39.Controls.Add(this.label28);
-            this.groupBox39.Location = new System.Drawing.Point(6, 6);
-            this.groupBox39.Name = "groupBox39";
-            this.groupBox39.Size = new System.Drawing.Size(426, 604);
-            this.groupBox39.TabIndex = 87;
-            this.groupBox39.TabStop = false;
-            this.groupBox39.Text = "Single Player";
-            // 
-            // groupBox40
-            // 
-            this.groupBox40.Controls.Add(this.label42);
-            this.groupBox40.Controls.Add(this.label41);
-            this.groupBox40.Controls.Add(this.numericUpDown43);
-            this.groupBox40.Controls.Add(this.numericUpDown42);
-            this.groupBox40.Controls.Add(this.numericUpDown40);
-            this.groupBox40.Controls.Add(this.numericUpDown29);
-            this.groupBox40.Controls.Add(this.numericUpDown39);
-            this.groupBox40.Controls.Add(this.numericUpDown38);
-            this.groupBox40.Controls.Add(this.numericUpDown37);
-            this.groupBox40.Controls.Add(this.numericUpDown36);
-            this.groupBox40.Controls.Add(this.numericUpDown35);
-            this.groupBox40.Controls.Add(this.numericUpDown41);
-            this.groupBox40.Controls.Add(this.numericUpDown34);
-            this.groupBox40.Controls.Add(this.numericUpDown33);
-            this.groupBox40.Controls.Add(this.numericUpDown32);
-            this.groupBox40.Controls.Add(this.numericUpDown31);
-            this.groupBox40.Controls.Add(this.label40);
-            this.groupBox40.Controls.Add(this.numericUpDown30);
-            this.groupBox40.Controls.Add(this.label39);
-            this.groupBox40.Controls.Add(this.label38);
-            this.groupBox40.Controls.Add(this.label43);
-            this.groupBox40.Controls.Add(this.label37);
-            this.groupBox40.Controls.Add(this.label36);
-            this.groupBox40.Controls.Add(this.label29);
-            this.groupBox40.Controls.Add(this.label35);
-            this.groupBox40.Controls.Add(this.label30);
-            this.groupBox40.Controls.Add(this.label34);
-            this.groupBox40.Controls.Add(this.label31);
-            this.groupBox40.Controls.Add(this.label32);
-            this.groupBox40.Controls.Add(this.label33);
-            this.groupBox40.Location = new System.Drawing.Point(873, 6);
-            this.groupBox40.Name = "groupBox40";
-            this.groupBox40.Size = new System.Drawing.Size(426, 604);
-            this.groupBox40.TabIndex = 88;
-            this.groupBox40.TabStop = false;
-            this.groupBox40.Text = "Other";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "SAVESTAT_GAMES_CAMPAIGN";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(221, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "SAVESTAT_GAMES_CAMPAIGN_NORMAL";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 73);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(226, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "SAVESTAT_GAMES_CAMPAIGN_REVERSE";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 99);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(177, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "SAVESTAT_GAMES_CHALLENGE";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 125);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(160, 13);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "SAVESTAT_WINS_CAMPAIGN";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 150);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(212, 13);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "SAVESTAT_WINS_CAMPAIGN_NORMAL";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 176);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(217, 13);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "SAVESTAT_WINS_CAMPAIGN_REVERSE";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 202);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(168, 13);
-            this.label17.TabIndex = 16;
-            this.label17.Text = "SAVESTAT_WINS_CHALLENGE";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(6, 229);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(142, 13);
-            this.label27.TabIndex = 26;
-            this.label27.Text = "SAVESTAT_WINS_MATCH";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(6, 255);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(166, 13);
-            this.label28.TabIndex = 27;
-            this.label28.Text = "SAVESTAT_WINS_NONMATCH";
-            // 
-            // groupBox38
-            // 
-            this.groupBox38.Controls.Add(this.label26);
-            this.groupBox38.Controls.Add(this.numericUpDown26);
-            this.groupBox38.Controls.Add(this.label25);
-            this.groupBox38.Controls.Add(this.numericUpDown21);
-            this.groupBox38.Controls.Add(this.label24);
-            this.groupBox38.Controls.Add(this.numericUpDown7);
-            this.groupBox38.Controls.Add(this.numericUpDown25);
-            this.groupBox38.Controls.Add(this.label7);
-            this.groupBox38.Controls.Add(this.label23);
-            this.groupBox38.Controls.Add(this.label21);
-            this.groupBox38.Controls.Add(this.label22);
-            this.groupBox38.Controls.Add(this.numericUpDown24);
-            this.groupBox38.Controls.Add(this.label6);
-            this.groupBox38.Controls.Add(this.label18);
-            this.groupBox38.Controls.Add(this.numericUpDown8);
-            this.groupBox38.Controls.Add(this.numericUpDown6);
-            this.groupBox38.Controls.Add(this.label19);
-            this.groupBox38.Controls.Add(this.numericUpDown9);
-            this.groupBox38.Controls.Add(this.label5);
-            this.groupBox38.Controls.Add(this.label20);
-            this.groupBox38.Controls.Add(this.numericUpDown22);
-            this.groupBox38.Controls.Add(this.numericUpDown10);
-            this.groupBox38.Controls.Add(this.numericUpDown23);
-            this.groupBox38.Controls.Add(this.numericUpDown5);
-            this.groupBox38.Controls.Add(this.numericUpDown11);
-            this.groupBox38.Controls.Add(this.numericUpDown20);
-            this.groupBox38.Controls.Add(this.numericUpDown12);
-            this.groupBox38.Controls.Add(this.numericUpDown19);
-            this.groupBox38.Controls.Add(this.numericUpDown13);
-            this.groupBox38.Controls.Add(this.numericUpDown18);
-            this.groupBox38.Controls.Add(this.label8);
-            this.groupBox38.Controls.Add(this.label13);
-            this.groupBox38.Controls.Add(this.label12);
-            this.groupBox38.Controls.Add(this.label11);
-            this.groupBox38.Controls.Add(this.label9);
-            this.groupBox38.Controls.Add(this.label10);
-            this.groupBox38.Location = new System.Drawing.Point(438, 6);
-            this.groupBox38.Name = "groupBox38";
-            this.groupBox38.Size = new System.Drawing.Size(426, 604);
-            this.groupBox38.TabIndex = 90;
-            this.groupBox38.TabStop = false;
-            this.groupBox38.Text = "Multi-Player";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(6, 359);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(162, 13);
-            this.label42.TabIndex = 41;
-            this.label42.Text = "SAVESTAT_DECKS_CREATED";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(6, 385);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(109, 13);
-            this.label41.TabIndex = 40;
-            this.label41.Text = "SAVESTAT_CHAINS";
-            // 
-            // numericUpDown42
-            // 
-            this.numericUpDown42.Location = new System.Drawing.Point(300, 357);
-            this.numericUpDown42.Name = "numericUpDown42";
-            this.numericUpDown42.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown42.TabIndex = 84;
-            // 
-            // numericUpDown7
-            // 
-            this.numericUpDown7.Location = new System.Drawing.Point(300, 461);
-            this.numericUpDown7.Name = "numericUpDown7";
-            this.numericUpDown7.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown7.TabIndex = 49;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 463);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(216, 13);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "SAVESTAT_GAMES_MULTIPLAYER_TAG";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 437);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(213, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "SAVESTAT_GAMES_MULTIPLAYER_1V1";
-            // 
-            // numericUpDown6
-            // 
-            this.numericUpDown6.Location = new System.Drawing.Point(300, 435);
-            this.numericUpDown6.Name = "numericUpDown6";
-            this.numericUpDown6.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown6.TabIndex = 48;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 411);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(188, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "SAVESTAT_GAMES_MULTIPLAYER";
-            // 
-            // numericUpDown41
-            // 
-            this.numericUpDown41.Location = new System.Drawing.Point(300, 383);
-            this.numericUpDown41.Name = "numericUpDown41";
-            this.numericUpDown41.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown41.TabIndex = 83;
-            // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.Location = new System.Drawing.Point(300, 409);
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown5.TabIndex = 47;
             // 
             // Form1
             // 
@@ -2291,44 +2292,55 @@
             this.Text = "Elroy";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox39.ResumeLayout(false);
+            this.groupBox39.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).EndInit();
+            this.groupBox40.ResumeLayout(false);
+            this.groupBox40.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown43)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown40)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown39)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown38)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown37)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown36)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown35)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown34)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown33)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown32)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown30)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown29)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown28)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown27)).EndInit();
+            this.groupBox38.ResumeLayout(false);
+            this.groupBox38.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown26)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown25)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown24)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox32.ResumeLayout(false);
             this.groupBox31.ResumeLayout(false);
@@ -2370,17 +2382,6 @@
             this.groupBox33.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox39.ResumeLayout(false);
-            this.groupBox39.PerformLayout();
-            this.groupBox40.ResumeLayout(false);
-            this.groupBox40.PerformLayout();
-            this.groupBox38.ResumeLayout(false);
-            this.groupBox38.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown42)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown41)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

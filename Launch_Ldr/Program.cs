@@ -19,12 +19,11 @@ namespace Launch_Ldr
             var Plugins = new List<string>();
 
             foreach (var Plugin in Directory.GetFiles("Plugins/", "*.dll"))
+            {
                 if (File.Exists($"{Plugin.ToLower().Replace(".dll", string.Empty)}_info.json"))
                 {
                     Utilities.Log($"Found Plugin: {Plugin}, Reading Plugin Information.", Utilities.Event.Information);
-                    var MetaData =
-                        new JavaScriptSerializer().Deserialize<Meta>(
-                            File.ReadAllText(Plugin.Replace(".dll", string.Empty) + "_info.json"));
+                    var MetaData = new JavaScriptSerializer().Deserialize<Meta>(File.ReadAllText(Plugin.Replace(".dll", string.Empty) + "_info.json"));
                     Utilities.Log($"Name: {MetaData.Name}", Utilities.Event.Meta);
                     Utilities.Log($"Description: {MetaData.Description}", Utilities.Event.Meta);
                     foreach (var Address in MetaData.Injection_Addresses)
@@ -36,23 +35,16 @@ namespace Launch_Ldr
                             Utilities.Log($"I Can't Find {Dependancy}!", Utilities.Event.Error);
                     }
                 }
+                if (!RequireMeta)
+                {
+                    Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
+                    Plugins.Add(new FileInfo(Plugin).FullName);
+                }
                 else
                 {
-                    if (!RequireMeta)
-                    {
-                        Utilities.Log(
-                            $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.",
-                            Utilities.Event.Warning);
-                        Plugins.Add(new FileInfo(Plugin).FullName);
-                    }
-
-                    else
-                    {
-                        Utilities.Log(
-                            $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.",
-                            Utilities.Event.Error);
-                    }
+                    Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.", Utilities.Event.Error);
                 }
+            }
 
             Process.Start("steam://run/480650");
             Thread.Sleep(TimeSpan.FromSeconds(2.5));

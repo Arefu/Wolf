@@ -1,6 +1,0 @@
-{
-  "Name": "Chrrter",
-  "Description": "A Chat Client + Game Joining Tool To Help Make MP Better.",
-  "Injection_Addresses": [ "1408FAF50" ],
-  "Depends": [ "Nothing"]
-}
