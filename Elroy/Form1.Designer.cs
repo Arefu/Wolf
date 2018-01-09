@@ -298,6 +298,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -358,6 +359,11 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 43;
@@ -365,6 +371,11 @@
             // numericUpDown2
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown2.TabIndex = 44;
@@ -372,6 +383,11 @@
             // numericUpDown3
             // 
             this.numericUpDown3.Location = new System.Drawing.Point(300, 71);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown3.TabIndex = 45;
@@ -379,6 +395,11 @@
             // numericUpDown4
             // 
             this.numericUpDown4.Location = new System.Drawing.Point(300, 97);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown4.TabIndex = 46;
@@ -386,6 +407,11 @@
             // numericUpDown14
             // 
             this.numericUpDown14.Location = new System.Drawing.Point(300, 123);
+            this.numericUpDown14.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown14.Name = "numericUpDown14";
             this.numericUpDown14.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown14.TabIndex = 56;
@@ -393,6 +419,11 @@
             // numericUpDown15
             // 
             this.numericUpDown15.Location = new System.Drawing.Point(300, 149);
+            this.numericUpDown15.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown15.Name = "numericUpDown15";
             this.numericUpDown15.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown15.TabIndex = 57;
@@ -400,6 +431,11 @@
             // numericUpDown16
             // 
             this.numericUpDown16.Location = new System.Drawing.Point(300, 175);
+            this.numericUpDown16.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown16.Name = "numericUpDown16";
             this.numericUpDown16.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown16.TabIndex = 58;
@@ -407,6 +443,11 @@
             // numericUpDown17
             // 
             this.numericUpDown17.Location = new System.Drawing.Point(300, 201);
+            this.numericUpDown17.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown17.Name = "numericUpDown17";
             this.numericUpDown17.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown17.TabIndex = 59;
@@ -414,6 +455,11 @@
             // numericUpDown28
             // 
             this.numericUpDown28.Location = new System.Drawing.Point(300, 253);
+            this.numericUpDown28.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown28.Name = "numericUpDown28";
             this.numericUpDown28.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown28.TabIndex = 70;
@@ -421,6 +467,11 @@
             // numericUpDown27
             // 
             this.numericUpDown27.Location = new System.Drawing.Point(300, 227);
+            this.numericUpDown27.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown27.Name = "numericUpDown27";
             this.numericUpDown27.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown27.TabIndex = 69;
@@ -538,7 +589,7 @@
             this.groupBox40.Controls.Add(this.label31);
             this.groupBox40.Controls.Add(this.label32);
             this.groupBox40.Controls.Add(this.label33);
-            this.groupBox40.Location = new System.Drawing.Point(873, 6);
+            this.groupBox40.Location = new System.Drawing.Point(966, 6);
             this.groupBox40.Name = "groupBox40";
             this.groupBox40.Size = new System.Drawing.Size(426, 604);
             this.groupBox40.TabIndex = 88;
@@ -566,6 +617,11 @@
             // numericUpDown43
             // 
             this.numericUpDown43.Location = new System.Drawing.Point(300, 331);
+            this.numericUpDown43.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown43.Name = "numericUpDown43";
             this.numericUpDown43.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown43.TabIndex = 85;
@@ -573,6 +629,11 @@
             // numericUpDown42
             // 
             this.numericUpDown42.Location = new System.Drawing.Point(300, 357);
+            this.numericUpDown42.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown42.Name = "numericUpDown42";
             this.numericUpDown42.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown42.TabIndex = 84;
@@ -580,6 +641,11 @@
             // numericUpDown40
             // 
             this.numericUpDown40.Location = new System.Drawing.Point(300, 305);
+            this.numericUpDown40.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown40.Name = "numericUpDown40";
             this.numericUpDown40.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown40.TabIndex = 82;
@@ -587,6 +653,11 @@
             // numericUpDown29
             // 
             this.numericUpDown29.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown29.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown29.Name = "numericUpDown29";
             this.numericUpDown29.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown29.TabIndex = 71;
@@ -594,6 +665,11 @@
             // numericUpDown39
             // 
             this.numericUpDown39.Location = new System.Drawing.Point(300, 280);
+            this.numericUpDown39.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown39.Name = "numericUpDown39";
             this.numericUpDown39.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown39.TabIndex = 81;
@@ -601,6 +677,11 @@
             // numericUpDown38
             // 
             this.numericUpDown38.Location = new System.Drawing.Point(300, 253);
+            this.numericUpDown38.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown38.Name = "numericUpDown38";
             this.numericUpDown38.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown38.TabIndex = 80;
@@ -608,6 +689,11 @@
             // numericUpDown37
             // 
             this.numericUpDown37.Location = new System.Drawing.Point(300, 227);
+            this.numericUpDown37.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown37.Name = "numericUpDown37";
             this.numericUpDown37.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown37.TabIndex = 79;
@@ -615,6 +701,11 @@
             // numericUpDown36
             // 
             this.numericUpDown36.Location = new System.Drawing.Point(300, 201);
+            this.numericUpDown36.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown36.Name = "numericUpDown36";
             this.numericUpDown36.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown36.TabIndex = 78;
@@ -622,6 +713,11 @@
             // numericUpDown35
             // 
             this.numericUpDown35.Location = new System.Drawing.Point(300, 175);
+            this.numericUpDown35.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown35.Name = "numericUpDown35";
             this.numericUpDown35.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown35.TabIndex = 77;
@@ -629,6 +725,11 @@
             // numericUpDown41
             // 
             this.numericUpDown41.Location = new System.Drawing.Point(300, 383);
+            this.numericUpDown41.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown41.Name = "numericUpDown41";
             this.numericUpDown41.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown41.TabIndex = 83;
@@ -636,6 +737,11 @@
             // numericUpDown34
             // 
             this.numericUpDown34.Location = new System.Drawing.Point(300, 149);
+            this.numericUpDown34.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown34.Name = "numericUpDown34";
             this.numericUpDown34.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown34.TabIndex = 76;
@@ -643,6 +749,11 @@
             // numericUpDown33
             // 
             this.numericUpDown33.Location = new System.Drawing.Point(300, 123);
+            this.numericUpDown33.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown33.Name = "numericUpDown33";
             this.numericUpDown33.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown33.TabIndex = 75;
@@ -650,6 +761,11 @@
             // numericUpDown32
             // 
             this.numericUpDown32.Location = new System.Drawing.Point(300, 97);
+            this.numericUpDown32.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown32.Name = "numericUpDown32";
             this.numericUpDown32.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown32.TabIndex = 74;
@@ -657,6 +773,11 @@
             // numericUpDown31
             // 
             this.numericUpDown31.Location = new System.Drawing.Point(300, 71);
+            this.numericUpDown31.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown31.Name = "numericUpDown31";
             this.numericUpDown31.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown31.TabIndex = 73;
@@ -673,6 +794,11 @@
             // numericUpDown30
             // 
             this.numericUpDown30.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown30.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown30.Name = "numericUpDown30";
             this.numericUpDown30.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown30.TabIndex = 72;
@@ -823,7 +949,7 @@
             this.groupBox38.Controls.Add(this.label11);
             this.groupBox38.Controls.Add(this.label9);
             this.groupBox38.Controls.Add(this.label10);
-            this.groupBox38.Location = new System.Drawing.Point(438, 6);
+            this.groupBox38.Location = new System.Drawing.Point(486, 6);
             this.groupBox38.Name = "groupBox38";
             this.groupBox38.Size = new System.Drawing.Size(426, 604);
             this.groupBox38.TabIndex = 90;
@@ -842,6 +968,11 @@
             // numericUpDown26
             // 
             this.numericUpDown26.Location = new System.Drawing.Point(300, 149);
+            this.numericUpDown26.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown26.Name = "numericUpDown26";
             this.numericUpDown26.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown26.TabIndex = 68;
@@ -858,6 +989,11 @@
             // numericUpDown21
             // 
             this.numericUpDown21.Location = new System.Drawing.Point(300, 19);
+            this.numericUpDown21.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown21.Name = "numericUpDown21";
             this.numericUpDown21.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown21.TabIndex = 63;
@@ -874,6 +1010,11 @@
             // numericUpDown7
             // 
             this.numericUpDown7.Location = new System.Drawing.Point(300, 461);
+            this.numericUpDown7.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown7.Name = "numericUpDown7";
             this.numericUpDown7.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown7.TabIndex = 49;
@@ -881,6 +1022,11 @@
             // numericUpDown25
             // 
             this.numericUpDown25.Location = new System.Drawing.Point(300, 123);
+            this.numericUpDown25.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown25.Name = "numericUpDown25";
             this.numericUpDown25.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown25.TabIndex = 67;
@@ -924,6 +1070,11 @@
             // numericUpDown24
             // 
             this.numericUpDown24.Location = new System.Drawing.Point(300, 97);
+            this.numericUpDown24.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown24.Name = "numericUpDown24";
             this.numericUpDown24.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown24.TabIndex = 66;
@@ -949,6 +1100,11 @@
             // numericUpDown8
             // 
             this.numericUpDown8.Location = new System.Drawing.Point(300, 175);
+            this.numericUpDown8.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown8.Name = "numericUpDown8";
             this.numericUpDown8.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown8.TabIndex = 50;
@@ -956,6 +1112,11 @@
             // numericUpDown6
             // 
             this.numericUpDown6.Location = new System.Drawing.Point(300, 435);
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown6.TabIndex = 48;
@@ -972,6 +1133,11 @@
             // numericUpDown9
             // 
             this.numericUpDown9.Location = new System.Drawing.Point(300, 201);
+            this.numericUpDown9.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown9.Name = "numericUpDown9";
             this.numericUpDown9.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown9.TabIndex = 51;
@@ -997,6 +1163,11 @@
             // numericUpDown22
             // 
             this.numericUpDown22.Location = new System.Drawing.Point(300, 45);
+            this.numericUpDown22.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown22.Name = "numericUpDown22";
             this.numericUpDown22.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown22.TabIndex = 64;
@@ -1004,6 +1175,11 @@
             // numericUpDown10
             // 
             this.numericUpDown10.Location = new System.Drawing.Point(300, 227);
+            this.numericUpDown10.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown10.Name = "numericUpDown10";
             this.numericUpDown10.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown10.TabIndex = 52;
@@ -1011,6 +1187,11 @@
             // numericUpDown23
             // 
             this.numericUpDown23.Location = new System.Drawing.Point(300, 71);
+            this.numericUpDown23.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown23.Name = "numericUpDown23";
             this.numericUpDown23.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown23.TabIndex = 65;
@@ -1018,6 +1199,11 @@
             // numericUpDown5
             // 
             this.numericUpDown5.Location = new System.Drawing.Point(300, 409);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown5.TabIndex = 47;
@@ -1025,6 +1211,11 @@
             // numericUpDown11
             // 
             this.numericUpDown11.Location = new System.Drawing.Point(300, 253);
+            this.numericUpDown11.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown11.Name = "numericUpDown11";
             this.numericUpDown11.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown11.TabIndex = 53;
@@ -1032,6 +1223,11 @@
             // numericUpDown20
             // 
             this.numericUpDown20.Location = new System.Drawing.Point(300, 383);
+            this.numericUpDown20.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown20.Name = "numericUpDown20";
             this.numericUpDown20.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown20.TabIndex = 62;
@@ -1039,6 +1235,11 @@
             // numericUpDown12
             // 
             this.numericUpDown12.Location = new System.Drawing.Point(300, 279);
+            this.numericUpDown12.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown12.Name = "numericUpDown12";
             this.numericUpDown12.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown12.TabIndex = 54;
@@ -1046,6 +1247,11 @@
             // numericUpDown19
             // 
             this.numericUpDown19.Location = new System.Drawing.Point(300, 357);
+            this.numericUpDown19.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown19.Name = "numericUpDown19";
             this.numericUpDown19.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown19.TabIndex = 61;
@@ -1053,6 +1259,11 @@
             // numericUpDown13
             // 
             this.numericUpDown13.Location = new System.Drawing.Point(300, 305);
+            this.numericUpDown13.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown13.Name = "numericUpDown13";
             this.numericUpDown13.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown13.TabIndex = 55;
@@ -1060,6 +1271,11 @@
             // numericUpDown18
             // 
             this.numericUpDown18.Location = new System.Drawing.Point(300, 331);
+            this.numericUpDown18.Maximum = new decimal(new int[] {
+            268435455,
+            0,
+            0,
+            0});
             this.numericUpDown18.Name = "numericUpDown18";
             this.numericUpDown18.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown18.TabIndex = 60;
@@ -1164,7 +1380,7 @@
             // groupBox32
             // 
             this.groupBox32.Controls.Add(this.button32);
-            this.groupBox32.Location = new System.Drawing.Point(228, 536);
+            this.groupBox32.Location = new System.Drawing.Point(245, 533);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(200, 100);
             this.groupBox32.TabIndex = 4;
@@ -1186,7 +1402,7 @@
             // groupBox31
             // 
             this.groupBox31.Controls.Add(this.button31);
-            this.groupBox31.Location = new System.Drawing.Point(6, 536);
+            this.groupBox31.Location = new System.Drawing.Point(15, 536);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(200, 100);
             this.groupBox31.TabIndex = 4;
@@ -1208,7 +1424,7 @@
             // groupBox30
             // 
             this.groupBox30.Controls.Add(this.button30);
-            this.groupBox30.Location = new System.Drawing.Point(1116, 430);
+            this.groupBox30.Location = new System.Drawing.Point(1165, 430);
             this.groupBox30.Name = "groupBox30";
             this.groupBox30.Size = new System.Drawing.Size(200, 100);
             this.groupBox30.TabIndex = 3;
@@ -1230,7 +1446,7 @@
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.button29);
-            this.groupBox29.Location = new System.Drawing.Point(894, 430);
+            this.groupBox29.Location = new System.Drawing.Point(935, 430);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(200, 100);
             this.groupBox29.TabIndex = 3;
@@ -1252,7 +1468,7 @@
             // groupBox28
             // 
             this.groupBox28.Controls.Add(this.button28);
-            this.groupBox28.Location = new System.Drawing.Point(672, 430);
+            this.groupBox28.Location = new System.Drawing.Point(705, 430);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(200, 100);
             this.groupBox28.TabIndex = 3;
@@ -1274,7 +1490,7 @@
             // groupBox27
             // 
             this.groupBox27.Controls.Add(this.button27);
-            this.groupBox27.Location = new System.Drawing.Point(450, 430);
+            this.groupBox27.Location = new System.Drawing.Point(475, 430);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(200, 100);
             this.groupBox27.TabIndex = 3;
@@ -1296,7 +1512,7 @@
             // groupBox26
             // 
             this.groupBox26.Controls.Add(this.button26);
-            this.groupBox26.Location = new System.Drawing.Point(228, 430);
+            this.groupBox26.Location = new System.Drawing.Point(245, 430);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(200, 100);
             this.groupBox26.TabIndex = 3;
@@ -1318,7 +1534,7 @@
             // groupBox25
             // 
             this.groupBox25.Controls.Add(this.button25);
-            this.groupBox25.Location = new System.Drawing.Point(6, 430);
+            this.groupBox25.Location = new System.Drawing.Point(15, 430);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(200, 100);
             this.groupBox25.TabIndex = 3;
@@ -1340,7 +1556,7 @@
             // groupBox24
             // 
             this.groupBox24.Controls.Add(this.button24);
-            this.groupBox24.Location = new System.Drawing.Point(1116, 324);
+            this.groupBox24.Location = new System.Drawing.Point(1165, 321);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(200, 100);
             this.groupBox24.TabIndex = 3;
@@ -1362,7 +1578,7 @@
             // groupBox23
             // 
             this.groupBox23.Controls.Add(this.button23);
-            this.groupBox23.Location = new System.Drawing.Point(894, 324);
+            this.groupBox23.Location = new System.Drawing.Point(935, 321);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(200, 100);
             this.groupBox23.TabIndex = 3;
@@ -1384,7 +1600,7 @@
             // groupBox22
             // 
             this.groupBox22.Controls.Add(this.button22);
-            this.groupBox22.Location = new System.Drawing.Point(672, 324);
+            this.groupBox22.Location = new System.Drawing.Point(705, 321);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(200, 100);
             this.groupBox22.TabIndex = 3;
@@ -1406,7 +1622,7 @@
             // groupBox21
             // 
             this.groupBox21.Controls.Add(this.button21);
-            this.groupBox21.Location = new System.Drawing.Point(450, 324);
+            this.groupBox21.Location = new System.Drawing.Point(475, 321);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(200, 100);
             this.groupBox21.TabIndex = 3;
@@ -1428,7 +1644,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.button20);
-            this.groupBox20.Location = new System.Drawing.Point(228, 324);
+            this.groupBox20.Location = new System.Drawing.Point(245, 321);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(200, 100);
             this.groupBox20.TabIndex = 3;
@@ -1450,7 +1666,7 @@
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.button19);
-            this.groupBox19.Location = new System.Drawing.Point(6, 324);
+            this.groupBox19.Location = new System.Drawing.Point(15, 321);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(200, 100);
             this.groupBox19.TabIndex = 3;
@@ -1472,7 +1688,7 @@
             // groupBox18
             // 
             this.groupBox18.Controls.Add(this.button18);
-            this.groupBox18.Location = new System.Drawing.Point(1116, 218);
+            this.groupBox18.Location = new System.Drawing.Point(1165, 218);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(200, 100);
             this.groupBox18.TabIndex = 3;
@@ -1494,7 +1710,7 @@
             // groupBox17
             // 
             this.groupBox17.Controls.Add(this.button17);
-            this.groupBox17.Location = new System.Drawing.Point(894, 218);
+            this.groupBox17.Location = new System.Drawing.Point(935, 218);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(200, 100);
             this.groupBox17.TabIndex = 3;
@@ -1516,7 +1732,7 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.button16);
-            this.groupBox16.Location = new System.Drawing.Point(672, 218);
+            this.groupBox16.Location = new System.Drawing.Point(705, 218);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(200, 100);
             this.groupBox16.TabIndex = 3;
@@ -1538,7 +1754,7 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.button15);
-            this.groupBox15.Location = new System.Drawing.Point(450, 218);
+            this.groupBox15.Location = new System.Drawing.Point(475, 218);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(200, 100);
             this.groupBox15.TabIndex = 3;
@@ -1560,7 +1776,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.button14);
-            this.groupBox14.Location = new System.Drawing.Point(228, 218);
+            this.groupBox14.Location = new System.Drawing.Point(245, 218);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(200, 100);
             this.groupBox14.TabIndex = 3;
@@ -1582,7 +1798,7 @@
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.button13);
-            this.groupBox13.Location = new System.Drawing.Point(6, 218);
+            this.groupBox13.Location = new System.Drawing.Point(15, 218);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(200, 100);
             this.groupBox13.TabIndex = 3;
@@ -1604,7 +1820,7 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.button12);
-            this.groupBox12.Location = new System.Drawing.Point(1116, 112);
+            this.groupBox12.Location = new System.Drawing.Point(1165, 112);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(200, 100);
             this.groupBox12.TabIndex = 3;
@@ -1626,7 +1842,7 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.button11);
-            this.groupBox11.Location = new System.Drawing.Point(894, 112);
+            this.groupBox11.Location = new System.Drawing.Point(935, 112);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(200, 100);
             this.groupBox11.TabIndex = 3;
@@ -1648,7 +1864,7 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.button6);
-            this.groupBox6.Location = new System.Drawing.Point(1116, 6);
+            this.groupBox6.Location = new System.Drawing.Point(1165, 6);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(200, 100);
             this.groupBox6.TabIndex = 3;
@@ -1670,7 +1886,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.button5);
-            this.groupBox5.Location = new System.Drawing.Point(894, 6);
+            this.groupBox5.Location = new System.Drawing.Point(935, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(200, 100);
             this.groupBox5.TabIndex = 1;
@@ -1692,7 +1908,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.button7);
-            this.groupBox7.Location = new System.Drawing.Point(6, 112);
+            this.groupBox7.Location = new System.Drawing.Point(15, 112);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(200, 100);
             this.groupBox7.TabIndex = 4;
@@ -1714,7 +1930,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Location = new System.Drawing.Point(672, 6);
+            this.groupBox4.Location = new System.Drawing.Point(705, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(200, 100);
             this.groupBox4.TabIndex = 1;
@@ -1736,7 +1952,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.button8);
-            this.groupBox8.Location = new System.Drawing.Point(228, 112);
+            this.groupBox8.Location = new System.Drawing.Point(245, 112);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(200, 100);
             this.groupBox8.TabIndex = 5;
@@ -1758,7 +1974,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Location = new System.Drawing.Point(450, 6);
+            this.groupBox3.Location = new System.Drawing.Point(475, 6);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(200, 100);
             this.groupBox3.TabIndex = 1;
@@ -1780,7 +1996,7 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.button9);
-            this.groupBox9.Location = new System.Drawing.Point(450, 112);
+            this.groupBox9.Location = new System.Drawing.Point(475, 112);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(200, 100);
             this.groupBox9.TabIndex = 6;
@@ -1802,7 +2018,7 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.button10);
-            this.groupBox10.Location = new System.Drawing.Point(672, 112);
+            this.groupBox10.Location = new System.Drawing.Point(705, 112);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(200, 100);
             this.groupBox10.TabIndex = 2;
@@ -1824,7 +2040,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Location = new System.Drawing.Point(228, 6);
+            this.groupBox2.Location = new System.Drawing.Point(245, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 100);
             this.groupBox2.TabIndex = 1;
@@ -1846,7 +2062,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Location = new System.Drawing.Point(15, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
             this.groupBox1.TabIndex = 0;
@@ -1882,7 +2098,7 @@
             // groupBox37
             // 
             this.groupBox37.Controls.Add(this.checkedListBox4);
-            this.groupBox37.Location = new System.Drawing.Point(1123, 7);
+            this.groupBox37.Location = new System.Drawing.Point(1145, 7);
             this.groupBox37.Name = "groupBox37";
             this.groupBox37.Size = new System.Drawing.Size(250, 622);
             this.groupBox37.TabIndex = 1;
@@ -1915,7 +2131,7 @@
             // groupBox36
             // 
             this.groupBox36.Controls.Add(this.checkedListBox3);
-            this.groupBox36.Location = new System.Drawing.Point(843, 7);
+            this.groupBox36.Location = new System.Drawing.Point(889, 7);
             this.groupBox36.Name = "groupBox36";
             this.groupBox36.Size = new System.Drawing.Size(250, 610);
             this.groupBox36.TabIndex = 1;
@@ -2069,7 +2285,7 @@
             // groupBox34
             // 
             this.groupBox34.Controls.Add(this.checkedListBox2);
-            this.groupBox34.Location = new System.Drawing.Point(283, 7);
+            this.groupBox34.Location = new System.Drawing.Point(259, 7);
             this.groupBox34.Name = "groupBox34";
             this.groupBox34.Size = new System.Drawing.Size(250, 610);
             this.groupBox34.TabIndex = 1;
@@ -2255,26 +2471,26 @@
             // opemToolStripMenuItem
             // 
             this.opemToolStripMenuItem.Name = "opemToolStripMenuItem";
-            this.opemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.opemToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.opemToolStripMenuItem.Text = "Open";
             this.opemToolStripMenuItem.Click += new System.EventHandler(this.opemToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 

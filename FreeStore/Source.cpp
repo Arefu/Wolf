@@ -1,9 +1,9 @@
 #include "stdafx.h" 
 
-INT64 FreeStore();
+INT64 free_store();
 
-typedef INT64(__stdcall* Address)();
-Address OldFunction = (Address)(0x1406183A0);
+typedef INT64(__stdcall* address)();
+address old_function = reinterpret_cast<address>(0x1406183A0);
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
@@ -11,7 +11,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	case DLL_PROCESS_ATTACH:
 		DetourTransactionBegin();
 		DetourUpdateThread(GetCurrentThread());
-		DetourAttach((PVOID*)&OldFunction, FreeStore);
+		DetourAttach(reinterpret_cast<PVOID*>(&old_function), free_store);
 		DetourTransactionCommit();
 		break;
 	case DLL_THREAD_ATTACH:
@@ -23,7 +23,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	return true;
 }
 
-INT64 FreeStore()
+INT64 free_store()
 {
 	return 0;
 }

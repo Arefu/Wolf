@@ -7,5 +7,5 @@
 void InitDetours();
 __int64 MyFunction();
 
-typedef INT64 (__stdcall* Address)();
-Address OldFunction = nullptr;
+typedef INT64 (__stdcall* address)();
+address old_function = nullptr;

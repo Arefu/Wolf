@@ -21,13 +21,13 @@ void WINAPI InitDetours()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	OldFunction = (Address)(0x1408FB380);
-	DetourAttach((PVOID*)&OldFunction, MyFunction);
+	old_function = (address)(0x1408FB380);
+	DetourAttach((PVOID*)&old_function, MyFunction);
 	DetourTransactionCommit();
 }
 
 __int64 MyFunction()
 {
 	MessageBox(nullptr, "We're Here Now", "Start", 0);
-	return OldFunction();
+	return old_function();
 }
