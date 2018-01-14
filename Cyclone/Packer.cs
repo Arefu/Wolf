@@ -97,8 +97,7 @@ namespace Cyclone
                     var FileBytesWithPadding = 16 * ((FileBytes.Length + 15) / 16);
                     Writer.Write(FileBytes);
                     Writer.Write(new byte[FileBytesWithPadding - FileBytes.Length]);
-                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)",
-                        Utilities.Event.Information);
+                    Utilities.Log($"Packing {FileToPack} ({new FileInfo(ZibFolder + "\\" + FileToPack).Length} Bytes)",Utilities.Event.Information);
                 }
             }
         }
