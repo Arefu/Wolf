@@ -134,7 +134,6 @@ namespace Wolf
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
             FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
-            CurrentPathLBL.Text = FileQuickViewList.SelectedNode.FullPath;
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
@@ -217,6 +216,18 @@ namespace Wolf
             public int Item1 { get; set; }
             public int Item2 { get; set; }
             public string Item3 { get; set; }
+        }
+
+        private void createToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ModerUi = new ModUI(); //Might Make Static
+            ModerUi.Show();
+        }
+
+        private void viewToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var ModView = new ModViewer();
+            ModView.Show();
         }
     }
 }

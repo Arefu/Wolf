@@ -52,8 +52,9 @@ namespace Wolf
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.GameLocLabel = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.CurrentPathLBL = new System.Windows.Forms.ToolStripLabel();
+            this.modToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -66,7 +67,8 @@ namespace Wolf
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.modToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(624, 24);
@@ -202,9 +204,7 @@ namespace Wolf
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GameLocLabel,
-            this.toolStripSeparator3,
-            this.toolStripLabel2,
-            this.CurrentPathLBL});
+            this.toolStripSeparator3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 416);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(624, 25);
@@ -222,17 +222,29 @@ namespace Wolf
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel2
+            // modToolStripMenuItem
             // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(77, 22);
-            this.toolStripLabel2.Text = "Current Path:";
+            this.modToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createToolStripMenuItem,
+            this.viewToolStripMenuItem1});
+            this.modToolStripMenuItem.Name = "modToolStripMenuItem";
+            this.modToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.modToolStripMenuItem.Text = "Mod";
             // 
-            // CurrentPathLBL
+            // createToolStripMenuItem
             // 
-            this.CurrentPathLBL.Name = "CurrentPathLBL";
-            this.CurrentPathLBL.Size = new System.Drawing.Size(29, 22);
-            this.CurrentPathLBL.Text = "N/A";
+            this.createToolStripMenuItem.Name = "createToolStripMenuItem";
+            this.createToolStripMenuItem.ShowShortcutKeys = false;
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createToolStripMenuItem.Text = "Create";
+            this.createToolStripMenuItem.Click += new System.EventHandler(this.createToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem1
+            // 
+            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.viewToolStripMenuItem1.Text = "View";
+            this.viewToolStripMenuItem1.Click += new System.EventHandler(this.viewToolStripMenuItem1_Click);
             // 
             // Form1
             // 
@@ -282,8 +294,9 @@ namespace Wolf
         private ToolStrip toolStrip1;
         private ToolStripLabel GameLocLabel;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripLabel toolStripLabel2;
-        private ToolStripLabel CurrentPathLBL;
+        private ToolStripMenuItem modToolStripMenuItem;
+        private ToolStripMenuItem createToolStripMenuItem;
+        private ToolStripMenuItem viewToolStripMenuItem1;
     }
 }
 

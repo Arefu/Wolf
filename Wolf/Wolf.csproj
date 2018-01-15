@@ -39,8 +39,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextMenuFunctions.cs" />
@@ -56,6 +63,19 @@
     <Compile Include="ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModInfo.cs" />
+    <Compile Include="ModUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModUI.Designer.cs">
+      <DependentUpon>ModUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModViewer.Designer.cs">
+      <DependentUpon>ModViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -63,6 +83,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModUI.resx">
+      <DependentUpon>ModUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModViewer.resx">
+      <DependentUpon>ModViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
