@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // button1
@@ -42,24 +44,38 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // treeView1
+            // listView1
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.treeView1.Location = new System.Drawing.Point(0, 41);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(284, 220);
-            this.treeView1.TabIndex = 1;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listView1.Location = new System.Drawing.Point(0, 41);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(624, 400);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "File Name";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "File Size";
             // 
             // ModViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.treeView1);
+            this.ClientSize = new System.Drawing.Size(624, 441);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ModViewer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModViewer";
             this.ResumeLayout(false);
 
@@ -68,6 +84,8 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

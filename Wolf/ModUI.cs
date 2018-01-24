@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Design;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
@@ -18,6 +11,7 @@ namespace Wolf
     {
         public ModUI()
         {
+            Application.EnableVisualStyles();
             InitializeComponent();
         }
 
@@ -81,6 +75,8 @@ namespace Wolf
 
                 File.WriteAllText($"{Application.StartupPath}\\{textBox1.Text}.moddta", new JavaScriptSerializer().Serialize(FileInfo));
             }
+
+            MessageBox.Show("Mod Packing Complete!", "Finished Packing", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
