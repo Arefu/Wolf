@@ -8,6 +8,8 @@ Even with me saying there are no plans, if someone can provide a legal way to ob
 
 If you're looking for "Engine Research" check out the [Wiki](https://github.com/Arefu/Wolf/wiki).
 
+If you're wanting support or just to chat, the Discord for this project can be found [here](https://discord.gg/a4Ync3M ).
+
 Thanks to:
 
 [What The Commit!](http://whatthecommit.com/)

@@ -86,6 +86,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08983001-4BC3-44A2-935A-0B35CE960265}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		Wiki Assets\Engine Research\Useful Functions.md = Wiki Assets\Engine Research\Useful Functions.md
 	EndProjectSection
 EndProject

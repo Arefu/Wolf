@@ -62,6 +62,12 @@ namespace Wolf
                 return;
             }
 
+            if (textBox1.Text == "Mod Name..." && textBox1.ForeColor != Color.Black)
+            {
+                MessageBox.Show("Please Name Your Mod!", "Mod Doesn't Have A Name!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             using (var Archive = ZipFile.Open($"{textBox1.Text}.modpkg", ZipArchiveMode.Update)) //Shhh It's just a ZIP
             {
                 var FileInfo = new ModInfo();
