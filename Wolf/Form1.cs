@@ -267,13 +267,14 @@ namespace Wolf
                             Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
                             var Result = Ofd.ShowDialog();
                             if (Result != DialogResult.OK) Environment.Exit(1);
-                            Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC",
-                                FileMode.Open, FileAccess.Read));
+                            Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
                             InstallDir = new FileInfo(Ofd.FileName).DirectoryName;
                         }
                     }
                 }
 
+                var AllFilesFound = true;
+                var CompareSizes = new Dictionary<int, int>();
                 Reader.BaseStream.Position = 0; //Setup Reader Ready To Be Parsed.
                 Reader.ReadLine();
                 foreach (var File in ModFileInfo.Files)
@@ -281,26 +282,36 @@ namespace Wolf
                     while (!Reader.EndOfStream)
                     {
                         var Line = Reader.ReadLine();
-                        if (Line == null || Line == "cUT") break;
+                        if (Line == null) break;
                         Line = Line.TrimStart(' ');
                         Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
                         var LineData = Line.Split(' ');
 
                         if (new FileInfo(LineData[2]).Name == new FileInfo(File).Name)
                         {
-                            Debug.WriteLine($"{new FileInfo(LineData[2]).Name} + {new FileInfo(File).Name}");
+
                             Reader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
                             Reader.ReadLine();
+                            AllFilesFound = true;
                             break;
                         }
                         else
                         {
-                            Debug.WriteLine($"{new FileInfo(LineData[2]).Name} - {new FileInfo(File).Name}");
+                            AllFilesFound = false;
                         }
-
                     }
                 }
+
+                if (AllFilesFound == false)
+                {
+                    var Reply = MessageBox.Show("Not All Files Were Found In The TOC File, Do You Want To Contiue?", "Lost Files Found In Mod!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (Reply == DialogResult.No) return;
+                }
+
+
             }
+
+            Reader.Close();
         }
         public class ModInfo
         {
