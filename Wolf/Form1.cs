@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Celtic_Guardian;
 
@@ -228,6 +230,82 @@ namespace Wolf
         {
             var ModView = new ModViewer();
             ModView.Show();
+        }
+
+        private void disableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void installToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var OFD = new OpenFileDialog())
+            {
+                OFD.Title = "Select Mod To Enable";
+                OFD.Filter = "Wolf Mod Data |*.moddta";
+                if (OFD.ShowDialog() != DialogResult.OK) return;
+
+                if (!File.Exists(OFD.FileName.Replace("moddta", "modpkg")))
+                    throw new Exception("Mod Package Not Found! Please Read The Wiki On How To Create Mods.");
+
+                var ModFileInfo = new JavaScriptSerializer().Deserialize<ModInfo>(File.ReadAllText(OFD.FileName));
+
+                try
+                {
+                    InstallDir = Utilities.GetInstallDir();
+                    Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
+                }
+                catch
+                {
+                    var Reply = MessageBox.Show(this, "Do You Want To Locate Game?", "Game Not Fuond!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                    if (Reply == DialogResult.No) Environment.Exit(1);
+                    else
+                    {
+                        using (var Ofd = new OpenFileDialog())
+                        {
+                            Ofd.Title = "Select YuGiOh.exe";
+                            Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
+                            var Result = Ofd.ShowDialog();
+                            if (Result != DialogResult.OK) Environment.Exit(1);
+                            Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC",
+                                FileMode.Open, FileAccess.Read));
+                            InstallDir = new FileInfo(Ofd.FileName).DirectoryName;
+                        }
+                    }
+                }
+
+                Reader.BaseStream.Position = 0; //Setup Reader Ready To Be Parsed.
+                Reader.ReadLine();
+                foreach (var File in ModFileInfo.Files)
+                {
+                    while (!Reader.EndOfStream)
+                    {
+                        var Line = Reader.ReadLine();
+                        if (Line == null || Line == "cUT") break;
+                        Line = Line.TrimStart(' ');
+                        Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
+                        var LineData = Line.Split(' ');
+
+                        if (new FileInfo(LineData[2]).Name == new FileInfo(File).Name)
+                        {
+                            Debug.WriteLine($"{new FileInfo(LineData[2]).Name} + {new FileInfo(File).Name}");
+                            Reader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
+                            Reader.ReadLine();
+                            break;
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"{new FileInfo(LineData[2]).Name} - {new FileInfo(File).Name}");
+                        }
+
+                    }
+                }
+            }
+        }
+        public class ModInfo
+        {
+            public List<string> Files { get; set; }
+            public List<int> Sizes { get; set; }
         }
     }
 }
