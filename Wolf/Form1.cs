@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -250,53 +251,33 @@ namespace Wolf
 
                 var ModFileInfo = new JavaScriptSerializer().Deserialize<ModInfo>(File.ReadAllText(OFD.FileName));
 
-                try
-                {
-                    InstallDir = Utilities.GetInstallDir();
-                    Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
-                }
-                catch
-                {
-                    var Reply = MessageBox.Show(this, "Do You Want To Locate Game?", "Game Not Fuond!", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-                    if (Reply == DialogResult.No) Environment.Exit(1);
-                    else
-                    {
-                        using (var Ofd = new OpenFileDialog())
-                        {
-                            Ofd.Title = "Select YuGiOh.exe";
-                            Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
-                            var Result = Ofd.ShowDialog();
-                            if (Result != DialogResult.OK) Environment.Exit(1);
-                            Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
-                            InstallDir = new FileInfo(Ofd.FileName).DirectoryName;
-                        }
-                    }
-                }
-
                 var AllFilesFound = true;
-                var CompareSizes = new Dictionary<int, int>();
-                Reader.BaseStream.Position = 0; //Setup Reader Ready To Be Parsed.
-                Reader.ReadLine();
-                foreach (var File in ModFileInfo.Files)
+                var CompareSizes = new Dictionary<long, ModFile>();
+                Reader?.Close();
+
+                using (var GetFileSizeReader = new StreamReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
                 {
-                    while (!Reader.EndOfStream)
+                    for (var Count = 0; Count < ModFileInfo.Files.Count; Count++)
                     {
-                        var Line = Reader.ReadLine();
-                        if (Line == null) break;
-                        Line = Line.TrimStart(' ');
-                        Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
-                        var LineData = Line.Split(' ');
-
-                        if (new FileInfo(LineData[2]).Name == new FileInfo(File).Name)
+                        GetFileSizeReader.BaseStream.Position = 0;
+                        GetFileSizeReader.ReadLine();
+                        while (!GetFileSizeReader.EndOfStream)
                         {
+                            var Line = GetFileSizeReader.ReadLine();
+                            if (Line == null) break;
+                            Line = Line.TrimStart(' ');
+                            Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
+                            var LineData = Line.Split(' ');
 
-                            Reader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
-                            Reader.ReadLine();
-                            AllFilesFound = true;
-                            break;
-                        }
-                        else
-                        {
+                            if (new FileInfo(LineData[2]).Name == new FileInfo(ModFileInfo.Files[Count]).Name)
+                            { 
+                                GetFileSizeReader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
+                                GetFileSizeReader.ReadLine();
+                                AllFilesFound = true;
+                                CompareSizes.Add(Utilities.HexToDec(LineData[0]), new ModFile(ModFileInfo, Count));
+                                break;
+                            }
+
                             AllFilesFound = false;
                         }
                     }
@@ -308,15 +289,81 @@ namespace Wolf
                     if (Reply == DialogResult.No) return;
                 }
 
+                using (var LogWriter = File.AppendText("Install_Log.log"))
+                {
+                    foreach (var ModFile in CompareSizes)
+                    {
+                        if (ModFile.Key > ModFile.Value.FileSize)
+                        {
+                            var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?", "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            if (Reply == DialogResult.No)
+                            {
+                                LogWriter.Write($"[{DateTime.Now}]: Didn't Inject {ModFile.Value.FileName}, Discarded By User!\n\r");
+                                continue;
+                            }
 
+                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Bigger!\n\r");
+
+                            //Open DAT, Insert In Right Place...
+                        }
+                        else
+                        {
+                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
+                            var Sum = 0L;
+                            var NullOutSize = 0L;
+                            Reader.Close();
+                            using (Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
+                            {
+                                Reader.BaseStream.Position = 0;
+                                Reader.ReadLine();
+                                while (!Reader.EndOfStream) //Breaks on 116a658 44 D3D11\characters\m9575_number_39_utopia\m9575_number_39_utopia.phyre ?
+                                {
+                                    var Line = Reader.ReadLine();
+                                    if (Line == null) break;
+                                    Line = Line.TrimStart(' ');
+                                    Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
+                                    var LineData = Line.Split(' ');
+                                    if (LineData[2] == ModFile.Value.FileName)
+                                    {
+                                        NullOutSize = Utilities.HexToDec(LineData[0]);
+                                        break;
+                                    }
+
+                                    Sum = Sum + Utilities.HexToDec(LineData[0]);
+                                }
+                                Debug.WriteLine(Sum);
+                                using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.ReadWrite)))
+                                {
+                                    Writer.BaseStream.Position = Sum;
+                                    var NullCount = 0L;
+                                    do
+                                    {
+                                        Writer.Write(0x00);
+                                        NullCount++;
+                                    } while (NullCount < NullOutSize);
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-            Reader.Close();
         }
         public class ModInfo
         {
             public List<string> Files { get; set; }
             public List<int> Sizes { get; set; }
+        }
+
+        public class ModFile
+        {
+            public string FileName { get; set; }
+            public long FileSize { get; set; }
+
+            public ModFile(ModInfo File, int Index)
+            {
+                FileName = File.Files[Index];
+                FileSize = File.Sizes[Index];
+            }
         }
     }
 }

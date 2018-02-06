@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using Microsoft.Win32;
 
 namespace Celtic_Guardian
@@ -92,6 +93,20 @@ namespace Celtic_Guardian
             if (ShouldQuit)
                 Environment.Exit(ExitCode);
         }
+        public static int HexToDec(string HexValue, bool CheckAlignment = false)
+        {
+            var Number = int.Parse(HexValue, NumberStyles.HexNumber);
+            if (CheckAlignment)
+                while (Number % 4 != 0)
+                    Number = Number + 1;
+
+            return Number;
+        }
+
+        public static int HexToDec(byte[] Data, bool CheckAlignment = false)
+        {
+            return HexToDec(BitConverter.ToString(Data).Replace("-", ""), CheckAlignment);
+        }
 
         public static bool IsExt(string File, string Extension)
         {
@@ -114,8 +129,7 @@ namespace Celtic_Guardian
                     Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
                     var Result = Ofd.ShowDialog();
                     if (Result != DialogResult.OK) Environment.Exit(1);
-                    Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC",
-                        FileMode.Open, FileAccess.Read));
+                    Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
                 }
             }
 
@@ -133,21 +147,58 @@ namespace Celtic_Guardian
 
             return LocalVarFiles;
         }
+    
 
-        public static int HexToDec(string HexValue, bool CheckAlignment = false)
+        public static List<FileLineInfo> ParseTocFile(bool ReturnAllInfo)
         {
-            var Number = int.Parse(HexValue, NumberStyles.HexNumber);
-            if (CheckAlignment)
-                while (Number % 4 != 0)
-                    Number = Number + 1;
+            StreamReader Reader;
+            var LocalVarFiles = new List<FileLineInfo>();
+            try
+            {
+                Reader = new StreamReader($"{GetInstallDir()}\\YGO_DATA.TOC");
+            }
+            catch (Exception)
+            {
+                using (var Ofd = new OpenFileDialog())
+                {
+                    Ofd.Title = "Select YuGiOh.exe";
+                    Ofd.Filter = "YuGiOh.exe | YuGiOh.exe";
+                    var Result = Ofd.ShowDialog();
+                    if (Result != DialogResult.OK) Environment.Exit(1);
+                    Reader = new StreamReader(File.Open($"{new FileInfo(Ofd.FileName).DirectoryName}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read));
+                }
+            }
 
-            return Number;
+            Reader.ReadLine(); //Dispose First Line.
+            while (!Reader.EndOfStream)
+            {
+                var Line = Reader.ReadLine();
+                if (Line == null) continue;
+
+                Line = Line.TrimStart(' '); //Trim Starting Spaces.
+                Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled); //Remove All Extra Spaces.
+                var LineData = Line.Split(' '); //Split Into Chunks.
+                LocalVarFiles.Add(new FileLineInfo(LineData)); //Add To List For Manip.
+            }
+
+
+            return LocalVarFiles;
         }
 
-        public static int HexToDec(byte[] Data, bool CheckAlignment = false)
+        public class FileLineInfo
         {
-            return HexToDec(BitConverter.ToString(Data).Replace("-", ""), CheckAlignment);
+            public long Size { get; set; }
+            public long FileNameSize { get; set; }
+            public string FileName { get; set; }
+
+            public FileLineInfo(IReadOnlyList<string> LineInfo)
+            {
+                Size = HexToDec(LineInfo[0]);
+                FileNameSize = HexToDec(LineInfo[1]);
+                FileName = LineInfo[2];
+            }
         }
+
 
         public static string DecToHex(string DecValue)
         {
@@ -171,7 +222,7 @@ namespace Celtic_Guardian
 
         public static string GiveFileSize(long Value, int DecimalPlaces = 1)
         {
-            var SizeSuffixes = new[] {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+            var SizeSuffixes = new[] { "Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
             if (Value < 0)
                 return "-" + GiveFileSize(-Value);
             var I = 0;
