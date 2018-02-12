@@ -59,6 +59,9 @@ namespace Elroy
 
         private void ExportDeck_Click(object sender, EventArgs e)
         {
+            //Better Progress Needs To Be Made Here.
+            //Can't Export Properly, can't reimport.. Etc.
+
             var DeckName = DeckInfo.Name;
             if (string.IsNullOrEmpty(DeckName))
             {
