@@ -53,6 +53,7 @@ namespace Elroy
                 }
 
                 UpdateSaveStatFromSave();
+                UpdateCampaignFromSave();
             }
         }
 
@@ -63,11 +64,13 @@ namespace Elroy
             Manager.ShowDialog();
         }
 
-        private void saveToolStripMenuItem_Click(object Sender, EventArgs Args)
+        private void SaveToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            WriteSaveStatToSave();
             if (!File.Exists(SaveFile)) return;
             var Save = new GameSaveData(SaveFile);
+
+            WriteSaveStatToSave();
+
             Save.FixGameSaveSignatureOnDisk();
         }
 
@@ -206,7 +209,7 @@ namespace Elroy
             }
         }
 
-        private void WriteSaveStatToSave()
+        private static void WriteSaveStatToSave()
         {
             using (var SaveStatWriter = new BinaryWriter(File.Open(SaveFile, FileMode.Open, FileAccess.Write)))
             {
@@ -303,8 +306,26 @@ namespace Elroy
         {
             using (var CampaignReader = new BinaryReader(File.Open(SaveFile, FileMode.Open, FileAccess.Read)))
             {
-                CampaignReader.BaseStream.Position = 0x24;
+                CampaignReader.BaseStream.Position = 0x1638; //Start Here.
+                foreach (var DuelGropBox in tabPage4.Controls.OfType<GroupBox>().Reverse())
+                {
+                    foreach (var DuelCollectionCheckBox in DuelGropBox.Controls.OfType<CheckedListBox>())
+                    {
+                        var CurrentDuel = 0;
 
+                        while (CurrentDuel < DuelCollectionCheckBox.Items.Count / 2) //Amount Of Duels
+                        {
+                            var CurrentDuelChunk = CampaignReader.ReadBytes(0x18);
+                            Debug.WriteLine($"{CampaignReader.BaseStream.Position} - {BitConverter.ToString(CurrentDuelChunk)}");
+                            DuelCollectionCheckBox.SetItemChecked(CurrentDuel, true);
+                            CurrentDuel++;
+
+                            
+                        }
+                        break;
+                    }
+                    break;
+                }
             }
         }
 

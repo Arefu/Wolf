@@ -185,26 +185,26 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox37 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox4 = new System.Windows.Forms.CheckedListBox();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBox4 = new System.Windows.Forms.CheckedListBox();
             this.groupBox35 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox5 = new System.Windows.Forms.CheckedListBox();
+            this.checkedListBox3 = new System.Windows.Forms.CheckedListBox();
             this.groupBox34 = new System.Windows.Forms.GroupBox();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.groupBox33 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox41 = new System.Windows.Forms.GroupBox();
+            this.button34 = new System.Windows.Forms.Button();
+            this.button33 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox41 = new System.Windows.Forms.GroupBox();
-            this.button33 = new System.Windows.Forms.Button();
-            this.button34 = new System.Windows.Forms.Button();
+            this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -287,14 +287,14 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.groupBox37.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.groupBox35.SuspendLayout();
             this.groupBox34.SuspendLayout();
             this.groupBox33.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.groupBox41.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            this.groupBox37.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -2100,42 +2100,9 @@
             this.tabPage4.Text = "Campaign Progress";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // groupBox37
-            // 
-            this.groupBox37.Controls.Add(this.checkedListBox4);
-            this.groupBox37.Location = new System.Drawing.Point(1145, 7);
-            this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(250, 622);
-            this.groupBox37.TabIndex = 1;
-            this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "Yu-Gi-Oh! ARC-V";
-            // 
-            // checkedListBox4
-            // 
-            this.checkedListBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBox4.FormattingEnabled = true;
-            this.checkedListBox4.Items.AddRange(new object[] {
-            "The Pendulum",
-            "The Pendulum (Reversed)",
-            "Yuya vs Sora (DLC)",
-            "Yuya vs Sora (Reversed / DLC)",
-            "Yuto vs Sylvio (DLC)",
-            "Yuto vs Sylvio (Reversed / DLC)",
-            "Yuya vs Dipper (DLC)",
-            "Yuya vs Dipper (Reversed / DLC)",
-            "Zuzu vs Julia (DLC)",
-            "Zuzu vs Julia (Reversed / DLC)",
-            "Gong vs Kit (DLC) ",
-            "Gong vs Kit (Reversed / DLC) "});
-            this.checkedListBox4.Location = new System.Drawing.Point(3, 16);
-            this.checkedListBox4.Name = "checkedListBox4";
-            this.checkedListBox4.Size = new System.Drawing.Size(244, 603);
-            this.checkedListBox4.TabIndex = 0;
-            // 
             // groupBox36
             // 
-            this.groupBox36.Controls.Add(this.checkedListBox3);
+            this.groupBox36.Controls.Add(this.checkedListBox4);
             this.groupBox36.Location = new System.Drawing.Point(851, 7);
             this.groupBox36.Name = "groupBox36";
             this.groupBox36.Size = new System.Drawing.Size(250, 610);
@@ -2143,70 +2110,43 @@
             this.groupBox36.TabStop = false;
             this.groupBox36.Text = "Yu-Gi-Oh! ZEXAL";
             // 
-            // checkedListBox3
+            // checkedListBox4
             // 
-            this.checkedListBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBox3.FormattingEnabled = true;
-            this.checkedListBox3.Items.AddRange(new object[] {
-            "Go with the Flow",
-            "Go with the Flow (Reversed)",
+            this.checkedListBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkedListBox4.FormattingEnabled = true;
+            this.checkedListBox4.Items.AddRange(new object[] {
             "Flipping Out",
-            "Flipping Out (Reversed)",
             "The Sparrow",
-            "The Sparrow (Reversed)",
             "Feline Frenzy",
-            "Feline Frenzy (Reversed)",
-            "Roots of the Problem (DLC)",
-            "Roots of the Problem (Reversed / DLC)",
             "Love Hurts",
-            "Love Hurts (Reversed)",
             "Double Jeopardy",
-            "Double Jeopardy (Reversed)",
             "The Dragon Awakens",
-            "The Dragon Awakens (Reversed)",
             "Cosmic Chaos",
-            "Cosmic Chaos (Reversed)",
             "Swimming with Sharks",
-            "Swimming with Sharks (Reversed)",
             "Rockin\' and Rollin\'",
-            "Rockin\' and Rollin\' (Reversed)",
             "Duel of Destiny",
-            "Duel of Destiny (Reversed)",
             "Sphere of Fear",
-            "Sphere of Fear (Reversed)",
             "A Trio\'s Challenge",
-            "A Trio\'s Challenge (Reversed)",
             "Counter Offensive",
-            "Counter Offensive (Reversed)",
             "Dual Duel",
-            "Dual Duel (Reversed)",
             "Search for Shadows, Pt. 1",
-            "Search for Shadows, Pt. 1 (Reversed)",
             "Search for Shadows, Pt. 2",
-            "Search for Shadows, Pt. 2 (Reversed)",
             "Search for Shadows, Pt. 3",
-            "Search for Shadows, Pt. 3 (Reversed)",
             "Barian Vengeance",
-            "Barian Vengeance (Reversed)",
             "A Sea of Troubles",
-            "A Sea of Troubles (Reversed)",
             "Clash of the Emperors",
-            "Clash of the Emperors (Reversed)",
             "The New World",
-            "The New World (Reversed)",
             "The Battle of Three Worlds",
-            "The Battle of Three Worlds (Reversed)",
-            "Forever ZEXAL",
-            "Forever ZEXAL (Reversed)"});
-            this.checkedListBox3.Location = new System.Drawing.Point(3, 16);
-            this.checkedListBox3.Name = "checkedListBox3";
-            this.checkedListBox3.Size = new System.Drawing.Size(244, 591);
-            this.checkedListBox3.TabIndex = 0;
+            "Forever ZEXAL"});
+            this.checkedListBox4.Location = new System.Drawing.Point(3, 16);
+            this.checkedListBox4.Name = "checkedListBox4";
+            this.checkedListBox4.Size = new System.Drawing.Size(244, 591);
+            this.checkedListBox4.TabIndex = 0;
             // 
             // groupBox35
             // 
-            this.groupBox35.Controls.Add(this.checkedListBox5);
+            this.groupBox35.Controls.Add(this.checkedListBox3);
             this.groupBox35.Location = new System.Drawing.Point(563, 3);
             this.groupBox35.Name = "groupBox35";
             this.groupBox35.Size = new System.Drawing.Size(250, 610);
@@ -2214,78 +2154,44 @@
             this.groupBox35.TabStop = false;
             this.groupBox35.Text = "Yu-Gi-Oh! 5D\'s";
             // 
-            // checkedListBox5
+            // checkedListBox3
             // 
-            this.checkedListBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBox5.FormattingEnabled = true;
-            this.checkedListBox5.Items.AddRange(new object[] {
-            "Ready, Set, Duel",
-            "Ready, Set, Duel (Reversed)",
+            this.checkedListBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkedListBox3.FormattingEnabled = true;
+            this.checkedListBox3.Items.AddRange(new object[] {
             "A Blast from the Past",
-            "A Blast from the Past (Reversed)",
             "The Facility",
-            "The Facility (Reversed)",
             "The Lockdown Duel",
-            "The Lockdown Duel (Reversed)",
             "The Take Back",
-            "The Take Back (Reversed)",
             "Welcome to the Fortune Cup",
-            "Welcome to the Fortune Cup (Reversed)",
             "Surprise Surprise",
-            "Surprise Surprise (Reversed)",
             "Second Round Showdown",
-            "Second Round Showdown (Reversed)",
             "Duel of Dragons",
-            "Duel of Dragons (Reversed)",
             "The Fortune Cup Finale",
-            "The Fortune Cup Finale (Reversed)",
             "Supersensory Shakedown",
-            "Supersensory Shakedown (Reversed)",
             "Digging Deeper",
-            "Digging Deeper (Reversed)",
             "Mark of the Monkey",
-            "Mark of the Monkey (Reversed)",
             "A Whale of a Ride",
-            "A Whale of a Ride (Reversed)",
             "A Score to Settle",
-            "A Score to Settle (Reversed)",
             "Destiny\'s Will",
-            "Destiny\'s Will (Reversed)",
             "Shadows of Doubt",
-            "Shadows of Doubt (Reversed)",
             "Truth and Consequences",
-            "Truth and Consequences (Reversed)",
             "Signs of Doom",
-            "Signs of Doom (Reversed)",
             "French Twist",
-            "French Twist (Reversed)",
             "The Edge of Elimination Part 1",
-            "The Edge of Elimination Part 1 (Reversed)",
             "The Edge of Elimination Part 2",
-            "The Edge of Elimination Part 2 (Reversed)",
             "The Edge of Elimination Part 3",
-            "The Edge of Elimination Part 3 (Reversed)",
             "Duel for Redemption",
-            "Duel for Redemption (Reversed)",
             "Tricking the Trickster",
-            "Tricking the Trickster (Reversed)",
             "Tricking the Trickster 2",
-            "Tricking the Trickster 2 (Reversed)",
             "The Beginning of the End",
-            "The Beginning of the End (Reversed)",
             "Dawn of the Machines",
-            "Dawn of the Machines (Reversed)",
-            "Victory or Doom",
-            "Victory or Doom (Reversed)",
-            "Fight for the Future (DLC)",
-            "Fight for the Future (Reversed / DLC)",
-            "Hope (DLC) ",
-            "Hope (Reversed / DLC) "});
-            this.checkedListBox5.Location = new System.Drawing.Point(3, 16);
-            this.checkedListBox5.Name = "checkedListBox5";
-            this.checkedListBox5.Size = new System.Drawing.Size(244, 591);
-            this.checkedListBox5.TabIndex = 0;
+            "Victory or Doom"});
+            this.checkedListBox3.Location = new System.Drawing.Point(3, 16);
+            this.checkedListBox3.Name = "checkedListBox3";
+            this.checkedListBox3.Size = new System.Drawing.Size(244, 591);
+            this.checkedListBox3.TabIndex = 0;
             // 
             // groupBox34
             // 
@@ -2303,66 +2209,33 @@
             this.checkedListBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox2.FormattingEnabled = true;
             this.checkedListBox2.Items.AddRange(new object[] {
-            "The Next King of Games",
-            "The Next King of Games (Reversed)",
             "A Duel in Love",
-            "A Duel in Love (Reversed)",
             "The Shadow Duelist",
-            "The Shadow Duelist (Reversed)",
             "For the Sake of Syrus",
-            "For the Sake of Syrus (Reversed)",
             "Formula for Success",
-            "Formula for Success (Reversed)",
             "Doomsday Duel",
-            "Doomsday Duel (Reversed)",
             "Field of Screams",
-            "Field of Screams (Reversed)",
             "Duel Distractions",
-            "Duel Distractions (Reversed)",
             "A Reason to Win",
-            "A Reason to Win (Reversed)",
             "Amnael\'s Endgame",
-            "Amnael\'s Endgame (Reversed)",
             "Rise of the Sacred Beasts",
-            "Rise of the Sacred Beasts (Reversed)",
             "Magna Chum Laude",
-            "Magna Chum Laude (Reversed)",
             "The Graduation Match",
-            "The Graduation Match (Reversed)",
-            "A New Breed of Hero ",
-            "A New Breed of Hero (Reversed)",
+            "A New Breed of Hero",
             "Blinded by the Light",
-            "Blinded by the Light (Reversed)",
             "Heart of Ice",
-            "Heart of Ice (Reversed)",
             "Tough Love",
-            "Tough Love (Reversed)",
             "The Hand of Justice",
-            "The Hand of Justice (Reversed)",
             "Future Changes",
-            "Future Changes (Reversed)",
             "A Jewel of a Duel",
-            "A Jewel of a Duel (Reversed)",
             "Hanging with Axel",
-            "Hanging with Axel (Reversed)",
             "Primal Instinct",
-            "Primal Instinct (Reversed)",
             "Head in the Clouds",
-            "Head in the Clouds (Reversed)",
             "A Snake in the Grass",
-            "A Snake in the Grass (Reversed)",
             "A Dimensional Duel",
-            "A Dimensional Duel (Reversed)",
             "Unleashing the Dragon",
-            "Unleashing the Dragon (Reversed)",
             "The Power Within",
-            "The Power Within (Reversed)",
-            "Return of the Supreme King",
-            "Return of the Supreme King (Reversed)",
-            "Darkness Returns (DLC)",
-            "Darkness Returns (Reversed / DLC)",
-            "The Legendary Duelist (DLC)",
-            "The Legendary Duelist (Reversed / DLC)"});
+            "Return of the Supreme King"});
             this.checkedListBox2.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox2.Name = "checkedListBox2";
             this.checkedListBox2.Size = new System.Drawing.Size(244, 591);
@@ -2384,60 +2257,30 @@
             this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
-            "The Duelist Kingdom",
-            "The Duelist Kingdom (Reversed)",
             "The Heart of the Cards",
-            "The Heart of the Cards (Reversed)",
             "The Ultimate Great Moth",
-            "The Ultimate Great Moth (Reversed)",
             "The Harpie Lady",
-            "The Harpie Lady (Reversed)",
             "Attack from the Deep",
-            "Attack from the Deep (Reversed)",
             "The Dinosaur Duelist",
-            "The Dinosaur Duelist (Reversed)",
             "Evil Spirit of the Ring",
-            "Evil Spirit of the Ring (Reversed)",
             "PaniK Attack",
-            "PaniK Attack (Reversed)",
-            "Arena of Lost Souls (DLC) ",
-            "Arena of Lost Souls (Reversed / DLC) ",
             "The Face Off",
-            "The Face Off (Reversed)",
             "A Duel of Tears",
-            "A Duel of Tears (Reversed)",
-            "Champion vs. Creator (DLC) ",
-            "Champion vs. Creator (Reversed / DLC) ",
             "Duel Identity",
-            "Duel Identity (Reversed)",
             "Keith\'s Machinations",
-            "Keith\'s Machinations (Reversed)",
             "Best Friends, Best Duelists",
-            "Best Friends, Best Duelists (Reversed)",
             "The Match of the Millennium",
-            "The Match of the Millennium (Reversed)",
             "The Mystery Duelist",
-            "The Mystery Duelist (Reversed)",
             "Battle City Begins",
-            "Battle City Begins (Reversed)",
             "The Master of Magicians",
-            "The Master of Magicians (Reversed)",
             "Playing with a Parasite",
-            "Playing with a Parasite (Reversed)",
             "Mime Control",
-            "Mime Control (Reversed)",
             "The Dark Spirit Revealed",
-            "The Dark Spirit Revealed (Reversed)",
             "The Awakening of Evil",
-            "The Awakening of Evil (Reversed)",
             "A Duel with Destiny",
-            "A Duel with Destiny (Reversed)",
             "Clash in the Colosseum",
-            "Clash in the Colosseum (Reversed)",
             "The Final Face Off",
-            "The Final Face Off (Reversed)",
-            "The Final Duel",
-            "The Final Duel (Reversed)"});
+            "The Final Duel"});
             this.checkedListBox1.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(244, 591);
@@ -2452,6 +2295,36 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Miscellaneous";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox41
+            // 
+            this.groupBox41.Controls.Add(this.button34);
+            this.groupBox41.Controls.Add(this.button33);
+            this.groupBox41.Location = new System.Drawing.Point(3, 3);
+            this.groupBox41.Name = "groupBox41";
+            this.groupBox41.Size = new System.Drawing.Size(200, 100);
+            this.groupBox41.TabIndex = 0;
+            this.groupBox41.TabStop = false;
+            this.groupBox41.Text = "100% Buttons";
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(6, 48);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(188, 23);
+            this.button34.TabIndex = 1;
+            this.button34.Text = "Unlock ALL Cards";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(6, 19);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(188, 23);
+            this.button33.TabIndex = 0;
+            this.button33.Text = "Unlock All Cards";
+            this.button33.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -2486,7 +2359,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -2500,35 +2373,25 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // groupBox41
+            // groupBox37
             // 
-            this.groupBox41.Controls.Add(this.button34);
-            this.groupBox41.Controls.Add(this.button33);
-            this.groupBox41.Location = new System.Drawing.Point(3, 3);
-            this.groupBox41.Name = "groupBox41";
-            this.groupBox41.Size = new System.Drawing.Size(200, 100);
-            this.groupBox41.TabIndex = 0;
-            this.groupBox41.TabStop = false;
-            this.groupBox41.Text = "100% Buttons";
+            this.groupBox37.Controls.Add(this.label44);
+            this.groupBox37.Location = new System.Drawing.Point(1145, 7);
+            this.groupBox37.Name = "groupBox37";
+            this.groupBox37.Size = new System.Drawing.Size(250, 622);
+            this.groupBox37.TabIndex = 1;
+            this.groupBox37.TabStop = false;
+            this.groupBox37.Text = "Yu-Gi-Oh! ARC-V";
             // 
-            // button33
+            // label44
             // 
-            this.button33.Location = new System.Drawing.Point(6, 19);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(188, 23);
-            this.button33.TabIndex = 0;
-            this.button33.Text = "Unlock All Cards";
-            this.button33.UseVisualStyleBackColor = true;
-            // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(6, 48);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(188, 23);
-            this.button34.TabIndex = 1;
-            this.button34.Text = "Unlock ALL Cards";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(6, 16);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(236, 52);
+            this.label44.TabIndex = 0;
+            this.label44.Text = "In The Base Game ARC-V Only Has One Story\r\nThere Is No Need To Unlock It Since It" +
+    " Is A\r\nTutorial, All DLC Duels Will Already Be Unlocked\r\nOnce Purchased\r\n";
             // 
             // Form1
             // 
@@ -2627,15 +2490,16 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
-            this.groupBox37.ResumeLayout(false);
             this.groupBox36.ResumeLayout(false);
             this.groupBox35.ResumeLayout(false);
             this.groupBox34.ResumeLayout(false);
             this.groupBox33.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.groupBox41.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox41.ResumeLayout(false);
+            this.groupBox37.ResumeLayout(false);
+            this.groupBox37.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2752,16 +2616,14 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.GroupBox groupBox36;
         private System.Windows.Forms.GroupBox groupBox35;
         private System.Windows.Forms.GroupBox groupBox34;
         private System.Windows.Forms.GroupBox groupBox33;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox4;
-        private System.Windows.Forms.CheckedListBox checkedListBox3;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
-        private System.Windows.Forms.CheckedListBox checkedListBox5;
+        private System.Windows.Forms.CheckedListBox checkedListBox3;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.Button button30;
@@ -2820,6 +2682,8 @@
         private System.Windows.Forms.GroupBox groupBox41;
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.GroupBox groupBox37;
+        private System.Windows.Forms.Label label44;
     }
 }
 
