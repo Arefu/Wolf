@@ -1,9 +1,6 @@
-﻿using Celtic_Guardian;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Elroy
@@ -53,7 +50,7 @@ namespace Elroy
                 }
 
                 UpdateSaveStatFromSave();
-                UpdateCampaignFromSave();
+                StoryManager.UpdateCampaignFromSave(ref tabPage4, SaveFile);
             }
         }
 
@@ -300,38 +297,6 @@ namespace Elroy
                 // "SAVESTAT_DECKS_CREATED"
 
             }
-        }
-
-        private void UpdateCampaignFromSave()
-        {
-            using (var CampaignReader = new BinaryReader(File.Open(SaveFile, FileMode.Open, FileAccess.Read)))
-            {
-                CampaignReader.BaseStream.Position = 0x1638; //Start Here.
-                foreach (var DuelGropBox in tabPage4.Controls.OfType<GroupBox>().Reverse())
-                {
-                    foreach (var DuelCollectionCheckBox in DuelGropBox.Controls.OfType<CheckedListBox>())
-                    {
-                        var CurrentDuel = 0;
-
-                        while (CurrentDuel < DuelCollectionCheckBox.Items.Count / 2) //Amount Of Duels
-                        {
-                            var CurrentDuelChunk = CampaignReader.ReadBytes(0x18);
-                            Debug.WriteLine($"{CampaignReader.BaseStream.Position} - {BitConverter.ToString(CurrentDuelChunk)}");
-                            DuelCollectionCheckBox.SetItemChecked(CurrentDuel, true);
-                            CurrentDuel++;
-
-                            
-                        }
-                        break;
-                    }
-                    break;
-                }
-            }
-        }
-
-        private void WriteCampaignToSave()
-        {
-
         }
 
         private void button34_Click(object sender, EventArgs e)

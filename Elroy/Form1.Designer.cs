@@ -185,6 +185,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
             this.checkedListBox4 = new System.Windows.Forms.CheckedListBox();
             this.groupBox35 = new System.Windows.Forms.GroupBox();
@@ -203,8 +205,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox37 = new System.Windows.Forms.GroupBox();
-            this.label44 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -287,6 +287,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox37.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.groupBox35.SuspendLayout();
             this.groupBox34.SuspendLayout();
@@ -294,7 +295,6 @@
             this.tabPage3.SuspendLayout();
             this.groupBox41.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox37.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -303,7 +303,6 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -2100,6 +2099,26 @@
             this.tabPage4.Text = "Campaign Progress";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox37
+            // 
+            this.groupBox37.Controls.Add(this.label44);
+            this.groupBox37.Location = new System.Drawing.Point(1145, 7);
+            this.groupBox37.Name = "groupBox37";
+            this.groupBox37.Size = new System.Drawing.Size(250, 622);
+            this.groupBox37.TabIndex = 1;
+            this.groupBox37.TabStop = false;
+            this.groupBox37.Text = "Yu-Gi-Oh! ARC-V";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(6, 16);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(236, 52);
+            this.label44.TabIndex = 0;
+            this.label44.Text = "In The Base Game ARC-V Only Has One Story\r\nThere Is No Need To Unlock It Since It" +
+    " Is A\r\nTutorial, All DLC Duels Will Already Be Unlocked\r\nOnce Purchased\r\n";
+            // 
             // groupBox36
             // 
             this.groupBox36.Controls.Add(this.checkedListBox4);
@@ -2373,26 +2392,6 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // groupBox37
-            // 
-            this.groupBox37.Controls.Add(this.label44);
-            this.groupBox37.Location = new System.Drawing.Point(1145, 7);
-            this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(250, 622);
-            this.groupBox37.TabIndex = 1;
-            this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "Yu-Gi-Oh! ARC-V";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(6, 16);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(236, 52);
-            this.label44.TabIndex = 0;
-            this.label44.Text = "In The Base Game ARC-V Only Has One Story\r\nThere Is No Need To Unlock It Since It" +
-    " Is A\r\nTutorial, All DLC Duels Will Already Be Unlocked\r\nOnce Purchased\r\n";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2490,6 +2489,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.groupBox37.ResumeLayout(false);
+            this.groupBox37.PerformLayout();
             this.groupBox36.ResumeLayout(false);
             this.groupBox35.ResumeLayout(false);
             this.groupBox34.ResumeLayout(false);
@@ -2498,8 +2499,6 @@
             this.groupBox41.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox37.ResumeLayout(false);
-            this.groupBox37.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
