@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Celtic_Guardian;
 
 namespace Elroy
 {
@@ -78,8 +74,15 @@ namespace Elroy
             0x2e, 0x7a, 0x66, 0xb3, 0xb8, 0x4a, 0x61, 0xc4, 0x02, 0x1b, 0x68, 0x5d, 0x94, 0x2b, 0x6f, 0x2a,
             0x37, 0xbe, 0x0b, 0xb4, 0xa1, 0x8e, 0x0c, 0xc3, 0x1b, 0xdf, 0x05, 0x5a, 0x8d, 0xef, 0x02, 0x2d
         };
+
         private static readonly uint[] Table = new uint[256];
         private static string SaveFileLocation; //Get From CTOR.
+
+        public GameSaveData(string SaveFilePath)
+        {
+            SaveFileLocation = SaveFilePath;
+            for (var Count = 0; Count < Table.Length; Count++) Table[Count] = BitConverter.ToUInt32(ByteTable, Count * 4);
+        }
 
         private void SaveSignature(byte[] SaveBytes)
         {
@@ -89,13 +92,10 @@ namespace Elroy
 
         protected uint GetSignature(byte[] ByteBuffer)
         {
-            for (var Count = 0; Count < 4; Count++)
-            {
-                ByteBuffer[12 + Count] = 0;
-            }
+            for (var Count = 0; Count < 4; Count++) ByteBuffer[12 + Count] = 0;
 
-            var Result = ByteBuffer.Aggregate<byte, ulong>(0xFFFFFFFF, (Current, T) => ((uint)Current >> 8) ^ Table[(byte)Current ^ T]);
-            return (uint)Result;
+            var Result = ByteBuffer.Aggregate<byte, ulong>(0xFFFFFFFF, (Current, T) => ((uint) Current >> 8) ^ Table[(byte) Current ^ T]);
+            return (uint) Result;
         }
 
         public void FixGameSaveSignatureOnDisk()
@@ -103,15 +103,6 @@ namespace Elroy
             var SaveContents = File.ReadAllBytes(SaveFileLocation);
             SaveSignature(SaveContents);
             File.WriteAllBytes(SaveFileLocation, SaveContents);
-        }
-
-        public GameSaveData(string SaveFilePath)
-        {
-            SaveFileLocation = SaveFilePath;
-            for (var Count = 0; Count < Table.Length; Count++)
-            {
-                Table[Count] = BitConverter.ToUInt32(ByteTable, Count * 4);
-            }
         }
     }
 }

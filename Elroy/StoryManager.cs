@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Elroy
@@ -56,31 +53,26 @@ namespace Elroy
             {
                 var CurrentStory = 0;
                 foreach (var GroupBox in Page.Controls.OfType<GroupBox>().Reverse())
+                foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
                 {
-                    foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
+                    CampaignReader.BaseStream.Position = StoryLengths[CurrentStory].Start;
+                    var CurrentLevel = 0;
+                    do
                     {
-                        CampaignReader.BaseStream.Position = StoryLengths[CurrentStory].Start;
-                        var CurrentLevel = 0;
-                        do
+                        if (CurrentLevel > StoryLengths[CurrentStory].Missions) break;
+                        if (SkipOffset.Any(Offset => CampaignReader.BaseStream.Position == Offset))
                         {
-                            if (CurrentLevel > StoryLengths[CurrentStory].Missions)
-                            {
-                                break;
-                            }
-                            if (SkipOffset.Any(Offset => CampaignReader.BaseStream.Position == Offset))
-                            {
-                                CampaignReader.BaseStream.Position += 0x18;
-                                continue;
-                            }
+                            CampaignReader.BaseStream.Position += 0x18;
+                            continue;
+                        }
 
-                            CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18), CampaignReader.BaseStream.Position, CurrentLevel));
+                        CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18), CampaignReader.BaseStream.Position, CurrentLevel));
 
 
-                            CurrentLevel++;
-                        } while (CampaignReader.BaseStream.Position <= StoryLengths[CurrentStory].End);
-                        CurrentStory++;
-                        Debug.WriteLine("Done Story");
-                    }
+                        CurrentLevel++;
+                    } while (CampaignReader.BaseStream.Position <= StoryLengths[CurrentStory].End);
+
+                    CurrentStory++;
                 }
             }
         }
@@ -92,10 +84,9 @@ namespace Elroy
 
         internal static void WriteCampaignToSave()
         {
-
         }
-
     }
+
     internal class StoryLookup
     {
         //May be bale to remove missions

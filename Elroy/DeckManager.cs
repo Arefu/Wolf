@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Celtic_Guardian;
 
@@ -14,9 +10,9 @@ namespace Elroy
 {
     public partial class DeckManager : Form
     {
-        private readonly string Save;
         private const long DeckStartOffset = 0x2C80; //0x2DB0 Should Be The First Deck;
         private readonly int DeckCode;
+        private readonly string Save;
         private bool SomethingChanges;
 
         public DeckManager(string DeckName, string SavePath)
@@ -53,6 +49,7 @@ namespace Elroy
                     Writer.Write(new byte[0x30 - Encoding.BigEndianUnicode.GetBytes(new FileInfo(OFD.FileName).Name).Skip(1).ToArray().Length / 2]);
                     Writer.Write(File.ReadAllBytes(OFD.FileName));
                 }
+
                 Writer.Close();
             }
         }
@@ -121,7 +118,6 @@ namespace Elroy
                 var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (Result == DialogResult.Yes && DeckInfo.Name != "N/A")
-                {
                     using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))
                     {
                         Writer.BaseStream.Position = DeckStartOffset + DeckCode;
@@ -129,17 +125,14 @@ namespace Elroy
                         Writer.Write(DeckName);
                         Writer.Write(new byte[0x40 - Encoding.BigEndianUnicode.GetBytes(textBox1.Text).ToString().Length / 2]);
                     }
-                }
             }
+
             base.OnClosing(Args);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            if (((TextBox)sender).ContainsFocus)
-            {
-                SomethingChanges = true;
-            }
+            if (((TextBox) sender).ContainsFocus) SomethingChanges = true;
         }
     }
 
