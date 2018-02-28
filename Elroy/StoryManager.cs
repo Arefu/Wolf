@@ -33,9 +33,11 @@ namespace Elroy
 
                 /*Yu-Gi-Oh! ZEXAL*/
                 0x24C0, /* DLC */
-                0x2658, /* DLC */
+                0x2658 /* DLC */
 
 
+                /*Yu-Gi-Oh! ARC-V*/
+                //All Levels For This Arc Are DLC.
             };
 
             var StoryLengths = new List<StoryLookup>
