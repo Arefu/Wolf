@@ -29,20 +29,25 @@ namespace Elroy
                 0x1C70, /* DLC */
 
                 /*Yu-Gi-Oh! 5D's*/
+                //Didn't See Any For This Game, If You Notice Any Please Let Me Know In Discord or Github Issues.
 
                 /*Yu-Gi-Oh! ZEXAL*/
+                0x24C0, /* DLC */
+                0x2658, /* DLC */
+
+
             };
 
             var StoryLengths = new List<StoryLookup>
             {
                 /*Yu-Gi-Oh!*/
-                new StoryLookup(0x1638, 0x1920, 23, 1),
+                new StoryLookup(0x1650, 0x1920, 23, 1),
                 /*Yu-Gi-Oh! GX*/
-                new StoryLookup(0x1AF0, 0x1DC0, 26, 2), //1AF0 - Tutorial?
+                new StoryLookup(0x1B08, 0x1DC0, 26, 2),
                 /*Yu-Gi-Oh! 5D's*/
-                new StoryLookup(0x1FA8, 0x2260, 27, 3),
+                new StoryLookup(0x1FC0, 0x2260, 27, 3),
                 /*Yu-Gi-Oh! ZEXAL*/
-                new StoryLookup(0x1638, 0x1920, 22, 4)
+                new StoryLookup(0x2460, 0x26D0, 22, 4)
             };
 
             using (var CampaignReader = new BinaryReader(File.Open(SaveName, FileMode.Open, FileAccess.Read)))
@@ -56,32 +61,31 @@ namespace Elroy
                         var CurrentLevel = 0;
                         do
                         {
+                            if (CurrentLevel > StoryLengths[CurrentStory].Missions)
+                            {
+                                break;
+                            }
                             if (SkipOffset.Any(Offset => CampaignReader.BaseStream.Position == Offset))
                             {
                                 CampaignReader.BaseStream.Position += 0x18;
                                 continue;
                             }
-                            
-                            CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18)));
 
-                            if (CurrentLevel != StoryLengths[CurrentStory].Missions)
-                                CurrentLevel++;
+                            CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18), CampaignReader.BaseStream.Position, CurrentLevel));
 
+
+                            CurrentLevel++;
                         } while (CampaignReader.BaseStream.Position <= StoryLengths[CurrentStory].End);
                         CurrentStory++;
+                        Debug.WriteLine("Done Story");
                     }
                 }
             }
         }
 
-        internal static bool ValidateStory(byte[] DataChunk)
+        internal static bool ValidateStory(byte[] DataChunk, long CurrentOffset, int CurrentLevel)
         {
-            if (DataChunk[0] == 0x03)
-                return true;
-
-            Debug.WriteLine(BitConverter.ToString(DataChunk));
-
-            return false;
+            return DataChunk[0] == 0x03 || DataChunk[0] == 0x01;
         }
 
         internal static void WriteCampaignToSave()
