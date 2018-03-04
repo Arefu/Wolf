@@ -61,6 +61,7 @@
     <Compile Include="GameSaveData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveStatManager.cs" />
     <Compile Include="StoryManager.cs" />
     <EmbeddedResource Include="DeckManager.resx">
       <DependentUpon>DeckManager.cs</DependentUpon>
