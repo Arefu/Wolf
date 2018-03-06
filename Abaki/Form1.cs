@@ -1,19 +1,20 @@
-﻿using Celtic_Guardian;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Abaki
 {
     public partial class Form1 : Form
     {
+        private string LanguageFile = "";
+
         public Form1()
         {
             InitializeComponent();
         }
-        string LanguageFile = "";
 
         private void LoadToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
@@ -42,10 +43,7 @@ namespace Abaki
                         Count++;
                     } while (Count < AmountOfStrings);
 
-                    for (Count = 0; Count < StringOffsets.Count; Count++)
-                    {
-                        listBox1.Items.Add(Count != StringOffsets.Count - 1 ? System.Text.Encoding.BigEndianUnicode.GetString(Reader.ReadBytes(StringOffsets[Count] - (int) Reader.BaseStream.Position)) : System.Text.Encoding.BigEndianUnicode.GetString(Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position)));
-                    }
+                    for (Count = 0; Count < StringOffsets.Count; Count++) listBox1.Items.Add(Count != StringOffsets.Count - 1 ? Encoding.BigEndianUnicode.GetString(Reader.ReadBytes(StringOffsets[Count] - (int) Reader.BaseStream.Position)) : Encoding.BigEndianUnicode.GetString(Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position)));
                 }
             }
         }
@@ -57,19 +55,16 @@ namespace Abaki
 
             using (var Writer = new BinaryWriter(File.Open(LanguageFile, FileMode.Create, FileAccess.Write)))
             {
-                Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint)listBox1.Items.Count + 1)));
+                Writer.Write(BitConverter.GetBytes(Utilities.SwapBytes((uint) listBox1.Items.Count + 1)));
 
                 long Sum = listBox1.Items.Count * 4 + 4;
                 foreach (var Item in listBox1.Items)
                 {
-                    Writer.Write(Utilities.SwapBytes((uint)Sum));
+                    Writer.Write(Utilities.SwapBytes((uint) Sum));
                     Sum = Sum + LanguageParse(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
                 }
 
-                foreach (var Item in listBox1.Items)
-                {
-                    Writer.Write(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
-                }
+                foreach (var Item in listBox1.Items) Writer.Write(Encoding.BigEndianUnicode.GetBytes(Item.ToString()));
             }
         }
 
@@ -77,10 +72,7 @@ namespace Abaki
         public static long LanguageParse(byte[] Bytes)
         {
             var HexString = new StringBuilder(Bytes.Length * 2);
-            foreach (var Byte in Bytes)
-            {
-                HexString.Append(Byte == 0x00 ? '.' : Convert.ToChar(Byte));
-            }
+            foreach (var Byte in Bytes) HexString.Append(Byte == 0x00 ? '.' : Convert.ToChar(Byte));
 
             return HexString.ToString().Length;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -50,28 +48,26 @@ namespace Elroy
             {
                 var CurrentStory = 0;
                 foreach (var GroupBox in Page.Controls.OfType<GroupBox>().Reverse())
+                foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
                 {
-                    foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
+                    CampaignReader.BaseStream.Position = StoryLengths[CurrentStory].Start;
+                    var CurrentLevel = 0;
+                    do
                     {
-                        CampaignReader.BaseStream.Position = StoryLengths[CurrentStory].Start;
-                        var CurrentLevel = 0;
-                        do
+                        if (CurrentLevel > StoryLengths[CurrentStory].Missions) break;
+                        if (SkipOffset.Any(Offset => CampaignReader.BaseStream.Position == Offset))
                         {
-                            if (CurrentLevel > StoryLengths[CurrentStory].Missions) break;
-                            if (SkipOffset.Any(Offset => CampaignReader.BaseStream.Position == Offset))
-                            {
-                                CampaignReader.BaseStream.Position += 0x18;
-                                continue;
-                            }
+                            CampaignReader.BaseStream.Position += 0x18;
+                            continue;
+                        }
 
-                            CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18)));
+                        CheckBoxList.SetItemChecked(CurrentLevel, ValidateStory(CampaignReader.ReadBytes(0x18)));
 
 
-                            CurrentLevel++;
-                        } while (CampaignReader.BaseStream.Position <= StoryLengths[CurrentStory].End);
+                        CurrentLevel++;
+                    } while (CampaignReader.BaseStream.Position <= StoryLengths[CurrentStory].End);
 
-                        CurrentStory++;
-                    }
+                    CurrentStory++;
                 }
             }
         }
@@ -82,29 +78,34 @@ namespace Elroy
             {
                 var CurrentStory = 0;
                 foreach (var GroupBox in Page.Controls.OfType<GroupBox>().Reverse())
+                foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
                 {
-                    foreach (var CheckBoxList in GroupBox.Controls.OfType<CheckedListBox>())
+                    CampaignWriter.BaseStream.Position = StoryLengths[CurrentStory].Start;
+                    var CurrentLevel = 0;
+                    do
                     {
-                        CampaignWriter.BaseStream.Position = StoryLengths[CurrentStory].Start;
-                        var CurrentLevel = 0;
-                        do
+                        if (CurrentLevel > StoryLengths[CurrentStory].Missions) break;
+                        if (SkipOffset.Any(Offset => CampaignWriter.BaseStream.Position == Offset))
                         {
-                            if (CurrentLevel > StoryLengths[CurrentStory].Missions) break;
-                            if (SkipOffset.Any(Offset => CampaignWriter.BaseStream.Position == Offset))
-                            {
-                                CampaignWriter.BaseStream.Position += 0x18;
-                                continue;
-                            }
+                            CampaignWriter.BaseStream.Position += 0x18;
+                            continue;
+                        }
 
-                            var c = BitConverter.GetBytes(CheckBoxList.GetItemChecked(CurrentLevel));
-                            CampaignWriter.Write(c);
-                            CampaignWriter.Write(0x10);
+                        if (CheckBoxList.GetItemChecked(CurrentLevel))
+                        {
+                            CampaignWriter.Write(new byte[] {0x3, 0x0, 0x0, 0x0, 0x1});
+                            CampaignWriter.Write(new byte[19]);
+                        }
+                        else
+                        {
+                            CampaignWriter.Write(new byte[24]);
+                        }
 
-                            CurrentLevel++;
-                        } while (CampaignWriter.BaseStream.Position <= StoryLengths[CurrentStory].End);
 
-                        CurrentStory++;
-                    }
+                        CurrentLevel++;
+                    } while (CampaignWriter.BaseStream.Position <= StoryLengths[CurrentStory].End);
+
+                    CurrentStory++;
                 }
             }
         }

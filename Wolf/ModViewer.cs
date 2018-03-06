@@ -25,7 +25,7 @@ namespace Wolf
                 if (Ofd.ShowDialog() != DialogResult.OK) return;
 
                 var ModData = new JavaScriptSerializer().Deserialize<ModInfo>(File.ReadAllText(Ofd.FileName));
-                for (var Count =0; Count < ModData.Files.Count; Count++)
+                for (var Count = 0; Count < ModData.Files.Count; Count++)
                 {
                     var CurrentFile = new ListViewItem(ModData.Files[Count]);
                     CurrentFile.SubItems.Add(Utilities.GiveFileSize(ModData.Sizes[Count]));
@@ -33,6 +33,7 @@ namespace Wolf
                     listView1.Items.Add(CurrentFile);
                 }
             }
+
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }

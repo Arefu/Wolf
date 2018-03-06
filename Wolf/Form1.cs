@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -207,20 +206,6 @@ namespace Wolf
             }
         }
 
-        public class FileData
-        {
-            public FileData(int Item1, int Item2, string Item3)
-            {
-                this.Item1 = Item1;
-                this.Item2 = Item2;
-                this.Item3 = Item3;
-            }
-
-            public int Item1 { get; set; }
-            public int Item2 { get; set; }
-            public string Item3 { get; set; }
-        }
-
         private void createToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var ModerUi = new ModUI(); //Might Make Static
@@ -235,7 +220,6 @@ namespace Wolf
 
         private void disableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void installToolStripMenuItem_Click(object sender, EventArgs e)
@@ -270,7 +254,7 @@ namespace Wolf
                             var LineData = Line.Split(' ');
 
                             if (new FileInfo(LineData[2]).Name == new FileInfo(ModFileInfo.Files[Count]).Name)
-                            { 
+                            {
                                 GetFileSizeReader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
                                 GetFileSizeReader.ReadLine();
                                 AllFilesFound = true;
@@ -292,7 +276,6 @@ namespace Wolf
                 using (var LogWriter = File.AppendText("Install_Log.log"))
                 {
                     foreach (var ModFile in CompareSizes)
-                    {
                         if (ModFile.Key > ModFile.Value.FileSize)
                         {
                             var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?", "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -331,6 +314,7 @@ namespace Wolf
 
                                     Sum = Sum + Utilities.HexToDec(LineData[0]);
                                 }
+
                                 Debug.WriteLine(Sum);
                                 using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.ReadWrite)))
                                 {
@@ -344,10 +328,24 @@ namespace Wolf
                                 }
                             }
                         }
-                    }
                 }
             }
         }
+
+        public class FileData
+        {
+            public FileData(int Item1, int Item2, string Item3)
+            {
+                this.Item1 = Item1;
+                this.Item2 = Item2;
+                this.Item3 = Item3;
+            }
+
+            public int Item1 { get; set; }
+            public int Item2 { get; set; }
+            public string Item3 { get; set; }
+        }
+
         public class ModInfo
         {
             public List<string> Files { get; set; }
@@ -356,14 +354,14 @@ namespace Wolf
 
         public class ModFile
         {
-            public string FileName { get; set; }
-            public long FileSize { get; set; }
-
             public ModFile(ModInfo File, int Index)
             {
                 FileName = File.Files[Index];
                 FileSize = File.Sizes[Index];
             }
+
+            public string FileName { get; set; }
+            public long FileSize { get; set; }
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using Microsoft.Win32;
 
 namespace Celtic_Guardian
@@ -93,6 +92,7 @@ namespace Celtic_Guardian
             if (ShouldQuit)
                 Environment.Exit(ExitCode);
         }
+
         public static int HexToDec(string HexValue, bool CheckAlignment = false)
         {
             var Number = int.Parse(HexValue, NumberStyles.HexNumber);
@@ -147,7 +147,7 @@ namespace Celtic_Guardian
 
             return LocalVarFiles;
         }
-    
+
 
         public static List<FileLineInfo> ParseTocFile(bool ReturnAllInfo)
         {
@@ -185,20 +185,6 @@ namespace Celtic_Guardian
             return LocalVarFiles;
         }
 
-        public class FileLineInfo
-        {
-            public long Size { get; set; }
-            public long FileNameSize { get; set; }
-            public string FileName { get; set; }
-
-            public FileLineInfo(IReadOnlyList<string> LineInfo)
-            {
-                Size = HexToDec(LineInfo[0]);
-                FileNameSize = HexToDec(LineInfo[1]);
-                FileName = LineInfo[2];
-            }
-        }
-
 
         public static string DecToHex(string DecValue)
         {
@@ -222,7 +208,7 @@ namespace Celtic_Guardian
 
         public static string GiveFileSize(long Value, int DecimalPlaces = 1)
         {
-            var SizeSuffixes = new[] { "Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+            var SizeSuffixes = new[] {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
             if (Value < 0)
                 return "-" + GiveFileSize(-Value);
             var I = 0;
@@ -253,6 +239,20 @@ namespace Celtic_Guardian
             {
                 throw new Exception("Game Not Found");
             }
+        }
+
+        public class FileLineInfo
+        {
+            public FileLineInfo(IReadOnlyList<string> LineInfo)
+            {
+                Size = HexToDec(LineInfo[0]);
+                FileNameSize = HexToDec(LineInfo[1]);
+                FileName = LineInfo[2];
+            }
+
+            public long Size { get; set; }
+            public long FileNameSize { get; set; }
+            public string FileName { get; set; }
         }
     }
 }

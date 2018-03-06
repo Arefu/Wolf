@@ -67,13 +67,11 @@ namespace Elroy
             var Save = new GameSaveData(SaveFile);
 
             SaveStatManager.WriteSaveStatToSave(SaveFile);
-            //StoryManager.WriteCampaignToSave(ref tabPage4,SaveFile);
+            StoryManager.WriteCampaignToSave(ref tabPage4, SaveFile);
 
             Save.FixGameSaveSignatureOnDisk();
         }
 
-
-       
 
         private void button34_Click(object sender, EventArgs e)
         {

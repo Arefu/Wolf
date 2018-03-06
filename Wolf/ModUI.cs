@@ -33,7 +33,7 @@ namespace Wolf
                         return;
                     }
 
-                    listBox1.Items.Add($"YGO_DATA{File.FullName.Split(new[] { "YGO_DATA" }, StringSplitOptions.None)[1]}");
+                    listBox1.Items.Add($"YGO_DATA{File.FullName.Split(new[] {"YGO_DATA"}, StringSplitOptions.None)[1]}");
                 }
             }
         }
@@ -45,13 +45,11 @@ namespace Wolf
                 MessageBox.Show("There Are No Items To Remove", "No Items To Remove", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
+
             var Result = MessageBox.Show("Are You Sure You Want To REMOVE These Files From The Mod?", "Confirm Removal From Mod", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (Result != DialogResult.Yes) return;
 
-            for (var Count = 0; Count < listBox1.SelectedItems.Count; Count++)
-            {
-                listBox1.Items.RemoveAt(Count);
-            }
+            for (var Count = 0; Count < listBox1.SelectedItems.Count; Count++) listBox1.Items.RemoveAt(Count);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -74,7 +72,7 @@ namespace Wolf
                 foreach (var Item in listBox1.Items)
                 {
                     var Info = new FileInfo(Item.ToString());
-                    FileInfo.Files.Add(Info.FullName.Split(new[] { "YGO_DATA\\" }, StringSplitOptions.None)[1]);
+                    FileInfo.Files.Add(Info.FullName.Split(new[] {"YGO_DATA\\"}, StringSplitOptions.None)[1]);
                     FileInfo.Sizes.Add(Info.Length);
                     Archive.CreateEntryFromFile(Info.FullName, Info.Name);
                 }

@@ -1,9 +1,10 @@
-#include "stdafx.h" 
+#include "stdafx.h"
 
 INT64 free_store();
 
-typedef INT64(__stdcall* address)();
+typedef INT64 (__stdcall* address)();
 address old_function = reinterpret_cast<address>(0x1406183A0);
+
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)

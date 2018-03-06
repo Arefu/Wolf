@@ -79,7 +79,7 @@ namespace Onomatopaira
                 }
             }
         }
-        
+
         private struct FileInformation
         {
             public FileInformation(IReadOnlyList<string> Data)

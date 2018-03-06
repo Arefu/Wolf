@@ -35,6 +35,7 @@ namespace Launch_Ldr
                             Utilities.Log($"I Can't Find {Dependancy}!", Utilities.Event.Error);
                     }
                 }
+
                 if (!RequireMeta)
                 {
                     Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
