@@ -27,57 +27,67 @@ namespace Elroy
             label4.Text = $@"{DeckInfo.CardCount_Main} / {DeckInfo.CardCount_Extra} / {DeckInfo.CardCount_Side}";
         }
 
-        private void ImportDeck_Click(object sender, EventArgs e)
+        private void ImportDeck_Click(object Sender, EventArgs Args)
         {
             var Result = MessageBox.Show("This WILL Overwrite Any Deck In This Slot, If You Want To Keep It Export The Deck First! Do You Wish To Continue?", "Warning Overwriting Deck!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Result == DialogResult.No) return;
+
+            Export_Deck.Enabled = true;
+            textBox1.Text = "N/A";
 
             using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))
             {
                 Writer.BaseStream.Position = DeckStartOffset + DeckCode;
                 Writer.Write(new byte[0x130]);
 
-                using (var OFD = new OpenFileDialog())
-                {
-                    OFD.Title = "Select Your YDC Deck File";
-                    OFD.Filter = "Deck file (*.ydc) | *.ydc";
-                    if (OFD.ShowDialog() != DialogResult.OK) return;
-                    if (File.ReadAllBytes(OFD.FileName).Length > 0xC0) throw new IOException("YDC File To Big!");
+                //Re-Write.
+                //using (var OFD = new OpenFileDialog())
+                //{
+                //    OFD.Title = "Select Your YDC Deck File";
+                //    OFD.Filter = "Deck file (*.ydc) | *.ydc";
+                //    if (OFD.ShowDialog() != DialogResult.OK) return;
+                //    if (File.ReadAllBytes(OFD.FileName).Length > 0xC0) throw new IOException("YDC File To Big!");
 
-                    Writer.BaseStream.Position = DeckStartOffset + DeckCode;
-                    Writer.Write(Encoding.BigEndianUnicode.GetBytes(new FileInfo(OFD.FileName).Name));
-                    Writer.Write(new byte[0x30 - Encoding.BigEndianUnicode.GetBytes(new FileInfo(OFD.FileName).Name).Skip(1).ToArray().Length / 2]);
-                    Writer.Write(File.ReadAllBytes(OFD.FileName));
-                }
+                //    Writer.BaseStream.Position = DeckStartOffset + DeckCode;
+                //    Writer.Write(Encoding.BigEndianUnicode.GetBytes(new FileInfo(OFD.FileName).Name));
+                //    Writer.Write(new byte[0x30 - Encoding.BigEndianUnicode.GetBytes(new FileInfo(OFD.FileName).Name).Skip(1).ToArray().Length / 2]);
+                //    Writer.Write(File.ReadAllBytes(OFD.FileName));
+                //}
 
                 Writer.Close();
             }
         }
 
-        private void ExportDeck_Click(object sender, EventArgs e)
+        private void ExportDeck_Click(object Sender, EventArgs Args)
         {
-            //Better Progress Needs To Be Made Here.
-            //Can't Export Properly, can't reimport.. Etc.
-
-            var DeckName = DeckInfo.Name;
-            if (string.IsNullOrEmpty(DeckName))
+            if (string.IsNullOrEmpty(DeckInfo.Name))
             {
                 MessageBox.Show("I Can't Export An Empty Deck.", "Deck Is Empty!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            File.Create($"{DeckName.ToLower().Replace(' ', '_')}.ydc").Close(); //Ready For Importing To Save, AI importing requires a bit of handy work from me. (I think)
-
-            using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
+            var Extractor = new DeckExtract();
+            Extractor.ShowDialog();
+            if (string.IsNullOrEmpty(Extractor.DeckToExport))
             {
-                using (var Writer = new BinaryWriter(File.Open($"{DeckName.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
-                {
-                    Reader.BaseStream.Position = DeckStartOffset + DeckCode + 0x40;
-                    Writer.Write(Reader.ReadBytes(0xC0));
-                    Writer.Close();
-                    Reader.Close();
-                }
+                MessageBox.Show("Export Aborted!", "Export Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            File.Create($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc").Close();
+
+
+            //Re-Write Depending On Above Choice.
+            //using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
+            //{
+            //    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
+            //    {
+            //        Reader.BaseStream.Position = DeckStartOffset + DeckCode + 0x40;
+            //        Writer.Write(Reader.ReadBytes(0xC0));
+            //        Writer.Close();
+            //        Reader.Close();
+            //    }
+            //}
 
             MessageBox.Show("Export Complete!", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -92,6 +102,7 @@ namespace Elroy
                 if (string.IsNullOrEmpty(DeckName))
                 {
                     DeckInfo.Name = "N/A";
+                    Export_Deck.Enabled = false;
                 }
                 else
                 {
@@ -113,26 +124,28 @@ namespace Elroy
 
         protected override void OnClosing(CancelEventArgs Args)
         {
-            if (SomethingChanges)
+            if (!SomethingChanges)
             {
-                var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (Result == DialogResult.Yes && DeckInfo.Name != "N/A")
-                    using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))
-                    {
-                        Writer.BaseStream.Position = DeckStartOffset + DeckCode;
-                        var DeckName = Encoding.BigEndianUnicode.GetBytes(textBox1.Text);
-                        Writer.Write(DeckName);
-                        Writer.Write(new byte[0x40 - Encoding.BigEndianUnicode.GetBytes(textBox1.Text).ToString().Length / 2]);
-                    }
+                base.OnClosing(Args);
+                return;
             }
+
+            var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (Result == DialogResult.Yes && DeckInfo.Name != "N/A")
+                using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))
+                {
+                    Writer.BaseStream.Position = DeckStartOffset + DeckCode;
+                    Writer.Write(Encoding.Unicode.GetBytes(textBox1.Text));
+                    Writer.Write(new byte[0x40 - Encoding.Unicode.GetBytes(textBox1.Text).ToString().Length]);
+                }
 
             base.OnClosing(Args);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBox1_TextChanged(object Sender, EventArgs Args)
         {
-            if (((TextBox) sender).ContainsFocus) SomethingChanges = true;
+            if (((TextBox) Sender).ContainsFocus) SomethingChanges = true;
         }
     }
 

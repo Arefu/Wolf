@@ -39,7 +39,7 @@ namespace Elroy
             /*Yu-Gi-Oh! 5D's*/
             new StoryLookup(0x1FC0, 0x2260, 27),
             /*Yu-Gi-Oh! ZEXAL*/
-            new StoryLookup(0x2460, 0x26D0, 22)
+            new StoryLookup(0x2478, 0x26D0, 22)
         };
 
         internal static void UpdateCampaignFromSave(ref TabPage Page, string SaveName)
@@ -93,7 +93,7 @@ namespace Elroy
 
                         if (CheckBoxList.GetItemChecked(CurrentLevel))
                         {
-                            CampaignWriter.Write(new byte[] {0x3, 0x0, 0x0, 0x0, 0x1});
+                            CampaignWriter.Write(new byte[] {0x3, 0x0, 0x0, 0x0, 0x3});
                             CampaignWriter.Write(new byte[19]);
                         }
                         else
