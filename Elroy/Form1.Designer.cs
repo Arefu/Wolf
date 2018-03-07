@@ -184,7 +184,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox37 = new System.Windows.Forms.GroupBox();
             this.label44 = new System.Windows.Forms.Label();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
@@ -195,10 +195,6 @@
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.groupBox33 = new System.Windows.Forms.GroupBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox41 = new System.Windows.Forms.GroupBox();
-            this.button34 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.opemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -286,14 +282,12 @@
             this.groupBox10.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.groupBox37.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.groupBox35.SuspendLayout();
             this.groupBox34.SuspendLayout();
             this.groupBox33.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox41.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -301,13 +295,13 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1406, 642);
             this.tabControl1.TabIndex = 1;
+            this.tabControl1.Enabled = false;
             // 
             // tabPage1
             // 
@@ -364,10 +358,10 @@
             // 
             numericUpDown1.Location = new System.Drawing.Point(300, 19);
             numericUpDown1.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new System.Drawing.Size(120, 20);
             numericUpDown1.TabIndex = 43;
@@ -376,10 +370,10 @@
             // 
             numericUpDown2.Location = new System.Drawing.Point(300, 45);
             numericUpDown2.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown2.Name = "numericUpDown2";
             numericUpDown2.Size = new System.Drawing.Size(120, 20);
             numericUpDown2.TabIndex = 44;
@@ -388,10 +382,10 @@
             // 
             numericUpDown3.Location = new System.Drawing.Point(300, 71);
             numericUpDown3.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown3.Name = "numericUpDown3";
             numericUpDown3.Size = new System.Drawing.Size(120, 20);
             numericUpDown3.TabIndex = 45;
@@ -400,10 +394,10 @@
             // 
             numericUpDown4.Location = new System.Drawing.Point(300, 97);
             numericUpDown4.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown4.Name = "numericUpDown4";
             numericUpDown4.Size = new System.Drawing.Size(120, 20);
             numericUpDown4.TabIndex = 46;
@@ -412,10 +406,10 @@
             // 
             numericUpDown14.Location = new System.Drawing.Point(300, 123);
             numericUpDown14.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown14.Name = "numericUpDown14";
             numericUpDown14.Size = new System.Drawing.Size(120, 20);
             numericUpDown14.TabIndex = 56;
@@ -424,10 +418,10 @@
             // 
             numericUpDown15.Location = new System.Drawing.Point(300, 149);
             numericUpDown15.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown15.Name = "numericUpDown15";
             numericUpDown15.Size = new System.Drawing.Size(120, 20);
             numericUpDown15.TabIndex = 57;
@@ -436,10 +430,10 @@
             // 
             numericUpDown16.Location = new System.Drawing.Point(300, 175);
             numericUpDown16.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown16.Name = "numericUpDown16";
             numericUpDown16.Size = new System.Drawing.Size(120, 20);
             numericUpDown16.TabIndex = 58;
@@ -448,10 +442,10 @@
             // 
             numericUpDown17.Location = new System.Drawing.Point(300, 201);
             numericUpDown17.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown17.Name = "numericUpDown17";
             numericUpDown17.Size = new System.Drawing.Size(120, 20);
             numericUpDown17.TabIndex = 59;
@@ -460,10 +454,10 @@
             // 
             numericUpDown28.Location = new System.Drawing.Point(300, 253);
             numericUpDown28.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown28.Name = "numericUpDown28";
             numericUpDown28.Size = new System.Drawing.Size(120, 20);
             numericUpDown28.TabIndex = 70;
@@ -472,10 +466,10 @@
             // 
             numericUpDown27.Location = new System.Drawing.Point(300, 227);
             numericUpDown27.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown27.Name = "numericUpDown27";
             numericUpDown27.Size = new System.Drawing.Size(120, 20);
             numericUpDown27.TabIndex = 69;
@@ -622,10 +616,10 @@
             // 
             numericUpDown43.Location = new System.Drawing.Point(300, 331);
             numericUpDown43.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown43.Name = "numericUpDown43";
             numericUpDown43.Size = new System.Drawing.Size(120, 20);
             numericUpDown43.TabIndex = 85;
@@ -634,10 +628,10 @@
             // 
             numericUpDown42.Location = new System.Drawing.Point(300, 357);
             numericUpDown42.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown42.Name = "numericUpDown42";
             numericUpDown42.Size = new System.Drawing.Size(120, 20);
             numericUpDown42.TabIndex = 84;
@@ -646,10 +640,10 @@
             // 
             numericUpDown40.Location = new System.Drawing.Point(300, 305);
             numericUpDown40.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown40.Name = "numericUpDown40";
             numericUpDown40.Size = new System.Drawing.Size(120, 20);
             numericUpDown40.TabIndex = 82;
@@ -658,10 +652,10 @@
             // 
             numericUpDown29.Location = new System.Drawing.Point(300, 19);
             numericUpDown29.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown29.Name = "numericUpDown29";
             numericUpDown29.Size = new System.Drawing.Size(120, 20);
             numericUpDown29.TabIndex = 71;
@@ -670,10 +664,10 @@
             // 
             numericUpDown39.Location = new System.Drawing.Point(300, 280);
             numericUpDown39.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown39.Name = "numericUpDown39";
             numericUpDown39.Size = new System.Drawing.Size(120, 20);
             numericUpDown39.TabIndex = 81;
@@ -682,10 +676,10 @@
             // 
             numericUpDown38.Location = new System.Drawing.Point(300, 253);
             numericUpDown38.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown38.Name = "numericUpDown38";
             numericUpDown38.Size = new System.Drawing.Size(120, 20);
             numericUpDown38.TabIndex = 80;
@@ -694,10 +688,10 @@
             // 
             numericUpDown37.Location = new System.Drawing.Point(300, 227);
             numericUpDown37.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown37.Name = "numericUpDown37";
             numericUpDown37.Size = new System.Drawing.Size(120, 20);
             numericUpDown37.TabIndex = 79;
@@ -706,10 +700,10 @@
             // 
             numericUpDown36.Location = new System.Drawing.Point(300, 201);
             numericUpDown36.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown36.Name = "numericUpDown36";
             numericUpDown36.Size = new System.Drawing.Size(120, 20);
             numericUpDown36.TabIndex = 78;
@@ -718,10 +712,10 @@
             // 
             numericUpDown35.Location = new System.Drawing.Point(300, 175);
             numericUpDown35.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown35.Name = "numericUpDown35";
             numericUpDown35.Size = new System.Drawing.Size(120, 20);
             numericUpDown35.TabIndex = 77;
@@ -730,10 +724,10 @@
             // 
             numericUpDown41.Location = new System.Drawing.Point(300, 383);
             numericUpDown41.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown41.Name = "numericUpDown41";
             numericUpDown41.Size = new System.Drawing.Size(120, 20);
             numericUpDown41.TabIndex = 83;
@@ -742,10 +736,10 @@
             // 
             numericUpDown34.Location = new System.Drawing.Point(300, 149);
             numericUpDown34.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown34.Name = "numericUpDown34";
             numericUpDown34.Size = new System.Drawing.Size(120, 20);
             numericUpDown34.TabIndex = 76;
@@ -754,10 +748,10 @@
             // 
             numericUpDown33.Location = new System.Drawing.Point(300, 123);
             numericUpDown33.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown33.Name = "numericUpDown33";
             numericUpDown33.Size = new System.Drawing.Size(120, 20);
             numericUpDown33.TabIndex = 75;
@@ -766,10 +760,10 @@
             // 
             numericUpDown32.Location = new System.Drawing.Point(300, 97);
             numericUpDown32.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown32.Name = "numericUpDown32";
             numericUpDown32.Size = new System.Drawing.Size(120, 20);
             numericUpDown32.TabIndex = 74;
@@ -778,10 +772,10 @@
             // 
             numericUpDown31.Location = new System.Drawing.Point(300, 71);
             numericUpDown31.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown31.Name = "numericUpDown31";
             numericUpDown31.Size = new System.Drawing.Size(120, 20);
             numericUpDown31.TabIndex = 73;
@@ -799,10 +793,10 @@
             // 
             numericUpDown30.Location = new System.Drawing.Point(300, 45);
             numericUpDown30.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown30.Name = "numericUpDown30";
             numericUpDown30.Size = new System.Drawing.Size(120, 20);
             numericUpDown30.TabIndex = 72;
@@ -973,10 +967,10 @@
             // 
             numericUpDown26.Location = new System.Drawing.Point(300, 149);
             numericUpDown26.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown26.Name = "numericUpDown26";
             numericUpDown26.Size = new System.Drawing.Size(120, 20);
             numericUpDown26.TabIndex = 68;
@@ -994,10 +988,10 @@
             // 
             numericUpDown21.Location = new System.Drawing.Point(300, 19);
             numericUpDown21.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown21.Name = "numericUpDown21";
             numericUpDown21.Size = new System.Drawing.Size(120, 20);
             numericUpDown21.TabIndex = 63;
@@ -1015,10 +1009,10 @@
             // 
             numericUpDown7.Location = new System.Drawing.Point(300, 461);
             numericUpDown7.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown7.Name = "numericUpDown7";
             numericUpDown7.Size = new System.Drawing.Size(120, 20);
             numericUpDown7.TabIndex = 49;
@@ -1027,10 +1021,10 @@
             // 
             numericUpDown25.Location = new System.Drawing.Point(300, 123);
             numericUpDown25.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown25.Name = "numericUpDown25";
             numericUpDown25.Size = new System.Drawing.Size(120, 20);
             numericUpDown25.TabIndex = 67;
@@ -1075,10 +1069,10 @@
             // 
             numericUpDown24.Location = new System.Drawing.Point(300, 97);
             numericUpDown24.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown24.Name = "numericUpDown24";
             numericUpDown24.Size = new System.Drawing.Size(120, 20);
             numericUpDown24.TabIndex = 66;
@@ -1105,10 +1099,10 @@
             // 
             numericUpDown8.Location = new System.Drawing.Point(300, 175);
             numericUpDown8.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown8.Name = "numericUpDown8";
             numericUpDown8.Size = new System.Drawing.Size(120, 20);
             numericUpDown8.TabIndex = 50;
@@ -1117,10 +1111,10 @@
             // 
             numericUpDown6.Location = new System.Drawing.Point(300, 435);
             numericUpDown6.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown6.Name = "numericUpDown6";
             numericUpDown6.Size = new System.Drawing.Size(120, 20);
             numericUpDown6.TabIndex = 48;
@@ -1138,10 +1132,10 @@
             // 
             numericUpDown9.Location = new System.Drawing.Point(300, 201);
             numericUpDown9.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown9.Name = "numericUpDown9";
             numericUpDown9.Size = new System.Drawing.Size(120, 20);
             numericUpDown9.TabIndex = 51;
@@ -1168,10 +1162,10 @@
             // 
             numericUpDown22.Location = new System.Drawing.Point(300, 45);
             numericUpDown22.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown22.Name = "numericUpDown22";
             numericUpDown22.Size = new System.Drawing.Size(120, 20);
             numericUpDown22.TabIndex = 64;
@@ -1180,10 +1174,10 @@
             // 
             numericUpDown10.Location = new System.Drawing.Point(300, 227);
             numericUpDown10.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown10.Name = "numericUpDown10";
             numericUpDown10.Size = new System.Drawing.Size(120, 20);
             numericUpDown10.TabIndex = 52;
@@ -1192,10 +1186,10 @@
             // 
             numericUpDown23.Location = new System.Drawing.Point(300, 71);
             numericUpDown23.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown23.Name = "numericUpDown23";
             numericUpDown23.Size = new System.Drawing.Size(120, 20);
             numericUpDown23.TabIndex = 65;
@@ -1204,10 +1198,10 @@
             // 
             numericUpDown5.Location = new System.Drawing.Point(300, 409);
             numericUpDown5.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown5.Name = "numericUpDown5";
             numericUpDown5.Size = new System.Drawing.Size(120, 20);
             numericUpDown5.TabIndex = 47;
@@ -1216,10 +1210,10 @@
             // 
             numericUpDown11.Location = new System.Drawing.Point(300, 253);
             numericUpDown11.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown11.Name = "numericUpDown11";
             numericUpDown11.Size = new System.Drawing.Size(120, 20);
             numericUpDown11.TabIndex = 53;
@@ -1228,10 +1222,10 @@
             // 
             numericUpDown20.Location = new System.Drawing.Point(300, 383);
             numericUpDown20.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown20.Name = "numericUpDown20";
             numericUpDown20.Size = new System.Drawing.Size(120, 20);
             numericUpDown20.TabIndex = 62;
@@ -1240,10 +1234,10 @@
             // 
             numericUpDown12.Location = new System.Drawing.Point(300, 279);
             numericUpDown12.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown12.Name = "numericUpDown12";
             numericUpDown12.Size = new System.Drawing.Size(120, 20);
             numericUpDown12.TabIndex = 54;
@@ -1252,10 +1246,10 @@
             // 
             numericUpDown19.Location = new System.Drawing.Point(300, 357);
             numericUpDown19.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown19.Name = "numericUpDown19";
             numericUpDown19.Size = new System.Drawing.Size(120, 20);
             numericUpDown19.TabIndex = 61;
@@ -1264,10 +1258,10 @@
             // 
             numericUpDown13.Location = new System.Drawing.Point(300, 305);
             numericUpDown13.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown13.Name = "numericUpDown13";
             numericUpDown13.Size = new System.Drawing.Size(120, 20);
             numericUpDown13.TabIndex = 55;
@@ -1276,10 +1270,10 @@
             // 
             numericUpDown18.Location = new System.Drawing.Point(300, 331);
             numericUpDown18.Maximum = new decimal(new int[] {
-                268435455,
-                0,
-                0,
-                0});
+            268435455,
+            0,
+            0,
+            0});
             numericUpDown18.Name = "numericUpDown18";
             numericUpDown18.Size = new System.Drawing.Size(120, 20);
             numericUpDown18.TabIndex = 60;
@@ -2085,19 +2079,19 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.DeckEditButton_Click);
             // 
-            // tabPage4
+            // tabPage3
             // 
-            this.tabPage4.Controls.Add(this.groupBox37);
-            this.tabPage4.Controls.Add(this.groupBox36);
-            this.tabPage4.Controls.Add(this.groupBox35);
-            this.tabPage4.Controls.Add(this.groupBox34);
-            this.tabPage4.Controls.Add(this.groupBox33);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1398, 616);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Campaign Progress";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage3.Controls.Add(this.groupBox37);
+            this.tabPage3.Controls.Add(this.groupBox36);
+            this.tabPage3.Controls.Add(this.groupBox35);
+            this.tabPage3.Controls.Add(this.groupBox34);
+            this.tabPage3.Controls.Add(this.groupBox33);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1398, 616);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "Campaign Progress";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox37
             // 
@@ -2136,29 +2130,29 @@
             this.checkedListBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox4.FormattingEnabled = true;
             this.checkedListBox4.Items.AddRange(new object[] {
-                "Flipping Out",
-                "The Sparrow",
-                "Feline Frenzy",
-                "Love Hurts",
-                "Double Jeopardy",
-                "The Dragon Awakens",
-                "Cosmic Chaos",
-                "Swimming with Sharks",
-                "Rockin\' and Rollin\'",
-                "Duel of Destiny",
-                "Sphere of Fear",
-                "A Trio\'s Challenge",
-                "Counter Offensive",
-                "Dual Duel",
-                "Search for Shadows, Pt. 1",
-                "Search for Shadows, Pt. 2",
-                "Search for Shadows, Pt. 3",
-                "Barian Vengeance",
-                "A Sea of Troubles",
-                "Clash of the Emperors",
-                "The New World",
-                "The Battle of Three Worlds",
-                "Forever ZEXAL"});
+            "Flipping Out",
+            "The Sparrow",
+            "Feline Frenzy",
+            "Love Hurts",
+            "Double Jeopardy",
+            "The Dragon Awakens",
+            "Cosmic Chaos",
+            "Swimming with Sharks",
+            "Rockin\' and Rollin\'",
+            "Duel of Destiny",
+            "Sphere of Fear",
+            "A Trio\'s Challenge",
+            "Counter Offensive",
+            "Dual Duel",
+            "Search for Shadows, Pt. 1",
+            "Search for Shadows, Pt. 2",
+            "Search for Shadows, Pt. 3",
+            "Barian Vengeance",
+            "A Sea of Troubles",
+            "Clash of the Emperors",
+            "The New World",
+            "The Battle of Three Worlds",
+            "Forever ZEXAL"});
             this.checkedListBox4.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox4.Name = "checkedListBox4";
             this.checkedListBox4.Size = new System.Drawing.Size(244, 591);
@@ -2181,34 +2175,34 @@
             this.checkedListBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox3.FormattingEnabled = true;
             this.checkedListBox3.Items.AddRange(new object[] {
-                "A Blast from the Past",
-                "The Facility",
-                "The Lockdown Duel",
-                "The Take Back",
-                "Welcome to the Fortune Cup",
-                "Surprise Surprise",
-                "Second Round Showdown",
-                "Duel of Dragons",
-                "The Fortune Cup Finale",
-                "Supersensory Shakedown",
-                "Digging Deeper",
-                "Mark of the Monkey",
-                "A Whale of a Ride",
-                "A Score to Settle",
-                "Destiny\'s Will",
-                "Shadows of Doubt",
-                "Truth and Consequences",
-                "Signs of Doom",
-                "French Twist",
-                "The Edge of Elimination Part 1",
-                "The Edge of Elimination Part 2",
-                "The Edge of Elimination Part 3",
-                "Duel for Redemption",
-                "Tricking the Trickster",
-                "Tricking the Trickster 2",
-                "The Beginning of the End",
-                "Dawn of the Machines",
-                "Victory or Doom"});
+            "A Blast from the Past",
+            "The Facility",
+            "The Lockdown Duel",
+            "The Take Back",
+            "Welcome to the Fortune Cup",
+            "Surprise Surprise",
+            "Second Round Showdown",
+            "Duel of Dragons",
+            "The Fortune Cup Finale",
+            "Supersensory Shakedown",
+            "Digging Deeper",
+            "Mark of the Monkey",
+            "A Whale of a Ride",
+            "A Score to Settle",
+            "Destiny\'s Will",
+            "Shadows of Doubt",
+            "Truth and Consequences",
+            "Signs of Doom",
+            "French Twist",
+            "The Edge of Elimination Part 1",
+            "The Edge of Elimination Part 2",
+            "The Edge of Elimination Part 3",
+            "Duel for Redemption",
+            "Tricking the Trickster",
+            "Tricking the Trickster 2",
+            "The Beginning of the End",
+            "Dawn of the Machines",
+            "Victory or Doom"});
             this.checkedListBox3.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox3.Name = "checkedListBox3";
             this.checkedListBox3.Size = new System.Drawing.Size(244, 591);
@@ -2231,33 +2225,33 @@
             this.checkedListBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox2.FormattingEnabled = true;
             this.checkedListBox2.Items.AddRange(new object[] {
-                "A Duel in Love",
-                "The Shadow Duelist",
-                "For the Sake of Syrus",
-                "Formula for Success",
-                "Doomsday Duel",
-                "Field of Screams",
-                "Duel Distractions",
-                "A Reason to Win",
-                "Amnael\'s Endgame",
-                "Rise of the Sacred Beasts",
-                "Magna Chum Laude",
-                "The Graduation Match",
-                "A New Breed of Hero",
-                "Blinded by the Light",
-                "Heart of Ice",
-                "Tough Love",
-                "The Hand of Justice",
-                "Future Changes",
-                "A Jewel of a Duel",
-                "Hanging with Axel",
-                "Primal Instinct",
-                "Head in the Clouds",
-                "A Snake in the Grass",
-                "A Dimensional Duel",
-                "Unleashing the Dragon",
-                "The Power Within",
-                "Return of the Supreme King"});
+            "A Duel in Love",
+            "The Shadow Duelist",
+            "For the Sake of Syrus",
+            "Formula for Success",
+            "Doomsday Duel",
+            "Field of Screams",
+            "Duel Distractions",
+            "A Reason to Win",
+            "Amnael\'s Endgame",
+            "Rise of the Sacred Beasts",
+            "Magna Chum Laude",
+            "The Graduation Match",
+            "A New Breed of Hero",
+            "Blinded by the Light",
+            "Heart of Ice",
+            "Tough Love",
+            "The Hand of Justice",
+            "Future Changes",
+            "A Jewel of a Duel",
+            "Hanging with Axel",
+            "Primal Instinct",
+            "Head in the Clouds",
+            "A Snake in the Grass",
+            "A Dimensional Duel",
+            "Unleashing the Dragon",
+            "The Power Within",
+            "Return of the Supreme King"});
             this.checkedListBox2.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox2.Name = "checkedListBox2";
             this.checkedListBox2.Size = new System.Drawing.Size(244, 591);
@@ -2280,79 +2274,39 @@
             this.checkedListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
-                "The Heart of the Cards",
-                "The Ultimate Great Moth",
-                "The Harpie Lady",
-                "Attack from the Deep",
-                "The Dinosaur Duelist",
-                "Evil Spirit of the Ring",
-                "PaniK Attack",
-                "The Face Off",
-                "A Duel of Tears",
-                "Duel Identity",
-                "Keith\'s Machinations",
-                "Best Friends, Best Duelists",
-                "The Match of the Millennium",
-                "The Mystery Duelist",
-                "Battle City Begins",
-                "The Master of Magicians",
-                "Playing with a Parasite",
-                "Mime Control",
-                "The Dark Spirit Revealed",
-                "The Awakening of Evil",
-                "A Duel with Destiny",
-                "Clash in the Colosseum",
-                "The Final Face Off",
-                "The Final Duel"});
+            "The Heart of the Cards",
+            "The Ultimate Great Moth",
+            "The Harpie Lady",
+            "Attack from the Deep",
+            "The Dinosaur Duelist",
+            "Evil Spirit of the Ring",
+            "PaniK Attack",
+            "The Face Off",
+            "A Duel of Tears",
+            "Duel Identity",
+            "Keith\'s Machinations",
+            "Best Friends, Best Duelists",
+            "The Match of the Millennium",
+            "The Mystery Duelist",
+            "Battle City Begins",
+            "The Master of Magicians",
+            "Playing with a Parasite",
+            "Mime Control",
+            "The Dark Spirit Revealed",
+            "The Awakening of Evil",
+            "A Duel with Destiny",
+            "Clash in the Colosseum",
+            "The Final Face Off",
+            "The Final Duel"});
             this.checkedListBox1.Location = new System.Drawing.Point(3, 16);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(244, 591);
             this.checkedListBox1.TabIndex = 1;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox41);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1398, 616);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Miscellaneous";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox41
-            // 
-            this.groupBox41.Controls.Add(this.button34);
-            this.groupBox41.Controls.Add(this.button33);
-            this.groupBox41.Location = new System.Drawing.Point(3, 3);
-            this.groupBox41.Name = "groupBox41";
-            this.groupBox41.Size = new System.Drawing.Size(200, 100);
-            this.groupBox41.TabIndex = 0;
-            this.groupBox41.TabStop = false;
-            this.groupBox41.Text = "100% Buttons";
-            // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(6, 48);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(188, 23);
-            this.button34.TabIndex = 1;
-            this.button34.Text = "Unlock ALL Cards";
-            this.button34.UseVisualStyleBackColor = true;
-            this.button34.Click += new System.EventHandler(this.button34_Click);
-            // 
-            // button33
-            // 
-            this.button33.Location = new System.Drawing.Point(6, 19);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(188, 23);
-            this.button33.TabIndex = 0;
-            this.button33.Text = "Unlock All Cards";
-            this.button33.UseVisualStyleBackColor = true;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1430, 24);
@@ -2362,10 +2316,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.opemToolStripMenuItem,
-                this.saveToolStripMenuItem,
-                this.toolStripSeparator1,
-                this.exitToolStripMenuItem});
+            this.opemToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -2492,15 +2446,13 @@
             this.groupBox10.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.groupBox37.ResumeLayout(false);
             this.groupBox37.PerformLayout();
             this.groupBox36.ResumeLayout(false);
             this.groupBox35.ResumeLayout(false);
             this.groupBox34.ResumeLayout(false);
             this.groupBox33.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox41.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -2519,7 +2471,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label39;
@@ -2580,7 +2531,7 @@
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox36;
         private System.Windows.Forms.GroupBox groupBox35;
         private System.Windows.Forms.GroupBox groupBox34;
@@ -2639,9 +2590,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox41;
-        private System.Windows.Forms.Button button34;
-        private System.Windows.Forms.Button button33;
         private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.Label label44;
         public static System.Windows.Forms.NumericUpDown numericUpDown43;

@@ -30,7 +30,6 @@ namespace Elroy
                 if (OFD.ShowDialog() != DialogResult.OK)
                     return;
 
-
                 //Start Parsing Save File Populating Items.
                 //Check If Save File.
                 using (var Reader = new BinaryReader(File.Open(OFD.FileName, FileMode.Open, FileAccess.Read)))
@@ -50,7 +49,7 @@ namespace Elroy
                 }
 
                 SaveStatManager.UpdateSaveStatFromSave(SaveFile);
-                StoryManager.UpdateCampaignFromSave(ref tabPage4, SaveFile);
+                StoryManager.UpdateCampaignFromSave(ref tabPage3, SaveFile);
             }
         }
 
@@ -67,7 +66,7 @@ namespace Elroy
             var Save = new GameSaveData(SaveFile);
 
             SaveStatManager.WriteSaveStatToSave(SaveFile);
-            StoryManager.WriteCampaignToSave(ref tabPage4, SaveFile);
+            StoryManager.WriteCampaignToSave(ref tabPage3, SaveFile);
 
             Save.FixGameSaveSignatureOnDisk();
         }

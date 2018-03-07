@@ -40,7 +40,7 @@ namespace Elroy
                 Writer.BaseStream.Position = DeckStartOffset + DeckCode;
                 Writer.Write(new byte[0x130]);
 
-                //Re-Write.
+                //Re-Write. (Can Only Import Save Style Decks So Far?
                 //using (var OFD = new OpenFileDialog())
                 //{
                 //    OFD.Title = "Select Your YDC Deck File";
@@ -74,20 +74,36 @@ namespace Elroy
                 return;
             }
 
+            if (File.Exists($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc"))
+                if (MessageBox.Show("Deck Already Exists, Do You Want To Overwrite It?", "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
+
             File.Create($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc").Close();
 
-
-            //Re-Write Depending On Above Choice.
-            //using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
-            //{
-            //    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
-            //    {
-            //        Reader.BaseStream.Position = DeckStartOffset + DeckCode + 0x40;
-            //        Writer.Write(Reader.ReadBytes(0xC0));
-            //        Writer.Close();
-            //        Reader.Close();
-            //    }
-            //}
+            using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
+            {
+                Reader.BaseStream.Position = DeckStartOffset + DeckCode;
+                if (Extractor.DeckToExport == "Save")
+                {
+                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
+                    {
+                        Writer.Write(Reader.ReadBytes(0x130));
+                        Writer.Close();
+                        Reader.Close();
+                    }
+                }
+                else
+                {
+                    Reader.BaseStream.Position += 0x48;
+                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
+                    {
+                        Writer.Write(new byte[] {0x8C, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x00});
+                        Writer.Write(Reader.ReadBytes(0xB0));
+                        Writer.Close();
+                        Reader.Close();
+                    }
+                }
+            }
 
             MessageBox.Show("Export Complete!", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
