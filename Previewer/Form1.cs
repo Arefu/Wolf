@@ -1,11 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Celtic_Guardian;
 
 namespace Previewer
 {
     public partial class Form1 : Form
     {
+        private char CurrentLanguage = 'E'; //Default To English.
         public Form1()
         {
             InitializeComponent();
@@ -28,15 +33,27 @@ namespace Previewer
             using (var OFD = new OpenFileDialog())
             {
                 OFD.Title = "Select Card Index File";
-                OFD.Filter = "Card Index File (*.bin) | *.bin";
+                OFD.Filter = "Card Indx File (*.bin) | *.bin";
 
                 if (OFD.ShowDialog() != DialogResult.OK)
                     return;
 
                 if (!OFD.SafeFileName.StartsWith("CARD_Indx"))
                 {
-                    MessageBox.Show("Invalid File, Card Index Files Are Called \"CARD_Indx_#.bin\"", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Invalid File, Card Index Should Be Called \"CARD_Indx_{CurrentLanguage}.bin\"", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
+                }
+
+
+                using (var IndexReader = new BinaryReader(File.Open(OFD.FileName, FileMode.Open, FileAccess.Read)))
+                {
+                    IndexReader.BaseStream.Position += 0x8; //We're Only Reading 4 Bytes. (File Header Structure)
+                    var NameDescIndx = new Dictionary<int, int>();
+
+                    do
+                    {
+                        Debug.WriteLine($"Offset: {IndexReader.BaseStream.Position}: {Utilities.ByteArrayToString(IndexReader.ReadBytes(0x4))} - {Utilities.ByteArrayToString(IndexReader.ReadBytes(0x4))}");
+                    } while (IndexReader.BaseStream.Position < IndexReader.BaseStream.Length);
                 }
             }
         }
@@ -44,6 +61,15 @@ namespace Previewer
         private void deckToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             
+        }
+
+        private void LanguageToolStripMenuItem_Click(object sender, System.EventArgs Args)
+        {
+            foreach (ToolStripMenuItem Language in languageToolStripMenuItem.DropDownItems)
+                Language.Checked = false;
+
+            ((ToolStripMenuItem)sender).Checked = true;
+            CurrentLanguage = ((ToolStripMenuItem) sender).Text[0];
         }
     }
 }
