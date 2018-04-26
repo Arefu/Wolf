@@ -33,7 +33,7 @@ namespace Previewer
             using (var OFD = new OpenFileDialog())
             {
                 OFD.Title = "Select Card Index File";
-                OFD.Filter = "Card Indx File (*.bin) | *.bin";
+                OFD.Filter = $"Card Indx File (CARD_Indx_{CurrentLanguage}.bin) | *CARD_Indx_{CurrentLanguage}.bin";
 
                 if (OFD.ShowDialog() != DialogResult.OK)
                     return;
@@ -48,11 +48,15 @@ namespace Previewer
                 using (var IndexReader = new BinaryReader(File.Open(OFD.FileName, FileMode.Open, FileAccess.Read)))
                 {
                     IndexReader.BaseStream.Position += 0x8; //We're Only Reading 4 Bytes. (File Header Structure)
-                    var NameDescIndx = new Dictionary<int, int>();
+                    //Name -> Desc
+                    var NameIndx = new List<int>();
+                    var DescIndx = new List<int>();
 
                     do
                     {
-                        Debug.WriteLine($"Offset: {IndexReader.BaseStream.Position}: {Utilities.ByteArrayToString(IndexReader.ReadBytes(0x4))} - {Utilities.ByteArrayToString(IndexReader.ReadBytes(0x4))}");
+                        NameIndx.Add(Utilities.ConvertToLittleEndian(Utilities.HexToDec(IndexReader.ReadBytes(0x4))));
+                        DescIndx.Add(Utilities.ConvertToLittleEndian(Utilities.HexToDec(IndexReader.ReadBytes(0x4))));
+                        
                     } while (IndexReader.BaseStream.Position < IndexReader.BaseStream.Length);
                 }
             }

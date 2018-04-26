@@ -103,6 +103,14 @@ namespace Celtic_Guardian
             return Number;
         }
 
+        public static int ConvertToLittleEndian(int Number)
+        {
+            return (Number & 0x000000FF) << 24 |
+                   (Number & 0x0000FF00) << 8 |
+                   (Number & 0x00FF0000) >> 8 |
+                   ((int)(Number & 0xFF000000)) >> 24;
+        }
+
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)
         {
             return HexToDec(BitConverter.ToString(Data).Replace("-", ""), CheckAlignment);
