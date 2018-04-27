@@ -33,22 +33,24 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CardIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deckToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.AtkTextBox = new System.Windows.Forms.TextBox();
-            this.DefTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.franceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.germanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.italianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spanishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cardTitle = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cardDesc = new System.Windows.Forms.TextBox();
+            this.AtkTextBox = new System.Windows.Forms.TextBox();
+            this.DefTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nextCard = new System.Windows.Forms.Button();
+            this.prevCard = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -80,22 +82,71 @@
             this.CardIndexToolStripMenuItem,
             this.deckToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // CardIndexToolStripMenuItem
             // 
             this.CardIndexToolStripMenuItem.Name = "CardIndexToolStripMenuItem";
-            this.CardIndexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.CardIndexToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.CardIndexToolStripMenuItem.Text = "Cards";
             this.CardIndexToolStripMenuItem.Click += new System.EventHandler(this.CardIndexToolStripMenuItem_Click);
             // 
             // deckToolStripMenuItem
             // 
             this.deckToolStripMenuItem.Name = "deckToolStripMenuItem";
-            this.deckToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deckToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.deckToolStripMenuItem.Text = "Deck";
             this.deckToolStripMenuItem.Click += new System.EventHandler(this.deckToolStripMenuItem_Click);
+            // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.englishToolStripMenuItem,
+            this.franceToolStripMenuItem,
+            this.germanToolStripMenuItem,
+            this.italianToolStripMenuItem,
+            this.spanishToolStripMenuItem});
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.languageToolStripMenuItem.Text = "Language";
+            // 
+            // englishToolStripMenuItem
+            // 
+            this.englishToolStripMenuItem.Checked = true;
+            this.englishToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.englishToolStripMenuItem.Text = "English";
+            this.englishToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            // 
+            // franceToolStripMenuItem
+            // 
+            this.franceToolStripMenuItem.Name = "franceToolStripMenuItem";
+            this.franceToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.franceToolStripMenuItem.Text = "French";
+            this.franceToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            // 
+            // germanToolStripMenuItem
+            // 
+            this.germanToolStripMenuItem.Name = "germanToolStripMenuItem";
+            this.germanToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.germanToolStripMenuItem.Text = "German";
+            this.germanToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            // 
+            // italianToolStripMenuItem
+            // 
+            this.italianToolStripMenuItem.Name = "italianToolStripMenuItem";
+            this.italianToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.italianToolStripMenuItem.Text = "Italian";
+            this.italianToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            // 
+            // spanishToolStripMenuItem
+            // 
+            this.spanishToolStripMenuItem.Name = "spanishToolStripMenuItem";
+            this.spanishToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.spanishToolStripMenuItem.Text = "Spanish";
+            this.spanishToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -104,12 +155,12 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // textBox1
+            // cardTitle
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(270, 20);
-            this.textBox1.TabIndex = 1;
+            this.cardTitle.Location = new System.Drawing.Point(6, 19);
+            this.cardTitle.Name = "cardTitle";
+            this.cardTitle.Size = new System.Drawing.Size(270, 20);
+            this.cardTitle.TabIndex = 1;
             // 
             // pictureBox1
             // 
@@ -119,13 +170,13 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox2
+            // cardDesc
             // 
-            this.textBox2.Location = new System.Drawing.Point(9, 273);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(271, 70);
-            this.textBox2.TabIndex = 3;
+            this.cardDesc.Location = new System.Drawing.Point(9, 273);
+            this.cardDesc.Multiline = true;
+            this.cardDesc.Name = "cardDesc";
+            this.cardDesc.Size = new System.Drawing.Size(271, 70);
+            this.cardDesc.TabIndex = 3;
             // 
             // AtkTextBox
             // 
@@ -154,9 +205,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.cardTitle);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.cardDesc);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.AtkTextBox);
             this.groupBox1.Controls.Add(this.DefTextBox);
@@ -165,7 +216,7 @@
             this.groupBox1.Size = new System.Drawing.Size(282, 375);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Card Information";
             // 
             // label3
             // 
@@ -185,60 +236,33 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "DEF:";
             // 
-            // languageToolStripMenuItem
+            // nextCard
             // 
-            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.englishToolStripMenuItem,
-            this.franceToolStripMenuItem,
-            this.germanToolStripMenuItem,
-            this.italianToolStripMenuItem,
-            this.spanishToolStripMenuItem});
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.languageToolStripMenuItem.Text = "Language";
+            this.nextCard.Location = new System.Drawing.Point(300, 29);
+            this.nextCard.Name = "nextCard";
+            this.nextCard.Size = new System.Drawing.Size(75, 23);
+            this.nextCard.TabIndex = 9;
+            this.nextCard.Text = "Next Card";
+            this.nextCard.UseVisualStyleBackColor = true;
+            this.nextCard.Click += new System.EventHandler(this.button1_Click);
             // 
-            // englishToolStripMenuItem
+            // prevCard
             // 
-            this.englishToolStripMenuItem.Checked = true;
-            this.englishToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.englishToolStripMenuItem.Text = "English";
-            this.englishToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
-            // 
-            // franceToolStripMenuItem
-            // 
-            this.franceToolStripMenuItem.Name = "franceToolStripMenuItem";
-            this.franceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.franceToolStripMenuItem.Text = "French";
-            this.franceToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
-            // 
-            // germanToolStripMenuItem
-            // 
-            this.germanToolStripMenuItem.Name = "germanToolStripMenuItem";
-            this.germanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.germanToolStripMenuItem.Text = "German";
-            this.germanToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
-            // 
-            // italianToolStripMenuItem
-            // 
-            this.italianToolStripMenuItem.Name = "italianToolStripMenuItem";
-            this.italianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.italianToolStripMenuItem.Text = "Italian";
-            this.italianToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
-            // 
-            // spanishToolStripMenuItem
-            // 
-            this.spanishToolStripMenuItem.Name = "spanishToolStripMenuItem";
-            this.spanishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.spanishToolStripMenuItem.Text = "Spanish";
-            this.spanishToolStripMenuItem.Click += new System.EventHandler(this.LanguageToolStripMenuItem_Click);
+            this.prevCard.Location = new System.Drawing.Point(300, 58);
+            this.prevCard.Name = "prevCard";
+            this.prevCard.Size = new System.Drawing.Size(75, 23);
+            this.prevCard.TabIndex = 10;
+            this.prevCard.Text = "Last Card";
+            this.prevCard.UseVisualStyleBackColor = true;
+            this.prevCard.Click += new System.EventHandler(this.prevCard_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(593, 416);
+            this.Controls.Add(this.prevCard);
+            this.Controls.Add(this.nextCard);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);
@@ -262,9 +286,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox cardTitle;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox cardDesc;
         private System.Windows.Forms.TextBox AtkTextBox;
         private System.Windows.Forms.TextBox DefTextBox;
         private System.Windows.Forms.Label label1;
@@ -280,6 +304,8 @@
         private System.Windows.Forms.ToolStripMenuItem germanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem italianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spanishToolStripMenuItem;
+        private System.Windows.Forms.Button nextCard;
+        private System.Windows.Forms.Button prevCard;
     }
 }
 
