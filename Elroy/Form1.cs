@@ -7,6 +7,8 @@ namespace Elroy
 {
     public partial class Form1 : Form
     {
+        private static string SaveFile;
+
         public Form1()
         {
             InitializeComponent();
@@ -17,7 +19,6 @@ namespace Elroy
             Application.Exit();
         }
 
-        private static string SaveFile;
         private void opemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var OFD = new OpenFileDialog())
@@ -35,7 +36,7 @@ namespace Elroy
                 using (var Reader = new BinaryReader(File.Open(OFD.FileName, FileMode.Open, FileAccess.Read)))
                 {
                     var SaveHeader = Reader.ReadBytes(10);
-                    var KnownHeader = new byte[] { 0xF9, 0x29, 0xCE, 0x54, 0x02, 0x4D, 0x71, 0x04, 0x4D, 0x71 };
+                    var KnownHeader = new byte[] {0xF9, 0x29, 0xCE, 0x54, 0x02, 0x4D, 0x71, 0x04, 0x4D, 0x71};
 
                     if (!KnownHeader.SequenceEqual(SaveHeader))
                     {
@@ -49,9 +50,10 @@ namespace Elroy
                 }
             }
         }
+
         private void DeckEditButton_Click(object Sender, EventArgs Args)
         {
-            var SenderButton = (Button)Sender;
+            var SenderButton = (Button) Sender;
             var Manager = new DeckManager(SenderButton.Name, SaveFile);
             Manager.ShowDialog();
         }

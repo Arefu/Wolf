@@ -119,7 +119,7 @@
             this.deckToolStripMenuItem.Name = "deckToolStripMenuItem";
             this.deckToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.deckToolStripMenuItem.Text = "Deck";
-            this.deckToolStripMenuItem.Click += new System.EventHandler(this.deckToolStripMenuItem_Click);
+            this.deckToolStripMenuItem.Click += new System.EventHandler(this.DeckToolStripMenuItem_Click);
             // 
             // languageToolStripMenuItem
             // 
@@ -175,7 +175,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // cardTitle
             // 
@@ -266,7 +266,7 @@
             this.nextCard.TabIndex = 9;
             this.nextCard.Text = "Next Card";
             this.nextCard.UseVisualStyleBackColor = true;
-            this.nextCard.Click += new System.EventHandler(this.button1_Click);
+            this.nextCard.Click += new System.EventHandler(this.Button1_Click);
             // 
             // prevCard
             // 
@@ -276,7 +276,7 @@
             this.prevCard.TabIndex = 10;
             this.prevCard.Text = "Last Card";
             this.prevCard.UseVisualStyleBackColor = true;
-            this.prevCard.Click += new System.EventHandler(this.prevCard_Click);
+            this.prevCard.Click += new System.EventHandler(this.PrevCard_Click);
             // 
             // label4
             // 
@@ -347,7 +347,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "Go";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
             // checkBox1
             // 
@@ -359,7 +359,7 @@
             this.checkBox1.Text = "DLC";
             this.toolTip1.SetToolTip(this.checkBox1, "This Feature Is Currently Not Ready.");
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // groupBox4
             // 

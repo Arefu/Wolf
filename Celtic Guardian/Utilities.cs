@@ -106,9 +106,9 @@ namespace Celtic_Guardian
         public static int ConvertToLittleEndian(byte[] Number, int Index)
         {
             return (Number[Index + 3] << 24)
-         | (Number[Index + 2] << 16)
-         | (Number[Index + 1] << 8)
-         | Number[Index];
+                   | (Number[Index + 2] << 16)
+                   | (Number[Index + 1] << 8)
+                   | Number[Index];
         }
 
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)

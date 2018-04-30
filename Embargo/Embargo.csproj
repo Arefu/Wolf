@@ -51,11 +51,5 @@
     <None Include="app.manifest" />
     <None Include="README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Celtic Guardian\Celtic Guardian.csproj">
-      <Project>{4c925470-f8cb-4b64-a64d-179d03932794}</Project>
-      <Name>Celtic Guardian</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

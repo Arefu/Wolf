@@ -116,18 +116,4 @@ namespace Elroy
             return DataChunk[0] == 0x01 || DataChunk[0] == 0x02 || DataChunk[0] == 0x03; //0x01 - Not Yet Played, 0x02 - Draw, 0x03 - Win, 0x00 - Default / Locked.
         }
     }
-
-    internal class StoryLookup
-    {
-        public StoryLookup(long Start, long End, int Missions)
-        {
-            this.Start = Start;
-            this.End = End;
-            this.Missions = Missions;
-        }
-
-        public long Start { get; set; }
-        public long End { get; set; }
-        public int Missions { get; set; }
-    }
 }
