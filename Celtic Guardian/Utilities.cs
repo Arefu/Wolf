@@ -103,12 +103,12 @@ namespace Celtic_Guardian
             return Number;
         }
 
-        public static int ConvertToLittleEndian(int Number)
+        public static int ConvertToLittleEndian(byte[] Number, int Index)
         {
-            return (Number & 0x000000FF) << 24 |
-                   (Number & 0x0000FF00) << 8 |
-                   (Number & 0x00FF0000) >> 8 |
-                   ((int)(Number & 0xFF000000)) >> 24;
+            return (Number[Index + 3] << 24)
+         | (Number[Index + 2] << 16)
+         | (Number[Index + 1] << 8)
+         | Number[Index];
         }
 
         public static int HexToDec(byte[] Data, bool CheckAlignment = false)

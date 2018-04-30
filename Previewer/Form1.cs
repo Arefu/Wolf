@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Celtic_Guardian;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Celtic_Guardian;
 
 namespace Previewer
 {
@@ -24,7 +22,6 @@ namespace Previewer
         private void Form1_Load(object sender, System.EventArgs e)
         {
             if (!Directory.Exists("YGO_DATA"))
-
             {
                 MessageBox.Show("YGO_DATA Not Found! Some Things Might Be A Tad Broken.\nRefer To Wiki For More Info.", "YGO_DATA Missing!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Exit();
@@ -52,21 +49,23 @@ namespace Previewer
 
                     do
                     {
-                        NameIndx.Add(Utilities.ConvertToLittleEndian(Utilities.HexToDec(IndexReader.ReadBytes(0x4))));
-                        DescIndx.Add(Utilities.ConvertToLittleEndian(Utilities.HexToDec(IndexReader.ReadBytes(0x4))));
+                        NameIndx.Add(Utilities.ConvertToLittleEndian(IndexReader.ReadBytes(0x4),0));
+                        DescIndx.Add(Utilities.ConvertToLittleEndian(IndexReader.ReadBytes(0x4),0));
                     } while (IndexReader.BaseStream.Position < IndexReader.BaseStream.Length);
                 }
-
+                label4.Text = $"{NameIndx.Count-1}";
                 LoadCards();
+                label5.Text = "1"; //Hackish.
             }
+
+            numericUpDown1.Maximum = NameIndx.Count + 1;
+            numericUpDown1.Minimum = 1;
         }
 
         private int GlobalIndex = 0;
-        private void LoadCards(int Index = 0)//Index Might Be Removed Don't Count On It Future Me!
+        private void LoadCards()
         {
-            if(GlobalIndex != Index)
-                Index = GlobalIndex; //This How Next Card Works.
-
+            var Index = GlobalIndex; //Dunno Why?
             using (var CardTitleReader = new BinaryReader(File.Open($"YGO_DATA/bin/CARD_Name_{CurrentLanguage}.bin", FileMode.Open, FileAccess.Read)))
             {
                 using (var CardDescReader = new BinaryReader(File.Open($"YGO_DATA/bin/CARD_Desc_{CurrentLanguage}.bin", FileMode.Open, FileAccess.Read)))
@@ -89,6 +88,7 @@ namespace Previewer
                     }
                 }
             }
+            label5.Text = Index.ToString();
         }
 
         private void deckToolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -107,8 +107,17 @@ namespace Previewer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (GlobalIndex <= NameIndx.Count)
+            {
             GlobalIndex++;
+            numericUpDown1.Value++;
             LoadCards();
+            }
+            else
+            {
+                MessageBox.Show("You're At The Last Card", "No More Cards!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
         }
 
         private void prevCard_Click(object sender, EventArgs e)
@@ -116,13 +125,25 @@ namespace Previewer
             if(GlobalIndex >= 1)
             {
                 GlobalIndex--;
+                numericUpDown1.Value--;
                 LoadCards();
             }
             else
             {
-                MessageBox.Show("You're Already At The Fist Card", "No More Cards!",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("You're At The Fist Card", "No More Cards!",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 return;
             }
+        }
+        
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            GlobalIndex = (int)numericUpDown1.Value;
+            LoadCards();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox1.Checked = false;
         }
     }
 }
