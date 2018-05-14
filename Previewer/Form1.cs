@@ -13,8 +13,8 @@ namespace Previewer
         private readonly List<int> NameIndx = new List<int>();
         private char CurrentLanguage = 'E'; //Default To English.
         private string CurrentUnpackedImagesDir = String.Empty;
-        private int GlobalIndex;
-        internal static BinaryReader CardPropReader = new BinaryReader(File.Open($"YGO_DATA/bin/CARD_Prop.bin", FileMode.Open, FileAccess.Read));
+        private int GlobalIndex = 1;
+        internal static BinaryReader CardPropReader= new BinaryReader(File.Open($"YGO_DATA/bin/CARD_Prop.bin", FileMode.Open, FileAccess.Read));
 
         public Form1()
         {
@@ -24,7 +24,12 @@ namespace Previewer
 
         private void Form1_Load(object Sender, EventArgs Args)
         {
-            if (Directory.Exists("YGO_DATA")) return;
+            if (Directory.Exists("YGO_DATA"))
+            {
+               // CardPropReader ;
+                return;
+            }
+
             MessageBox.Show(@"YGO_DATA Not Found! Some Things Might Be A Tad Broken.\nRefer To Wiki For More Info.", @"YGO_DATA Missing!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Application.Exit();
         }
@@ -71,6 +76,7 @@ namespace Previewer
                 }
 
                 label4.Text = $@"{NameIndx.Count - 1}";
+                
                 LoadCards();
             }
 
@@ -92,15 +98,10 @@ namespace Previewer
             {
                 using (var CardDescReader = new BinaryReader(File.Open($"YGO_DATA/bin/CARD_Desc_{CurrentLanguage}.bin", FileMode.Open, FileAccess.Read)))
                 {
-                    CardTitleReader.BaseStream.Position = NameIndx[GlobalIndex];
-                    CardDescReader.BaseStream.Position = DescIndx[GlobalIndex];
-                    var Offset = GlobalIndex * 8;
-                    if (Offset == 0)
-                        Offset = 8;
-                    else
-                        CardPropReader.BaseStream.Position = Offset;
+                    CardTitleReader.BaseStream.Position = NameIndx[GlobalIndex-1];
+                    CardDescReader.BaseStream.Position = DescIndx[GlobalIndex-1];
 
-                    CardPropReader.BaseStream.Position = Offset;
+                    CardPropReader.BaseStream.Position = GlobalIndex * 8;
 
                     if (CardTitleReader.BaseStream.Position < CardTitleReader.BaseStream.Length)
                     {
@@ -129,7 +130,7 @@ namespace Previewer
         private static CardTemplate ByteJumbo(uint FirstChunk, uint SecondChunk)
         {
             var First = (FirstChunk << 18) | ((FirstChunk & 0x7FC000 | FirstChunk >> 18) >> 5);
-            var Second = (((SecondChunk & 1u) | (SecondChunk << 21)) & 0x80000001 | ((SecondChunk & 0x7800) | ((SecondChunk & 0x780 | ((SecondChunk & 0x7E) << 10)) << 8)) << 6 | ((SecondChunk & 0x38000 | ((SecondChunk & 0x7C0000 | ((SecondChunk & 0x7800000 | (SecondChunk >> 8) & 0x780000) >> 9)) >> 8)) >> 1));
+            var Second = ((SecondChunk & 1u) | (SecondChunk << 21)) & 0x80000001 | ((SecondChunk & 0x7800) | ((SecondChunk & 0x780 | ((SecondChunk & 0x7E) << 10)) << 8)) << 6 | ((SecondChunk & 0x38000 | ((SecondChunk & 0x7C0000 | ((SecondChunk & 0x7800000 | (SecondChunk >> 8) & 0x780000) >> 9)) >> 8)) >> 1);
 
             var CardId = (short)((First >> 18) & 0x3FFF);
             var Atk = (First >> 9) & 0x1FF;
@@ -173,7 +174,7 @@ namespace Previewer
 
         private void PrevCard_Click(object Sender, EventArgs Args)
         {
-            if (GlobalIndex >= 1)
+            if (GlobalIndex >= 0)
             {
                 GlobalIndex--;
                 numericUpDown1.Value--;
