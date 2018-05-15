@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Celtic_Guardian;
+using Celtic_Guardian;
+using Celtic_Guardian.LOTD_Files;
+using Celtic_Guardian.Miscellaneous_Files;
 
 namespace Wolf
 {

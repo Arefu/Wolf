@@ -30,7 +30,7 @@ namespace Onomatopaira
             using (var FileDialog = new OpenFileDialog())
             {
                 FileDialog.Title = "Open Yu-Gi-Oh TOC File...";
-                FileDialog.Filter = "Yu-Gi-Oh! LOTD TOC File |*.toc";
+                FileDialog.Filter = "Yu-Gi-Oh! Wolf TOC File |*.toc";
                 if (UseArgs == false)
                 {
                     if (FileDialog.ShowDialog() != DialogResult.OK) return;

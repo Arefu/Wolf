@@ -16,7 +16,7 @@ Thanks to:
 
 [LinkerMod](https://github.com/Nukem9/LinkerMod) Team.
 
-[thomasneff](https://github.com/thomasneff) For [YGOLOTDPatchDraft](https://github.com/thomasneff/YGOLOTDPatchDraft/)
+[thomasneff](https://github.com/thomasneff) For [YGOWolfPatchDraft](https://github.com/thomasneff/YGOWolfPatchDraft/)
 
 
 

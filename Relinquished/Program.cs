@@ -15,7 +15,7 @@ namespace Relinquished
             using (var FileDialog = new OpenFileDialog())
             {
                 FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
-                FileDialog.Filter = "Yu-Gi-Oh! LOTD ZIB File |*.zib";
+                FileDialog.Filter = "Yu-Gi-Oh! Wolf ZIB File |*.zib";
                 if (FileDialog.ShowDialog() != DialogResult.OK) return;
 
                 var ZibFileName = new FileInfo(FileDialog.FileName).Name;
