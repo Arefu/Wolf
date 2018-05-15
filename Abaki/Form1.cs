@@ -29,8 +29,12 @@ namespace Abaki
                 LanguageFile = Ofd.SafeFileName;
                 using (var Reader = new BinaryReader(File.Open(Ofd.FileName, FileMode.Open, FileAccess.Read)))
                 {
-                    var AmountOfStrings = Convert.ToInt32(Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0'))) - 1;
-                    var JumpTo = Convert.ToInt32(Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0')));
+                    var AmountOfStrings =
+                        Convert.ToInt32(
+                            Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0'))) - 1;
+                    var JumpTo =
+                        Convert.ToInt32(
+                            Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0')));
                     var CurrentPos = Reader.BaseStream.Position;
                     Reader.BaseStream.Position = JumpTo - 4;
                     Reader.BaseStream.Position = CurrentPos;
@@ -39,11 +43,17 @@ namespace Abaki
                     var StringOffsets = new List<int>();
                     do
                     {
-                        StringOffsets.Add(Convert.ToInt32(Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0'))));
+                        StringOffsets.Add(Convert.ToInt32(
+                            Utilities.HexToDec(Utilities.ByteArrayToString(Reader.ReadBytes(4)).TrimStart('0'))));
                         Count++;
                     } while (Count < AmountOfStrings);
 
-                    for (Count = 0; Count < StringOffsets.Count; Count++) listBox1.Items.Add(Count != StringOffsets.Count - 1 ? Encoding.BigEndianUnicode.GetString(Reader.ReadBytes(StringOffsets[Count] - (int) Reader.BaseStream.Position)) : Encoding.BigEndianUnicode.GetString(Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position)));
+                    for (Count = 0; Count < StringOffsets.Count; Count++)
+                        listBox1.Items.Add(Count != StringOffsets.Count - 1
+                            ? Encoding.BigEndianUnicode.GetString(
+                                Reader.ReadBytes(StringOffsets[Count] - (int) Reader.BaseStream.Position))
+                            : Encoding.BigEndianUnicode.GetString(
+                                Reader.ReadBytes((int) Reader.BaseStream.Length - (int) Reader.BaseStream.Position)));
                 }
             }
         }
@@ -51,7 +61,8 @@ namespace Abaki
         private void ExportToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
             if (listBox1.Items.Count == 0)
-                MessageBox.Show("There is nothing to export.", "Nothing To Export!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("There is nothing to export.", "Nothing To Export!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
             using (var Writer = new BinaryWriter(File.Open(LanguageFile, FileMode.Create, FileAccess.Write)))
             {

@@ -113,7 +113,8 @@ namespace Elroy
 
         internal static bool ValidateStory(byte[] DataChunk)
         {
-            return DataChunk[0] == 0x01 || DataChunk[0] == 0x02 || DataChunk[0] == 0x03; //0x01 - Not Yet Played, 0x02 - Draw, 0x03 - Win, 0x00 - Default / Locked.
+            return DataChunk[0] == 0x01 || DataChunk[0] == 0x02 ||
+                   DataChunk[0] == 0x03; //0x01 - Not Yet Played, 0x02 - Draw, 0x03 - Win, 0x00 - Default / Locked.
         }
     }
 }

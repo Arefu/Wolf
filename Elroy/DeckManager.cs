@@ -29,7 +29,10 @@ namespace Elroy
 
         private void ImportDeck_Click(object Sender, EventArgs Args)
         {
-            var Result = MessageBox.Show("This WILL Overwrite Any Deck In This Slot, If You Want To Keep It Export The Deck First! Do You Wish To Continue?", "Warning Overwriting Deck!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var Result =
+                MessageBox.Show(
+                    "This WILL Overwrite Any Deck In This Slot, If You Want To Keep It Export The Deck First! Do You Wish To Continue?",
+                    "Warning Overwriting Deck!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Result == DialogResult.No) return;
 
             Export_Deck.Enabled = true;
@@ -62,7 +65,8 @@ namespace Elroy
         {
             if (string.IsNullOrEmpty(DeckInfo.Name))
             {
-                MessageBox.Show("I Can't Export An Empty Deck.", "Deck Is Empty!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("I Can't Export An Empty Deck.", "Deck Is Empty!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
@@ -75,7 +79,8 @@ namespace Elroy
             }
 
             if (File.Exists($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc"))
-                if (MessageBox.Show("Deck Already Exists, Do You Want To Overwrite It?", "File Exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                if (MessageBox.Show("Deck Already Exists, Do You Want To Overwrite It?", "File Exists",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
             File.Create($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc").Close();
@@ -85,7 +90,8 @@ namespace Elroy
                 Reader.BaseStream.Position = DeckStartOffset + DeckCode;
                 if (Extractor.DeckToExport == "Save")
                 {
-                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
+                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc",
+                        FileMode.Open, FileAccess.Write)))
                     {
                         Writer.Write(Reader.ReadBytes(0x130));
                         Writer.Close();
@@ -95,7 +101,8 @@ namespace Elroy
                 else
                 {
                     Reader.BaseStream.Position += 0x48;
-                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc", FileMode.Open, FileAccess.Write)))
+                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc",
+                        FileMode.Open, FileAccess.Write)))
                     {
                         Writer.Write(new byte[] {0x8C, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x00});
                         Writer.Write(Reader.ReadBytes(0xB0));
@@ -146,7 +153,8 @@ namespace Elroy
                 return;
             }
 
-            var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
             if (Result == DialogResult.Yes && DeckInfo.Name != "N/A")
                 using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))

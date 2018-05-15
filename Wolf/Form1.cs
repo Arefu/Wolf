@@ -8,9 +8,6 @@ using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using Celtic_Guardian;
-using Celtic_Guardian;
-using Celtic_Guardian.LOTD_Files;
-using Celtic_Guardian.Miscellaneous_Files;
 
 namespace Wolf
 {
@@ -138,7 +135,8 @@ namespace Wolf
 
             SelectMe.Expand();
             FileQuickViewList.SelectedNode = SelectMe;
-            FileQuickViewList_NodeMouseClick(new object(), new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
+            FileQuickViewList_NodeMouseClick(new object(),
+                new TreeNodeMouseClickEventArgs(SelectMe, MouseButtons.Left, 1, 0, 0));
         }
 
         private TreeNode GetNode(TreeNode CurrentNode)
@@ -242,7 +240,8 @@ namespace Wolf
                 var CompareSizes = new Dictionary<long, ModFile>();
                 Reader?.Close();
 
-                using (var GetFileSizeReader = new StreamReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
+                using (var GetFileSizeReader = new StreamReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC",
+                    FileMode.Open, FileAccess.Read)))
                 {
                     for (var Count = 0; Count < ModFileInfo.Files.Count; Count++)
                     {
@@ -258,7 +257,8 @@ namespace Wolf
 
                             if (new FileInfo(LineData[2]).Name == new FileInfo(ModFileInfo.Files[Count]).Name)
                             {
-                                GetFileSizeReader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
+                                GetFileSizeReader.BaseStream.Position =
+                                    0; //Because We're Breaking We Need To Reset Stream DUH
                                 GetFileSizeReader.ReadLine();
                                 AllFilesFound = true;
                                 CompareSizes.Add(Utilities.HexToDec(LineData[0]), new ModFile(ModFileInfo, Count));
@@ -272,7 +272,8 @@ namespace Wolf
 
                 if (AllFilesFound == false)
                 {
-                    var Reply = MessageBox.Show("Not All Files Were Found In The TOC File, Do You Want To Contiue?", "Lost Files Found In Mod!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    var Reply = MessageBox.Show("Not All Files Were Found In The TOC File, Do You Want To Contiue?",
+                        "Lost Files Found In Mod!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (Reply == DialogResult.No) return;
                 }
 
@@ -281,28 +282,34 @@ namespace Wolf
                     foreach (var ModFile in CompareSizes)
                         if (ModFile.Key > ModFile.Value.FileSize)
                         {
-                            var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?", "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?",
+                                "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             if (Reply == DialogResult.No)
                             {
-                                LogWriter.Write($"[{DateTime.Now}]: Didn't Inject {ModFile.Value.FileName}, Discarded By User!\n\r");
+                                LogWriter.Write(
+                                    $"[{DateTime.Now}]: Didn't Inject {ModFile.Value.FileName}, Discarded By User!\n\r");
                                 continue;
                             }
 
-                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Bigger!\n\r");
+                            LogWriter.Write(
+                                $"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Bigger!\n\r");
 
                             //Open DAT, Insert In Right Place...
                         }
                         else
                         {
-                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
+                            LogWriter.Write(
+                                $"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
                             var Sum = 0L;
                             var NullOutSize = 0L;
                             Reader.Close();
-                            using (Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
+                            using (Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open,
+                                FileAccess.Read)))
                             {
                                 Reader.BaseStream.Position = 0;
                                 Reader.ReadLine();
-                                while (!Reader.EndOfStream) //Breaks on 116a658 44 D3D11\characters\m9575_number_39_utopia\m9575_number_39_utopia.phyre ?
+                                while (!Reader.EndOfStream
+                                ) //Breaks on 116a658 44 D3D11\characters\m9575_number_39_utopia\m9575_number_39_utopia.phyre ?
                                 {
                                     var Line = Reader.ReadLine();
                                     if (Line == null) break;
@@ -319,7 +326,8 @@ namespace Wolf
                                 }
 
                                 Debug.WriteLine(Sum);
-                                using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.ReadWrite)))
+                                using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT",
+                                    FileMode.Open, FileAccess.ReadWrite)))
                                 {
                                     Writer.BaseStream.Position = Sum;
                                     var NullCount = 0L;

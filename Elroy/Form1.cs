@@ -40,7 +40,9 @@ namespace Elroy
 
                     if (!KnownHeader.SequenceEqual(SaveHeader))
                     {
-                        MessageBox.Show("This Is Either A Corrupted Save, Or Not A Save File. Refer To Wiki For Information", "Invalid Save!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            "This Is Either A Corrupted Save, Or Not A Save File. Refer To Wiki For Information",
+                            "Invalid Save!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 

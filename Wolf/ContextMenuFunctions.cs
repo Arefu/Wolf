@@ -26,7 +26,8 @@ namespace Wolf
                     break;
             }
 
-            using (var BReader = new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
+            using (var BReader =
+                new BinaryReader(File.Open($"{Form1.InstallDir}\\YGO_DATA.dat", FileMode.Open, FileAccess.Read)))
             {
                 if (ExportPath == "")
                     ExportPath = $"Exported/{FileToExport.Item3}";
@@ -36,7 +37,6 @@ namespace Wolf
                 {
                     BReader.BaseStream.Position = BytesToRead;
                     Writer.Write(BReader.ReadBytes(FileToExport.Item1));
-                    BReader.Dispose();
                 }
             }
         }

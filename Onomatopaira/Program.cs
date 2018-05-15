@@ -41,8 +41,10 @@ namespace Onomatopaira
                 {
                     using (var reader = new StreamReader(TocFileLocation))
                     {
-                        if (!File.Exists(TocFileLocation.Replace(".toc", ".dat"))) Utilities.Log("Can't Find DAT File.", Utilities.Event.Error, true, 1);
-                        var datReader = new BinaryReader(File.Open(TocFileLocation.Replace(".toc", ".dat"), FileMode.Open));
+                        if (!File.Exists(TocFileLocation.Replace(".toc", ".dat")))
+                            Utilities.Log("Can't Find DAT File.", Utilities.Event.Error, true, 1);
+                        var datReader =
+                            new BinaryReader(File.Open(TocFileLocation.Replace(".toc", ".dat"), FileMode.Open));
                         reader.ReadLine();
 
                         while (!reader.EndOfStream)
@@ -54,7 +56,9 @@ namespace Onomatopaira
                             line = Regex.Replace(line, @"  +", " ", RegexOptions.Compiled);
                             var Data = new FileInformation(line.Split(' '));
 
-                            Utilities.Log($"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)", Utilities.Event.Information);
+                            Utilities.Log(
+                                $"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)",
+                                Utilities.Event.Information);
 
                             new FileInfo("YGO_DATA/" + Data.FileName).Directory?.Create();
 
@@ -63,7 +67,8 @@ namespace Onomatopaira
                                 while (ExtraBytes % 4 != 0)
                                     ExtraBytes = ExtraBytes + 1;
 
-                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Data.FileName, FileMode.Create, FileAccess.Write)))
+                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Data.FileName,
+                                FileMode.Create, FileAccess.Write)))
                             {
                                 FileWriter.Write(datReader.ReadBytes(Utilities.HexToDec(Data.FileSize)));
                                 FileWriter.Flush();

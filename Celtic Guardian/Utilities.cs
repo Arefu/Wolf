@@ -13,51 +13,48 @@ namespace Celtic_Guardian
 {
     public static class Endian
     {
-        public static bool IsLittleEndian
-        {
-            get { return BitConverter.IsLittleEndian; }
-        }
+        public static bool IsLittleEndian => BitConverter.IsLittleEndian;
 
         public static short ConvertInt16(short value)
         {
-            return System.Net.IPAddress.HostToNetworkOrder(value);
+            return IPAddress.HostToNetworkOrder(value);
         }
 
         public static ushort ConvertUInt16(ushort value)
         {
-            return (ushort)System.Net.IPAddress.HostToNetworkOrder((short)value);
+            return (ushort) IPAddress.HostToNetworkOrder((short) value);
         }
 
         public static int ConvertInt32(int value)
         {
-            return System.Net.IPAddress.HostToNetworkOrder(value);
+            return IPAddress.HostToNetworkOrder(value);
         }
 
         public static uint ConvertUInt32(uint value)
         {
-            return (uint)System.Net.IPAddress.HostToNetworkOrder((int)value);
+            return (uint) IPAddress.HostToNetworkOrder((int) value);
         }
 
         public static long ConvertInt64(long value)
         {
-            return System.Net.IPAddress.HostToNetworkOrder(value);
+            return IPAddress.HostToNetworkOrder(value);
         }
 
         public static ulong ConvertUInt64(ulong value)
         {
-            return (ulong)System.Net.IPAddress.HostToNetworkOrder((long)value);
+            return (ulong) IPAddress.HostToNetworkOrder((long) value);
         }
 
         public static float ConvertSingle(float value)
         {
-            byte[] buffer = BitConverter.GetBytes(value);
+            var buffer = BitConverter.GetBytes(value);
             Array.Reverse(buffer);
             return BitConverter.ToSingle(buffer, 0);
         }
 
         public static double ConvertDouble(double value)
         {
-            byte[] buffer = BitConverter.GetBytes(value);
+            var buffer = BitConverter.GetBytes(value);
             Array.Reverse(buffer);
             return BitConverter.ToDouble(buffer, 0);
         }
@@ -69,7 +66,7 @@ namespace Celtic_Guardian
 
         public static short ToInt16(byte[] value, int startIndex, bool convert)
         {
-            short result = BitConverter.ToInt16(value, startIndex);
+            var result = BitConverter.ToInt16(value, startIndex);
             return convert ? ConvertInt16(result) : result;
         }
 
@@ -80,7 +77,7 @@ namespace Celtic_Guardian
 
         public static ushort ToUInt16(byte[] value, int startIndex, bool convert)
         {
-            ushort result = BitConverter.ToUInt16(value, startIndex);
+            var result = BitConverter.ToUInt16(value, startIndex);
             return convert ? ConvertUInt16(result) : result;
         }
 
@@ -91,7 +88,7 @@ namespace Celtic_Guardian
 
         public static int ToInt32(byte[] value, int startIndex, bool convert)
         {
-            int result = BitConverter.ToInt32(value, startIndex);
+            var result = BitConverter.ToInt32(value, startIndex);
             return convert ? ConvertInt32(result) : result;
         }
 
@@ -102,7 +99,7 @@ namespace Celtic_Guardian
 
         public static uint ToUInt32(byte[] value, int startIndex, bool convert)
         {
-            uint result = BitConverter.ToUInt32(value, startIndex);
+            var result = BitConverter.ToUInt32(value, startIndex);
             return convert ? ConvertUInt32(result) : result;
         }
 
@@ -113,7 +110,7 @@ namespace Celtic_Guardian
 
         public static long ToInt64(byte[] value, int startIndex, bool convert)
         {
-            long result = BitConverter.ToInt64(value, startIndex);
+            var result = BitConverter.ToInt64(value, startIndex);
             return convert ? ConvertInt64(result) : result;
         }
 
@@ -124,7 +121,7 @@ namespace Celtic_Guardian
 
         public static ulong ToUInt64(byte[] value, int startIndex, bool convert)
         {
-            ulong result = BitConverter.ToUInt64(value, startIndex);
+            var result = BitConverter.ToUInt64(value, startIndex);
             return convert ? ConvertUInt64(result) : result;
         }
 
@@ -135,7 +132,7 @@ namespace Celtic_Guardian
 
         public static float ToSingle(byte[] value, int startIndex, bool convert)
         {
-            float result = BitConverter.ToSingle(value, startIndex);
+            var result = BitConverter.ToSingle(value, startIndex);
             return convert ? ConvertSingle(result) : result;
         }
 
@@ -146,7 +143,7 @@ namespace Celtic_Guardian
 
         public static double ToDouble(byte[] value, int startIndex, bool convert)
         {
-            double result = BitConverter.ToDouble(value, startIndex);
+            var result = BitConverter.ToDouble(value, startIndex);
             return convert ? ConvertDouble(result) : result;
         }
 
@@ -157,7 +154,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(short value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -169,7 +166,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(ushort value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -181,7 +178,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(int value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -193,7 +190,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(uint value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -205,7 +202,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(long value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -217,7 +214,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(ulong value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -229,7 +226,7 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(float value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
@@ -241,11 +238,12 @@ namespace Celtic_Guardian
 
         public static byte[] GetBytes(double value, bool convert)
         {
-            byte[] result = BitConverter.GetBytes(value);
+            var result = BitConverter.GetBytes(value);
             if (convert) Array.Reverse(result);
             return result;
         }
     }
+
     public static class Utilities
     {
         public enum Event
