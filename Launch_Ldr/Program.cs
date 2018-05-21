@@ -23,7 +23,9 @@ namespace Launch_Ldr
                 if (File.Exists($"{Plugin.ToLower().Replace(".dll", string.Empty)}_info.json"))
                 {
                     Utilities.Log($"Found Plugin: {Plugin}, Reading Plugin Information.", Utilities.Event.Information);
-                    var MetaData = new JavaScriptSerializer().Deserialize<Meta>(File.ReadAllText(Plugin.Replace(".dll", string.Empty) + "_info.json"));
+                    var MetaData =
+                        new JavaScriptSerializer().Deserialize<Meta>(
+                            File.ReadAllText(Plugin.Replace(".dll", string.Empty) + "_info.json"));
                     Utilities.Log($"Name: {MetaData.Name}", Utilities.Event.Meta);
                     Utilities.Log($"Description: {MetaData.Description}", Utilities.Event.Meta);
                     foreach (var Address in MetaData.Injection_Addresses)
@@ -38,12 +40,16 @@ namespace Launch_Ldr
 
                 if (!RequireMeta)
                 {
-                    Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
+                    Utilities.Log(
+                        $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.",
+                        Utilities.Event.Warning);
                     Plugins.Add(new FileInfo(Plugin).FullName);
                 }
                 else
                 {
-                    Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.", Utilities.Event.Error);
+                    Utilities.Log(
+                        $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.",
+                        Utilities.Event.Error);
                 }
             }
 
@@ -56,7 +62,32 @@ namespace Launch_Ldr
                 Utilities.Log($"{new FileInfo(Plugin).Name}'s Injection Status: {Result}", Utilities.Event.Information);
             }
 
-            Console.ReadLine();
+            var InputCommand = "";
+            do
+            {
+                Console.Write("Yu-Gi-Oh: ");
+                InputCommand = Console.ReadLine().ToLower();
+
+                switch (InputCommand.ToLower())
+                {
+                    case "set":
+                        Console.Write("Address / Variable: ");
+                        //Set Address Get from List of JSON Address -> Variable File
+                        Console.Write("Value: ");
+                        //Set Value
+                        break;
+                    case "get":
+                        Console.Write("Address / Variable: ");
+                        var Variable = "";
+                        switch(Variable.ToLower())
+                        {
+                            case "p_duel_points":
+                                //Call Naitive Func To Return Amount Of Points.
+                                break;
+                        }
+                        break;
+                }
+            } while (InputCommand.ToLower() != "quit");
         }
     }
 }

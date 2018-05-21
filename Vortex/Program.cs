@@ -49,7 +49,7 @@ namespace Vortex
                 {
                     var CurrentFileName = FilesToPack?.First(File => File.Contains(Item));
 
-                    Utilities.Log($"Packing File: {new FileInfo(CurrentFileName).Name}.", Utilities.Event.Information);
+                    Utilities.Log($"Packing File: {CurrentFileName}.", Utilities.Event.Information);
                     var CurrentFileNameLength = Utilities.DecToHex(CurrentFileName
                         .Split(new[] {"YGO_DATA"}, StringSplitOptions.None).Last().TrimStart('\\').Length);
                     var CurrentFileSize = Utilities.DecToHex(new FileInfo($"{CurrentFileName}").Length);

@@ -37,12 +37,36 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileNames.cs" />
+    <Compile Include="File Formats\Bin Files\Card_Limits.cs" />
+    <Compile Include="File Formats\Bin Files\Related_Card_Data.cs" />
+    <Compile Include="File Formats\File Data.cs" />
+    <Compile Include="File Formats\FileTypes.cs" />
+    <Compile Include="File Formats\LOTD Files\LOTD Archive.cs" />
+    <Compile Include="File Formats\LOTD Files\LOTD Directory.cs" />
+    <Compile Include="File Formats\LOTD Files\LOTD File.cs" />
+    <Compile Include="File Formats\Main Files\Arena_Data.cs" />
+    <Compile Include="File Formats\Main Files\Char_Data.cs" />
+    <Compile Include="File Formats\Main Files\Deck_Data.cs" />
+    <Compile Include="File Formats\Main Files\Duel_Data.cs" />
+    <Compile Include="File Formats\Main Files\Pack_Def_Data.cs" />
+    <Compile Include="File Formats\Main Files\Script_Data.cs" />
+    <Compile Include="File Formats\Main Files\SKU_Data.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\Credits.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\Dfymoo.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\Dump_Settings.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\How_To_Play.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\Strings_BND.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\ZIB_Data.cs" />
+    <Compile Include="File Formats\Miscellaneous Files\ZIB_File.cs" />
+    <Compile Include="File Formats\Pack Files\Battle_Pack.cs" />
+    <Compile Include="File Formats\Pack Files\Shop_Pack.cs" />
+    <Compile Include="File Formats\RawFile.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

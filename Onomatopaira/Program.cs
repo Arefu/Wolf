@@ -30,7 +30,7 @@ namespace Onomatopaira
             using (var FileDialog = new OpenFileDialog())
             {
                 FileDialog.Title = "Open Yu-Gi-Oh TOC File...";
-                FileDialog.Filter = "Yu-Gi-Oh! LOTD TOC File |*.toc";
+                FileDialog.Filter = "Yu-Gi-Oh! Wolf TOC File |*.toc";
                 if (UseArgs == false)
                 {
                     if (FileDialog.ShowDialog() != DialogResult.OK) return;
@@ -39,22 +39,26 @@ namespace Onomatopaira
 
                 try
                 {
-                    using (var Reader = new StreamReader(TocFileLocation))
+                    using (var reader = new StreamReader(TocFileLocation))
                     {
-                        if (!File.Exists(TocFileLocation.Replace(".toc", ".dat"))) Utilities.Log("Can't Find DAT File.", Utilities.Event.Error, true, 1);
-                        var DatReader = new BinaryReader(File.Open(TocFileLocation.Replace(".toc", ".dat"), FileMode.Open));
-                        Reader.ReadLine();
+                        if (!File.Exists(TocFileLocation.Replace(".toc", ".dat")))
+                            Utilities.Log("Can't Find DAT File.", Utilities.Event.Error, true, 1);
+                        var datReader =
+                            new BinaryReader(File.Open(TocFileLocation.Replace(".toc", ".dat"), FileMode.Open));
+                        reader.ReadLine();
 
-                        while (!Reader.EndOfStream)
+                        while (!reader.EndOfStream)
                         {
-                            var Line = Reader.ReadLine();
-                            if (Line == null) continue;
+                            var line = reader.ReadLine();
+                            if (line == null) continue;
 
-                            Line = Line.TrimStart(' ');
-                            Line = Regex.Replace(Line, @"  +", " ", RegexOptions.Compiled);
-                            var Data = new FileInformation(Line.Split(' '));
+                            line = line.TrimStart(' ');
+                            line = Regex.Replace(line, @"  +", " ", RegexOptions.Compiled);
+                            var Data = new FileInformation(line.Split(' '));
 
-                            Utilities.Log($"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)", Utilities.Event.Information);
+                            Utilities.Log(
+                                $"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)",
+                                Utilities.Event.Information);
 
                             new FileInfo("YGO_DATA/" + Data.FileName).Directory?.Create();
 
@@ -63,13 +67,14 @@ namespace Onomatopaira
                                 while (ExtraBytes % 4 != 0)
                                     ExtraBytes = ExtraBytes + 1;
 
-                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Data.FileName, FileMode.Create, FileAccess.Write)))
+                            using (var FileWriter = new BinaryWriter(File.Open("YGO_DATA/" + Data.FileName,
+                                FileMode.Create, FileAccess.Write)))
                             {
-                                FileWriter.Write(DatReader.ReadBytes(Utilities.HexToDec(Data.FileSize)));
+                                FileWriter.Write(datReader.ReadBytes(Utilities.HexToDec(Data.FileSize)));
                                 FileWriter.Flush();
                             }
 
-                            DatReader.BaseStream.Position += ExtraBytes - Utilities.HexToDec(Data.FileSize);
+                            datReader.BaseStream.Position += ExtraBytes - Utilities.HexToDec(Data.FileSize);
                         }
                     }
                 }

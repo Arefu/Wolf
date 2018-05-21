@@ -81,7 +81,8 @@ namespace Elroy
         public GameSaveData(string SaveFilePath)
         {
             SaveFileLocation = SaveFilePath;
-            for (var Count = 0; Count < Table.Length; Count++) Table[Count] = BitConverter.ToUInt32(ByteTable, Count * 4);
+            for (var Count = 0; Count < Table.Length; Count++)
+                Table[Count] = BitConverter.ToUInt32(ByteTable, Count * 4);
         }
 
         private void SaveSignature(byte[] SaveBytes)
@@ -94,7 +95,8 @@ namespace Elroy
         {
             for (var Count = 0; Count < 4; Count++) ByteBuffer[12 + Count] = 0;
 
-            var Result = ByteBuffer.Aggregate<byte, ulong>(0xFFFFFFFF, (Current, T) => ((uint) Current >> 8) ^ Table[(byte) Current ^ T]);
+            var Result = ByteBuffer.Aggregate<byte, ulong>(0xFFFFFFFF,
+                (Current, T) => ((uint) Current >> 8) ^ Table[(byte) Current ^ T]);
             return (uint) Result;
         }
 
