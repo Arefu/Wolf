@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace Celtic_Guardian
 {
@@ -22,7 +22,7 @@ namespace Celtic_Guardian
 
         public static ushort ConvertUInt16(ushort value)
         {
-            return (ushort) IPAddress.HostToNetworkOrder((short) value);
+            return (ushort)IPAddress.HostToNetworkOrder((short)value);
         }
 
         public static int ConvertInt32(int value)
@@ -32,7 +32,7 @@ namespace Celtic_Guardian
 
         public static uint ConvertUInt32(uint value)
         {
-            return (uint) IPAddress.HostToNetworkOrder((int) value);
+            return (uint)IPAddress.HostToNetworkOrder((int)value);
         }
 
         public static long ConvertInt64(long value)
@@ -42,7 +42,7 @@ namespace Celtic_Guardian
 
         public static ulong ConvertUInt64(ulong value)
         {
-            return (ulong) IPAddress.HostToNetworkOrder((long) value);
+            return (ulong)IPAddress.HostToNetworkOrder((long)value);
         }
 
         public static float ConvertSingle(float value)
@@ -255,20 +255,9 @@ namespace Celtic_Guardian
             Meta = 4
         }
 
-        public enum Language
-        {
-            Unknown,
-
-            English,
-            French,
-            German,
-            Italian,
-            Spanish
-        }
-
         public static uint ConvertUInt32(uint value)
         {
-            return (uint) IPAddress.HostToNetworkOrder((int) value);
+            return (uint)IPAddress.HostToNetworkOrder((int)value);
         }
 
         public static long ConvertInt64(long value)
@@ -412,7 +401,6 @@ namespace Celtic_Guardian
             return LocalVarFiles;
         }
 
-
         public static List<FileLineInfo> ParseTocFile(bool ReturnAllInfo)
         {
             StreamReader Reader;
@@ -446,10 +434,8 @@ namespace Celtic_Guardian
                 LocalVarFiles.Add(new FileLineInfo(LineData)); //Add To List For Manip.
             }
 
-
             return LocalVarFiles;
         }
-
 
         public static string DecToHex(string DecValue)
         {
@@ -473,7 +459,7 @@ namespace Celtic_Guardian
 
         public static string GiveFileSize(long Value, int DecimalPlaces = 1)
         {
-            var SizeSuffixes = new[] {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+            var SizeSuffixes = new[] { "Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
             if (Value < 0)
                 return "-" + GiveFileSize(-Value);
             var I = 0;
