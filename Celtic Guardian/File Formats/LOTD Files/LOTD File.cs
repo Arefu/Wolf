@@ -19,6 +19,7 @@ namespace Celtic_Guardian.LOTD_Files
         private static readonly Dictionary<Type, FileTypes> fileTypeLookupReverse = new Dictionary<Type, FileTypes>();
         private LOTD_Directory _directory;
         private string _name;
+        public File_Data CachedData;
 
         //***********
         //Constructor
@@ -109,6 +110,73 @@ namespace Celtic_Guardian.LOTD_Files
                 return Archive.Root.FindFile(Path.Combine(Directory.FullName, fileName));
 
             return null;
+        }
+
+        public void Dump(string OutputDirectory)
+        {
+            Dump(new Dump_Settings(OutputDirectory));
+        }
+
+        public void Dump(Dump_Settings Settings)
+        {
+            LoadData(false).Dump(Settings);
+        }
+
+        public T LoadData<T>() where T : File_Data
+        {
+            return LoadData() as T;
+        }
+
+        public T LoadData<T>(bool cache) where T : File_Data
+        {
+            return LoadData(cache) as T;
+        }
+
+        public File_Data LoadData()
+        {
+            return LoadData(true);
+        }
+
+        public File_Data LoadData(bool cache)
+        {
+            if (CachedData != null)
+            {
+                return CachedData;
+            }
+
+            var fileData = CreateFileData(FileType);
+            fileData.File = this;
+            if (!fileData.Load())
+            {
+                return null;
+            }
+            if (cache)
+            {
+                CachedData = fileData;
+            }
+            return fileData;
+        }
+
+        internal static File_Data CreateFileData(FileTypes Type)
+        {
+            var type = GetFileType(Type);
+            if (type == null)
+            {
+                type = typeof(RawFile);
+            }
+            return Activator.CreateInstance(type) as File_Data;
+        }
+
+        public static Type GetFileType(FileTypes fileType)
+        {
+            fileTypeLookup.TryGetValue(fileType, out var type);
+            return type;
+        }
+
+        public static FileTypes GetFileType(Type type)
+        {
+            fileTypeLookupReverse.TryGetValue(type, out var fileType);
+            return fileType;
         }
 
         public static string GetFileNameWithLanguage(string fileName, Utilities.Language language)
@@ -224,5 +292,6 @@ namespace Celtic_Guardian.LOTD_Files
 
             return FileTypes.Unknown;
         }
+
     }
 }
