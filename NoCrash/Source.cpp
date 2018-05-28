@@ -10,6 +10,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
+		MessageBox(NULL, "Uh-Oh, Hi there?", "Uh-Oh!", 0);
 		SetUnhandledExceptionFilter(UnhandledException);
 		break;
 	case DLL_THREAD_ATTACH:
