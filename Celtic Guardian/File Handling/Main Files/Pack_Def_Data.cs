@@ -146,13 +146,12 @@ namespace Celtic_Guardian.Main_Files
                 return "id: " + Id + " series: " + Series + " price: " + Price + " type: " + Type +
                    " codeName: '" + CodeName + "' name: '" + Name + "' unkStr: '" + UnkStr + "'";
             }
-        }        
+        }
     }
 
     public enum PackType
     {
         Shop = 82,
         Battle = 66
-    }
     }
 }
