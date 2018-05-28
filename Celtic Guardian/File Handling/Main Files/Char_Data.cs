@@ -65,7 +65,7 @@ namespace Celtic_Guardian.Main_Files
             }
         }
 
-        public override void Save(BinaryWriter writer, Language language)
+        public override void Save(BinaryWriter writer, Localized_Text.Language language)
         {
             int firstChunkItemSize = 56;// Size of each item in the first chunk
             long fileStartPos = writer.BaseStream.Position;

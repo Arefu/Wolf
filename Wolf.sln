@@ -315,13 +315,11 @@ Global
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x64.ActiveCfg = Debug|x64
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x64.Build.0 = Debug|x64
-		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x86.ActiveCfg = Debug|Win32
-		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x86.Build.0 = Debug|Win32
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x86.ActiveCfg = Debug|x64
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|Any CPU.ActiveCfg = Release|x64
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x64.ActiveCfg = Release|x64
 		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x64.Build.0 = Release|x64
-		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x86.ActiveCfg = Release|Win32
-		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x86.Build.0 = Release|Win32
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

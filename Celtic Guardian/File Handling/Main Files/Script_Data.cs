@@ -188,7 +188,7 @@ namespace Celtic_Guardian.Main_Files
             {
                 TextStartIndex = textStartIndex;
                 TextEndIndex = textEndIndex;
-                CodeName = new LocalizedText();
+                CodeName = new Localized_Text();
             }
 
             public override string ToString()
