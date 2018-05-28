@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <fstream>
+#include <detours.h>
 
 LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS *ExceptionInfo);
 const char *ExceptionCodeToString(DWORD ExceptionCode);
@@ -19,6 +20,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 	}
 	return true;
 }
+
 LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS *ExceptionInfo)
 {
 	char ErrorAddress[MAX_PATH];
@@ -27,10 +29,14 @@ LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS *ExceptionInfo)
 	sprintf_s(ErrorCode, ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode));
 
 	std::ofstream ErrorLogFile;
-	ErrorLogFile.open("Log.txt");
+	ErrorLogFile.open("C:\\Log.txt");
+	if (!ErrorLogFile.is_open())
+	{
+		MessageBox(NULL, "Something Happened Creating Log File!", "Uh-Oh!", 0);
+	}
 	ErrorLogFile << "Yu-Gi-Oh! Crashed. Here Is Some Information.\n";
 	ErrorLogFile << ErrorAddress;
-	ErrorLogFile << "\nError Code: ";
+	ErrorLogFile << "Error Code: ";
 	ErrorLogFile << ErrorCode;
 	ErrorLogFile.close();
 	return 1;
