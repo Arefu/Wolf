@@ -1,4 +1,4 @@
-﻿namespace Celtic_Guardian.Utility
+﻿namespace Celtic_Guardian.File_Handling.Utility
 {
     public enum File_Types
     {

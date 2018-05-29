@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Celtic_Guardian.Utility
+namespace Celtic_Guardian.File_Handling.Utility
 {
     public class Dump_Settings
     {

@@ -1,58 +1,55 @@
-﻿using Celtic_Guardian.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Celtic_Guardian.File_Handling.Utility;
 
-namespace Celtic_Guardian.Main_Files
+namespace Celtic_Guardian.File_Handling.Main_Files
 {
     public class Arena_Data : File_Data
     {
-        static Encoding keyEncoding = Encoding.ASCII;
-        static Encoding valueEncoding = Encoding.Unicode;
-        static Encoding value2Encoding = Encoding.Unicode;
-        public Dictionary<int, Item> Items { get; private set; }
-
-        public override bool IsLocalized
-        {
-            get { return true; }
-        }
+        private static readonly Encoding keyEncoding = Encoding.ASCII;
+        private static readonly Encoding valueEncoding = Encoding.Unicode;
+        private static readonly Encoding value2Encoding = Encoding.Unicode;
 
         public Arena_Data()
         {
             Items = new Dictionary<int, Item>();
         }
 
+        public Dictionary<int, Item> Items { get; }
+        public override bool IsLocalized => true;
+
         public override void Load(BinaryReader reader, long length, Localized_Text.Language language)
         {
-            long fileStartPos = reader.BaseStream.Position;
+            var fileStartPos = reader.BaseStream.Position;
 
-            uint count = (uint)reader.ReadUInt64();
+            var count = (uint) reader.ReadUInt64();
             for (uint i = 0; i < count; i++)
             {
-                int id = reader.ReadInt32();
-                long keyOffset = reader.ReadInt64();
-                long valueOffset = reader.ReadInt64();
-                long value2Offset = reader.ReadInt64();
+                var id = reader.ReadInt32();
+                var keyOffset = reader.ReadInt64();
+                var valueOffset = reader.ReadInt64();
+                var value2Offset = reader.ReadInt64();
 
-                long tempOffset = reader.BaseStream.Position;
+                var tempOffset = reader.BaseStream.Position;
 
                 reader.BaseStream.Position = fileStartPos + keyOffset;
-                string key = reader.ReadNullTerminatedString(keyEncoding);
+                var key = reader.ReadNullTerminatedString(keyEncoding);
 
                 reader.BaseStream.Position = fileStartPos + valueOffset;
-                string value = reader.ReadNullTerminatedString(valueEncoding);
+                var value = reader.ReadNullTerminatedString(valueEncoding);
 
                 reader.BaseStream.Position = fileStartPos + value2Offset;
-                string value2 = reader.ReadNullTerminatedString(valueEncoding);
+                var value2 = reader.ReadNullTerminatedString(valueEncoding);
 
                 reader.BaseStream.Position = tempOffset;
 
-                Item item;
-                if (!Items.TryGetValue(id, out item))
+                if (!Items.TryGetValue(id, out var item))
                 {
                     item = new Item(id);
                     Items.Add(item.Id, item);
                 }
+
                 item.Key.SetText(language, key);
                 item.Value.SetText(language, value);
                 item.Value2.SetText(language, value2);
@@ -61,22 +58,22 @@ namespace Celtic_Guardian.Main_Files
 
         public override void Save(BinaryWriter writer, Localized_Text.Language language)
         {
-            int firstChunkItemSize = 28;// Size of each item in the first chunk
-            long fileStartPos = writer.BaseStream.Position;
+            const int firstChunkItemSize = 28; // Size of each item in the first chunk
+            var fileStartPos = writer.BaseStream.Position;
 
-            writer.Write((ulong)Items.Count);
+            writer.Write((ulong) Items.Count);
 
-            long offsetsOffset = writer.BaseStream.Position;
+            var offsetsOffset = writer.BaseStream.Position;
             writer.Write(new byte[Items.Count * firstChunkItemSize]);
 
-            int index = 0;
-            foreach (Item item in Items.Values)
+            var index = 0;
+            foreach (var item in Items.Values)
             {
-                int keyLen = GetStringSize(item.Key.GetText(language), keyEncoding);
-                int valueLen = GetStringSize(item.Value.GetText(language), valueEncoding);
-                long tempOffset = writer.BaseStream.Position;
+                var keyLen = GetStringSize(item.Key.GetText(language), keyEncoding);
+                var valueLen = GetStringSize(item.Value.GetText(language), valueEncoding);
+                var tempOffset = writer.BaseStream.Position;
 
-                writer.BaseStream.Position = offsetsOffset + (index * firstChunkItemSize);
+                writer.BaseStream.Position = offsetsOffset + index * firstChunkItemSize;
                 writer.Write(item.Id);
                 writer.WriteOffset(fileStartPos, tempOffset);
                 writer.WriteOffset(fileStartPos, tempOffset + keyLen);
@@ -93,11 +90,6 @@ namespace Celtic_Guardian.Main_Files
 
         public class Item
         {
-            public int Id { get; set; }
-            public Localized_Text Key { get; set; }
-            public Localized_Text Value { get; set; }
-            public Localized_Text Value2 { get; set; }
-
             public Item(int id)
             {
                 Id = id;
@@ -105,6 +97,11 @@ namespace Celtic_Guardian.Main_Files
                 Value = new Localized_Text();
                 Value2 = new Localized_Text();
             }
+
+            public int Id { get; set; }
+            public Localized_Text Key { get; set; }
+            public Localized_Text Value { get; set; }
+            public Localized_Text Value2 { get; set; }
 
             public override string ToString()
             {

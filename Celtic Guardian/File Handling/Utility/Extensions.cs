@@ -2,35 +2,32 @@
 using System.IO;
 using System.Text;
 
-namespace Celtic_Guardian.Utility
+namespace Celtic_Guardian.File_Handling.Utility
 {
-    static class Extensions
+    internal static class Extensions
     {
         public static byte[] ReadBytes(this BinaryReader reader, long count)
         {
-            return reader.ReadBytes((int)count);
+            return reader.ReadBytes((int) count);
         }
 
         public static string ReadNullTerminatedString(this BinaryReader reader, Encoding encoding)
         {
-            StringBuilder stringBuilder = new StringBuilder();
-            StreamReader streamReader = new StreamReader(reader.BaseStream, encoding);
+            var stringBuilder = new StringBuilder();
+            var streamReader = new StreamReader(reader.BaseStream, encoding);
 
-            long startOffset = reader.BaseStream.Position;
+            var startOffset = reader.BaseStream.Position;
 
             int intChar;
             while ((intChar = streamReader.Read()) != -1)
             {
-                char c = (char)intChar;
-                if (c == '\0')
-                {
-                    break;
-                }
+                var c = (char) intChar;
+                if (c == '\0') break;
                 stringBuilder.Append(c);
             }
 
-            string result = stringBuilder.ToString();
-            
+            var result = stringBuilder.ToString();
+
             reader.BaseStream.Position = startOffset + encoding.GetByteCount(result + '\0');
 
             return result;
@@ -43,29 +40,23 @@ namespace Celtic_Guardian.Utility
 
         public static byte[] GetBytes(this Encoding encoding, string str, int bufferLen, int maxStringLen)
         {
-            if (str == null)
-            {
-                str = string.Empty;
-            }
-            if (maxStringLen >= 0 && str.Length > maxStringLen)
-            {
-                str = str.Substring(0, maxStringLen);
-            }
+            if (str == null) str = string.Empty;
+            if (maxStringLen >= 0 && str.Length > maxStringLen) str = str.Substring(0, maxStringLen);
 
-            byte[] buffer = new byte[bufferLen];
-            byte[] tempBuffer = encoding.GetBytes(str == null ? string.Empty : str);
+            var buffer = new byte[bufferLen];
+            var tempBuffer = encoding.GetBytes(str);
             Buffer.BlockCopy(tempBuffer, 0, buffer, 0, Math.Min(bufferLen, tempBuffer.Length));
             return buffer;
         }
 
         public static void WriteOffset(this BinaryWriter writer, long relativeTo, int offset)
         {
-            writer.Write((int)(offset - relativeTo));
+            writer.Write((int) (offset - relativeTo));
         }
 
         public static void WriteOffset(this BinaryWriter writer, long relativeTo, uint offset)
         {
-            writer.Write((uint)(offset - relativeTo));
+            writer.Write((uint) (offset - relativeTo));
         }
 
         public static void WriteOffset(this BinaryWriter writer, long relativeTo, long offset)

@@ -1,64 +1,61 @@
-﻿using Celtic_Guardian.Utility;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Celtic_Guardian.File_Handling.Utility;
 
-namespace Celtic_Guardian.Main_Files
+namespace Celtic_Guardian.File_Handling.Main_Files
 {
     public class Char_Data : File_Data
     {
-        static Encoding keyEncoding = Encoding.ASCII;
-        static Encoding valueEncoding = Encoding.Unicode;
-        static Encoding descriptionEncoding = Encoding.Unicode;
-        public Dictionary<int, Item> Items { get; private set; }
-
-        public override bool IsLocalized
-        {
-            get { return true; }
-        }
+        private static readonly Encoding keyEncoding = Encoding.ASCII;
+        private static readonly Encoding valueEncoding = Encoding.Unicode;
+        private static readonly Encoding descriptionEncoding = Encoding.Unicode;
 
         public Char_Data()
         {
             Items = new Dictionary<int, Item>();
         }
 
+        public Dictionary<int, Item> Items { get; }
+        public override bool IsLocalized => true;
+
         public override void Load(BinaryReader reader, long length, Localized_Text.Language language)
         {
-            long fileStartPos = reader.BaseStream.Position;
+            var fileStartPos = reader.BaseStream.Position;
 
-            uint count = (uint)reader.ReadUInt64();
+            var count = (uint) reader.ReadUInt64();
             for (uint i = 0; i < count; i++)
             {
-                int id = reader.ReadInt32();
-                Duel_Series series = (Duel_Series)reader.ReadInt32();
-                int challengeDeckId = reader.ReadInt32();
-                int unk3 = reader.ReadInt32();
-                int dlcId = reader.ReadInt32();
-                int unk5 = reader.ReadInt32();
-                long type = reader.ReadInt64();
-                long keyOffset = reader.ReadInt64();
-                long valueOffset = reader.ReadInt64();
-                long descriptionOffset = reader.ReadInt64();
+                var id = reader.ReadInt32();
+                var series = (Duel_Series) reader.ReadInt32();
+                var challengeDeckId = reader.ReadInt32();
+                var unk3 = reader.ReadInt32();
+                var dlcId = reader.ReadInt32();
+                var unk5 = reader.ReadInt32();
+                var type = reader.ReadInt64();
+                var keyOffset = reader.ReadInt64();
+                var valueOffset = reader.ReadInt64();
+                var descriptionOffset = reader.ReadInt64();
 
-                long tempOffset = reader.BaseStream.Position;
+                var tempOffset = reader.BaseStream.Position;
 
                 reader.BaseStream.Position = fileStartPos + keyOffset;
-                string codeName = reader.ReadNullTerminatedString(keyEncoding);
+                var codeName = reader.ReadNullTerminatedString(keyEncoding);
 
                 reader.BaseStream.Position = fileStartPos + valueOffset;
-                string name = reader.ReadNullTerminatedString(valueEncoding);
+                var name = reader.ReadNullTerminatedString(valueEncoding);
 
                 reader.BaseStream.Position = fileStartPos + descriptionOffset;
-                string bio = reader.ReadNullTerminatedString(valueEncoding);
+                var bio = reader.ReadNullTerminatedString(valueEncoding);
 
                 reader.BaseStream.Position = tempOffset;
 
-                Item item;
-                if (!Items.TryGetValue(id, out item))
+                if (!Items.TryGetValue(id, out var item))
                 {
                     item = new Item(id, series, challengeDeckId, unk3, dlcId, unk5, type);
                     Items.Add(item.Id, item);
                 }
+
                 item.CodeName.SetText(language, codeName);
                 item.Name.SetText(language, name);
                 item.Bio.SetText(language, bio);
@@ -67,24 +64,24 @@ namespace Celtic_Guardian.Main_Files
 
         public override void Save(BinaryWriter writer, Localized_Text.Language language)
         {
-            int firstChunkItemSize = 56;// Size of each item in the first chunk
-            long fileStartPos = writer.BaseStream.Position;
+            const int firstChunkItemSize = 56; // Size of each item in the first chunk
+            var fileStartPos = writer.BaseStream.Position;
 
-            writer.Write((ulong)Items.Count);
+            writer.Write((ulong) Items.Count);
 
-            long offsetsOffset = writer.BaseStream.Position;
+            var offsetsOffset = writer.BaseStream.Position;
             writer.Write(new byte[Items.Count * firstChunkItemSize]);
 
-            int index = 0;
-            foreach (Item item in Items.Values)
+            var index = 0;
+            foreach (var item in Items.Values)
             {
-                int keyLen = GetStringSize(item.CodeName.GetText(language), keyEncoding);
-                int valueLen = GetStringSize(item.Name.GetText(language), valueEncoding);
-                long tempOffset = writer.BaseStream.Position;
+                var keyLen = GetStringSize(item.CodeName.GetText(language), keyEncoding);
+                var valueLen = GetStringSize(item.Name.GetText(language), valueEncoding);
+                var tempOffset = writer.BaseStream.Position;
 
-                writer.BaseStream.Position = offsetsOffset + (index * firstChunkItemSize);
+                writer.BaseStream.Position = offsetsOffset + index * firstChunkItemSize;
                 writer.Write(item.Id);
-                writer.Write((int)item.Series);
+                writer.Write((int) item.Series);
                 writer.Write(item.ChallengeDeckId);
                 writer.Write(item.Unk3);
                 writer.Write(item.DlcId);
@@ -110,29 +107,6 @@ namespace Celtic_Guardian.Main_Files
 
         public class Item
         {
-            public int Id { get; set; }
-            public Duel_Series Series { get; set; }
-            public int ChallengeDeckId { get; set; }
-            public int Unk3 { get; set; }
-            public int DlcId { get; set; }
-            public int Unk5 { get; set; }
-            public long Type { get; set; }
-
-            /// <summary>
-            /// The code name for this character. This is the name that can be found in /busts/
-            /// </summary>
-            public Localized_Text CodeName { get; set; }
-
-            /// <summary>
-            /// The display name of the character
-            /// </summary>
-            public Localized_Text Name { get; set; }
-
-            /// <summary>
-            /// An unused character bio. Most characters don't have this and it doesn't appear in game
-            /// </summary>
-            public Localized_Text Bio { get; set; }
-
             public Item(int id, Duel_Series series, int challengeDeckId, int unk3, int dlcId, int unk5, long type)
             {
                 Id = id;
@@ -147,12 +121,23 @@ namespace Celtic_Guardian.Main_Files
                 Bio = new Localized_Text();
             }
 
+            public int Id { get; set; }
+            public Duel_Series Series { get; set; }
+            public int ChallengeDeckId { get; set; }
+            public int Unk3 { get; set; }
+            public int DlcId { get; set; }
+            public int Unk5 { get; set; }
+            public long Type { get; set; }
+
+            public Localized_Text CodeName { get; set; }
+            public Localized_Text Name { get; set; }
+            public Localized_Text Bio { get; set; }
+
             public override string ToString()
             {
                 return "id: " + Id + " series: " + Series + " challengeDeckId: " + ChallengeDeckId + " unk3: " + Unk3 + " dlcId: " + DlcId + " unk5: " + Unk5 +
-                   " type: " + Type + " codeName: '" + CodeName + "' name: '" + Name + "' bio: '" + Bio + "'";
+                       " type: " + Type + " codeName: '" + CodeName + "' name: '" + Name + "' bio: '" + Bio + "'";
             }
         }
     }
-
 }

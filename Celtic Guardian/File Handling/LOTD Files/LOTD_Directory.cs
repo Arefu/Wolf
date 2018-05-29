@@ -1,53 +1,52 @@
-﻿using Celtic_Guardian.Miscellaneous_Files;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Celtic_Guardian.Utility;
+using System.Linq;
+using Celtic_Guardian.File_Handling.Utility;
 
-namespace Celtic_Guardian.LOTD_Files
+namespace Celtic_Guardian.File_Handling.LOTD_Files
 {
     public class LOTD_Directory
     {
-        //*******
-        //Globals
-        //*******
         private string _name;
         private LOTD_Directory _parent;
 
-        //**********
-        //Properties
-        //**********
+        public LOTD_Directory()
+        {
+            Files = new Dictionary<string, LOTD_File>(StringComparer.OrdinalIgnoreCase);
+            Directories = new Dictionary<string, LOTD_Directory>(StringComparer.OrdinalIgnoreCase);
+        }
+
         public LOTD_Archive Archive { get; set; }
-        public Dictionary<string, LOTD_File> Files { get; private set; }
-        public Dictionary<string, LOTD_Directory> Directories { get; private set; }
+        public Dictionary<string, LOTD_File> Files { get; }
+        public Dictionary<string, LOTD_Directory> Directories { get; }
         public bool IsRoot { get; set; }
 
-        //*************************
-        //Expanded Getters, Setters
-        //*************************
         public string Name
         {
             get => _name;
             set
             {
                 if (_name == value) return;
-                if (Parent != null) Parent.Directories.Remove(_name);
+                Parent?.Directories.Remove(_name);
 
                 _name = value;
 
-                if (Parent != null) Parent.Directories.Add(_name, this);
+                Parent?.Directories.Add(_name, this);
             }
         }
+
         public string FullName
         {
             get
             {
-                var name = Name == null ? string.Empty : Name;
+                var name = Name ?? string.Empty;
                 string parentName = null;
                 if (Parent != null && !Parent.IsRoot) parentName = Parent.FullName;
                 return parentName == null ? name : Path.Combine(parentName, name);
             }
         }
+
         public LOTD_Directory Parent
         {
             get => _parent;
@@ -70,18 +69,6 @@ namespace Celtic_Guardian.LOTD_Files
             }
         }
 
-        //***********
-        //Constructor
-        //***********
-        public LOTD_Directory()
-        {
-            Files = new Dictionary<string, LOTD_File>(StringComparer.OrdinalIgnoreCase);
-            Directories = new Dictionary<string, LOTD_Directory>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        //*****************
-        //Functions
-        //*****************
         public void Dump(string outputDirectory)
         {
             Dump(new Dump_Settings(outputDirectory));
@@ -153,11 +140,11 @@ namespace Celtic_Guardian.LOTD_Files
             return ResolveDirectory(SplitPath(path), isFilePath, create);
         }
 
-        private LOTD_Directory ResolveDirectory(string[] path, bool isFilePath, bool create)
+        private LOTD_Directory ResolveDirectory(IReadOnlyList<string> path, bool isFilePath, bool create)
         {
             var directory = this;
 
-            var pathCount = path.Length + (isFilePath ? -1 : 0);
+            var pathCount = path.Count + (isFilePath ? -1 : 0);
             for (var i = 0; i < pathCount; i++)
                 if (path[i] == "..")
                 {
@@ -172,9 +159,11 @@ namespace Celtic_Guardian.LOTD_Files
                     }
                     else
                     {
-                        subDir = new LOTD_Directory();
-                        subDir.Name = path[i];
-                        subDir.Parent = directory;
+                        subDir = new LOTD_Directory
+                        {
+                            Name = path[i],
+                            Parent = directory
+                        };
                         directory = subDir;
                     }
                 }
@@ -182,13 +171,13 @@ namespace Celtic_Guardian.LOTD_Files
             return directory;
         }
 
-        private string[] SplitPath(string path)
+        private static string[] SplitPath(string path)
         {
-            return path.Split(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar },
+            return path.Split(new[] {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar},
                 StringSplitOptions.RemoveEmptyEntries);
         }
 
-        private bool IsSameOrSubDirectory(string BasePath, string Path)
+        private static bool IsSameOrSubDirectory(string BasePath, string Path)
         {
             var dirInfoPath = new DirectoryInfo(System.IO.Path.GetFullPath(Path).TrimEnd('\\', '/'));
             var DirInfoBasePath = new DirectoryInfo(System.IO.Path.GetFullPath(BasePath).TrimEnd('\\', '/'));
@@ -196,68 +185,50 @@ namespace Celtic_Guardian.LOTD_Files
             var SubDirectory = "";
             while (dirInfoPath != null)
             {
-                if (dirInfoPath.FullName.Equals(DirInfoBasePath.FullName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return true;
-                }
+                if (dirInfoPath.FullName.Equals(DirInfoBasePath.FullName, StringComparison.OrdinalIgnoreCase)) return true;
 
                 SubDirectory = string.IsNullOrEmpty(SubDirectory) ? dirInfoPath.Name : System.IO.Path.Combine(dirInfoPath.Name, SubDirectory);
                 dirInfoPath = dirInfoPath.Parent;
             }
+
             return false;
         }
 
         public LOTD_File[] AddFilesOnDisk(string directory, string rootDir, bool recursive)
         {
-            List<LOTD_File> files = new List<LOTD_File>();
-            if (Directory.Exists(directory))
-            {
-                SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-                foreach (string filePath in Directory.GetFiles(directory, "*.*", searchOption))
-                {
-                    LOTD_File file = AddFileOnDisk(filePath, rootDir);
-                    if (file != null)
-                    {
-                        files.Add(file);
-                    }
-                }
-            }
+            var files = new List<LOTD_File>();
+            if (!Directory.Exists(directory)) return files.ToArray();
+
+            var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            files.AddRange(Directory.GetFiles(directory, "*.*", searchOption).Select(filePath => AddFileOnDisk(filePath, rootDir)).Where(file => file != null));
+
             return files.ToArray();
         }
 
         public LOTD_File AddFileOnDisk(string filePath, string rootDir)
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath)) return null;
+
+            var relativePath = GetRelativeFilePathOnDisk(filePath, rootDir);
+
+            var existingFile = FindFile(relativePath);
+            if (existingFile != null)
             {
-                string relativePath = GetRelativeFilePathOnDisk(filePath, rootDir);
-
-                LOTD_File existingFile = FindFile(relativePath);
-                if (existingFile != null)
-                {
-                    if (!existingFile.IsFileOnDisk)
-                    {
-                        // Already exists as an archive file or a placeholder
-                        // Set the file path (this will favor loading from the file rather than the archive)
-                        existingFile.FilePathOnDisk = filePath;
-                    }
-                    return existingFile;
-                }
-
-                string[] splitted = SplitPath(relativePath);
-                if (splitted.Length > 0)
-                {
-                    LOTD_Directory directory = ResolveDirectory(splitted, true, true);
-                    if (directory != null)
-                    {
-                        LOTD_File file = new LOTD_File();
-                        file.Name = splitted[splitted.Length - 1];
-                        file.Directory = directory;
-                        file.FilePathOnDisk = filePath;
-                        return file;
-                    }
-                }
+                if (!existingFile.IsFileOnDisk) existingFile.FilePathOnDisk = filePath;
+                return existingFile;
             }
-            return null;
+
+            var splitted = SplitPath(relativePath);
+            if (splitted.Length <= 0) return null;
+            var directory = ResolveDirectory(splitted, true, true);
+            if (directory == null) return null;
+            var file = new LOTD_File
+            {
+                Name = splitted[splitted.Length - 1],
+                Directory = directory,
+                FilePathOnDisk = filePath
+            };
+            return file;
         }
 
         public string GetRelativeFilePathOnDisk(string filePath, string rootDir)
@@ -272,93 +243,67 @@ namespace Celtic_Guardian.LOTD_Files
 
         public string GetRelativePathOnDisk(string path, string rootDir, bool isFile)
         {
-            if ((isFile && !File.Exists(path)) || (!isFile && !Directory.Exists(path)))
-            {
-                return null;
-            }
+            if (isFile && !File.Exists(path) || !isFile && !Directory.Exists(path)) return null;
 
             path = Path.GetFullPath(path);
             rootDir = Path.GetFullPath(rootDir);
 
-            string dir = isFile ? Path.GetDirectoryName(path) : path;
-            if (!IsSameOrSubDirectory(rootDir, dir))
-            {
-                throw new Exception("Path Needs To Be A Sub-Directory Of RootDir! PLEASE CHECK CODE!");
-            }
+            var dir = isFile ? Path.GetDirectoryName(path) : path;
+            if (!IsSameOrSubDirectory(rootDir, dir)) throw new Exception("Path Needs To Be A Sub-Directory Of RootDir! PLEASE CHECK CODE!");
 
-            Uri pathUri = new Uri(path);
-            Uri referenceUri = new Uri(rootDir);
-            string relativePath = referenceUri.MakeRelativeUri(pathUri).ToString();
-            int firstPathIndex = relativePath.IndexOfAny(new char[] { Path.PathSeparator, Path.AltDirectorySeparatorChar });
-            if (firstPathIndex >= 0)
-            {
-                relativePath = relativePath.Substring(firstPathIndex + 1);
-            }
+            var pathUri = new Uri(path);
+            var referenceUri = new Uri(rootDir);
+            var relativePath = referenceUri.MakeRelativeUri(pathUri).ToString();
+            var firstPathIndex = relativePath.IndexOfAny(new[] {Path.PathSeparator, Path.AltDirectorySeparatorChar});
+            if (firstPathIndex >= 0) relativePath = relativePath.Substring(firstPathIndex + 1);
 
             return relativePath;
         }
 
         public LOTD_File AddFile(string path, long offset, long length)
         {
-            string[] splitted = SplitPath(path);
-            if (splitted.Length > 0)
+            var splitted = SplitPath(path);
+            if (splitted.Length <= 0) return null;
+            var directory = ResolveDirectory(splitted, true, true);
+            if (directory == null) return null;
+            var file = new LOTD_File
             {
-                LOTD_Directory directory = ResolveDirectory(splitted, true, true);
-                if (directory != null)
-                {
-                    LOTD_File file = new LOTD_File();
-                    file.Name = splitted[splitted.Length - 1];
-                    file.Directory = directory;
-                    file.ArchiveOffset = offset;
-                    file.ArchiveLength = length;
-                    return file;
-                }
-            }
-            return null;
+                Name = splitted[splitted.Length - 1],
+                Directory = directory,
+                ArchiveOffset = offset,
+                ArchiveLength = length
+            };
+            return file;
         }
 
         public void RemoveFile(string path)
         {
-            LOTD_File file = FindFile(path);
-            if (file != null)
-            {
-                file.Directory = null;
-            }
+            var file = FindFile(path);
+            if (file != null) file.Directory = null;
         }
 
         public void RemoveFile(LOTD_File file)
         {
-            if (file.Directory == this)
-            {
-                file.Directory = null;
-            }
+            if (file.Directory == this) file.Directory = null;
         }
 
         private bool IsSameOrSubDirectory(string basePath, string path, out string subDirectory)
         {
-            DirectoryInfo di = new DirectoryInfo(Path.GetFullPath(path).TrimEnd('\\', '/'));
-            DirectoryInfo diBase = new DirectoryInfo(Path.GetFullPath(basePath).TrimEnd('\\', '/'));
+            var di = new DirectoryInfo(Path.GetFullPath(path).TrimEnd('\\', '/'));
+            var diBase = new DirectoryInfo(Path.GetFullPath(basePath).TrimEnd('\\', '/'));
 
             subDirectory = null;
             while (di != null)
-            {
                 if (di.FullName.Equals(diBase.FullName, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(subDirectory))
-                    {
-                        subDirectory = di.Name;
-                    }
-                    else
-                    {
-                        subDirectory = Path.Combine(di.Name, subDirectory);
-                    }
+                    subDirectory = string.IsNullOrEmpty(subDirectory) ? di.Name : Path.Combine(di.Name, subDirectory);
                     di = di.Parent;
                 }
-            }
+
             return false;
         }
     }

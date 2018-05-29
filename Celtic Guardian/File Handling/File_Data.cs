@@ -1,32 +1,23 @@
-﻿using Celtic_Guardian.LOTD_Files;
-using Celtic_Guardian.Miscellaneous_Files;
-using Celtic_Guardian.Utility;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using Celtic_Guardian.File_Handling.LOTD_Files;
+using Celtic_Guardian.File_Handling.Utility;
+using Celtic_Guardian.File_Handling.ZIB_Files;
 
-namespace Celtic_Guardian
+namespace Celtic_Guardian.File_Handling
 {
     [Obsolete("This Class Shouldn't Be Used, It Should Only Be Inherited.")]
     public abstract class File_Data
     {
-        //**********
-        //Properties
-        //**********
         public LOTD_File File { get; set; }
 
         public ZIB_File ZibFile { get; set; }
 
-        //****************
-        //Getters, Setters
-        //****************
         public File_Types FileType => File?.FileType ?? (ZibFile?.FileType ?? File_Types.Unknown);
 
-        public virtual bool IsLocalized => false; //No Base Files Are Localized, BND Should Be The Only Ones.
+        public virtual bool IsLocalized => false;
 
-        //*****************
-        //Functions
-        //*****************
         public byte[] LoadBuffer()
         {
             if (File.IsFileOnDisk)
@@ -40,15 +31,13 @@ namespace Celtic_Guardian
 
         public byte[] LoadBuffer(string path)
         {
-            return System.IO.File.Exists(path)
-                ? System.IO.File.ReadAllBytes(path)
-                : throw new FileNotFoundException("Can't Load/Find File! CHECK CODE PLEASE!");
+            return System.IO.File.Exists(path) ? System.IO.File.ReadAllBytes(path) : throw new FileNotFoundException("Can't Load/Find File! CHECK CODE PLEASE!");
         }
 
         public byte[] LoadBuffer(BinaryReader reader)
         {
             File.Archive.Reader.BaseStream.Position = File.ArchiveOffset;
-            return reader.ReadBytes((int)File.ArchiveLength);
+            return reader.ReadBytes((int) File.ArchiveLength);
         }
 
         public bool Load()
@@ -68,8 +57,7 @@ namespace Celtic_Guardian
                 }
 
                 if (ZibFile.Owner?.File == null || ZibFile.Offset <= 0 || ZibFile.Length <= 0) return false;
-                ZibFile.Owner.File.Archive.Reader.BaseStream.Position =
-                    ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
+                ZibFile.Owner.File.Archive.Reader.BaseStream.Position = ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
                 Load(ZibFile.Owner.File.Archive.Reader, ZibFile.Length);
                 return true;
             }
@@ -112,37 +100,27 @@ namespace Celtic_Guardian
                     return true;
                 }
 
-                if (ZibFile.Owner != null && ZibFile.Owner.File != null && ZibFile.Offset > 0 && ZibFile.Length > 0)
-                {
-                    ZibFile.Owner.File.Archive.Reader.BaseStream.Position =
-                        ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
-                    Load(ZibFile.Owner.File.Archive.Reader, ZibFile.Length, language);
-                    return true;
-                }
+                if (ZibFile.Owner?.File == null || ZibFile.Offset <= 0 || ZibFile.Length <= 0) return false;
 
-                return false;
+                ZibFile.Owner.File.Archive.Reader.BaseStream.Position = ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
+                Load(ZibFile.Owner.File.Archive.Reader, ZibFile.Length, language);
+                return true;
             }
 
-            if (File != null)
+            if (File == null) return false;
+
+            if (File.IsFileOnDisk)
             {
-                if (File.IsFileOnDisk)
-                {
-                    if (!System.IO.File.Exists(File.FilePathOnDisk)) return false;
-                    Load(File.FilePathOnDisk, language);
-                    return true;
-                }
-
-                if (File.IsArchiveFile)
-                {
-                    File.Archive.Reader.BaseStream.Position = File.ArchiveOffset;
-                    Load(File.Archive.Reader, File.ArchiveLength);
-                    return true;
-                }
-
-                return false;
+                if (!System.IO.File.Exists(File.FilePathOnDisk)) return false;
+                Load(File.FilePathOnDisk, language);
+                return true;
             }
 
-            return false;
+            if (!File.IsArchiveFile) return false;
+
+            File.Archive.Reader.BaseStream.Position = File.ArchiveOffset;
+            Load(File.Archive.Reader, File.ArchiveLength);
+            return true;
         }
 
         public void Load(string path, Localized_Text.Language language)

@@ -1,13 +1,33 @@
-﻿namespace Celtic_Guardian.Utility
+﻿namespace Celtic_Guardian.File_Handling.Utility
 {
     public class Localized_Text
     {
-        public string Universal { get; set; }
-        private Language lastLanguageSet = Language.Unknown;
+        public enum Language
+        {
+            Unknown,
+
+            English,
+            French,
+            German,
+            Italian,
+            Spanish
+        }
+
         private string english;
+
+        private string french;
+
+        private string german;
+
+        private string italian;
+        private Language lastLanguageSet = Language.Unknown;
+
+        private string spanish;
+        public string Universal { get; set; }
+
         public string English
         {
-            get { return english; }
+            get => english;
             set
             {
                 english = value;
@@ -15,10 +35,9 @@
             }
         }
 
-        private string french;
         public string French
         {
-            get { return french; }
+            get => french;
             set
             {
                 french = value;
@@ -26,10 +45,9 @@
             }
         }
 
-        private string german;
         public string German
         {
-            get { return german; }
+            get => german;
             set
             {
                 german = value;
@@ -37,10 +55,9 @@
             }
         }
 
-        private string italian;
         public string Italian
         {
-            get { return italian; }
+            get => italian;
             set
             {
                 italian = value;
@@ -48,10 +65,9 @@
             }
         }
 
-        private string spanish;
         public string Spanish
         {
-            get { return spanish; }
+            get => spanish;
             set
             {
                 spanish = value;
@@ -63,12 +79,27 @@
         {
             switch (language)
             {
-                case Language.English: English = value; break;
-                case Language.French: French = value; break;
-                case Language.German: German = value; break;
-                case Language.Italian: Italian = value; break;
-                case Language.Spanish: Spanish = value; break;
-                default: Universal = value; break;
+                case Language.English:
+                    English = value;
+                    break;
+                case Language.French:
+                    French = value;
+                    break;
+                case Language.German:
+                    German = value;
+                    break;
+                case Language.Italian:
+                    Italian = value;
+                    break;
+                case Language.Spanish:
+                    Spanish = value;
+                    break;
+                case Language.Unknown:
+                    Universal = value;
+                    break;
+                default:
+                    Universal = value;
+                    break;
             }
         }
 
@@ -81,26 +112,14 @@
                 case Language.German: return German;
                 case Language.Italian: return Italian;
                 case Language.Spanish: return Spanish;
+                case Language.Unknown: return Universal;
                 default: return Universal;
             }
         }
 
         public override string ToString()
         {
-            return English != null ? English : GetText(lastLanguageSet);
-        }
-
-        public enum Language
-        {
-            Unknown,
-
-            English,
-            French,
-            German,
-            Italian,
-            Spanish
+            return English ?? GetText(lastLanguageSet);
         }
     }
-
-    
 }

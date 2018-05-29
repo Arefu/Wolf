@@ -1,46 +1,55 @@
-﻿using Celtic_Guardian.Bin_Files;
-using Celtic_Guardian.Miscellaneous_Files;
-using Celtic_Guardian.Main_Files;
-using Celtic_Guardian.Pack_Files;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Celtic_Guardian.Utility;
+using Celtic_Guardian.File_Handling.Bin_Files;
+using Celtic_Guardian.File_Handling.Main_Files;
+using Celtic_Guardian.File_Handling.Miscellaneous_Files;
+using Celtic_Guardian.File_Handling.Pack_Files;
+using Celtic_Guardian.File_Handling.Utility;
+using Celtic_Guardian.File_Handling.ZIB_Files;
 
-namespace Celtic_Guardian.LOTD_Files
+namespace Celtic_Guardian.File_Handling.LOTD_Files
 {
     public class LOTD_File
     {
-        //**********
-        //Properties
-        //**********
-        public string FilePathOnDisk { get; set; }
-        public LOTD_Archive Archive { get; set; }
-        public long ArchiveLength { get; set; }
-        public long ArchiveOffset { get; set; }
-
-        //****************
-        //Getters, Setters
-        //****************
-        public bool IsArchiveFile => ArchiveLength > 0;
-        public bool IsFileOnDisk => !string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk);
-        public File_Types FileType => GetFileTypeFromExtension(Name, Extension);
-        public string Extension => Path.GetExtension(Name);
-        public string FullName => Directory == null || Directory.IsRoot ? Name : Path.Combine(Directory.FullName, Name);
-
-        //*******
-        //Globals
-        //*******
         private static readonly Dictionary<File_Types, Type> fileTypeLookup = new Dictionary<File_Types, Type>();
         private static readonly Dictionary<Type, File_Types> fileTypeLookupReverse = new Dictionary<Type, File_Types>();
         private LOTD_Directory _directory;
         private string _name;
         public File_Data CachedData;
 
-        //*************************
-        //Expanded Getters, Setters
-        //*************************
+        static LOTD_File()
+        {
+            AddFileType(File_Types.BattlePackBin, typeof(Battle_Pack));
+            AddFileType(File_Types.PackDataBin, typeof(Shop_Pack));
+            AddFileType(File_Types.HowToPlayBin, typeof(How_To_Play));
+            AddFileType(File_Types.SkuDataBin, typeof(SKU_Data));
+            AddFileType(File_Types.ArenaDataBin, typeof(Arena_Data));
+            AddFileType(File_Types.CharDataBin, typeof(Char_Data));
+            AddFileType(File_Types.DeckDataBin, typeof(Deck_Data));
+            AddFileType(File_Types.DuelDataBin, typeof(Duel_Data));
+            AddFileType(File_Types.PackDefDataBin, typeof(Pack_Def_Data));
+            AddFileType(File_Types.ScriptDataBin, typeof(Script_Data));
+            AddFileType(File_Types.CardLimits, typeof(Card_Limits));
+            AddFileType(File_Types.RelatedCardsBin, typeof(Related_Card_Data));
+            AddFileType(File_Types.CreditsDat, typeof(Credits));
+            AddFileType(File_Types.StringBnd, typeof(Strings_BND));
+            AddFileType(File_Types.Dfymoo, typeof(Dfymoo));
+            AddFileType(File_Types.Zib, typeof(ZIB_Data));
+        }
+
+        public string FilePathOnDisk { get; set; }
+        public LOTD_Archive Archive { get; set; }
+        public long ArchiveLength { get; set; }
+        public long ArchiveOffset { get; set; }
+
+        public bool IsArchiveFile => ArchiveLength > 0;
+        public bool IsFileOnDisk => !string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk);
+        public File_Types FileType => GetFileTypeFromExtension(Name, Extension);
+        public string Extension => Path.GetExtension(Name);
+        public string FullName => Directory == null || Directory.IsRoot ? Name : Path.Combine(Directory.FullName, Name);
+
         public LOTD_Directory Directory
         {
             get => _directory;
@@ -62,6 +71,7 @@ namespace Celtic_Guardian.LOTD_Files
                 }
             }
         }
+
         public string Name
         {
             get => _name;
@@ -74,41 +84,12 @@ namespace Celtic_Guardian.LOTD_Files
             }
         }
 
-        //***********
-        //Constructor
-        //***********
-        static LOTD_File()
-        {
-            AddFileType(File_Types.BattlePackBin, typeof(Battle_Pack));
-            AddFileType(File_Types.PackDataBin, typeof(Shop_Pack));
-            AddFileType(File_Types.HowToPlayBin, typeof(How_To_Play));
-            AddFileType(File_Types.SkuDataBin, typeof(SKU_Data));
-            AddFileType(File_Types.ArenaDataBin, typeof(Arena_Data));
-            AddFileType(File_Types.CharDataBin, typeof(Char_Data));
-            AddFileType(File_Types.DeckDataBin, typeof(Deck_Data));
-            AddFileType(File_Types.DuelDataBin, typeof(Duel_Data));
-            AddFileType(File_Types.PackDefDataBin, typeof(Pack_Def_Data));
-            AddFileType(File_Types.ScriptDataBin, typeof(Script_Data));
-            AddFileType(File_Types.CardLimits, typeof(Card_Limits));
-            AddFileType(File_Types.RelatedCardsBin, typeof(Related_Card_Data));
-            AddFileType(File_Types.CreditsDat, typeof(Credits));
-            AddFileType(File_Types.StringBnd, typeof(Strings_BND));
-            AddFileType(File_Types.Dfymoo, typeof(Dfymoo));
-            AddFileType(File_Types.Zib, typeof(ZIB_Data));
-        }
-
-        //*****************
-        //Functions
-        //*****************
         public LOTD_File GetLocalizedFile(Localized_Text.Language language)
         {
             if (GetLanguageFromFileName(Name) == language) return this;
 
             var fileName = GetFileNameWithLanguage(Name, language);
-            if (!string.IsNullOrEmpty(fileName))
-                return Archive.Root.FindFile(Path.Combine(Directory.FullName, fileName));
-
-            return null;
+            return !string.IsNullOrEmpty(fileName) ? Archive.Root.FindFile(Path.Combine(Directory.FullName, fileName)) : null;
         }
 
         public File_Data GetData()
@@ -118,17 +99,11 @@ namespace Celtic_Guardian.LOTD_Files
 
         public File_Data GetData(bool cache)
         {
-            if (CachedData != null)
-            {
-                return CachedData;
-            }
+            if (CachedData != null) return CachedData;
 
             var fileData = CreateFileData(FileType);
             fileData.File = this;
-            if (cache)
-            {
-                CachedData = fileData;
-            }
+            if (cache) CachedData = fileData;
             return fileData;
         }
 
@@ -159,31 +134,19 @@ namespace Celtic_Guardian.LOTD_Files
 
         public File_Data LoadData(bool cache)
         {
-            if (CachedData != null)
-            {
-                return CachedData;
-            }
+            if (CachedData != null) return CachedData;
 
             var fileData = CreateFileData(FileType);
             fileData.File = this;
-            if (!fileData.Load())
-            {
-                return null;
-            }
-            if (cache)
-            {
-                CachedData = fileData;
-            }
+            if (!fileData.Load()) return null;
+            if (cache) CachedData = fileData;
             return fileData;
         }
 
         internal static File_Data CreateFileData(File_Types Type)
         {
             var type = GetFileType(Type);
-            if (type == null)
-            {
-                type = typeof(RawFile);
-            }
+            if (type == null) type = typeof(Raw_File);
             return Activator.CreateInstance(type) as File_Data;
         }
 
@@ -202,38 +165,37 @@ namespace Celtic_Guardian.LOTD_Files
         public static string GetFileNameWithLanguage(string fileName, Localized_Text.Language language)
         {
             var existingLanguage = GetLanguageFromFileName(fileName);
-            if (existingLanguage != Localized_Text.Language.Unknown)
+            if (existingLanguage == Localized_Text.Language.Unknown) return null;
+            var languageChar = 'E';
+            switch (language)
             {
-                var languageChar = 'E';
-                switch (language)
-                {
-                    case Localized_Text.Language.English:
-                        languageChar = 'E';
-                        break;
+                case Localized_Text.Language.English:
+                    languageChar = 'E';
+                    break;
 
-                    case Localized_Text.Language.French:
-                        languageChar = 'F';
-                        break;
+                case Localized_Text.Language.French:
+                    languageChar = 'F';
+                    break;
 
-                    case Localized_Text.Language.German:
-                        languageChar = 'G';
-                        break;
+                case Localized_Text.Language.German:
+                    languageChar = 'G';
+                    break;
 
-                    case Localized_Text.Language.Italian:
-                        languageChar = 'I';
-                        break;
+                case Localized_Text.Language.Italian:
+                    languageChar = 'I';
+                    break;
 
-                    case Localized_Text.Language.Spanish:
-                        languageChar = 'S';
-                        break;
-                }
-
-                var result = new StringBuilder(fileName);
-                result[fileName.LastIndexOf('_') + 1] = languageChar;
-                return result.ToString();
+                case Localized_Text.Language.Spanish:
+                    languageChar = 'S';
+                    break;
+                case Localized_Text.Language.Unknown:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(language), language, null);
             }
 
-            return null;
+            var result = new StringBuilder(fileName) {[fileName.LastIndexOf('_') + 1] = languageChar};
+            return result.ToString();
         }
 
         public static Localized_Text.Language GetLanguageFromFileName(string fileName)
