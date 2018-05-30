@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Yu-Gi-Oh</name>
+    </assembly>
+    <members>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits">
+            <summary>
+            This class handles loading of pd_limits.bin.
+            This file contains the information of Forbidden, Limited, and Semi-Limted cards that are in use in the game.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.#ctor">
+            <summary>
+            Default Constructor For Card_Limits.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.Forbidden">
+            <summary>
+            List of card IDs that are Forbidden Cards.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.Limited">
+            <summary>
+            List of card IDs that are Limited Cards.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.SemiLimited">
+            <summary>
+            List of card IDs that are Semi-Limited Cards.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.Load(System.IO.BinaryReader,System.Int64)">
+            <summary>
+            This handles reading of card IDs from pd_limits.bin.
+            </summary>
+            <param name="reader">A new instance of a BinaryReader which has pd_limits.bin as it's loaded file.</param>
+            <param name="length">Not used.</param>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Limits.Save(System.IO.BinaryWriter)">
+            <summary>
+            This handles writing of card IDs to pd_limits.bin.
+            </summary>
+            <param name="writer">A new instance of a BinaryWriter which has pd_limits.bin as it's loaded file.</param>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager">
+            <summary>
+            This file handles a lot of stuff centered around managing card functions.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.#ctor(Yu_Gi_Oh.File_Handling.Miscellaneous_Files.Manager)">
+            <summary>
+            Default Constructor.
+            </summary>
+            <param name="manager">A new instance of the Manager class.</param>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.Manager">
+            <summary>
+            An internal representation of the Manager class as defined in the contructor.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.Cards">
+            <summary>
+            A list of cards with their ID and the info about the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.CardsByIndex">
+            <summary>
+            A list of cards based on card info.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.CardNameTypes">
+            <summary>
+            A list of cards by their type.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.Tags">
+            <summary>
+            A list of card tags.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.FindCardByName(Yu_Gi_Oh.File_Handling.Utility.Localized_Text.Language,System.String)">
+            <summary>
+            A function that should be used to find a card based on its name.
+            </summary>
+            <param name="language">What localization to use.</param>
+            <param name="name">The card name to search for</param>
+            <returns>The Card_Info of the card if found.</returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Manager.Load">
+            <summary>
+            Load all cards into memory.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info">
+            <summary>
+            Card Info class which holds information about a card.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.#ctor(System.Int32)">
+            <summary>
+            Default contructor
+            </summary>
+            <param name="index">The index the card is at in a list.</param>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.CardIndex">
+            <summary>
+            A public representation of the Index
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.CardId">
+            <summary>
+            The game ID of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.ImageFile">
+            <summary>
+            The ZIB the card image belongs to.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Name">
+            <summary>
+            The name of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Description">
+            <summary>
+            The description of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.RelatedCards">
+            <summary>
+            A list of related cards.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.CardEffectTags">
+            <summary>
+            A collection of card effect tags.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.NameTypes">
+            <summary>
+            A collection of name types.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.SetIds">
+            <summary>
+            A list of set IDs the card belogns to.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Atk">
+            <summary>
+            The ATK of the card if it's a Monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Def">
+            <summary>
+            The DEF of the card if it's a Monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Level">
+            <summary>
+            The Level of the Card if it's a Monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsUnknownAtk">
+            <summary>
+            Will be True if I don't know the ATK.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsUnknownDef">
+            <summary>
+            Will be True if I don't know the DEF.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Attribute">
+            <summary>
+            Attribute of the Card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.CardType">
+            <summary>
+            The type of card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.SpellType">
+            <summary>
+            The type of spell.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.MonsterType">
+            <summary>
+            The type of Monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.PendulumScale1">
+            <summary>
+            The Pendulum scale of the monster. 1/2
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.PendulumScale2">
+            <summary>
+            The Pendulum scale of the monster. 2/2
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.PendulumScale">
+            <summary>
+            The final Pendulum scale of the monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Limit">
+            <summary>
+            What is the limiation status of this card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.Genre">
+            <summary>
+            What is the Genre of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.CardTypeFlags">
+            <summary>
+            What is the CardType.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsMonsterToken">
+            <summary>
+            Is this card a token.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsEffect">
+            <summary>
+            Is the card an effect.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsMonster">
+            <summary>
+            Is the card a monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsNormalMonster">
+            <summary>
+            Is the card a normal monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsPendulum">
+            <summary>
+            Is the card a Pendulum.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsXyz">
+            <summary>
+            Is the card an Xyz.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsSynchro">
+            <summary>
+            Is the card a Synchro.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsFusion">
+            <summary>
+            Is the card a Fusion monster.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsMainDeckCard">
+            <summary>
+            Is the card part of the MainDeck.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsExtraDeckCard">
+            <summary>
+            Does the card belong in the side deck.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsSpell">
+            <summary>
+            Is the card a spell.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.IsTrap">
+            <summary>
+            Is the card a trap.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.FrameName">
+            <summary>
+            What is the name of the frame to load.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.FrameType">
+            <summary>
+            What is the frame type of the card
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetDescription(Yu_Gi_Oh.File_Handling.Utility.Localized_Text.Language,System.Boolean)">
+            <summary>
+            Gets the description of the monster.
+            </summary>
+            <param name="language">What language to get for.</param>
+            <param name="pendulumDescription">Should I get pendulum description?</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetCardTypeFlags(Yu_Gi_Oh.File_Handling.Bin_Files.CardType)">
+            <summary>
+            Gets the flags for the card.
+            </summary>
+            <param name="cardType">The CardType of the card.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetFrameName(Yu_Gi_Oh.File_Handling.Bin_Files.CardFrameType)">
+            <summary>
+            Gets a string representation of the frame to know what file to load
+            </summary>
+            <param name="frameType">The enum type of CardFrame</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetFullMonsterTypeName(Yu_Gi_Oh.File_Handling.Bin_Files.MonsterType,Yu_Gi_Oh.File_Handling.Bin_Files.CardTypeFlags)">
+            <summary>
+            This gets the full monster's type name.
+            </summary>
+            <param name="monsterType">The type of Monster</param>
+            <param name="cardType">The general card type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetMonsterTypeName(Yu_Gi_Oh.File_Handling.Bin_Files.MonsterType)">
+            <summary>
+            Returns a string represntation of the MonsterType.
+            </summary>
+            <param name="monsterType">Type of Monster.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info.GetCardTypeFlagName(Yu_Gi_Oh.File_Handling.Bin_Files.CardTypeFlags)">
+            <summary>
+            Returns a string representation of the CardTypeFlags
+            </summary>
+            <param name="flag">CardFlags</param>
+            <returns></returns>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardAttribute">
+            <summary>
+            What is the Attribute of the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardType">
+            <summary>
+            What is the Type of card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardTypeFlags">
+            <summary>
+            What are the flags of the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.MonsterType">
+            <summary>
+            What type of Monster is the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.SpellType">
+            <summary>
+            What is the type of sepll.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardFrameType">
+            <summary>
+            What is the Frame type.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardLimitation">
+            <summary>
+            How limited is the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardGenre">
+            <summary>
+            What is the Genre of the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.CardNameType">
+            <summary>
+            What is the Card Name type.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.RelatedCardInfo">
+            <summary>
+            A class that holds related card information
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.RelatedCardInfo.#ctor(Yu_Gi_Oh.File_Handling.Bin_Files.Card_Info,Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="card">The card info you're wanting related info for.</param>
+            <param name="tagInfo">The taginfo of the card you're wanting related info for.</param>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.RelatedCardInfo.Card">
+            <summary>
+            The related card info.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.RelatedCardInfo.TagInfo">
+            <summary>
+            The tag info for the related card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info">
+            <summary>
+            The card tag information
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.CardEffectType">
+            <summary>
+            What effect does the card have
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.ElementType">
+            <summary>
+            What is it's element type.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.ExactType">
+            <summary>
+            What's its exact type.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Type">
+            <summary>
+            The normal type.
+            </summary>
+        </member>
+        <member name="M:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.#ctor">
+            <summary>
+            Default contructor.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Index">
+            <summary>
+            The index of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Exact">
+            <summary>
+            The exact type of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.CardEffect">
+            <summary>
+            The effect of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.ExactCard">
+            <summary>
+            The exact card info.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.MainType">
+            <summary>
+            The cards main type.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.MainValue">
+            <summary>
+            The main value.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Elements">
+            <summary>
+            The card elements.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Text">
+            <summary>
+            The back-end text of the card.
+            </summary>
+        </member>
+        <member name="P:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.DisplayText">
+            <summary>
+            The display text of the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.Card_Tag_Info.Element">
+            <summary>
+            The element for the card.
+            </summary>
+        </member>
+        <member name="T:Yu_Gi_Oh.File_Handling.Bin_Files.DeckType">
+            <summary>
+            The type of deck it belongs too.
+            </summary>
+        </member>
+    </members>
+</doc>

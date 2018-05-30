@@ -1,0 +1,6 @@
+{
+  "Name": "NoCrash",
+  "Description": "A Plugin That Aims To Stop The Game Crashing",
+  "Injection_Addresses": [ "000000" ],
+  "Depends": [ "Nothing" ]
+}

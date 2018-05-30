@@ -201,6 +201,8 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.naughtyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlockDLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -296,12 +298,12 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1406, 642);
             this.tabControl1.TabIndex = 1;
-            this.tabControl1.Enabled = false;
             // 
             // tabPage1
             // 
@@ -2306,7 +2308,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.naughtyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1430, 24);
@@ -2349,6 +2352,21 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // naughtyToolStripMenuItem
+            // 
+            this.naughtyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.unlockDLCToolStripMenuItem});
+            this.naughtyToolStripMenuItem.Name = "naughtyToolStripMenuItem";
+            this.naughtyToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.naughtyToolStripMenuItem.Text = "Naughty";
+            // 
+            // unlockDLCToolStripMenuItem
+            // 
+            this.unlockDLCToolStripMenuItem.Name = "unlockDLCToolStripMenuItem";
+            this.unlockDLCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unlockDLCToolStripMenuItem.Text = "Unlock DLC";
+            this.unlockDLCToolStripMenuItem.Click += new System.EventHandler(this.DLCToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -2592,6 +2610,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.ToolStripMenuItem naughtyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlockDLCToolStripMenuItem;
         public static System.Windows.Forms.NumericUpDown numericUpDown43;
         public static System.Windows.Forms.NumericUpDown numericUpDown40;
         public static System.Windows.Forms.NumericUpDown numericUpDown39;
