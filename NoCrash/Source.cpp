@@ -1,16 +1,13 @@
-#include <Windows.h>
-#include <fstream>
-#include <detours.h>
+#include "stdafx.h"
 
-LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS *ExceptionInfo);
-const char *ExceptionCodeToString(DWORD ExceptionCode);
+using namespace std;
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		MessageBox(NULL, "Uh-Oh, Hi there?", "Uh-Oh!", 0);
+		MessageBox(nullptr, "Hello! I Am The Crash Handler For The Wolf Project\nPlease, If Your Game Crashes Report This On The Discord!\nThere Is A Log In The Games Install Directory.", "Yu-Gi-Oh! Crash Handler", 0);
 		SetUnhandledExceptionFilter(UnhandledException);
 		break;
 	case DLL_THREAD_ATTACH:
@@ -24,21 +21,20 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 
 LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS *ExceptionInfo)
 {
-	char ErrorAddress[MAX_PATH];
-	sprintf_s(ErrorAddress, "Exception Address: %p\n\n", ExceptionInfo->ExceptionRecord->ExceptionAddress);
-	char ErrorCode[MAX_PATH];
-	sprintf_s(ErrorCode, ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode));
-
 	std::ofstream ErrorLogFile;
-	ErrorLogFile.open("C:\\Log.txt");
+	ErrorLogFile.open("Log.txt");
 	if (!ErrorLogFile.is_open())
 	{
-		MessageBox(NULL, "Something Happened Creating Log File!", "Uh-Oh!", 0);
+		stringstream ErrorMessage;
+		ErrorMessage << "Something Happened Creating Log File! The Error Is At:\n" << ExceptionInfo->ExceptionRecord->ExceptionAddress << "\nThe Message Is: " << ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode) << "\nPlease Take A Screen Shot And Report Me In The Discord!";
+		string PrintableError = ErrorMessage.str();
+		MessageBox(NULL, PrintableError.c_str(), "Uh-Oh!", 0);
 	}
 	ErrorLogFile << "Yu-Gi-Oh! Crashed. Here Is Some Information.\n";
-	ErrorLogFile << ErrorAddress;
+	ErrorLogFile << "Exception Address: ";
+	ErrorLogFile << ExceptionInfo->ExceptionRecord->ExceptionAddress;
 	ErrorLogFile << "Error Code: ";
-	ErrorLogFile << ErrorCode;
+	ErrorLogFile << ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode);
 	ErrorLogFile.close();
 	return 1;
 }
