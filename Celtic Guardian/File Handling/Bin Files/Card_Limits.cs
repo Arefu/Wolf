@@ -22,12 +22,14 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             ReadCardIds(reader, Limited);
             ReadCardIds(reader, SemiLimited);
         }
+
         public override void Save(BinaryWriter writer)
         {
             WriteCardIds(writer, Forbidden);
             WriteCardIds(writer, Limited);
             WriteCardIds(writer, SemiLimited);
         }
+
         private static void ReadCardIds(BinaryReader reader, ISet<short> cardIds)
         {
             cardIds.Clear();
@@ -35,6 +37,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             var count = reader.ReadInt16();
             for (var i = 0; i < count; i++) cardIds.Add(reader.ReadInt16());
         }
+
         private static void WriteCardIds(BinaryWriter writer, IReadOnlyCollection<short> cardIds)
         {
             writer.Write((short) cardIds.Count);

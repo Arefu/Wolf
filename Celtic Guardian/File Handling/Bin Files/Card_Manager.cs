@@ -1,17 +1,19 @@
-﻿using Celtic_Guardian.File_Handling.Miscellaneous_Files;
-using Celtic_Guardian.File_Handling.Utility;
-using Celtic_Guardian.File_Handling.ZIB_Files;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Celtic_Guardian.File_Handling.Miscellaneous_Files;
+using Celtic_Guardian.File_Handling.Utility;
+using Celtic_Guardian.File_Handling.ZIB_Files;
 
 namespace Celtic_Guardian.File_Handling.Bin_Files
 {
     public class Card_Manager
     {
+        private readonly Dictionary<Localized_Text.Language, Dictionary<string, Card_Info>> _cardsByName;
+
         public Card_Manager(Manager manager)
         {
             Manager = manager;
@@ -22,17 +24,18 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             CardNameTypes = new Dictionary<CardNameType, HashSet<short>>();
         }
 
-        private readonly Dictionary<Localized_Text.Language, Dictionary<string, Card_Info>> _cardsByName;
         public Manager Manager { get; }
         public Dictionary<short, Card_Info> Cards { get; }
         public List<Card_Info> CardsByIndex { get; }
         public Dictionary<CardNameType, HashSet<short>> CardNameTypes { get; }
         public List<Card_Tag_Info> Tags { get; }
+
         public Card_Info FindCardByName(Localized_Text.Language language, string name)
         {
             _cardsByName[language].TryGetValue(name, out var cardInfo);
             return cardInfo;
         }
+
         public void Load()
         {
             Cards.Clear();
@@ -79,6 +82,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             LoadRelatedCards(cards, Cards, Tags, taginfos);
             LoadCardNameTypes(Cards, CardNameTypes);
         }
+
         private void LoadCardNameTypes(Dictionary<short, Card_Info> cards, IDictionary<CardNameType, HashSet<short>> cardNameTypes)
         {
             using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Named.bin").LoadBuffer())))
@@ -95,14 +99,14 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                     int offset = reader.ReadInt16();
                     int count = reader.ReadInt16();
                     var cardIds = new HashSet<short>();
-                    cardNameTypes.Add((CardNameType)i, cardIds);
+                    cardNameTypes.Add((CardNameType) i, cardIds);
 
                     var tempOffset = reader.BaseStream.Position;
                     reader.BaseStream.Position = cardsStartOffset + offset * 2;
                     for (var j = 0; j < count; j++)
                     {
                         var cardId = reader.ReadInt16();
-                        Cards[cardId].NameTypes.Add((CardNameType)i);
+                        Cards[cardId].NameTypes.Add((CardNameType) i);
                         cardIds.Add(cardId);
                     }
 
@@ -110,16 +114,15 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 }
             }
         }
+
         private void LoadCardGenre(IEnumerable<Card_Info> cards)
         {
             using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Genre.bin").LoadBuffer())))
             {
-                foreach (var card in cards)
-                {
-                    card.Genre = (CardGenre)reader.ReadUInt64();
-                }
+                foreach (var card in cards) card.Genre = (CardGenre) reader.ReadUInt64();
             }
         }
+
         private void LoadCardProps(IEnumerable<Card_Info> cards, IDictionary<short, Card_Info> cardsById, IReadOnlyDictionary<short, ZIB_File> cardImagesById)
         {
             using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Prop.bin").LoadBuffer())))
@@ -131,6 +134,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 }
             }
         }
+
         private static void LoadCardProp(Card_Info card, IDictionary<short, Card_Info> cardsById, uint a1, uint a2)
         {
             var first = (a1 << 18) | (((a1 & 0x7FC000) | (a1 >> 18)) >> 5);
@@ -138,27 +142,27 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             var second = (((a2 & 1u) | (a2 << 21)) & 0x80000001) | (((a2 & 0x7800) | (((a2 & 0x780) | ((a2 & 0x7E) << 10)) << 8)) << 6) |
                          (((a2 & 0x38000) | (((a2 & 0x7C0000) | (((a2 & 0x7800000) | ((a2 >> 8) & 0x780000)) >> 9)) >> 8)) >> 1);
 
-            var cardId = (short)((first >> 18) & 0x3FFF);
+            var cardId = (short) ((first >> 18) & 0x3FFF);
             var atk = (first >> 9) & 0x1FF;
             var def = first & 0x1FF;
-            var cardType = (CardType)((second >> 25) & 0x3F);
-            var attribute = (CardAttribute)((second >> 21) & 0xF);
+            var cardType = (CardType) ((second >> 25) & 0x3F);
+            var attribute = (CardAttribute) ((second >> 21) & 0xF);
             var level = (second >> 17) & 0xF;
-            var spellType = (SpellType)((second >> 14) & 7);
-            var monsterType = (MonsterType)((second >> 9) & 0x1F);
+            var spellType = (SpellType) ((second >> 14) & 7);
+            var monsterType = (MonsterType) ((second >> 9) & 0x1F);
             var pendulumScale1 = (second >> 1) & 0xF;
             var pendulumScale2 = (second >> 5) & 0xF;
 
             card.CardId = cardId;
-            card.Atk = (int)(atk * 10);
-            card.Def = (int)(def * 10);
-            card.Level = (byte)level;
+            card.Atk = (int) (atk * 10);
+            card.Def = (int) (def * 10);
+            card.Level = (byte) level;
             card.Attribute = attribute;
             card.CardType = cardType;
             card.SpellType = spellType;
             card.MonsterType = monsterType;
-            card.PendulumScale1 = (byte)pendulumScale1;
-            card.PendulumScale2 = (byte)pendulumScale2;
+            card.PendulumScale1 = (byte) pendulumScale1;
+            card.PendulumScale2 = (byte) pendulumScale2;
 
             cardsById.Add(cardId, card);
 
@@ -170,6 +174,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 !Enum.IsDefined(typeof(CardAttribute), attribute))
                 Debug.Assert(false);
         }
+
         private static void LoadCardNamesAndDescriptions(Localized_Text.Language language, IList<Card_Info> cards, IReadOnlyDictionary<Localized_Text.Language, byte[]> indxByLanguage, IReadOnlyDictionary<Localized_Text.Language, byte[]> namesByLanguage, IReadOnlyDictionary<Localized_Text.Language, byte[]> descriptionsByLanguage)
         {
             if (language == Localized_Text.Language.Unknown) return;
@@ -206,18 +211,20 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 }
             }
         }
+
         private static Dictionary<uint, string> ReadStrings(BinaryReader reader)
         {
             var result = new Dictionary<uint, string>();
             while (reader.BaseStream.Position < reader.BaseStream.Length)
             {
-                var offset = (uint)reader.BaseStream.Position;
+                var offset = (uint) reader.BaseStream.Position;
                 var name = reader.ReadNullTerminatedString(Encoding.Unicode);
                 result.Add(offset, name);
             }
 
             return result;
         }
+
         private void LoadRelatedCards(IReadOnlyList<Card_Info> cards, IReadOnlyDictionary<short, Card_Info> cardsByCardId, IList<Card_Tag_Info> tags, IReadOnlyDictionary<Localized_Text.Language, byte[]> taginfos)
         {
             foreach (Localized_Text.Language language in Enum.GetValues(typeof(Localized_Text.Language)))
@@ -241,11 +248,11 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                         }
 
                         tagInfo.Index = i;
-                        tagInfo.MainType = (Card_Tag_Info.Type)reader.ReadInt16();
+                        tagInfo.MainType = (Card_Tag_Info.Type) reader.ReadInt16();
                         tagInfo.MainValue = reader.ReadInt16();
                         for (var j = 0; j < tagInfo.Elements.Length; j++)
                         {
-                            tagInfo.Elements[j].Type = (Card_Tag_Info.ElementType)reader.ReadInt16();
+                            tagInfo.Elements[j].Type = (Card_Tag_Info.ElementType) reader.ReadInt16();
                             tagInfo.Elements[j].Value = reader.ReadInt16();
                         }
 
@@ -289,8 +296,8 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 }
             }
 
-            var knownMainTagTypes = (Card_Tag_Info.Type[])Enum.GetValues(typeof(Card_Tag_Info.Type));
-            var knownElementTagTypes = (Card_Tag_Info.ElementType[])Enum.GetValues(typeof(Card_Tag_Info.ElementType));
+            var knownMainTagTypes = (Card_Tag_Info.Type[]) Enum.GetValues(typeof(Card_Tag_Info.Type));
+            var knownElementTagTypes = (Card_Tag_Info.ElementType[]) Enum.GetValues(typeof(Card_Tag_Info.ElementType));
             foreach (var tag in tags)
             {
                 Debug.Assert(knownMainTagTypes.Contains(tag.MainType));
@@ -389,10 +396,11 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             }
 
             foreach (var card in cards)
-                foreach (var relatedCardInfo in card.RelatedCards)
-                    if (relatedCardInfo.TagInfo.CardEffect != Card_Tag_Info.CardEffectType.None)
-                        card.CardEffectTags.Add(relatedCardInfo.TagInfo.CardEffect);
+            foreach (var relatedCardInfo in card.RelatedCards)
+                if (relatedCardInfo.TagInfo.CardEffect != Card_Tag_Info.CardEffectType.None)
+                    card.CardEffectTags.Add(relatedCardInfo.TagInfo.CardEffect);
         }
+
         private void ProcessLimitedCardList(Dictionary<short, Card_Info> cardsById)
         {
             foreach (var card in cardsById.Values) card.Limit = CardLimitation.NotLimited;
@@ -403,6 +411,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
 
             foreach (var cardId in Manager.CardLimits.SemiLimited) cardsById[cardId].Limit = CardLimitation.SemiLimited;
         }
+
         private void PrintLimitedCardList()
         {
             Debug.WriteLine("========================== Forbidden ==========================");
@@ -519,7 +528,6 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 return index == -1 ? string.Empty : text.Substring(index + pendulumHeader.Length);
 
             return index == -1 ? text : text.Substring(0, index);
-
         }
 
         public static CardTypeFlags GetCardTypeFlags(CardType cardType)
@@ -572,6 +580,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                     throw new NotSupportedException("CardType Not Valid! CHECK CODE PLEASE!");
             }
         }
+
         public static string GetFrameName(CardFrameType frameType)
         {
             switch (frameType)
@@ -592,6 +601,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                 default: return "card_normal";
             }
         }
+
         public static string GetFullMonsterTypeName(MonsterType monsterType, CardTypeFlags cardType)
         {
             string result = null;
@@ -605,6 +615,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
 
             return "[" + GetMonsterTypeName(monsterType) + (result == null ? string.Empty : "/" + result) + "]";
         }
+
         public static string GetMonsterTypeName(MonsterType monsterType)
         {
             switch (monsterType)
@@ -640,6 +651,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
                     return "?";
             }
         }
+
         public static string GetCardTypeFlagName(CardTypeFlags flag)
         {
             switch (flag)
@@ -680,6 +692,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
         Spell = 8,
         Trap = 9
     }
+
     public enum CardType
     {
         Default = 0,
@@ -751,6 +764,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
         Normal = 1 << 19,
         Any = 1 << 20
     }
+
     public enum MonsterType
     {
         Unknown = 0,
@@ -781,6 +795,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
         Spell = 25,
         Trap = 26
     }
+
     public enum SpellType
     {
         Normal = 0,
@@ -791,6 +806,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
         QuickPlay = 5,
         Ritual = 6
     }
+
     public enum CardFrameType
     {
         Normal,
@@ -807,6 +823,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
         Spell,
         Trap
     }
+
     public enum CardLimitation
     {
         NotLimited,
@@ -879,6 +896,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
 
         CardVaritation = 1UL << 52 //0x0010000000000000 ICON_ID_GENRE_PICTURE (assumed)
     }
+
     public enum CardNameType
     {
         Null,
@@ -1198,23 +1216,6 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
 
     public class Card_Tag_Info
     {
-        public Card_Tag_Info()
-        {
-            Elements = new Element[8];
-            Text = new Localized_Text();
-            DisplayText = new Localized_Text();
-        }
-
-        public int Index { get; set; }
-        public ExactType Exact { get; set; }
-        public CardEffectType CardEffect { get; set; }
-        public Card_Info ExactCard { get; set; }
-        public Type MainType { get; set; }
-        public short MainValue { get; set; }
-        public Element[] Elements { get; set; }
-        public Localized_Text Text { get; }
-        public Localized_Text DisplayText { get; }
-
         public enum CardEffectType
         {
             None,
@@ -1308,6 +1309,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             SpellStopTribute,
             SpellStopXyz
         }
+
         public enum ElementType
         {
             None = -1,
@@ -1332,6 +1334,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             LevelGreaterThanOrEquals = 772,
             RankGreaterThanOrEquals = 776
         }
+
         public enum ExactType
         {
             None,
@@ -1348,6 +1351,7 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             BanishFish,
             BanishRock
         }
+
         public enum Type
         {
             Exact = 0,
@@ -1356,6 +1360,23 @@ namespace Celtic_Guardian.File_Handling.Bin_Files
             AdXyz = 257,
             FindXyz = 258
         }
+
+        public Card_Tag_Info()
+        {
+            Elements = new Element[8];
+            Text = new Localized_Text();
+            DisplayText = new Localized_Text();
+        }
+
+        public int Index { get; set; }
+        public ExactType Exact { get; set; }
+        public CardEffectType CardEffect { get; set; }
+        public Card_Info ExactCard { get; set; }
+        public Type MainType { get; set; }
+        public short MainValue { get; set; }
+        public Element[] Elements { get; set; }
+        public Localized_Text Text { get; }
+        public Localized_Text DisplayText { get; }
 
         public struct Element
         {
