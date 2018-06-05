@@ -203,6 +203,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naughtyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unlockDLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlockOtherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -2356,7 +2357,8 @@
             // naughtyToolStripMenuItem
             // 
             this.naughtyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.unlockDLCToolStripMenuItem});
+            this.unlockDLCToolStripMenuItem,
+            this.unlockOtherToolStripMenuItem});
             this.naughtyToolStripMenuItem.Name = "naughtyToolStripMenuItem";
             this.naughtyToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.naughtyToolStripMenuItem.Text = "Naughty";
@@ -2367,6 +2369,13 @@
             this.unlockDLCToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unlockDLCToolStripMenuItem.Text = "Unlock DLC";
             this.unlockDLCToolStripMenuItem.Click += new System.EventHandler(this.DLCToolStripMenuItem_Click);
+            // 
+            // unlockOtherToolStripMenuItem
+            // 
+            this.unlockOtherToolStripMenuItem.Name = "unlockOtherToolStripMenuItem";
+            this.unlockOtherToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unlockOtherToolStripMenuItem.Text = "Unlock Other";
+            this.unlockOtherToolStripMenuItem.Click += new System.EventHandler(this.unlockOtherToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -2612,6 +2621,7 @@
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.ToolStripMenuItem naughtyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlockDLCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlockOtherToolStripMenuItem;
         public static System.Windows.Forms.NumericUpDown numericUpDown43;
         public static System.Windows.Forms.NumericUpDown numericUpDown40;
         public static System.Windows.Forms.NumericUpDown numericUpDown39;

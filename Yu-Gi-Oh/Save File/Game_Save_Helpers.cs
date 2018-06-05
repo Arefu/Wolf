@@ -169,7 +169,7 @@ namespace Yu_Gi_Oh.Save_File
         {
             var installDir = LOTD_Archive.GetInstallDirectory();
             if (string.IsNullOrEmpty(installDir)) return null;
-
+            var SavePath = "";
             try
             {
                 var steamAppId = 0;
@@ -183,8 +183,8 @@ namespace Yu_Gi_Oh.Save_File
 
                 if (steamAppId > 0)
                 {
-                    var userdataDir = Path.Combine(installDir, "../../../userdata/");
-                    if (Directory.Exists(userdataDir))
+                    var userdataDir = Path.Combine(installDir, "..\\..\\..\\userdata\\");
+                    if (Directory.Exists(Path.GetFullPath(userdataDir)))
                     {
                         var dirs = Directory.GetDirectories(userdataDir);
                         foreach (var dir in dirs)
@@ -206,6 +206,7 @@ namespace Yu_Gi_Oh.Save_File
             }
             catch
             {
+                //using (var Ofd = new OpenFileDialog())
             }
 
             return null;

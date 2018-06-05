@@ -1517,18 +1517,18 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
             TrapMonster,
             Ultimaya,
             ZoneDeny,
-            SpellDoubleSummon,
-            SpellMonsterDestruction,
-            SpellMonsterProtect,
-            SpellPiercing,
-            SpellPreventBattleDamage,
-            SpellQuickAtKboost,
-            SpellSsHandDeck,
-            SpellStopFusion,
-            SpellStopRitual,
-            SpellStopSynchro,
-            SpellStopTribute,
-            SpellStopXyz
+            Spell_DoubleSummon,
+            Spell_MonsterDestruction,
+            Spell_MonsterProtect,
+            Spell_Piercing,
+            Spell_PreventBattleDamage,
+            Spell_QuickATKboost,
+            Spell_SSHandDeck,
+            Spell_StopFusion,
+            Spell_StopRitual,
+            Spell_StopSynchro,
+            Spell_StopTribute,
+            Spell_StopXyz
         }
 
         /// <summary>
