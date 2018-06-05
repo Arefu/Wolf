@@ -63,12 +63,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -331,11 +331,16 @@
             this.groupBox3.Size = new System.Drawing.Size(119, 75);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Search";
+            this.groupBox3.Text = "Search By ID";
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(6, 19);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(103, 20);
             this.numericUpDown1.TabIndex = 2;
@@ -364,12 +369,12 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBox3);
+            this.groupBox4.Controls.Add(this.textBox2);
             this.groupBox4.Controls.Add(this.linkLabel4);
-            this.groupBox4.Controls.Add(this.comboBox2);
             this.groupBox4.Controls.Add(this.linkLabel3);
             this.groupBox4.Controls.Add(this.linkLabel2);
             this.groupBox4.Controls.Add(this.linkLabel1);
-            this.groupBox4.Controls.Add(this.comboBox1);
             this.groupBox4.Controls.Add(this.textBox1);
             this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Location = new System.Drawing.Point(344, 208);
@@ -388,15 +393,6 @@
             this.linkLabel4.TabIndex = 24;
             this.linkLabel4.TabStop = true;
             this.linkLabel4.Text = "Miscellaneous";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(6, 115);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(188, 21);
-            this.comboBox2.TabIndex = 23;
             // 
             // linkLabel3
             // 
@@ -428,27 +424,35 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Image ID:";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "[LIST OF CARD TYPES]",
-            "[TO BE POPULATED]"});
-            this.comboBox1.Location = new System.Drawing.Point(6, 75);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(188, 21);
-            this.comboBox1.TabIndex = 17;
-            // 
             // textBox1
             // 
-            this.textBox1.ForeColor = System.Drawing.Color.Gray;
+            this.textBox1.ForeColor = System.Drawing.Color.Black;
             this.textBox1.Location = new System.Drawing.Point(6, 32);
             this.textBox1.MaxLength = 8;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(188, 20);
             this.textBox1.TabIndex = 16;
             this.textBox1.Text = "Image ID";
+            // 
+            // textBox2
+            // 
+            this.textBox2.ForeColor = System.Drawing.Color.Black;
+            this.textBox2.Location = new System.Drawing.Point(6, 75);
+            this.textBox2.MaxLength = 8;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(188, 20);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "Card Type";
+            // 
+            // textBox3
+            // 
+            this.textBox3.ForeColor = System.Drawing.Color.Black;
+            this.textBox3.Location = new System.Drawing.Point(6, 115);
+            this.textBox3.MaxLength = 8;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(188, 20);
+            this.textBox3.TabIndex = 26;
+            this.textBox3.Text = "Card Attribute";
             // 
             // Form1
             // 
@@ -518,13 +522,13 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel4;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
