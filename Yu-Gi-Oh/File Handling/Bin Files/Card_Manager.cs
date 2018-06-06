@@ -166,43 +166,40 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
             }
         }
 
-        private static void LoadCardProp(Card_Info card, IDictionary<short, Card_Info> cardsById, uint a1, uint a2)
+        private static void LoadCardProp(Card_Info card, IDictionary<short, Card_Info> CardsById, uint A1, uint A2)
         {
-            var first = (a1 << 18) | (((a1 & 0x7FC000) | (a1 >> 18)) >> 5);
+            var First = (A1 << 18) | (((A1 & 0x7FC000) | (A1 >> 18)) >> 5);
 
-            var second = (((a2 & 1u) | (a2 << 21)) & 0x80000001) | (((a2 & 0x7800) | (((a2 & 0x780) | ((a2 & 0x7E) << 10)) << 8)) << 6) |
-                         (((a2 & 0x38000) | (((a2 & 0x7C0000) | (((a2 & 0x7800000) | ((a2 >> 8) & 0x780000)) >> 9)) >> 8)) >> 1);
+            var Second = (((A2 & 1u) | (A2 << 21)) & 0x80000001) | (((A2 & 0x7800) | (((A2 & 0x780) | ((A2 & 0x7E) << 10)) << 8)) << 6) |
+                         (((A2 & 0x38000) | (((A2 & 0x7C0000) | (((A2 & 0x7800000) | ((A2 >> 8) & 0x780000)) >> 9)) >> 8)) >> 1);
 
-            var cardId = (short) ((first >> 18) & 0x3FFF);
-            var atk = (first >> 9) & 0x1FF;
-            var def = first & 0x1FF;
-            var cardType = (CardType) ((second >> 25) & 0x3F);
-            var attribute = (CardAttribute) ((second >> 21) & 0xF);
-            var level = (second >> 17) & 0xF;
-            var spellType = (SpellType) ((second >> 14) & 7);
-            var monsterType = (MonsterType) ((second >> 9) & 0x1F);
-            var pendulumScale1 = (second >> 1) & 0xF;
-            var pendulumScale2 = (second >> 5) & 0xF;
+            var CardId = (short) ((First >> 18) & 0x3FFF);
+            var Atk = (First >> 9) & 0x1FF;
+            var Def = First & 0x1FF;
+            var CardType = (CardType) ((Second >> 25) & 0x3F);
+            var Attribute = (CardAttribute) ((Second >> 21) & 0xF);
+            var Level = (Second >> 17) & 0xF;
+            var SpellType = (SpellType) ((Second >> 14) & 7);
+            var MonsterType = (MonsterType) ((Second >> 9) & 0x1F);
+            var PendulumScale1 = (Second >> 1) & 0xF;
+            var PendulumScale2 = (Second >> 5) & 0xF;
 
-            card.CardId = cardId;
-            card.Atk = (int) (atk * 10);
-            card.Def = (int) (def * 10);
-            card.Level = (byte) level;
-            card.Attribute = attribute;
-            card.CardType = cardType;
-            card.SpellType = spellType;
-            card.MonsterType = monsterType;
-            card.PendulumScale1 = (byte) pendulumScale1;
-            card.PendulumScale2 = (byte) pendulumScale2;
+            card.CardId = CardId;
+            card.Atk = (int) (Atk * 10);
+            card.Def = (int) (Def * 10);
+            card.Level = (byte) Level;
+            card.Attribute = Attribute;
+            card.CardType = CardType;
+            card.SpellType = SpellType;
+            card.MonsterType = MonsterType;
+            card.PendulumScale1 = (byte) PendulumScale1;
+            card.PendulumScale2 = (byte) PendulumScale2;
 
-            cardsById.Add(cardId, card);
+            CardsById.Add(CardId, card);
 
-            Debug.Assert(cardId < Constants.MaxCardId + 1);
+            Debug.Assert(CardId < Constants.MaxCardId + 1);
 
-            if (!Enum.IsDefined(typeof(MonsterType), monsterType) ||
-                !Enum.IsDefined(typeof(SpellType), spellType) ||
-                !Enum.IsDefined(typeof(CardType), cardType) ||
-                !Enum.IsDefined(typeof(CardAttribute), attribute))
+            if (!Enum.IsDefined(typeof(MonsterType), MonsterType) || !Enum.IsDefined(typeof(SpellType), SpellType) || !Enum.IsDefined(typeof(CardType), CardType) || !Enum.IsDefined(typeof(CardAttribute), Attribute))
                 Debug.Assert(false);
         }
 

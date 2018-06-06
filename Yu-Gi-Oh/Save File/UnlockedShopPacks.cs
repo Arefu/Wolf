@@ -2,9 +2,16 @@
 
 namespace Yu_Gi_Oh.Save_File
 {
+    ///-------------------------------------------------------------------------------------------------
     /// <summary>
-    /// This is a public enum to determine the unlocked Shop Packs.
+    ///     This enum should only be used internally within this DLL.
     /// </summary>
+    ///
+    /// <remarks>
+    ///     Johnathon, 6/06/2018.
+    /// </remarks>
+    ///-------------------------------------------------------------------------------------------------
+
     [Flags]
     public enum UnlockedShopPacks : uint
     {

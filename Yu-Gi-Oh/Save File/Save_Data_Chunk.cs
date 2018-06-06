@@ -3,58 +3,108 @@ using System.IO;
 
 namespace Yu_Gi_Oh.Save_File
 {
+    ///-------------------------------------------------------------------------------------------------
+    /// <summary>
+    ///     This class is only inherted. Don't use it.
+    /// </summary>
+    ///
+    /// <remarks>
+    ///     Johnathon, 6/06/2018.
+    /// </remarks>
+    ///-------------------------------------------------------------------------------------------------
+
+    [Obsolete("This class is only inherted. Don\'t use it.")]
     public class Save_Data_Chunk
     {
+        ///-------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Does Nothing. Don't Use.
+        ///     Does Nothing. Don't Use.
         /// </summary>
-        [Obsolete]
+        ///
+        /// <remarks>
+        ///     Johnathon, 6/06/2018.
+        /// </remarks>
+        ///-------------------------------------------------------------------------------------------------
+
         public virtual void Clear()
         {
         }
 
+        ///-------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Does Nothing. Don't Use.
+        ///     Does Nothing. Don't Use.
         /// </summary>
-        /// <param name="buffer">Does Nothing. Don't Use.</param>
-        [Obsolete]
-        public virtual void Load(byte[] buffer)
+        ///
+        /// <remarks>
+        ///     Johnathon, 6/06/2018.
+        /// </remarks>
+        ///
+        /// <param name="Buffer">
+        ///     Does Nothing. Don't Use.
+        /// </param>
+        ///-------------------------------------------------------------------------------------------------
+        public virtual void Load(byte[] Buffer)
         {
-            using (var reader = new BinaryReader(new MemoryStream(buffer)))
+            using (var Reader = new BinaryReader(new MemoryStream(Buffer)))
             {
-                Load(reader);
+                Load(Reader);
             }
         }
 
+        ///-------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Does Nothing. Don't Use.
+        ///     Does Nothing. Don't Use.
         /// </summary>
-        /// <param name="reader">Does Nothing. Don't Use.</param>
-        [Obsolete]
-        public virtual void Load(BinaryReader reader)
+        ///
+        /// <remarks>
+        ///     Johnathon, 6/06/2018.
+        /// </remarks>
+        ///
+        /// <param name="Reader">
+        ///     Does Nothing. Don't Use.
+        /// </param>
+        ///-------------------------------------------------------------------------------------------------
+        public virtual void Load(BinaryReader Reader)
         {
         }
 
+        ///-------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Does Nothing. Don't Use.
+        ///     Does Nothing. Don't Use.
         /// </summary>
-        [Obsolete]
+        ///
+        /// <remarks>
+        ///     Johnathon, 6/06/2018.
+        /// </remarks>
+        ///
+        /// <returns>
+        ///     A byte[].
+        /// </returns>
+        ///-------------------------------------------------------------------------------------------------
         public virtual byte[] Save()
         {
-            using (var stream = new MemoryStream())
-            using (var writer = new BinaryWriter(stream))
+            using (var Stream = new MemoryStream())
+            using (var Writer = new BinaryWriter(Stream))
             {
-                Save(writer);
-                return stream.ToArray();
+                Save(Writer);
+                return Stream.ToArray();
             }
         }
 
+        ///-------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Does Nothing. Don't Use.
+        ///     Does Nothing. Don't Use.
         /// </summary>
-        /// <param name="writer">Does Nothing. Don't Use.</param>
-        [Obsolete]
-        public virtual void Save(BinaryWriter writer)
+        ///
+        /// <remarks>
+        ///     Johnathon, 6/06/2018.
+        /// </remarks>
+        ///
+        /// <param name="Writer">
+        ///     Does Nothing. Don't Use.
+        /// </param>
+        ///-------------------------------------------------------------------------------------------------
+        public virtual void Save(BinaryWriter Writer)
         {
         }
     }

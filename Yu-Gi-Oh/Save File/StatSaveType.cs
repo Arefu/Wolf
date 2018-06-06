@@ -1,8 +1,15 @@
 ﻿namespace Yu_Gi_Oh.Save_File
 {
+    ///-------------------------------------------------------------------------------------------------
     /// <summary>
-    /// Public Enum List Of Save Stat Keys.
+    ///     Public Enum List Of Save Stat Keys.
     /// </summary>
+    ///
+    /// <remarks>
+    ///     Johnathon, 6/06/2018.
+    /// </remarks>
+    ///-------------------------------------------------------------------------------------------------
+
     public enum StatSaveType
     {
         Games_Campaign,

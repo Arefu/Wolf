@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Yu_Gi_Oh.File_Handling.Bin_Files;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
@@ -10,18 +11,9 @@ namespace Previewer
 {
     public partial class Form1 : Form
     {
-        private char Language = (char)CurrentLanguage.English;
-        private enum CurrentLanguage
-        {
-            English = 'E',
-            Spanish = 'S',
-            German = 'G',
-            Italian = 'I',
-            Unkown = '?'
-        }; //Default To English.
-        private string CurrentUnpackedImagesDir = string.Empty;
+        private Localized_Text.Language Language = Localized_Text.Language.English;
         private short GlobalIndex = 3900;
-        private Manager Man = new Manager();
+        private readonly Manager Man = new Manager();
         private Card_Manager Card;
 
         public Form1()
@@ -53,8 +45,8 @@ namespace Previewer
 
         private void LoadCards()
         {
-            cardTitle.Text = Card.Cards[GlobalIndex].Name.GetText(Localized_Text.Language.English); //TODO: Replace With Proper Language Checking
-            cardDesc.Text = Card.Cards[GlobalIndex].Description.GetText(Localized_Text.Language.English); //TODO: Replace With Proper Language Checking
+            cardTitle.Text = Card.Cards[GlobalIndex].Name.GetText(Language);
+            cardDesc.Text = Card.Cards[GlobalIndex].Description.GetText(Language);
 
             if (Directory.Exists("cardcropHD400.jpg.zib Unpacked"))
             {
@@ -62,6 +54,17 @@ namespace Previewer
                 if (File.Exists(ImageFile))
                 {
                     pictureBox1.Image = Image.FromFile(ImageFile);
+                    radioButton1.Checked = false;
+                }
+                else if (Directory.Exists("cardcropHD401.jpg.zib Unpacked"))
+                {
+                    ImageFile = Path.Combine(Path.Combine(Application.StartupPath, "cardcropHD401.jpg.zib Unpacked"), $"{Card.Cards[GlobalIndex].CardId.ToString()}.jpg");
+
+                    if (File.Exists(ImageFile))
+                    {
+                        pictureBox1.Image = Image.FromFile(ImageFile);
+                        radioButton1.Checked = true;
+                    }
                 }
             }
 
@@ -70,6 +73,8 @@ namespace Previewer
             textBox1.Text = Card.Cards[GlobalIndex].CardId.ToString();
             textBox2.Text = Card.Cards[GlobalIndex].CardType.ToString();
             textBox3.Text = Card.Cards[GlobalIndex].Attribute.ToString();
+            textBox4.Text = Card.Cards[GlobalIndex].Level.ToString();
+            textBox5.Text = Card.Cards[GlobalIndex].Limit.ToString();
             numericUpDown1.Value = GlobalIndex;
         }
 
@@ -79,30 +84,69 @@ namespace Previewer
 
         private void LanguageToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            foreach (ToolStripMenuItem Language in languageToolStripMenuItem.DropDownItems)
-                Language.Checked = false;
+            foreach (ToolStripMenuItem Lang in languageToolStripMenuItem.DropDownItems)
+            {
+                Lang.Checked = false;
+            }
 
             ((ToolStripMenuItem)Sender).Checked = true;
-            Language = ((ToolStripMenuItem)Sender).Text[0];
+            switch (((ToolStripMenuItem)Sender).Text)
+            {
+                case "English":
+                    Language = Localized_Text.Language.English;
+                    break;
+                case "French":
+                    Language = Localized_Text.Language.French;
+                    break;
+                case "German":
+                    Language = Localized_Text.Language.German;
+                    break;
+                case "Italian":
+                    Language = Localized_Text.Language.Italian;
+                    break;
+                case "Spanish":
+                    Language = Localized_Text.Language.Spanish;
+                    break;
+                default:
+                    Language = Localized_Text.Language.Unknown;
+                    break;
+            }
         }
 
         private void Button1_Click(object Sender, EventArgs Args)
         {
-            if (GlobalIndex <= Card.Cards.Count)
+            if (GlobalIndex <= Card.Cards.Keys.Max())
             {
                 GlobalIndex++;
+                GetNextIndex();
                 LoadCards();
             }
             else
             {
-                MessageBox.Show(@"You're At The Last Card", @"No More Cards!", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show(@"You're At The Last Card", @"No More Cards!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void GetNextIndex()
+        private void GetNextIndex(bool Forward = true)
         {
-
+            if (Forward)
+            {
+                if (Card.Cards.ContainsKey(GlobalIndex))
+                    return;
+                do
+                {
+                    GlobalIndex++;
+                } while (!Card.Cards.ContainsKey(GlobalIndex));
+            }
+            else
+            {
+                if (Card.Cards.ContainsKey(GlobalIndex))
+                    return;
+                do
+                {
+                    GlobalIndex--;
+                } while (!Card.Cards.ContainsKey(GlobalIndex));
+            }
         }
 
         private void PrevCard_Click(object Sender, EventArgs Args)
@@ -110,13 +154,12 @@ namespace Previewer
             if (GlobalIndex > 3900)
             {
                 GlobalIndex--;
-                numericUpDown1.Value--;
+                GetNextIndex(false);
                 LoadCards();
             }
             else
             {
-                MessageBox.Show(@"You're At The Fist Card", @"No More Cards!", MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show(@"You're At The Fist Card", @"No More Cards!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -126,17 +169,9 @@ namespace Previewer
             LoadCards();
         }
 
-        private void CheckBox1_CheckedChanged(object Sender, EventArgs Args)
+        private void button2_Click(object sender, EventArgs e)
         {
-            checkBox1.Checked = false;
-        }
-
-        private struct CardTemplate
-        {
-            internal uint Atk;
-            internal uint Def;
-            internal uint Level;
-            internal short Id;
+            MessageBox.Show("Soon™");
         }
     }
 }

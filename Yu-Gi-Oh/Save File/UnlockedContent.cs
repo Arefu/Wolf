@@ -2,12 +2,16 @@
 
 namespace Yu_Gi_Oh.Save_File
 {
+    ///-------------------------------------------------------------------------------------------------
     /// <summary>
-    /// This is a public enum to determine what content is unlocked.
+    ///     This enum should only be used internally within this DLL.
     /// </summary>
-    /// <seealso cref="UnlockedBattlePacks"/>
-    /// <seealso cref="DeulistChallengeState"/>
-    /// <seealso cref="UnlockedShopPacks"/>
+    ///
+    /// <remarks>
+    ///     Johnathon, 6/06/2018.
+    /// </remarks>
+    ///-------------------------------------------------------------------------------------------------
+
     [Flags]
     public enum UnlockedContent
     {
