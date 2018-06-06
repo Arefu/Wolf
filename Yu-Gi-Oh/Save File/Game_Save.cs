@@ -6,16 +6,36 @@ namespace Yu_Gi_Oh.Save_File
 {
     public partial class Game_Save
     {
-        private const uint headerMagic1 = 0x54CE29F9;
-        private const uint headerMagic2 = 0x04714D02;
+        private const uint HeaderMagic1 = 0x54CE29F9;
+        private const uint HeaderMagic2 = 0x04714D02;
+        /// <summary>
+        /// Lengh of SaveFile in Bytes.
+        /// </summary>
         public const int FileLength = 29005;
-
-        public const int UnkOffset1 = 20;
+        
+        /// <summary>
+        /// Where SaveStats Information Is Stored.
+        /// </summary>
         public const int StatsOffset = 36;
+        /// <summary>
+        /// Where BattlePack Information Is Stored.
+        /// </summary>
         public const int BattlePacksOffset = 380;
+        /// <summary>
+        /// Where Misc Information Is Stored.
+        /// </summary>
         public const int MiscDataOffset = 3600;
+        /// <summary>
+        /// Where Campaingn Duel Progress Is Stored.
+        /// </summary>
         public const int CampaignDataOffset = 5648;
+        /// <summary>
+        /// Where User Decks Are Stored.
+        /// </summary>
         public const int DecksOffset = 11696;
+        /// <summary>
+        /// Where Cards Unlocked / Copies of Cards is stored.
+        /// </summary>
         public const int CardListOffset = 21424;
 
         public Game_Save()
@@ -23,18 +43,33 @@ namespace Yu_Gi_Oh.Save_File
             Clear();
         }
 
+        /// <summary>
+        /// Size of StatSize in bytes represented in the save file
+        /// </summary>
         public static int StatsSize => BattlePacksOffset - StatsOffset;
-
+        /// <summary>
+        /// Size of BattlePacks in bytes represented in the save file
+        /// </summary>
         public static int BattlePacksSize => MiscDataOffset - BattlePacksOffset;
-
+        /// <summary>
+        /// Size of MiscData in bytes represented in the save file
+        /// </summary>
         public static int MiscDataSize => CampaignDataOffset - MiscDataOffset;
-
+        /// <summary>
+        /// Size of CampaignData in bytes represented in the save file
+        /// </summary>
         public static int CampaignDataSize => DecksOffset - CampaignDataOffset;
-
+        /// <summary>
+        /// Size of Decks in bytes represented in the save file
+        /// </summary>
         public static int DecksSize => CardListOffset - DecksOffset;
-
+        /// <summary>
+        /// Size of CardList in bytes represented in the save file
+        /// </summary>
         public static int CardListSize => FileLength - CardListOffset;
-
+        /// <summary>
+        /// How many times have you played the game
+        /// </summary>
         public int PlayCount { get; set; }
 
         public Stat_Save Stats { get; set; }
@@ -106,8 +141,8 @@ namespace Yu_Gi_Oh.Save_File
             {
                 using (var reader = new BinaryReader(new MemoryStream(buffer)))
                 {
-                    Debug.Assert(reader.ReadUInt32() == headerMagic1, "Bad header magic");
-                    Debug.Assert(reader.ReadUInt32() == headerMagic2, "Bad header magic");
+                    Debug.Assert(reader.ReadUInt32() == HeaderMagic1, "Bad header magic");
+                    Debug.Assert(reader.ReadUInt32() == HeaderMagic2, "Bad header magic");
 
                     var fileLength = reader.ReadUInt32();
                     Debug.Assert(fileLength == buffer.Length, "Bad save data length");
@@ -121,11 +156,6 @@ namespace Yu_Gi_Oh.Save_File
                     }
 
                     PlayCount = reader.ReadInt32();
-
-                    var dataMagic1 = reader.ReadUInt32();
-                    var dataMagic2 = reader.ReadUInt32();
-                    var dataMagic3 = reader.ReadUInt32();
-                    var dataMagic4 = reader.ReadUInt32();
 
                     Stats.Load(reader);
 
@@ -164,8 +194,8 @@ namespace Yu_Gi_Oh.Save_File
             using (var stream = new MemoryStream())
             using (var writer = new BinaryWriter(stream))
             {
-                writer.Write(headerMagic1);
-                writer.Write(headerMagic2);
+                writer.Write(HeaderMagic1);
+                writer.Write(HeaderMagic2);
                 writer.Write(FileLength);
                 writer.Write((uint) 0);
                 writer.Write(PlayCount);
@@ -177,13 +207,19 @@ namespace Yu_Gi_Oh.Save_File
 
                 (Stats ?? new Stat_Save()).Save(writer);
 
-                for (var i = 0; i < Constants.NumBattlePacks; i++) (BattlePacks[i] != null ? BattlePacks[i] : new Battle_Pack_Save()).Save(writer);
+                for (var i = 0; i < Constants.NumBattlePacks; i++)
+                {
+                    (BattlePacks[i] ?? new Battle_Pack_Save()).Save(writer);
+                }
 
                 (Misc ?? new Misc_Save()).Save(writer);
 
                 (Campaign ?? new Campaign_Save()).Save(writer);
 
-                for (var i = 0; i < Constants.NumUserDecks; i++) (Decks[i] != null ? Decks[i] : new Deck_Save()).Save(writer);
+                for (var i = 0; i < Constants.NumUserDecks; i++)
+                {
+                    (Decks[i] ?? new Deck_Save()).Save(writer);
+                }
 
                 (CardList ?? new Card_List_Save()).Save(writer);
 

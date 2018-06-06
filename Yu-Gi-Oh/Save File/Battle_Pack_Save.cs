@@ -159,28 +159,4 @@ namespace Yu_Gi_Oh.Save_File
             }
         }
     }
-
-    public enum BattlePackSaveState
-    {
-        None = 0,
-        Created = 1,
-        Drafting = 2
-    }
-
-    public enum BattlePackDuelResult
-    {
-        None = 0,
-        Won = 1,
-        Lost = 2,
-        Draw = 3
-    }
-
-    public enum BattlePackType
-    {
-        Drafted_BattlePackEpicDawn = 0,
-        Sealed_BattlePackEpicDawn = 1,
-        Drafted_BattlePack2WaroftheGiants = 2,
-        Sealed_BattlePack2WaroftheGiants = 3,
-        Drafted_BattlePack2WaroftheGiantsRound2 = 4
-    }
 }

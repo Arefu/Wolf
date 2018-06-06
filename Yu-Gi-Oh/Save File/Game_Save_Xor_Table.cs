@@ -4,9 +4,9 @@ namespace Yu_Gi_Oh.Save_File
 {
     public partial class Game_Save
     {
-        private static readonly uint[] xorTable = new uint[256];
+        private static readonly uint[] XorTable = new uint[256];
 
-        private static readonly byte[] xorTableBytes =
+        private static readonly byte[] XorTableBytes =
         {
             0x00, 0x00, 0x00, 0x00, 0x96, 0x30, 0x07, 0x77, 0x2c, 0x61, 0x0e, 0xee, 0xba, 0x51, 0x09, 0x99,
             0x19, 0xc4, 0x6d, 0x07, 0x8f, 0xf4, 0x6a, 0x70, 0x35, 0xa5, 0x63, 0xe9, 0xa3, 0x95, 0x64, 0x9e,
@@ -76,7 +76,10 @@ namespace Yu_Gi_Oh.Save_File
 
         static Game_Save()
         {
-            for (var i = 0; i < xorTable.Length; i++) xorTable[i] = BitConverter.ToUInt32(xorTableBytes, i * 4);
+            for (var i = 0; i < XorTable.Length; i++)
+            {
+                XorTable[i] = BitConverter.ToUInt32(XorTableBytes, i * 4);
+            }
         }
     }
 }

@@ -6,79 +6,54 @@ namespace Yu_Gi_Oh.Save_File
 {
     public class Stat_Save : Save_Data_Chunk
     {
-        private const int numStats = 43;
+        private const int NumberOfSaveStats = 43;
+
+        /// <summary>
+        /// Public dictionary of SaveStats and their values.
+        /// </summary>
+        public Dictionary<StatSaveType, long> Stats { get; }
 
         public Stat_Save()
         {
             Stats = new Dictionary<StatSaveType, long>();
         }
 
-        public Dictionary<StatSaveType, long> Stats { get; }
-
+        /// <summary>
+        /// Clear all SaveStat values back to 0.
+        /// </summary>
         public override void Clear()
         {
-            foreach (StatSaveType statType in Enum.GetValues(typeof(StatSaveType))) Stats[statType] = 0;
+            foreach (StatSaveType stat in Enum.GetValues(typeof(StatSaveType)))
+            {
+                Stats[stat] = 0;
+            }
         }
 
+        /// <summary>
+        /// Loads SaveStat values into the Stats Dictionary
+        /// </summary>
+        /// <seealso cref="Stats"/>
+        /// <param name="reader">An instance of BinaryReader used for loading the save file.</param>
         public override void Load(BinaryReader reader)
         {
-            for (var i = 0; i < numStats; i++) Stats[(StatSaveType) i] = reader.ReadInt64();
+            for (var count = 0; count < NumberOfSaveStats; count++)
+            {
+                Stats[(StatSaveType)count] = reader.ReadInt64();
+            }
         }
 
+        /// <summary>
+        /// Saves SaveStat values from the Stats Dictionary back to the Save File
+        /// </summary>
+        /// <seealso cref="Stats"/>
+        /// <param name="writer">An instance of BinaryWriter for saving to the save file.</param>
         public override void Save(BinaryWriter writer)
         {
-            for (var i = 0; i < numStats; i++)
+            for (var i = 0; i < NumberOfSaveStats; i++)
             {
-                Stats.TryGetValue((StatSaveType) i, out var value);
+                Stats.TryGetValue((StatSaveType)i, out var value);
                 writer.Write(value);
             }
         }
-    }
-
-    public enum StatSaveType
-    {
-        Games_Campaign,
-        Games_Campaign_Normal,
-        Games_Campaign_Reverse,
-        Games_Challenge,
-        Games_Multiplayer,
-        Games_Multiplayer_1V1,
-        Games_Multiplayer_Tag,
-        Games_Multiplayer_Ranked,
-        Games_Multiplayer_Friendly,
-        Games_Multiplayer_Battlepack_Any,
-        Games_Multiplayer_Battlepack_1,
-        Games_Multiplayer_Battlepack_2,
-        Games_Multiplayer_Battlepack_3,
-        Wins_Campaign,
-        Wins_Campaign_Normal,
-        Wins_Campaign_Reverse,
-        Wins_Challenge,
-        Wins_Multiplayer,
-        Wins_Multiplayer_1V1,
-        Wins_Multiplayer_Tag,
-        Wins_Multiplayer_Ranked,
-        Wins_Multiplayer_Friendly,
-        Wins_Multiplayer_Battlepack_Any,
-        Wins_Multiplayer_Battlepack_1,
-        Wins_Multiplayer_Battlepack_2,
-        Wins_Multiplayer_Battlepack_3,
-        Wins_Match,
-        Wins_Nonmatch,
-        Summons_Normal,
-        Summons_Tribute,
-        Summons_Ritual,
-        Summons_Fusion,
-        Summons_Xyz,
-        Summons_Synchro,
-        Summons_Pendulum,
-        Damage_Any,
-        Damage_Battle,
-        Damage_Direct,
-        Damage_Effect,
-        Damage_Reflect,
-        Chains,
-        Decks_Created,
-        Unknown
     }
 }

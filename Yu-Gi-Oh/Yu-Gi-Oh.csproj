@@ -48,9 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="File Handling\Bin Files\CardAttribute.cs" />
+    <Compile Include="File Handling\Bin Files\CardFrameType.cs" />
+    <Compile Include="File Handling\Bin Files\CardGenre.cs" />
+    <Compile Include="File Handling\Bin Files\CardLimitation.cs" />
+    <Compile Include="File Handling\Bin Files\CardNameType.cs" />
+    <Compile Include="File Handling\Bin Files\CardType.cs" />
+    <Compile Include="File Handling\Bin Files\CardTypeFlags.cs" />
+    <Compile Include="File Handling\Bin Files\Card_Info.cs" />
     <Compile Include="File Handling\Bin Files\Card_Limits.cs" />
     <Compile Include="File Handling\Bin Files\Card_Manager.cs" />
+    <Compile Include="File Handling\Bin Files\Card_Tag_Info.cs" />
+    <Compile Include="File Handling\Bin Files\DeckType.cs" />
+    <Compile Include="File Handling\Bin Files\MonsterType.cs" />
+    <Compile Include="File Handling\Bin Files\RelatedCardInfo.cs" />
     <Compile Include="File Handling\Bin Files\Related_Card_Data.cs" />
+    <Compile Include="File Handling\Bin Files\SpellType.cs" />
     <Compile Include="File Handling\File_Data.cs" />
     <Compile Include="File Handling\LOTD Files\LOTD_Archive.cs" />
     <Compile Include="File Handling\LOTD Files\LOTD_Directory.cs" />
@@ -59,10 +72,11 @@
     <Compile Include="File Handling\Main Files\Char_Data.cs" />
     <Compile Include="File Handling\Main Files\Deck_Data.cs" />
     <Compile Include="File Handling\Main Files\Duel_Data.cs" />
+    <Compile Include="File Handling\Main Files\PackType.cs" />
     <Compile Include="File Handling\Main Files\Pack_Def_Data.cs" />
     <Compile Include="File Handling\Main Files\Script_Data.cs" />
     <Compile Include="File Handling\Main Files\SKU_Data.cs" />
-    <Compile Include="File Handling\Miscellaneous Files\Card_Collection.cs" />
+    <Compile Include="File Handling\Miscellaneous Files\CardCollection.cs" />
     <Compile Include="File Handling\Miscellaneous Files\Credits.cs" />
     <Compile Include="File Handling\Miscellaneous Files\Dfymoo.cs" />
     <Compile Include="File Handling\Miscellaneous Files\How_To_Play.cs" />
@@ -82,17 +96,28 @@
     <Compile Include="File Handling\ZIB Files\ZIB_Data.cs" />
     <Compile Include="File Handling\ZIB Files\ZIB_File.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Save File\BattlePackDuelResult.cs" />
+    <Compile Include="Save File\BattlePackSaveState.cs" />
+    <Compile Include="Save File\BattlePackType.cs" />
     <Compile Include="Save File\Battle_Pack_Save.cs" />
+    <Compile Include="Save File\CampaignDuelState.cs" />
     <Compile Include="Save File\Campaign_Save.cs" />
+    <Compile Include="Save File\CardState.cs" />
     <Compile Include="Save File\Card_List_Save.cs" />
+    <Compile Include="Save File\CompleteTutorials.cs" />
     <Compile Include="Save File\Deck_Save.cs" />
     <Compile Include="Save File\Deck_Save_Database.cs" />
+    <Compile Include="Save File\DeulistChallengeState.cs" />
     <Compile Include="Save File\Game_Save.cs" />
     <Compile Include="Save File\Game_Save_Helpers.cs" />
     <Compile Include="Save File\Game_Save_Xor_Table.cs" />
     <Compile Include="Save File\Misc_Save.cs" />
     <Compile Include="Save File\Save_Data_Chunk.cs" />
+    <Compile Include="Save File\StatSaveType.cs" />
     <Compile Include="Save File\Stat_Save.cs" />
+    <Compile Include="Save File\UnlockedBattlePacks.cs" />
+    <Compile Include="Save File\UnlockedContent.cs" />
+    <Compile Include="Save File\UnlockedShopPacks.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
