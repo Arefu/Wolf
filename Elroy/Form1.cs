@@ -1,7 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Celtic_Guardian;
+using Yu_Gi_Oh.File_Handling.LOTD_Files;
+using Yu_Gi_Oh.File_Handling.Main_Files;
+using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
+using Yu_Gi_Oh.File_Handling.Utility;
+using Yu_Gi_Oh.Save_File;
+
 
 namespace Elroy
 {
@@ -65,6 +73,50 @@ namespace Elroy
             if (!File.Exists(SaveFile)) return;
             var Save = new GameSaveData(SaveFile);
             Save.FixGameSaveSignatureOnDisk();
+        }
+
+        private void DLCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var MainFile = new LOTD_Archive(true);
+            MainFile.Load();
+
+            var Writer = new BinaryWriter(MainFile.Reader.BaseStream);
+            var CharacterDataFiles = MainFile.LoadFiles<Char_Data>();
+            var DuelDataFiles = MainFile.LoadFiles<Duel_Data>();
+
+            foreach (var Character in CharacterDataFiles)
+            {
+                foreach (var CharacterItem in Character.Items.Values)
+                    CharacterItem.DlcId = -1; //DLC Not Required.
+
+                Writer.BaseStream.Position = Character.File.ArchiveOffset;
+                Character.Save(Writer);
+            }
+
+            foreach (var Duel in DuelDataFiles)
+            {
+                foreach (var DuelItem in Duel.Items.Values)
+                    DuelItem.DlcId = -1; //DLC Not Reuqired.
+
+                Writer.BaseStream.Position = Duel.File.ArchiveOffset;
+                Duel.Save(Writer);
+            }
+
+            Writer.Close();
+            MessageBox.Show("Done Unlocking All DLC!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void unlockOtherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var man = new Manager();
+            man.Load();
+            var save = new Game_Save();
+            save.UnlockPadlockedContent();
+            save.UnlockAllAvatars();
+            save.SetAllOwnedCardsCount(3,true);
+            save.UnlockAllRecipes();
+            save.Save();
+            MessageBox.Show("Done Unlocking All Content!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

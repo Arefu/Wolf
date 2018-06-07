@@ -76,26 +76,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elroy", "Elroy\Elroy.csproj
 		{4C925470-F8CB-4B64-A64D-179D03932794} = {4C925470-F8CB-4B64-A64D-179D03932794}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tutorials", "Tutorials", "{E4718F54-8DCF-4601-8C29-347CACDDE5CE}"
-	ProjectSection(SolutionItems) = preProject
-		Tutorials\Abaki.md = Tutorials\Abaki.md
-		Tutorials\Celtic Guardian.md = Tutorials\Celtic Guardian.md
-		Tutorials\Chrtter.md = Tutorials\Chrtter.md
-		Tutorials\CreateThread.md = Tutorials\CreateThread.md
-		Tutorials\Cyclone.md = Tutorials\Cyclone.md
-		Tutorials\Detour.md = Tutorials\Detour.md
-		Tutorials\Elroy.md = Tutorials\Elroy.md
-		Tutorials\Embargo.md = Tutorials\Embargo.md
-		Tutorials\Ether.md = Tutorials\Ether.md
-		Tutorials\Lithe.md = Tutorials\Lithe.md
-		Tutorials\MessageBox.md = Tutorials\MessageBox.md
-		Tutorials\Onomatopaira.md = Tutorials\Onomatopaira.md
-		Tutorials\Plugin Info Creation.md = Tutorials\Plugin Info Creation.md
-		Tutorials\Relinquished.md = Tutorials\Relinquished.md
-		Tutorials\Vortex.md = Tutorials\Vortex.md
-		Tutorials\Wolf.md = Tutorials\Wolf.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08983001-4BC3-44A2-935A-0B35CE960265}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -117,6 +97,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launch_Ldr", "Launch_Ldr\Launch_Ldr.csproj", "{EE919CC1-666D-4B88-AEFA-57BD41CA1461}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Previewer", "Previewer\Previewer.csproj", "{A64E33B5-D78F-41BE-9EBA-907581356E77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoCrash", "NoCrash", "{642AFF06-65DB-4F41-9FA1-AEC8537B063E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoCrash", "NoCrash\NoCrash.vcxproj", "{B2886E66-963C-42D2-BF5A-887374A923C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yu-Gi-Oh", "Yu-Gi-Oh\Yu-Gi-Oh.csproj", "{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -308,6 +294,28 @@ Global
 		{A64E33B5-D78F-41BE-9EBA-907581356E77}.Release|x64.Build.0 = Release|Any CPU
 		{A64E33B5-D78F-41BE-9EBA-907581356E77}.Release|x86.ActiveCfg = Release|Any CPU
 		{A64E33B5-D78F-41BE-9EBA-907581356E77}.Release|x86.Build.0 = Release|Any CPU
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|Any CPU.Build.0 = Debug|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x64.ActiveCfg = Debug|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x64.Build.0 = Debug|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Debug|x86.ActiveCfg = Debug|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|Any CPU.ActiveCfg = Release|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|Any CPU.Build.0 = Release|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x64.ActiveCfg = Release|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x64.Build.0 = Release|x64
+		{B2886E66-963C-42D2-BF5A-887374A923C9}.Release|x86.ActiveCfg = Release|x64
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|x64.Build.0 = Release|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{E39012B8-A9C4-4920-98E4-9E50B80CB9DF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -331,6 +339,8 @@ Global
 		{79F1F6DB-26EF-4994-931B-BB4EC429D012} = {CC572502-6B13-4A7E-A66F-71CF3D1E412F}
 		{EE919CC1-666D-4B88-AEFA-57BD41CA1461} = {79F1F6DB-26EF-4994-931B-BB4EC429D012}
 		{A64E33B5-D78F-41BE-9EBA-907581356E77} = {1F6BD197-59AE-4436-B4AF-526B2C8FF3A4}
+		{642AFF06-65DB-4F41-9FA1-AEC8537B063E} = {CC572502-6B13-4A7E-A66F-71CF3D1E412F}
+		{B2886E66-963C-42D2-BF5A-887374A923C9} = {642AFF06-65DB-4F41-9FA1-AEC8537B063E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D850726B-11D0-404F-AE1F-4AD8A19B8D49}
