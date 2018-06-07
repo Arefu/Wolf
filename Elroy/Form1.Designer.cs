@@ -204,6 +204,10 @@
             this.naughtyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unlockDLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unlockOtherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.unlockCardsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ofEachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ofEachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -2313,7 +2317,7 @@
             this.naughtyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1430, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -2358,7 +2362,8 @@
             // 
             this.naughtyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.unlockDLCToolStripMenuItem,
-            this.unlockOtherToolStripMenuItem});
+            this.unlockOtherToolStripMenuItem,
+            this.unlockCardsToolStripMenuItem});
             this.naughtyToolStripMenuItem.Name = "naughtyToolStripMenuItem";
             this.naughtyToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.naughtyToolStripMenuItem.Text = "Naughty";
@@ -2377,11 +2382,42 @@
             this.unlockOtherToolStripMenuItem.Text = "Unlock Other";
             this.unlockOtherToolStripMenuItem.Click += new System.EventHandler(this.unlockOtherToolStripMenuItem_Click);
             // 
+            // unlockCardsToolStripMenuItem
+            // 
+            this.unlockCardsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xToolStripMenuItem,
+            this.ofEachToolStripMenuItem,
+            this.ofEachToolStripMenuItem1});
+            this.unlockCardsToolStripMenuItem.Name = "unlockCardsToolStripMenuItem";
+            this.unlockCardsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.unlockCardsToolStripMenuItem.Text = "Unlock Cards";
+            // 
+            // xToolStripMenuItem
+            // 
+            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.xToolStripMenuItem.Text = "1 Of Each";
+            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
+            // 
+            // ofEachToolStripMenuItem
+            // 
+            this.ofEachToolStripMenuItem.Name = "ofEachToolStripMenuItem";
+            this.ofEachToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ofEachToolStripMenuItem.Text = "2 Of Each";
+            this.ofEachToolStripMenuItem.Click += new System.EventHandler(this.ofEachToolStripMenuItem_Click);
+            // 
+            // ofEachToolStripMenuItem1
+            // 
+            this.ofEachToolStripMenuItem1.Name = "ofEachToolStripMenuItem1";
+            this.ofEachToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.ofEachToolStripMenuItem1.Text = "3 Of Each";
+            this.ofEachToolStripMenuItem1.Click += new System.EventHandler(this.ofEachToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1430, 681);
+            this.ClientSize = new System.Drawing.Size(1284, 681);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -2622,6 +2658,10 @@
         private System.Windows.Forms.ToolStripMenuItem naughtyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlockDLCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlockOtherToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem unlockCardsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ofEachToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ofEachToolStripMenuItem1;
         public static System.Windows.Forms.NumericUpDown numericUpDown43;
         public static System.Windows.Forms.NumericUpDown numericUpDown40;
         public static System.Windows.Forms.NumericUpDown numericUpDown39;

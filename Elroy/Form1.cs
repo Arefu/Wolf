@@ -118,5 +118,29 @@ namespace Elroy
             save.Save();
             MessageBox.Show("Done Unlocking All Content!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void xToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UnlockCards(1);
+        }
+
+        private void ofEachToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UnlockCards(2);
+        }
+
+        private void ofEachToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            UnlockCards(3);
+        }
+
+        private void UnlockCards(int Count)
+        {
+            var man = new Manager();
+            man.Load();
+            var save = new Game_Save();
+            save.SetAllOwnedCardsCount((byte)Count);
+            save.Save();
+        }
     }
 }
