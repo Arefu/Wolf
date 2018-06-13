@@ -23,7 +23,10 @@ namespace Yu_Gi_Oh.Save_File
         /// </summary>
         public override void Clear()
         {
-            foreach (StatSaveType stat in Enum.GetValues(typeof(StatSaveType))) Stats[stat] = 0;
+            foreach (StatSaveType stat in Enum.GetValues(typeof(StatSaveType)))
+            {
+                Stats[stat] = 0;
+            }
         }
 
         /// <summary>
@@ -33,7 +36,10 @@ namespace Yu_Gi_Oh.Save_File
         /// <param name="reader">An instance of BinaryReader used for loading the save file.</param>
         public override void Load(BinaryReader reader)
         {
-            for (var count = 0; count < NumberOfSaveStats; count++) Stats[(StatSaveType) count] = reader.ReadInt64();
+            for (var count = 0; count < NumberOfSaveStats; count++)
+            {
+                Stats[(StatSaveType) count] = reader.ReadInt64();
+            }
         }
 
         /// <summary>

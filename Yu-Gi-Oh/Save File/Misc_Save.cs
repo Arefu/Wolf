@@ -59,9 +59,15 @@ namespace Yu_Gi_Oh.Save_File
         {
             DuelPoints = 1000;
 
-            for (var i = 0; i < Challenges.Length; i++) Challenges[i] = DeulistChallengeState.Locked;
+            for (var i = 0; i < Challenges.Length; i++)
+            {
+                Challenges[i] = DeulistChallengeState.Locked;
+            }
 
-            for (var i = 0; i < UnlockedRecipes.Length; i++) UnlockedRecipes[i] = false;
+            for (var i = 0; i < UnlockedRecipes.Length; i++)
+            {
+                UnlockedRecipes[i] = false;
+            }
 
             CompleteTutorials = CompleteTutorials.None;
             UnlockedContent = UnlockedContent.None;
@@ -87,7 +93,10 @@ namespace Yu_Gi_Oh.Save_File
                 UnlockedAvatars[i] = (unlockedAvatarsBuffer[byteIndex] & (byte) (1 << bitIndex)) != 0;
             }
 
-            for (var i = 0; i < Constants.NumDeckDataSlots; i++) Challenges[i] = (DeulistChallengeState) reader.ReadInt32();
+            for (var i = 0; i < Constants.NumDeckDataSlots; i++)
+            {
+                Challenges[i] = (DeulistChallengeState) reader.ReadInt32();
+            }
 
             var unlockedRecipesBuffer = reader.ReadBytes(60);
             for (var i = 0; i < Constants.NumDeckDataSlots; i++)
@@ -125,7 +134,10 @@ namespace Yu_Gi_Oh.Save_File
 
             writer.Write(unlockedAvatarsBuffer);
 
-            for (var i = 0; i < Constants.NumDeckDataSlots; i++) writer.Write((int) Challenges[i]);
+            for (var i = 0; i < Constants.NumDeckDataSlots; i++)
+            {
+                writer.Write((int) Challenges[i]);
+            }
 
             var unlockedRecipesBuffer = new byte[60];
             for (var i = 0; i < UnlockedRecipes.Length; i++)
