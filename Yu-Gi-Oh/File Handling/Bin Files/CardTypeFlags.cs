@@ -3,7 +3,7 @@
 namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What are the flags of the card.
+    ///     What are the flags of the card.
     /// </summary>
     [Flags]
     public enum CardTypeFlags : uint

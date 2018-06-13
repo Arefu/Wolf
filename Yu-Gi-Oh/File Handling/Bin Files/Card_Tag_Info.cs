@@ -3,12 +3,12 @@
 namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// The card tag information
+    ///     The card tag information
     /// </summary>
     public class Card_Tag_Info
     {
         /// <summary>
-        /// What effect does the card have
+        ///     What effect does the card have
         /// </summary>
         public enum CardEffectType
         {
@@ -105,7 +105,7 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// What is it's element type.
+        ///     What is it's element type.
         /// </summary>
         public enum ElementType
         {
@@ -133,7 +133,7 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// What's its exact type.
+        ///     What's its exact type.
         /// </summary>
         public enum ExactType
         {
@@ -151,9 +151,9 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
             BanishFish,
             BanishRock
         }
-        
+
         /// <summary>
-        /// The normal type.
+        ///     The normal type.
         /// </summary>
         public enum Type
         {
@@ -165,7 +165,7 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// Default contructor.
+        ///     Default contructor.
         /// </summary>
         public Card_Tag_Info()
         {
@@ -175,44 +175,52 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// The index of the card.
+        ///     The index of the card.
         /// </summary>
         public int Index { get; set; }
+
         /// <summary>
-        /// The exact type of the card.
+        ///     The exact type of the card.
         /// </summary>
         public ExactType Exact { get; set; }
+
         /// <summary>
-        /// The effect of the card.
+        ///     The effect of the card.
         /// </summary>
         public CardEffectType CardEffect { get; set; }
+
         /// <summary>
-        /// The exact card info.
+        ///     The exact card info.
         /// </summary>
         public Card_Info ExactCard { get; set; }
+
         /// <summary>
-        /// The cards main type.
+        ///     The cards main type.
         /// </summary>
         public Type MainType { get; set; }
+
         /// <summary>
-        /// The main value.
+        ///     The main value.
         /// </summary>
         public short MainValue { get; set; }
+
         /// <summary>
-        /// The card elements.
+        ///     The card elements.
         /// </summary>
         public Element[] Elements { get; set; }
+
         /// <summary>
-        /// The back-end text of the card.
+        ///     The back-end text of the card.
         /// </summary>
         public Localized_Text Text { get; }
+
         /// <summary>
-        /// The display text of the card.
+        ///     The display text of the card.
         /// </summary>
         public Localized_Text DisplayText { get; }
 
         /// <summary>
-        /// The element for the card.
+        ///     The element for the card.
         /// </summary>
         public struct Element
         {

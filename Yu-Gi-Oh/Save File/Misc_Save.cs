@@ -5,40 +5,6 @@ namespace Yu_Gi_Oh.Save_File
 {
     public class Misc_Save : Save_Data_Chunk
     {
-        /// <summary>
-        /// Duel Points the user has.
-        /// </summary>
-        public int DuelPoints { get; set; }
-        /// <summary>
-        /// What Challenges the user has completed.
-        /// </summary>
-        public DeulistChallengeState[] Challenges { get; }
-        /// <summary>
-        /// What Recipes the user has completed.
-        /// </summary>
-        public bool[] UnlockedRecipes { get; set; }
-        /// <summary>
-        /// What Avatars the user has completed.
-        /// </summary>
-        public bool[] UnlockedAvatars { get; set; }
-
-        /// <summary>
-        /// The Tutorials the user has completed.
-        /// </summary>
-        public CompleteTutorials CompleteTutorials { get; set; }
-        /// <summary>
-        /// What unlocked the user has.
-        /// </summary>
-        public UnlockedContent UnlockedContent { get; set; }
-        /// <summary>
-        /// The Shop Packs the user has unlocked.
-        /// </summary>
-        public UnlockedShopPacks UnlockedShopPacks { get; set; }
-        /// <summary>
-        /// The Battle Packs the user has unlocked.
-        /// </summary>
-        public UnlockedBattlePacks UnlockedBattlePacks { get; set; }
-
         public Misc_Save()
         {
             Challenges = new DeulistChallengeState[Constants.NumDeckDataSlots];
@@ -47,7 +13,47 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Resets the save completly.
+        ///     Duel Points the user has.
+        /// </summary>
+        public int DuelPoints { get; set; }
+
+        /// <summary>
+        ///     What Challenges the user has completed.
+        /// </summary>
+        public DeulistChallengeState[] Challenges { get; }
+
+        /// <summary>
+        ///     What Recipes the user has completed.
+        /// </summary>
+        public bool[] UnlockedRecipes { get; set; }
+
+        /// <summary>
+        ///     What Avatars the user has completed.
+        /// </summary>
+        public bool[] UnlockedAvatars { get; set; }
+
+        /// <summary>
+        ///     The Tutorials the user has completed.
+        /// </summary>
+        public CompleteTutorials CompleteTutorials { get; set; }
+
+        /// <summary>
+        ///     What unlocked the user has.
+        /// </summary>
+        public UnlockedContent UnlockedContent { get; set; }
+
+        /// <summary>
+        ///     The Shop Packs the user has unlocked.
+        /// </summary>
+        public UnlockedShopPacks UnlockedShopPacks { get; set; }
+
+        /// <summary>
+        ///     The Battle Packs the user has unlocked.
+        /// </summary>
+        public UnlockedBattlePacks UnlockedBattlePacks { get; set; }
+
+        /// <summary>
+        ///     Resets the save completly.
         /// </summary>
         public override void Clear()
         {
@@ -64,7 +70,7 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Loads the save.
+        ///     Loads the save.
         /// </summary>
         /// <param name="reader">New instance of BinaryReader loading the Save File.</param>
         public override void Load(BinaryReader reader)
@@ -100,7 +106,7 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Writes the save back to the file..
+        ///     Writes the save back to the file..
         /// </summary>
         /// <param name="writer">New instance of BinaryWriter for writing the Save File.</param>
         public override void Save(BinaryWriter writer)

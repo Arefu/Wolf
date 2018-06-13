@@ -8,33 +8,39 @@ namespace Yu_Gi_Oh.Save_File
     {
         private const uint HeaderMagic1 = 0x54CE29F9;
         private const uint HeaderMagic2 = 0x04714D02;
+
         /// <summary>
-        /// Lengh of SaveFile in Bytes.
+        ///     Lengh of SaveFile in Bytes.
         /// </summary>
         public const int FileLength = 29005;
-        
+
         /// <summary>
-        /// Where SaveStats Information Is Stored.
+        ///     Where SaveStats Information Is Stored.
         /// </summary>
         public const int StatsOffset = 36;
+
         /// <summary>
-        /// Where BattlePack Information Is Stored.
+        ///     Where BattlePack Information Is Stored.
         /// </summary>
         public const int BattlePacksOffset = 380;
+
         /// <summary>
-        /// Where Misc Information Is Stored.
+        ///     Where Misc Information Is Stored.
         /// </summary>
         public const int MiscDataOffset = 3600;
+
         /// <summary>
-        /// Where Campaingn Duel Progress Is Stored.
+        ///     Where Campaingn Duel Progress Is Stored.
         /// </summary>
         public const int CampaignDataOffset = 5648;
+
         /// <summary>
-        /// Where User Decks Are Stored.
+        ///     Where User Decks Are Stored.
         /// </summary>
         public const int DecksOffset = 11696;
+
         /// <summary>
-        /// Where Cards Unlocked / Copies of Cards is stored.
+        ///     Where Cards Unlocked / Copies of Cards is stored.
         /// </summary>
         public const int CardListOffset = 21424;
 
@@ -44,31 +50,37 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Size of StatSize in bytes represented in the save file
+        ///     Size of StatSize in bytes represented in the save file
         /// </summary>
         public static int StatsSize => BattlePacksOffset - StatsOffset;
+
         /// <summary>
-        /// Size of BattlePacks in bytes represented in the save file
+        ///     Size of BattlePacks in bytes represented in the save file
         /// </summary>
         public static int BattlePacksSize => MiscDataOffset - BattlePacksOffset;
+
         /// <summary>
-        /// Size of MiscData in bytes represented in the save file
+        ///     Size of MiscData in bytes represented in the save file
         /// </summary>
         public static int MiscDataSize => CampaignDataOffset - MiscDataOffset;
+
         /// <summary>
-        /// Size of CampaignData in bytes represented in the save file
+        ///     Size of CampaignData in bytes represented in the save file
         /// </summary>
         public static int CampaignDataSize => DecksOffset - CampaignDataOffset;
+
         /// <summary>
-        /// Size of Decks in bytes represented in the save file
+        ///     Size of Decks in bytes represented in the save file
         /// </summary>
         public static int DecksSize => CardListOffset - DecksOffset;
+
         /// <summary>
-        /// Size of CardList in bytes represented in the save file
+        ///     Size of CardList in bytes represented in the save file
         /// </summary>
         public static int CardListSize => FileLength - CardListOffset;
+
         /// <summary>
-        /// How many times have you played the game
+        ///     How many times have you played the game
         /// </summary>
         public int PlayCount { get; set; }
 
@@ -207,19 +219,13 @@ namespace Yu_Gi_Oh.Save_File
 
                 (Stats ?? new Stat_Save()).Save(writer);
 
-                for (var i = 0; i < Constants.NumBattlePacks; i++)
-                {
-                    (BattlePacks[i] ?? new Battle_Pack_Save()).Save(writer);
-                }
+                for (var i = 0; i < Constants.NumBattlePacks; i++) (BattlePacks[i] ?? new Battle_Pack_Save()).Save(writer);
 
                 (Misc ?? new Misc_Save()).Save(writer);
 
                 (Campaign ?? new Campaign_Save()).Save(writer);
 
-                for (var i = 0; i < Constants.NumUserDecks; i++)
-                {
-                    (Decks[i] ?? new Deck_Save()).Save(writer);
-                }
+                for (var i = 0; i < Constants.NumUserDecks; i++) (Decks[i] ?? new Deck_Save()).Save(writer);
 
                 (CardList ?? new Card_List_Save()).Save(writer);
 

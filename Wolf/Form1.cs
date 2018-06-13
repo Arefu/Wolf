@@ -257,8 +257,7 @@ namespace Wolf
 
                             if (new FileInfo(LineData[2]).Name == new FileInfo(ModFileInfo.Files[Count]).Name)
                             {
-                                GetFileSizeReader.BaseStream.Position =
-                                    0; //Because We're Breaking We Need To Reset Stream DUH
+                                GetFileSizeReader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
                                 GetFileSizeReader.ReadLine();
                                 AllFilesFound = true;
                                 CompareSizes.Add(Utilities.HexToDec(LineData[0]), new ModFile(ModFileInfo, Count));
@@ -298,8 +297,7 @@ namespace Wolf
                         }
                         else
                         {
-                            LogWriter.Write(
-                                $"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
+                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
                             var Sum = 0L;
                             var NullOutSize = 0L;
                             Reader.Close();
@@ -308,8 +306,7 @@ namespace Wolf
                             {
                                 Reader.BaseStream.Position = 0;
                                 Reader.ReadLine();
-                                while (!Reader.EndOfStream
-                                ) //Breaks on 116a658 44 D3D11\characters\m9575_number_39_utopia\m9575_number_39_utopia.phyre ?
+                                while (!Reader.EndOfStream) //Breaks on 116a658 44 D3D11\characters\m9575_number_39_utopia\m9575_number_39_utopia.phyre ?
                                 {
                                     var Line = Reader.ReadLine();
                                     if (Line == null) break;

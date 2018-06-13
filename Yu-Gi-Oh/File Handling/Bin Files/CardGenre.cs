@@ -3,7 +3,7 @@
 namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What is the Genre of the card.
+    ///     What is the Genre of the card.
     /// </summary>
     [Flags]
     public enum CardGenre : ulong

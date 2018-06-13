@@ -11,10 +11,10 @@ namespace Previewer
 {
     public partial class Form1 : Form
     {
-        private Localized_Text.Language Language = Localized_Text.Language.English;
-        private short GlobalIndex = 3900;
         private readonly Manager Man = new Manager();
         private Card_Manager Card;
+        private short GlobalIndex = 3900;
+        private Localized_Text.Language Language = Localized_Text.Language.English;
 
         public Form1()
         {
@@ -84,13 +84,10 @@ namespace Previewer
 
         private void LanguageToolStripMenuItem_Click(object Sender, EventArgs Args)
         {
-            foreach (ToolStripMenuItem Lang in languageToolStripMenuItem.DropDownItems)
-            {
-                Lang.Checked = false;
-            }
+            foreach (ToolStripMenuItem Lang in languageToolStripMenuItem.DropDownItems) Lang.Checked = false;
 
-            ((ToolStripMenuItem)Sender).Checked = true;
-            switch (((ToolStripMenuItem)Sender).Text)
+            ((ToolStripMenuItem) Sender).Checked = true;
+            switch (((ToolStripMenuItem) Sender).Text)
             {
                 case "English":
                     Language = Localized_Text.Language.English;
@@ -165,7 +162,7 @@ namespace Previewer
 
         private void Button1_Click_1(object Sender, EventArgs Args)
         {
-            GlobalIndex = (short)numericUpDown1.Value;
+            GlobalIndex = (short) numericUpDown1.Value;
             LoadCards();
         }
 

@@ -76,10 +76,7 @@ namespace Yu_Gi_Oh.Save_File
 
         static Game_Save()
         {
-            for (var i = 0; i < XorTable.Length; i++)
-            {
-                XorTable[i] = BitConverter.ToUInt32(XorTableBytes, i * 4);
-            }
+            for (var i = 0; i < XorTable.Length; i++) XorTable[i] = BitConverter.ToUInt32(XorTableBytes, i * 4);
         }
     }
 }

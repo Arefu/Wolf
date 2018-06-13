@@ -26,6 +26,7 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
         {
             InstallDirectory = installDirectory;
         }
+
         public LOTD_Archive(bool WriteAccess)
         {
             InstallDirectory = GetInstallDirectory();

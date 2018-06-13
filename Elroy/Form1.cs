@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Celtic_Guardian;
 using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using Yu_Gi_Oh.File_Handling.Main_Files;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
-using Yu_Gi_Oh.File_Handling.Utility;
 using Yu_Gi_Oh.Save_File;
-
 
 namespace Elroy
 {
@@ -113,7 +109,7 @@ namespace Elroy
             var save = new Game_Save();
             save.UnlockPadlockedContent();
             save.UnlockAllAvatars();
-            save.SetAllOwnedCardsCount(3,true);
+            save.SetAllOwnedCardsCount(3, true);
             save.UnlockAllRecipes();
             save.Save();
             MessageBox.Show("Done Unlocking All Content!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -139,7 +135,7 @@ namespace Elroy
             var man = new Manager();
             man.Load();
             var save = new Game_Save();
-            save.SetAllOwnedCardsCount((byte)Count);
+            save.SetAllOwnedCardsCount((byte) Count);
             save.Save();
         }
     }

@@ -1,7 +1,7 @@
 ﻿namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What type of Monster is the card.
+    ///     What type of Monster is the card.
     /// </summary>
     public enum MonsterType
     {

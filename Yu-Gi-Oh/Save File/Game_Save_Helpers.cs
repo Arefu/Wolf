@@ -10,19 +10,19 @@ namespace Yu_Gi_Oh.Save_File
     public partial class Game_Save
     {
         /// <summary>
-        /// Set the users duel points, be sure to call Save after to keep changes!
+        ///     Set the users duel points, be sure to call Save after to keep changes!
         /// </summary>
         /// <param name="duelPoints"></param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void SetDuelPoints(int duelPoints)
         {
             Misc.DuelPoints = duelPoints;
         }
 
         /// <summary>
-        /// Unlocks all padlocked content, be sure to call Save after to keep changes!
+        ///     Unlocks all padlocked content, be sure to call Save after to keep changes!
         /// </summary>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void UnlockPadlockedContent()
         {
             Misc.UnlockedContent = UnlockedContent.All;
@@ -31,61 +31,61 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Unlock all recipes, be sure to call Save after to keep changes!
+        ///     Unlock all recipes, be sure to call Save after to keep changes!
         /// </summary>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void UnlockAllRecipes()
         {
             for (var i = 0; i < Misc.UnlockedRecipes.Length; i++) Misc.UnlockedRecipes[i] = true;
         }
 
         /// <summary>
-        /// Unlock all avatars, be sure to call Save after to keep changes!
+        ///     Unlock all avatars, be sure to call Save after to keep changes!
         /// </summary>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void UnlockAllAvatars()
         {
             for (var i = 0; i < Misc.UnlockedAvatars.Length; i++) Misc.UnlockedAvatars[i] = true;
         }
 
         /// <summary>
-        /// Set Challenges to specified state, be sure to call Save after to keep changes!
+        ///     Set Challenges to specified state, be sure to call Save after to keep changes!
         /// </summary>
         /// <param name="state">What State To Set The Challenges To</param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void SetAllChallenges(DeulistChallengeState state)
         {
             for (var i = 0; i < Misc.Challenges.Length; i++) Misc.Challenges[i] = state;
         }
 
         /// <summary>
-        /// Set campaign duels to the specified state, be sure to call Save after to keep changes!
+        ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
         /// <param name="state">What state to set the challenges to</param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void SetAllCampaignDuels(CampaignDuelState state)
         {
             SetAllCampaignDuels(state, CampaignDuelState.Locked, false);
         }
 
         /// <summary>
-        /// Set campaign duels to the specified state, be sure to call Save after to keep changes!
+        ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
         /// <param name="state">What state to set the challenges to</param>
         /// <param name="reverseState">What state to set the reverse duel to</param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void SetAllCampaignDuels(CampaignDuelState state, CampaignDuelState reverseState)
         {
             SetAllCampaignDuels(state, reverseState, true);
         }
 
         /// <summary>
-        /// Set campaign duels to the specified state, be sure to call Save after to keep changes!
+        ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
         /// <param name="state">What state to set the challenges to</param>
         /// <param name="reverseState">what state to set the reverse duel to</param>
         /// <param name="setReverseState">Should the reverse state be set</param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         private void SetAllCampaignDuels(CampaignDuelState state, CampaignDuelState reverseState, bool setReverseState)
         {
             for (var count = 0; count < Campaign_Save.DuelsPerSeries; count++)
@@ -109,26 +109,26 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Unlocks 3 copies of each card. Call save after!
+        ///     Unlocks 3 copies of each card. Call save after!
         /// </summary>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void UnlockAllCards()
         {
             SetAllOwnedCardsCount(3);
         }
 
         /// <summary>
-        /// sets owned cards to own the specified amount. Call save after!
+        ///     sets owned cards to own the specified amount. Call save after!
         /// </summary>
         /// <param name="cardCount">Tested with a max of 3 more might break the game!</param>
-        /// <seealso cref="Save()"/>
+        /// <seealso cref="Save()" />
         public void SetAllOwnedCardsCount(byte cardCount)
         {
             SetAllOwnedCardsCount(cardCount, true);
         }
 
         /// <summary>
-        /// Sets all owned
+        ///     Sets all owned
         /// </summary>
         /// <param name="cardCount"></param>
         /// <param name="seen"></param>
@@ -154,16 +154,14 @@ namespace Yu_Gi_Oh.Save_File
 
         private static uint GetSignature(IList<byte> buffer)
         {
-            for (var i = 0; i < 4; i++)
-            {
-                buffer[12 + i] = 0;
-            }
-            
-            return (uint)buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (current, file) => ((uint) current >> 8) ^ XorTable[(byte) current ^ file]);
+            for (var i = 0; i < 4; i++) buffer[12 + i] = 0;
+
+            return (uint) buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (current, file) => ((uint) current >> 8) ^ XorTable[(byte) current ^ file]);
         }
 
         /// <summary>
-        /// Fix the game signature, this should be called if you've done manual edits to ensure the game thinks the save is still valid.
+        ///     Fix the game signature, this should be called if you've done manual edits to ensure the game thinks the save is
+        ///     still valid.
         /// </summary>
         public void FixGameSaveSignatureOnDisk()
         {
@@ -171,9 +169,9 @@ namespace Yu_Gi_Oh.Save_File
         }
 
         /// <summary>
-        /// Fix the game signature on disk to make the game think the save is still valid
+        ///     Fix the game signature on disk to make the game think the save is still valid
         /// </summary>
-        /// <seealso cref="FixGameSaveSignatureOnDisk()"/>
+        /// <seealso cref="FixGameSaveSignatureOnDisk()" />
         /// <param name="path">Path to the save file (use for pirated copies)</param>
         public void FixGameSaveSignatureOnDisk(string path)
         {
@@ -183,9 +181,9 @@ namespace Yu_Gi_Oh.Save_File
             SaveSignature(buffer);
             File.WriteAllBytes(path, buffer);
         }
-        
+
         /// <summary>
-        /// Get The Save File Path On Disk.
+        ///     Get The Save File Path On Disk.
         /// </summary>
         /// <returns>The Location Of The Save File.</returns>
         public static string GetSaveFilePath()

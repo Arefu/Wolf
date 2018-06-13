@@ -3,7 +3,7 @@
 namespace Yu_Gi_Oh.Save_File
 {
     /// <summary>
-    /// This is a public enum holding the tutorials to determine if it's completed or not.
+    ///     This is a public enum holding the tutorials to determine if it's completed or not.
     /// </summary>
     [Flags]
     public enum CompleteTutorials

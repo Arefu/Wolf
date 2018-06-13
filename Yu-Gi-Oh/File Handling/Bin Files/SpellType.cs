@@ -1,7 +1,7 @@
 ﻿namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What is the type of sepll.
+    ///     What is the type of sepll.
     /// </summary>
     public enum SpellType
     {
