@@ -1,7 +1,7 @@
 ﻿namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What is the Card Name type.
+    ///     What is the Card Name type.
     /// </summary>
     public enum CardNameType
     {

@@ -11,14 +11,14 @@ using Yu_Gi_Oh.File_Handling.ZIB_Files;
 namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// This file handles a lot of stuff centered around managing card functions.
+    ///     This file handles a lot of stuff centered around managing card functions.
     /// </summary>
     public class Card_Manager
     {
         private readonly Dictionary<Localized_Text.Language, Dictionary<string, Card_Info>> _cardsByName;
 
         /// <summary>
-        /// Default Constructor.
+        ///     Default Constructor.
         /// </summary>
         /// <param name="manager">A new instance of the Manager class.</param>
         public Card_Manager(Manager manager)
@@ -32,28 +32,32 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// An internal representation of the Manager class as defined in the contructor.
+        ///     An internal representation of the Manager class as defined in the contructor.
         /// </summary>
         public Manager Manager { get; }
+
         /// <summary>
-        /// A list of cards with their ID and the info about the card.
+        ///     A list of cards with their ID and the info about the card.
         /// </summary>
         public Dictionary<short, Card_Info> Cards { get; }
+
         /// <summary>
-        /// A list of cards based on card info.
+        ///     A list of cards based on card info.
         /// </summary>
         public List<Card_Info> CardsByIndex { get; }
+
         /// <summary>
-        /// A list of cards by their type.
+        ///     A list of cards by their type.
         /// </summary>
         public Dictionary<CardNameType, HashSet<short>> CardNameTypes { get; }
+
         /// <summary>
-        /// A list of card tags.
+        ///     A list of card tags.
         /// </summary>
         public List<Card_Tag_Info> Tags { get; }
 
         /// <summary>
-        /// A function that should be used to find a card based on its name.
+        ///     A function that should be used to find a card based on its name.
         /// </summary>
         /// <param name="language">What localization to use.</param>
         /// <param name="name">The card name to search for</param>
@@ -65,7 +69,7 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         }
 
         /// <summary>
-        /// Load all cards into memory.
+        ///     Load all cards into memory.
         /// </summary>
         public void Load()
         {

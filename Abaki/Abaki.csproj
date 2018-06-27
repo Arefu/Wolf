@@ -78,6 +78,10 @@
       <Project>{4c925470-f8cb-4b64-a64d-179d03932794}</Project>
       <Name>Celtic Guardian</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Yu-Gi-Oh\Yu-Gi-Oh.csproj">
+      <Project>{e39012b8-a9c4-4920-98e4-9e50b80cb9df}</Project>
+      <Name>Yu-Gi-Oh</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

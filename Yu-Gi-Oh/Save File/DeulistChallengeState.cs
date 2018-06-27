@@ -1,7 +1,7 @@
 ﻿namespace Yu_Gi_Oh.Save_File
 {
     /// <summary>
-    /// This is a public enum to determine the Deulist Challenge State.
+    ///     This is a public enum to determine the Deulist Challenge State.
     /// </summary>
     public enum DeulistChallengeState
     {

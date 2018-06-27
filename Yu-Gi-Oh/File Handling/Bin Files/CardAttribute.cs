@@ -1,7 +1,7 @@
 ﻿namespace Yu_Gi_Oh.File_Handling.Bin_Files
 {
     /// <summary>
-    /// What is the Attribute of the card.
+    ///     What is the Attribute of the card.
     /// </summary>
     public enum CardAttribute
     {
