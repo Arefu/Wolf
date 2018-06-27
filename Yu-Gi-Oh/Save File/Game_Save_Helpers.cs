@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Yu_Gi_Oh.File_Handling.LOTD_Files;
+using System.Windows.Forms;
 using Yu_Gi_Oh.File_Handling.Utility;
 
 namespace Yu_Gi_Oh.Save_File
@@ -158,8 +159,8 @@ namespace Yu_Gi_Oh.Save_File
             {
                 buffer[12 + i] = 0;
             }
-            
-            return (uint)buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (current, file) => ((uint) current >> 8) ^ XorTable[(byte) current ^ file]);
+
+            return (uint)buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (current, file) => ((uint)current >> 8) ^ XorTable[(byte)current ^ file]);
         }
 
         /// <summary>
@@ -183,7 +184,7 @@ namespace Yu_Gi_Oh.Save_File
             SaveSignature(buffer);
             File.WriteAllBytes(path, buffer);
         }
-        
+
         /// <summary>
         /// Get The Save File Path On Disk.
         /// </summary>
@@ -192,44 +193,49 @@ namespace Yu_Gi_Oh.Save_File
         {
             var installDir = LOTD_Archive.GetInstallDirectory();
             if (string.IsNullOrEmpty(installDir)) return null;
-            try
+
+            var steamAppId = 0;
+
+            var appIdFile = Path.Combine(installDir, "steam_appid.txt");
+            if (File.Exists(appIdFile))
             {
-                var steamAppId = 0;
+                var lines = File.ReadAllLines(appIdFile);
+                if (lines.Length > 0) int.TryParse(lines[0], out steamAppId);
+            }
 
-                var appIdFile = Path.Combine(installDir, "steam_appid.txt");
-                if (File.Exists(appIdFile))
+            if (steamAppId > 0)
+            {
+                var userdataDir = Path.Combine(installDir, "..\\..\\..\\userdata\\");
+                if (Directory.Exists(Path.GetFullPath(userdataDir)))
                 {
-                    var lines = File.ReadAllLines(appIdFile);
-                    if (lines.Length > 0) int.TryParse(lines[0], out steamAppId);
-                }
-
-                if (steamAppId > 0)
-                {
-                    var userdataDir = Path.Combine(installDir, "..\\..\\..\\userdata\\");
-                    if (Directory.Exists(Path.GetFullPath(userdataDir)))
+                    var dirs = Directory.GetDirectories(userdataDir);
+                    foreach (var dir in dirs)
                     {
-                        var dirs = Directory.GetDirectories(userdataDir);
-                        foreach (var dir in dirs)
+                        var dirName = new DirectoryInfo(dir).Name;
+
+                        if (!long.TryParse(dirName, out var userid)) continue;
+                        var saveDataDir = Path.Combine(dir, string.Empty + steamAppId, "remote");
+                        if (Directory.Exists(saveDataDir))
                         {
-                            var dirName = new DirectoryInfo(dir).Name;
-
-                            if (!long.TryParse(dirName, out var userid)) continue;
-                            var saveDataDir = Path.Combine(dir, string.Empty + steamAppId, "remote");
-                            if (Directory.Exists(saveDataDir))
-                            {
-                                var saveDataFile = Path.Combine(saveDataDir, "savegame.dat");
-                                if (File.Exists(saveDataFile)) return Path.GetFullPath(saveDataFile);
-                            }
-
-                            break;
+                            var saveDataFile = Path.Combine(saveDataDir, "savegame.dat");
+                            if (File.Exists(saveDataFile)) return Path.GetFullPath(saveDataFile);
                         }
+
+                        break;
                     }
                 }
             }
-            catch
+
+            using (var Ofd = new OpenFileDialog())
             {
-                //TODO: Ask User For Save File Location.
+                Ofd.Title = "Please locate Save File";
+                var Res = Ofd.ShowDialog();
+                if (Res == DialogResult.OK)
+                {
+                    return Ofd.FileName;
+                }
             }
+
 
             return null;
         }
