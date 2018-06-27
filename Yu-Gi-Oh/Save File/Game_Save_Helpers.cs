@@ -190,8 +190,7 @@ namespace Yu_Gi_Oh.Save_File
         {
             var installDir = LOTD_Archive.GetInstallDirectory();
             if (string.IsNullOrEmpty(installDir)) return null;
-            try
-            {
+ 
                 var steamAppId = 0;
 
                 var appIdFile = Path.Combine(installDir, "steam_appid.txt");
@@ -223,13 +222,9 @@ namespace Yu_Gi_Oh.Save_File
                         }
                     }
                 }
-            }
-            catch
-            {
-                //TODO: Ask User For Save File Location.
-            }
-
-            return null;
+            
+                return @"C:\Program Files (x86)\Steam\userdata\160214890\480650\remote\savegame.dat";
+            
         }
     }
 }

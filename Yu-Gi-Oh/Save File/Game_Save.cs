@@ -198,7 +198,10 @@ namespace Yu_Gi_Oh.Save_File
         public void Save(string path)
         {
             var buffer = ToArray();
-            if (buffer != null) File.WriteAllBytes(path, buffer);
+            if (buffer != null)
+            {
+                File.WriteAllBytes(path, buffer);
+            }
         }
 
         public byte[] ToArray()
