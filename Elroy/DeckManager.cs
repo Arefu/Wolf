@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Celtic_Guardian;
+using Yu_Gi_Oh.Save_File;
 
 namespace Elroy
 {
@@ -18,8 +19,11 @@ namespace Elroy
         public DeckManager(string DeckName, string SavePath)
         {
             InitializeComponent();
+            var GameSave = new Game_Save();
+            GameSave.Load();
+            GameSave.Decks[Convert.ToInt32(DeckName.Replace("button", ""))].Save();
             Save = SavePath;
-            DeckCode = Convert.ToInt32(DeckName.Replace("button", string.Empty)) * 0x130;
+//            DeckCode = De
 
             GetDeckInfo();
 
