@@ -2317,7 +2317,7 @@
             this.naughtyToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1284, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1440, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -2335,26 +2335,26 @@
             // opemToolStripMenuItem
             // 
             this.opemToolStripMenuItem.Name = "opemToolStripMenuItem";
-            this.opemToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.opemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.opemToolStripMenuItem.Text = "Open";
             this.opemToolStripMenuItem.Click += new System.EventHandler(this.opemToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -2395,21 +2395,21 @@
             // xToolStripMenuItem
             // 
             this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.xToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.xToolStripMenuItem.Text = "1 Of Each";
             this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
             // 
             // ofEachToolStripMenuItem
             // 
             this.ofEachToolStripMenuItem.Name = "ofEachToolStripMenuItem";
-            this.ofEachToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ofEachToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.ofEachToolStripMenuItem.Text = "2 Of Each";
             this.ofEachToolStripMenuItem.Click += new System.EventHandler(this.ofEachToolStripMenuItem_Click);
             // 
             // ofEachToolStripMenuItem1
             // 
             this.ofEachToolStripMenuItem1.Name = "ofEachToolStripMenuItem1";
-            this.ofEachToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.ofEachToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
             this.ofEachToolStripMenuItem1.Text = "3 Of Each";
             this.ofEachToolStripMenuItem1.Click += new System.EventHandler(this.ofEachToolStripMenuItem1_Click);
             // 
@@ -2417,7 +2417,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 681);
+            this.ClientSize = new System.Drawing.Size(1440, 707);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

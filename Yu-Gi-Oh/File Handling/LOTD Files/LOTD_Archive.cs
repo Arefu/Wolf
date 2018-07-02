@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.Win32;
 using Yu_Gi_Oh.File_Handling.Bin_Files;
 using Yu_Gi_Oh.File_Handling.Main_Files;
@@ -312,22 +313,13 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
 
         public static string GetInstallDirectory()
         {
-            string installDir = null;
-            try
+            using (var Ofd = new FolderBrowserDialog())
             {
-                using (var root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-                {
-                    using (var key = root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
-                    {
-                        if (key != null) installDir = key.GetValue("InstallLocation").ToString();
-                    }
-                }
+                Ofd.Description = "Please Navigate To Your Install Directory";
+                Ofd.ShowDialog();
+                return Ofd.SelectedPath;
             }
-            catch
-            {
-            }
-
-            return installDir;
+            
         }
     }
 }
