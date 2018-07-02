@@ -100,6 +100,10 @@ namespace Elroy
             }
 
             Writer.Close();
+            var save = new Game_Save();
+            save.Load();
+            save.SetAllCampaignDuels(CampaignDuelState.Complete);
+            save.Save();
             MessageBox.Show("Done Unlocking All DLC!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -138,6 +142,7 @@ namespace Elroy
             man.Load();
             var save = new Game_Save();
             save.SetAllOwnedCardsCount((byte) Count);
+            //save.UnlockAllCards();
             save.Save();
         }
     }
