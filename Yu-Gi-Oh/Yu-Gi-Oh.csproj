@@ -66,6 +66,7 @@
     <Compile Include="File Handling\Bin Files\RelatedCardInfo.cs" />
     <Compile Include="File Handling\Bin Files\Related_Card_Data.cs" />
     <Compile Include="File Handling\Bin Files\SpellType.cs" />
+    <Compile Include="File Handling\CardModel.cs" />
     <Compile Include="File Handling\File_Data.cs" />
     <Compile Include="File Handling\LOTD Files\LOTD_Archive.cs" />
     <Compile Include="File Handling\LOTD Files\LOTD_Directory.cs" />
