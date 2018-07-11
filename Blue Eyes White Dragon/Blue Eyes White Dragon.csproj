@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArtworkModel.cs" />
+    <Compile Include="Models\ArtworkModel.cs" />
     <Compile Include="CardArtEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Models\ReplacementCard.cs" />
     <EmbeddedResource Include="CardArtEditor.resx">
       <DependentUpon>CardArtEditor.cs</DependentUpon>
     </EmbeddedResource>

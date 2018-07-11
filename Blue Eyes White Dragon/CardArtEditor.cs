@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Blue_Eyes_White_Dragon.Models;
+using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon
 {
     public partial class CardArtEditor : Form
     {
-        public const string GameCardsLocation = "GameCardsLocation";
+        public const string GameImagesLocation = "GameImagesLocation";
+        public const string ReplacementImagesLocation = "ReplacementImagesLocation";
         ///The designer threw up when I tried to assign the ImageLists declaratively
         ///so we are doing it yolo style.
         readonly ImageList LargeImageList = new ImageList();
@@ -24,15 +28,23 @@ namespace Blue_Eyes_White_Dragon
 
         private void Init()
         {
-            var gameCardsLocationSetting = ConfigurationManager.AppSettings[GameCardsLocation];
-            var gameCardsLocation = new DirectoryInfo(gameCardsLocationSetting);
-
-            var artworkList = CreateArtworkList(gameCardsLocation);
+            var artworkList = LoadCardDirs();
 
             SetupImageList();
             SetupColumns();
 
             fastObjectListView1.AddObjects(artworkList);
+        }
+
+        private List<ArtworkModel> LoadCardDirs()
+        {
+            var gameImagesLocationSetting = ConfigurationManager.AppSettings[GameImagesLocation];
+            var gameImagesLocation = new DirectoryInfo(gameImagesLocationSetting);
+
+            var replacementImagesLocationSetting = ConfigurationManager.AppSettings[ReplacementImagesLocation];
+            var replacementImagesLocation = new DirectoryInfo(replacementImagesLocationSetting);
+
+            return CreateArtworkList(gameImagesLocation,replacementImagesLocation);
         }
 
         private void SetupImageList()
@@ -49,49 +61,102 @@ namespace Blue_Eyes_White_Dragon
         private void SetupColumns()
         {
             //Apparently something other than the image must be shown in the coloumn for the image to be visible
-            GameImage.AspectGetter = delegate (object x) { return ((ArtworkModel)x).GameImagePath; };
+            GI.AspectGetter = x => ((ArtworkModel) x).GameImagePath;
             //The image that actually will be shown instead of the above path string
-            GameImage.ImageGetter = delegate (object row) {
-                ArtworkModel artworkRow = ((ArtworkModel)row);
-                var gameImagePath = artworkRow.GameImagePath;
+            GI.ImageGetter = new ImageGetterDelegate(GameImageGetter);
+            GIFileName.AspectGetter = x => ((ArtworkModel) x).GameImageFileName;
 
-                if (!fastObjectListView1.LargeImageList.Images.ContainsKey(gameImagePath))
-                {
-                    //Both lists must be in sync to use anything other than the DETAILS view. Yes I know
-                    //that is what we are using, but if we use another view in the future we most likely won't remember this.
-                    Image smallImage = Image.FromFile(gameImagePath);
-                    Image largeImage = Image.FromFile(gameImagePath);
-                    fastObjectListView1.SmallImageList.Images.Add(gameImagePath, smallImage);
-                    fastObjectListView1.LargeImageList.Images.Add(gameImagePath, largeImage);
-                }
-                Debug.WriteLine($"Image: {gameImagePath} is about to be shown");
-                Debug.WriteLine($"SmallImageList count: {fastObjectListView1.SmallImageList.Images.Count}");
-                Debug.WriteLine($"LargeImageList count: {fastObjectListView1.LargeImageList.Images.Count}");
-                return gameImagePath;
-            };
+            RI.AspectGetter = x => ((ArtworkModel)x).ReplacementImagePath;
+            RI.ImageGetter = new ImageGetterDelegate(ReplacementImageGetter);
+
+            RICardName.AspectGetter = x => ((ArtworkModel)x).ReplacementImageMonsterName;
+            RIFileName.AspectGetter = x => ((ArtworkModel)x).ReplacementImageFileName;
         }
 
-        private List<ArtworkModel> CreateArtworkList(DirectoryInfo dir)
+        private object GameImageGetter(object row)
         {
-            var files = Directory
-                .EnumerateFiles(dir.FullName)
-                .Where(file => file.ToLower().EndsWith("jpg") || file.ToLower().EndsWith("png"))
-                .Select(x => new FileInfo(x))
-                .ToList();
+            var artworkRow = ((ArtworkModel)row);
+            var gameImagePath = artworkRow.GameImagePath;
 
-            Debug.WriteLine($"Number of images found in {dir.FullName}: {files.Count}");
+            if (!fastObjectListView1.LargeImageList.Images.ContainsKey(gameImagePath))
+            {
+                UpdateImageLists(gameImagePath);
+            }
+            return gameImagePath;
+        }
+
+        private object ReplacementImageGetter(object row)
+        {
+            var artworkRow = ((ArtworkModel)row);
+            var replacementImagePath = artworkRow.ReplacementImagePath;
+
+            if (!fastObjectListView1.LargeImageList.Images.ContainsKey(replacementImagePath))
+            {
+                UpdateImageLists(replacementImagePath);
+            }
+            return replacementImagePath;
+        }
+
+        private void UpdateImageLists(string imagePath)
+        {
+            //Both lists must be in sync to use anything other than the DETAILS view. Yes I know
+            //that is what we are using, but if we use another view in the future we most likely won't remember this.
+            Image smallImage = Image.FromFile(imagePath);
+            Image largeImage = Image.FromFile(imagePath);
+            fastObjectListView1.SmallImageList.Images.Add(imagePath, smallImage);
+            fastObjectListView1.LargeImageList.Images.Add(imagePath, largeImage);
+
+            Debug.WriteLine($"Image: {imagePath} is about to be shown");
+            Debug.WriteLine($"SmallImageList count: {fastObjectListView1.SmallImageList.Images.Count}");
+            Debug.WriteLine($"LargeImageList count: {fastObjectListView1.LargeImageList.Images.Count}");
+        }
+
+        private List<ArtworkModel> CreateArtworkList(DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
+        {
+            List<FileInfo> gameImageFiles = FindFiles(gameImagesLocation);
+            List<FileInfo> replacementImageFiles = FindFiles(replacementImagesLocation);
+
+            Debug.WriteLine($"Number of images found in {gameImagesLocation.FullName}: {gameImageFiles.Count}");
 
             var artworkList = new List<ArtworkModel>();
 
-            foreach (var file in files)
+            foreach (var gameFile in gameImageFiles)
             {
+                var replacementCard = FindSuitableReplacementCard(gameFile, replacementImageFiles);
+
                 artworkList.Add(new ArtworkModel()
                 {
-                    GameImagePath = file.FullName,
-                    GameImageFormat = file.Extension
+                    GameImagePath = gameFile.FullName,
+                    GameImageFileName = gameFile.Name,
+                    ReplacementImagePath = replacementCard.ImagePath,
+                    ReplacementImageMonsterName = replacementCard.CardName,
+                    ReplacementImageFileName = replacementCard.ReplacementImageFileName
                 });
             }
             return artworkList;
+        }
+
+        private ReplacementCard FindSuitableReplacementCard(FileInfo gameFile, List<FileInfo> replacementImageFiles)
+        {
+            Random r = new Random();
+            int rInt = r.Next(0, replacementImageFiles.Count); 
+
+            var randomCard = replacementImageFiles[rInt];
+            return new ReplacementCard()
+            {
+                CardName = randomCard.Name,
+                ImagePath = randomCard.FullName,
+                ReplacementImageFileName = randomCard.Name
+            };
+        }
+
+        private List<FileInfo> FindFiles(DirectoryInfo gameImagesLocation)
+        {
+            return Directory
+                .EnumerateFiles(gameImagesLocation.FullName)
+                .Where(file => file.ToLower().EndsWith("jpg") || file.ToLower().EndsWith("png"))
+                .Select(x => new FileInfo(x))
+                .ToList();
         }
     }
 }
