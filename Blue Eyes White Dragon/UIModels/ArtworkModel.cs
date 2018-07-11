@@ -1,4 +1,4 @@
-﻿namespace Blue_Eyes_White_Dragon.Models
+﻿namespace Blue_Eyes_White_Dragon.UI_Models
 {
     public class ArtworkModel
     {

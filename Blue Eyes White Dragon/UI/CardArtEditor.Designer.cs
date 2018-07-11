@@ -1,4 +1,4 @@
-﻿namespace Blue_Eyes_White_Dragon
+﻿namespace Blue_Eyes_White_Dragon.UI
 {
     partial class CardArtEditor
     {
