@@ -29,55 +29,54 @@
         private void InitializeComponent()
         {
             this.imageRenderer1 = new BrightIdeasSoftware.ImageRenderer();
-            this.objectListView1 = new BrightIdeasSoftware.ObjectListView();
+            this.fastObjectListView1 = new BrightIdeasSoftware.FastObjectListView();
             this.GameImage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastObjectListView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // objectListView1
+            // fastObjectListView1
             // 
-            this.objectListView1.AllColumns.Add(this.GameImage);
-            this.objectListView1.CellEditUseWholeCell = false;
-            this.objectListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.fastObjectListView1.AllColumns.Add(this.GameImage);
+            this.fastObjectListView1.CellEditUseWholeCell = false;
+            this.fastObjectListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.GameImage});
-            this.objectListView1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.objectListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.objectListView1.Location = new System.Drawing.Point(0, 0);
-            this.objectListView1.Name = "objectListView1";
-            this.objectListView1.RowHeight = 256;
-            this.objectListView1.Size = new System.Drawing.Size(1067, 603);
-            this.objectListView1.TabIndex = 2;
-            this.objectListView1.TileSize = new System.Drawing.Size(304, 30);
-            this.objectListView1.UseCompatibleStateImageBehavior = false;
-            this.objectListView1.View = System.Windows.Forms.View.Details;
+            this.fastObjectListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastObjectListView1.Location = new System.Drawing.Point(0, 0);
+            this.fastObjectListView1.Name = "fastObjectListView1";
+            this.fastObjectListView1.RowHeight = 256;
+            this.fastObjectListView1.ShowGroups = false;
+            this.fastObjectListView1.Size = new System.Drawing.Size(1067, 603);
+            this.fastObjectListView1.TabIndex = 0;
+            this.fastObjectListView1.UseCompatibleStateImageBehavior = false;
+            this.fastObjectListView1.View = System.Windows.Forms.View.Details;
+            this.fastObjectListView1.VirtualMode = true;
             // 
             // GameImage
             // 
-            this.GameImage.AspectName = "GameImage";
             this.GameImage.Groupable = false;
             this.GameImage.IsEditable = false;
+            this.GameImage.MinimumWidth = 256;
             this.GameImage.Renderer = this.imageRenderer1;
             this.GameImage.Searchable = false;
-            this.GameImage.Sortable = false;
             this.GameImage.Text = "GameImage";
-            this.GameImage.Width = 304;
+            this.GameImage.Width = 256;
             // 
             // CardArtEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 603);
-            this.Controls.Add(this.objectListView1);
+            this.Controls.Add(this.fastObjectListView1);
             this.Name = "CardArtEditor";
             this.Text = "Card_Art_Editor";
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fastObjectListView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private BrightIdeasSoftware.ImageRenderer imageRenderer1;
-        private BrightIdeasSoftware.ObjectListView objectListView1;
+        private BrightIdeasSoftware.FastObjectListView fastObjectListView1;
         private BrightIdeasSoftware.OLVColumn GameImage;
     }
 }
