@@ -4,43 +4,42 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.BusinessLogic;
+using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.DataAccess;
-using Blue_Eyes_White_Dragon.UI_Models;
+using Blue_Eyes_White_Dragon.DataAccess.Repository;
+using Blue_Eyes_White_Dragon.UI.Models;
 using BrightIdeasSoftware;
+using Yu_Gi_Oh.File_Handling.Bin_Files;
+using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
 
 namespace Blue_Eyes_White_Dragon.UI
 {
     public partial class CardArtEditor : Form
     {
-        public const string GameImagesLocation = "GameImagesLocation";
-        public const string ReplacementImagesLocation = "ReplacementImagesLocation";
-
         ///The designer threw up when I tried to assign the ImageLists declaratively
         ///so we are doing it yolo style.
         private readonly ImageList _largeImageList;
         private readonly ImageList _smallImageList;
-        private readonly CardDbContext _db;
-        private readonly ArtworkManager _cardManager;
 
         public CardArtEditor()
         {
             InitializeComponent();
-            _db = new CardDbContext();
             _largeImageList = new ImageList();
             _smallImageList = new ImageList();
-            _cardManager = new ArtworkManager(_db);
+            var blueEyesLogic = new BlueEyesLogic(this);
+
             Init();
+            blueEyesLogic.Run();
         }
 
         private void Init()
         {
-            var gameImagesLocation = FileLoader.LoadCardDir(GameImagesLocation);
-            var replacementImagesLocation = FileLoader.LoadCardDir(ReplacementImagesLocation);
-            var artworkList = _cardManager.CreateArtworkList(gameImagesLocation, replacementImagesLocation);
             SetupImageList();
             SetupColumns();
+        }
 
+        public void AddObjectsToObjectListView(List<Artwork> artworkList)
+        {
             fastObjectListView1.AddObjects(artworkList);
         }
 
@@ -58,21 +57,21 @@ namespace Blue_Eyes_White_Dragon.UI
         private void SetupColumns()
         {
             //Apparently something other than the image must be shown in the coloumn for the image to be visible
-            GI.AspectGetter = x => ((ArtworkModel) x).GameImagePath;
+            GI.AspectGetter = x => ((Artwork) x).GameImagePath;
             //The image that actually will be shown instead of the above path string
-            GI.ImageGetter = new ImageGetterDelegate(GameImageGetter);
-            GIFileName.AspectGetter = x => ((ArtworkModel) x).GameImageFileName;
+            GI.ImageGetter = GameImageGetter;
+            GIFileName.AspectGetter = x => ((Artwork) x).GameImageFileName;
 
-            RI.AspectGetter = x => ((ArtworkModel)x).ReplacementImagePath;
-            RI.ImageGetter = new ImageGetterDelegate(ReplacementImageGetter);
+            RI.AspectGetter = x => ((Artwork)x).ReplacementImagePath;
+            RI.ImageGetter = ReplacementImageGetter;
 
-            RICardName.AspectGetter = x => ((ArtworkModel)x).ReplacementImageMonsterName;
-            RIFileName.AspectGetter = x => ((ArtworkModel)x).ReplacementImageFileName;
+            RICardName.AspectGetter = x => ((Artwork)x).ReplacementImageMonsterName;
+            RIFileName.AspectGetter = x => ((Artwork)x).ReplacementImageFileName;
         }
 
         private object GameImageGetter(object row)
         {
-            var artworkRow = ((ArtworkModel)row);
+            var artworkRow = ((Artwork)row);
             var gameImagePath = artworkRow.GameImagePath;
 
             if (!fastObjectListView1.LargeImageList.Images.ContainsKey(gameImagePath))
@@ -84,7 +83,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private object ReplacementImageGetter(object row)
         {
-            var artworkRow = ((ArtworkModel)row);
+            var artworkRow = ((Artwork)row);
             var replacementImagePath = artworkRow.ReplacementImagePath;
 
             if (!fastObjectListView1.LargeImageList.Images.ContainsKey(replacementImagePath))

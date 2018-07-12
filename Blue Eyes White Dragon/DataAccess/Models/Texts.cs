@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Blue_Eyes_White_Dragon
+namespace Blue_Eyes_White_Dragon.DataAccess.Models
 {
     [Table("texts")]
     public class Texts

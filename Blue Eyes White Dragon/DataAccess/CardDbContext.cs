@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Blue_Eyes_White_Dragon.DataAccess.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

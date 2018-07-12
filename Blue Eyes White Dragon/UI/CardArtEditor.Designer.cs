@@ -105,7 +105,7 @@
             this.GI.MinimumWidth = 256;
             this.GI.Renderer = this.imageRenderer1;
             this.GI.Searchable = false;
-            this.GI.Text = "GameImage";
+            this.GI.Text = "Game Image";
             this.GI.Width = 256;
             // 
             // RI
@@ -114,12 +114,13 @@
             this.RI.IsEditable = false;
             this.RI.Renderer = this.imageRenderer2;
             this.RI.Searchable = false;
-            this.RI.Text = "ReplacementImage";
+            this.RI.Text = "Replacement Image";
             this.RI.Width = 256;
             // 
             // RICardName
             // 
             this.RICardName.Text = "Card Name";
+            this.RICardName.Width = 87;
             // 
             // RIFileName
             // 
