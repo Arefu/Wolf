@@ -42,7 +42,7 @@ namespace Yu_Gi_Oh.Save_File
             IsDeckComplete = false;
         }
 
-        protected void LoadDeckData(BinaryReader Reader)
+        public void LoadDeckData(BinaryReader Reader)
         {
             DeckName = Encoding.Unicode.GetString(Reader.ReadBytes(Constants.DeckNameByteLen)).TrimEnd('\0');
 

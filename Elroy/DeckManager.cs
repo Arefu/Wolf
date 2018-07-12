@@ -20,17 +20,19 @@ namespace Elroy
         {
             InitializeComponent();
             var DeckManager = new Deck_Save_Database();
-            using (var Reader = new BinaryReader(File.Open("",FileMode.Open,FileAccess.Read)))
+            using (var Reader = new BinaryReader(File.Open(SavePath,FileMode.Open,FileAccess.Read)))
             {
-                //Fill Me
+                var DeckNumberOffset = Convert.ToInt32(DeckName.Replace("button", string.Empty));
+                Reader.BaseStream.Position = Game_Save.DecksOffset;
+                DeckManager.LoadDeckData(Reader);
+
+                label4.Text = $@"{DeckManager.MainDeckCards.Count} - {DeckManager.SideDeckCards.Count} -{DeckManager.ExtraDeckCards.Count}";
+                textBox1.Text = DeckManager.DeckName;
+                textBox1.MaxLength = Yu_Gi_Oh.File_Handling.Utility.Constants.DeckNameLen;
             }
             Save = SavePath;
-//            DeckCode = De
 
             GetDeckInfo();
-
-            textBox1.Text = DeckInfo.Name;
-            label4.Text = $@"{DeckInfo.CardCount_Main} / {DeckInfo.CardCount_Extra} / {DeckInfo.CardCount_Side}";
         }
 
         private void ImportDeck_Click(object Sender, EventArgs Args)
@@ -69,86 +71,13 @@ namespace Elroy
 
         private void ExportDeck_Click(object Sender, EventArgs Args)
         {
-            if (string.IsNullOrEmpty(DeckInfo.Name))
-            {
-                MessageBox.Show("I Can't Export An Empty Deck.", "Deck Is Empty!", MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            var Extractor = new DeckExtract();
-            Extractor.ShowDialog();
-            if (string.IsNullOrEmpty(Extractor.DeckToExport))
-            {
-                MessageBox.Show("Export Aborted!", "Export Failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (File.Exists($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc"))
-                if (MessageBox.Show("Deck Already Exists, Do You Want To Overwrite It?", "File Exists",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
-                    return;
-
-            File.Create($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc").Close();
-
-            using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
-            {
-                Reader.BaseStream.Position = DeckStartOffset + DeckCode;
-                if (Extractor.DeckToExport == "Save")
-                {
-                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc",
-                        FileMode.Open, FileAccess.Write)))
-                    {
-                        Writer.Write(Reader.ReadBytes(0x130));
-                        Writer.Close();
-                        Reader.Close();
-                    }
-                }
-                else
-                {
-                    Reader.BaseStream.Position += 0x48;
-                    using (var Writer = new BinaryWriter(File.Open($"{DeckInfo.Name.ToLower().Replace(' ', '_')}.ydc",
-                        FileMode.Open, FileAccess.Write)))
-                    {
-                        Writer.Write(new byte[] {0x8C, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x00});
-                        Writer.Write(Reader.ReadBytes(0xB0));
-                        Writer.Close();
-                        Reader.Close();
-                    }
-                }
-            }
-
+           
             MessageBox.Show("Export Complete!", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void GetDeckInfo()
         {
-            using (var Reader = new BinaryReader(File.Open(Save, FileMode.Open, FileAccess.Read)))
-            {
-                Reader.BaseStream.Position = DeckStartOffset + DeckCode;
-                var DeckChunk = Reader.ReadBytes(0x130);
-                var DeckName = Utilities.GetText(DeckChunk.Take(0x40).ToArray());
-                if (string.IsNullOrEmpty(DeckName))
-                {
-                    DeckInfo.Name = "N/A";
-                    Export_Deck.Enabled = false;
-                }
-                else
-                {
-                    DeckInfo.Name = DeckName;
-                    textBox1.Enabled = true;
-                    Export_Deck.Enabled = true;
-                }
-
-                DeckChunk = DeckChunk.Skip(0x42).ToArray();
-                DeckInfo.CardCount_Main = Utilities.HexToDec(DeckChunk.Take(1).ToArray());
-                DeckChunk = DeckChunk.Skip(0x2).ToArray();
-                DeckInfo.CardCount_Extra = Utilities.HexToDec(DeckChunk.Take(1).ToArray());
-                DeckChunk = DeckChunk.Skip(0x2).ToArray();
-                DeckInfo.CardCount_Side = Utilities.HexToDec(DeckChunk.Take(1).ToArray());
-
-                Reader.Close();
-            }
+            
         }
 
         protected override void OnClosing(CancelEventArgs Args)
@@ -159,17 +88,7 @@ namespace Elroy
                 return;
             }
 
-            var Result = MessageBox.Show("Would You Like To Save Changes?", "Save Changes", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (Result == DialogResult.Yes && DeckInfo.Name != "N/A")
-                using (var Writer = new BinaryWriter(File.Open(Save, FileMode.Open, FileAccess.Write)))
-                {
-                    Writer.BaseStream.Position = DeckStartOffset + DeckCode;
-                    Writer.Write(Encoding.Unicode.GetBytes(textBox1.Text));
-                    Writer.Write(new byte[0x40 - Encoding.Unicode.GetBytes(textBox1.Text).ToString().Length]);
-                }
-
+          
             base.OnClosing(Args);
         }
 

@@ -73,7 +73,6 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(182, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "[SHOULD BE NUMBER OF CARDS]";
             // 
             // label5
             // 
