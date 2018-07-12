@@ -99,11 +99,11 @@ namespace Yu_Gi_Oh.Save_File
 
             if (BattlePacks == null || BattlePacks.Length != Constants.NumBattlePacks) BattlePacks = new Battle_Pack_Save[Constants.NumBattlePacks];
 
-            for (var i = 0; i < Constants.NumBattlePacks; i++)
+            for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++)
             {
-                if (BattlePacks[i] == null) BattlePacks[i] = new Battle_Pack_Save();
+                if (BattlePacks[Counter] == null) BattlePacks[Counter] = new Battle_Pack_Save();
 
-                BattlePacks[i].Clear();
+                BattlePacks[Counter].Clear();
             }
 
             if (Misc == null) Misc = new Misc_Save();
@@ -116,11 +116,11 @@ namespace Yu_Gi_Oh.Save_File
 
             if (Decks == null || Decks.Length != Constants.NumUserDecks) Decks = new Deck_Save[Constants.NumUserDecks];
 
-            for (var i = 0; i < Constants.NumUserDecks; i++)
+            for (var Counter = 0; Counter < Constants.NumUserDecks; Counter++)
             {
-                if (Decks[i] == null) Decks[i] = new Deck_Save();
+                if (Decks[Counter] == null) Decks[Counter] = new Deck_Save();
 
-                Decks[i].Clear();
+                Decks[Counter].Clear();
             }
 
             if (CardList == null) CardList = new Card_List_Save();
@@ -133,53 +133,46 @@ namespace Yu_Gi_Oh.Save_File
             return Load(GetSaveFilePath());
         }
 
-        public bool Load(string path)
+        public bool Load(string Path)
         {
-            if (string.IsNullOrEmpty(path) || !File.Exists(path)) return false;
+            if (string.IsNullOrEmpty(Path) || !File.Exists(Path)) return false;
 
-            return Load(File.ReadAllBytes(path), true);
+            return Load(File.ReadAllBytes(Path), true);
         }
 
-        public bool Load(byte[] buffer)
+        public bool Load(byte[] Buffer)
         {
-            return Load(buffer, false);
+            return Load(Buffer, false);
         }
 
-        private bool Load(byte[] buffer, bool checkSignature)
+        private bool Load(byte[] Buffer, bool CheckSignature)
         {
             Clear();
 
             try
             {
-                using (var reader = new BinaryReader(new MemoryStream(buffer)))
+                using (var Reader = new BinaryReader(new MemoryStream(Buffer)))
                 {
-                    Debug.Assert(reader.ReadUInt32() == HeaderMagic1, "Bad header magic");
-                    Debug.Assert(reader.ReadUInt32() == HeaderMagic2, "Bad header magic");
-
-                    var fileLength = reader.ReadUInt32();
-                    Debug.Assert(fileLength == buffer.Length, "Bad save data length");
-                    Debug.Assert(fileLength == FileLength, "Bad save data length");
-
-                    var signature = reader.ReadUInt32();
-                    if (checkSignature)
+                    var Signature = Reader.ReadUInt32();
+                    if (CheckSignature)
                     {
-                        var calculatedSignature = GetSignature(buffer);
-                        Debug.Assert(calculatedSignature == signature, "Bad save data signature");
+                        var CalculatedSignature = GetSignature(Buffer);
+                        Debug.Assert(CalculatedSignature == Signature, "Bad save data signature");
                     }
 
-                    PlayCount = reader.ReadInt32();
+                    PlayCount = Reader.ReadInt32();
 
-                    Stats.Load(reader);
+                    Stats.Load(Reader);
 
-                    for (var i = 0; i < Constants.NumBattlePacks; i++) BattlePacks[i].Load(reader);
+                    for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++) BattlePacks[Counter].Load(Reader);
 
-                    Misc.Load(reader);
+                    Misc.Load(Reader);
 
-                    Campaign.Load(reader);
+                    Campaign.Load(Reader);
 
-                    for (var i = 0; i < Constants.NumUserDecks; i++) Decks[i].Load(reader);
+                    for (var Counter = 0; Counter < Constants.NumUserDecks; Counter++) Decks[Counter].Load(Reader);
 
-                    CardList.Load(reader);
+                    CardList.Load(Reader);
                 }
 
                 return true;
@@ -195,46 +188,46 @@ namespace Yu_Gi_Oh.Save_File
             Save(GetSaveFilePath());
         }
 
-        public void Save(string path)
+        public void Save(string Path)
         {
-            var buffer = ToArray();
-            if (buffer != null)
+            var Buffer = ToArray();
+            if (Buffer != null)
             {
-                File.WriteAllBytes(path, buffer);
+                File.WriteAllBytes(Path, Buffer);
             }
         }
 
         public byte[] ToArray()
         {
-            using (var stream = new MemoryStream())
-            using (var writer = new BinaryWriter(stream))
+            using (var Stream = new MemoryStream())
+            using (var Writer = new BinaryWriter(Stream))
             {
-                writer.Write(HeaderMagic1);
-                writer.Write(HeaderMagic2);
-                writer.Write(FileLength);
-                writer.Write((uint) 0);
-                writer.Write(PlayCount);
+                Writer.Write(HeaderMagic1);
+                Writer.Write(HeaderMagic2);
+                Writer.Write(FileLength);
+                Writer.Write((uint)0);
+                Writer.Write(PlayCount);
 
-                writer.Write((uint) 5);
-                writer.Write((uint) 5);
-                writer.Write((uint) 0);
-                writer.Write((uint) 0x3F800000);
+                Writer.Write((uint)5);
+                Writer.Write((uint)5);
+                Writer.Write((uint)0);
+                Writer.Write((uint)0x3F800000);
 
-                (Stats ?? new Stat_Save()).Save(writer);
+                (Stats ?? new Stat_Save()).Save(Writer);
 
-                for (var i = 0; i < Constants.NumBattlePacks; i++) (BattlePacks[i] ?? new Battle_Pack_Save()).Save(writer);
+                for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++) (BattlePacks[Counter] ?? new Battle_Pack_Save()).Save(Writer);
 
-                (Misc ?? new Misc_Save()).Save(writer);
+                (Misc ?? new Misc_Save()).Save(Writer);
 
-                (Campaign ?? new Campaign_Save()).Save(writer);
+                (Campaign ?? new Campaign_Save()).Save(Writer);
 
-                for (var i = 0; i < Constants.NumUserDecks; i++) (Decks[i] ?? new Deck_Save()).Save(writer);
+                for (var Counter = 0; Counter < Constants.NumUserDecks; Counter++) (Decks[Counter] ?? new Deck_Save()).Save(Writer);
 
-                (CardList ?? new Card_List_Save()).Save(writer);
+                (CardList ?? new Card_List_Save()).Save(Writer);
 
-                var buffer = stream.ToArray();
-                SaveSignature(buffer);
-                return buffer;
+                var Buffer = Stream.ToArray();
+                SaveSignature(Buffer);
+                return Buffer;
             }
         }
     }

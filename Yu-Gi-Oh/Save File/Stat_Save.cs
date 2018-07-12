@@ -23,9 +23,9 @@ namespace Yu_Gi_Oh.Save_File
         /// </summary>
         public override void Clear()
         {
-            foreach (StatSaveType stat in Enum.GetValues(typeof(StatSaveType)))
+            foreach (StatSaveType Stat in Enum.GetValues(typeof(StatSaveType)))
             {
-                Stats[stat] = 0;
+                Stats[Stat] = 0;
             }
         }
 
@@ -33,12 +33,12 @@ namespace Yu_Gi_Oh.Save_File
         ///     Loads SaveStat values into the Stats Dictionary
         /// </summary>
         /// <seealso cref="Stats" />
-        /// <param name="reader">An instance of BinaryReader used for loading the save file.</param>
-        public override void Load(BinaryReader reader)
+        /// <param name="Reader">An instance of BinaryReader used for loading the save file.</param>
+        public override void Load(BinaryReader Reader)
         {
-            for (var count = 0; count < NumberOfSaveStats; count++)
+            for (var Count = 0; Count < NumberOfSaveStats; Count++)
             {
-                Stats[(StatSaveType) count] = reader.ReadInt64();
+                Stats[(StatSaveType) Count] = Reader.ReadInt64();
             }
         }
 
@@ -46,13 +46,13 @@ namespace Yu_Gi_Oh.Save_File
         ///     Saves SaveStat values from the Stats Dictionary back to the Save File
         /// </summary>
         /// <seealso cref="Stats" />
-        /// <param name="writer">An instance of BinaryWriter for saving to the save file.</param>
-        public override void Save(BinaryWriter writer)
+        /// <param name="Writer">An instance of BinaryWriter for saving to the save file.</param>
+        public override void Save(BinaryWriter Writer)
         {
-            for (var i = 0; i < NumberOfSaveStats; i++)
+            for (var Count = 0; Count < NumberOfSaveStats; Count++)
             {
-                Stats.TryGetValue((StatSaveType) i, out var value);
-                writer.Write(value);
+                Stats.TryGetValue((StatSaveType) Count, out var Value);
+                Writer.Write(Value);
             }
         }
     }

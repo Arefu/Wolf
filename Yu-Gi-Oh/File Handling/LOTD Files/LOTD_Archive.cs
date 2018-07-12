@@ -311,15 +311,24 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             }
         }
 
+        public static string InstallDir = "";
         public static string GetInstallDirectory()
         {
             using (var Ofd = new FolderBrowserDialog())
             {
                 Ofd.Description = "Please Navigate To Your Install Directory";
-                Ofd.ShowDialog();
-                return Ofd.SelectedPath;
+
+                if (Ofd.ShowDialog() == DialogResult.OK)
+                {
+                    InstallDir =  Ofd.SelectedPath;
+                    return InstallDir;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            
+
         }
     }
 }

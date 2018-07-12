@@ -19,9 +19,11 @@ namespace Elroy
         public DeckManager(string DeckName, string SavePath)
         {
             InitializeComponent();
-            var GameSave = new Game_Save();
-            GameSave.Load();
-            GameSave.Decks[Convert.ToInt32(DeckName.Replace("button", ""))].Save();
+            var DeckManager = new Deck_Save_Database();
+            using (var Reader = new BinaryReader(File.Open("",FileMode.Open,FileAccess.Read)))
+            {
+                //Fill Me
+            }
             Save = SavePath;
 //            DeckCode = De
 
