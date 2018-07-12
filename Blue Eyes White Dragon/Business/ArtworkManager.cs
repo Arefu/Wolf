@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess;
@@ -20,15 +22,13 @@ namespace Blue_Eyes_White_Dragon.Business
         /// Points to an error image located in the users temp directory.
         /// A rather hacky way to supply a string path to the artwork model
         /// </summary>
-        private readonly string _errorImagePath;
+        private readonly FileInfo _errorImageFile;
 
-        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo)
+        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, FileInfo errorImage)
         {
             _fileRepo = fileRepo;
             _cardRepo = cardRepo;
-
-            _errorImagePath = Path.Combine(Path.GetTempPath(), "error.bmp");
-            Properties.Resources.error.Save(_errorImagePath);
+            _errorImageFile = errorImage;
         }
 
         public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
@@ -41,10 +41,10 @@ namespace Blue_Eyes_White_Dragon.Business
                 Debug.WriteLine($"Loading game image {counter} of {gameCards.Count}");
                 artworkList.Add(new Artwork()
                 {
-                    GameImagePath = _fileRepo.FindImageFile(gameCard, gameImagesLocation).FullName,
+                    GameImageFile = _fileRepo.FindImageFile(gameCard, gameImagesLocation),
                     GameImageMonsterName = gameCard.Name,
-                    GameImagesLocations = gameImagesLocation,
-                    ReplacementImagesLocations = replacementImagesLocation
+                    GameImagesDir = gameImagesLocation,
+                    ReplacementImagesDir = replacementImagesLocation
                 });
                 counter++;
 
@@ -65,8 +65,7 @@ namespace Blue_Eyes_White_Dragon.Business
                 var replacementCard = FindSuitableReplacementCard(gameCard);
 
                 gameCard.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
-                gameCard.ReplacementImageFileName = replacementCard.ReplacementImageFileName;
-                gameCard.ReplacementImagePath = replacementCard.ReplacementImagePath;
+                gameCard.ReplacementImageFile = replacementCard.ReplacementImageFile;
 
                 numberProcessed++;
                 if (numberProcessed == 100)
@@ -81,24 +80,18 @@ namespace Blue_Eyes_White_Dragon.Business
         {
             try
             {
-                //Card contains name + id
                 var matchingCards = _cardRepo.SearchCard(gameCard.GameImageMonsterName);
                 var replacementCard = matchingCards.FirstOrDefault();
                 if (replacementCard == null)
                 {
-                    var artwork = new Artwork()
-                    {
-                        ReplacementImageMonsterName = gameCard.GameImageMonsterName,
-                        ReplacementImagePath = _errorImagePath
-                    };
-                    return artwork;
+                    gameCard.ReplacementImageMonsterName = gameCard.GameImageMonsterName;
+                    gameCard.ReplacementImageFile = _errorImageFile;
+                    return gameCard;
                 }
 
                 gameCard.ReplacementImageMonsterName = replacementCard.Name;
-                var imageFile = _fileRepo.FindImageFile(replacementCard, gameCard.ReplacementImagesLocations);
-
-                gameCard.ReplacementImageFileName = imageFile.Name;
-                gameCard.ReplacementImagePath = imageFile.FullName;
+                var imageFile = _fileRepo.FindImageFile(replacementCard, gameCard.ReplacementImagesDir);
+                gameCard.ReplacementImageFile = imageFile;
 
                 if (matchingCards.Count > 1)
                 {
@@ -111,7 +104,7 @@ namespace Blue_Eyes_White_Dragon.Business
             catch (Exception e)
             {
                 Debug.WriteLine($"Databas error: {e}, inner: {e.InnerException}");
-                gameCard.ReplacementImagePath = Constants.ErrorImageLocation;
+                gameCard.ReplacementImageMonsterName = gameCard.GameImageMonsterName;
                 return gameCard;
             }
         }

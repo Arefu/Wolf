@@ -13,6 +13,13 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 {
     public class FileRepository : IFileRepository
     {
+        private readonly FileInfo _errorImage;
+
+        public FileRepository(FileInfo errorImage)
+        {
+            _errorImage = errorImage;
+        }
+
         public DirectoryInfo LoadCardDir(string locationSetting)
         {
             return new DirectoryInfo(locationSetting);
@@ -64,7 +71,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             else if (imagesWithCardId.Count == 0)
             {
                 Debug.WriteLine($"imageFile is null for card with name: {card.Name} and id: {card.Id}");
-                return new FileInfo(Constants.ErrorImageLocation);
+                return _errorImage;
             }
             else
             {

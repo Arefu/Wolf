@@ -23,13 +23,17 @@ namespace Blue_Eyes_White_Dragon.Business
 
         public BlueEyesLogic(CardArtEditor cardArtEditor)
         {
+            var errorImage = LoadErrorImage();
+
             _cardArtEditor = cardArtEditor;
-            _fileRepo = new FileRepository();
+            _fileRepo = new FileRepository(errorImage);
             _cardRepo = new CardRepository(new CardDbContext());
+
             var manager = new Manager();
             manager.Load();
             _gameFileRepo = new GameFileRepository(manager);
-            _artworkManager = new ArtworkManager(_fileRepo, _cardRepo);
+
+            _artworkManager = new ArtworkManager(_fileRepo, _cardRepo, errorImage);
         }
 
         public void Run()
@@ -42,6 +46,12 @@ namespace Blue_Eyes_White_Dragon.Business
             var artworkListWithReplacementCards = _artworkManager.UpdateArtworkModelsWithReplacement(artworkListWithGameCards);
 
             _cardArtEditor.AddObjectsToObjectListView(artworkListWithReplacementCards);
+        }
+        private FileInfo LoadErrorImage()
+        {
+            var errorImagePath = Path.Combine(Path.GetTempPath(), "error.bmp");
+            Properties.Resources.error.Save(errorImagePath);
+            return new FileInfo(errorImagePath);
         }
     }
 }
