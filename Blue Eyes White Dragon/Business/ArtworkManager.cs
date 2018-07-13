@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
+using System.Threading.Tasks;
+using Blue_Eyes_White_Dragon.Business.Factory.Interface;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
-using Blue_Eyes_White_Dragon.DataAccess.Repository;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
+using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
@@ -22,23 +24,27 @@ namespace Blue_Eyes_White_Dragon.Business
         /// Points to an error image located in the users temp directory.
         /// A rather hacky way to supply a string path to the artwork model
         /// </summary>
-        private readonly FileInfo _errorImageFile;
+        private readonly ILogger _logger;
+        private readonly ICardDbContextFactory _cardDbFactory;
 
-        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, FileInfo errorImage)
+        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo,
+            ILogger logger, ICardDbContextFactory cardDbFactory)
         {
             _fileRepo = fileRepo;
             _cardRepo = cardRepo;
-            _errorImageFile = errorImage;
+            _logger = logger;
+            _cardDbFactory = cardDbFactory;
         }
 
         public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
         {
-            var artworkList = new List<Artwork>();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            var artworkList = new ConcurrentBag<Artwork>();
 
-            var counter = 0;
-            foreach (var gameCard in gameCards)
+            Parallel.For(0, gameCards.Count, i =>
             {
-                Debug.WriteLine($"Loading game image {counter} of {gameCards.Count}");
+                var gameCard = gameCards[i];
                 artworkList.Add(new Artwork()
                 {
                     GameImageFile = _fileRepo.FindImageFile(gameCard, gameImagesLocation),
@@ -46,46 +52,56 @@ namespace Blue_Eyes_White_Dragon.Business
                     GameImagesDir = gameImagesLocation,
                     ReplacementImagesDir = replacementImagesLocation
                 });
-                counter++;
+            });
+            stopwatch.Stop();
+            _logger.LogInformation($"Created {gameCards.Count} ArtworkModels in {stopwatch.ElapsedMilliseconds}ms");
 
-                if (counter == 100)
-                {
-                    break;
-                }
-            }
-            return artworkList;
+            return artworkList.ToList();
         }
 
         public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList)
         {
-            var numberProcessed = 0;
-            foreach (var gameCard in artworkList)
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var numberOfArtwork = artworkList.Count;
+            long numberProcessed = 0;
+            var artworkBag = new ConcurrentBag<Artwork>(artworkList);
+            Parallel.For(0, artworkBag.Count, i => 
             {
-                Debug.WriteLine($"Processing card number {numberProcessed} of {artworkList.Count}");
-                var replacementCard = FindSuitableReplacementCard(gameCard);
-
-                gameCard.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
-                gameCard.ReplacementImageFile = replacementCard.ReplacementImageFile;
-
-                numberProcessed++;
-                if (numberProcessed == 100)
+                var gameArtwork = artworkList[i];
+                using (var db = _cardDbFactory.CreateCardDbContext())
                 {
-                    break;
+                    ProcessArtwork(gameArtwork, db);
                 }
-            }
+                Interlocked.Increment(ref numberProcessed);
+                _logger.LogInformation($"{Interlocked.Read(ref numberProcessed)} of {numberOfArtwork} processed");
+            });
+
+            stopwatch.Stop();
+            _logger.LogInformation($"Processed {artworkList.Count} in {stopwatch.ElapsedMilliseconds}ms");
+
             return artworkList;
         }
 
-        private Artwork FindSuitableReplacementCard(Artwork gameCard)
+        private void ProcessArtwork(Artwork gameArtwork, ICardDbContext db)
+        {
+            var replacementCard = FindSuitableReplacementCard(gameArtwork, db);
+            gameArtwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
+            gameArtwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
+        }
+
+        private Artwork FindSuitableReplacementCard(Artwork gameCard, ICardDbContext db)
         {
             try
             {
-                var matchingCards = _cardRepo.SearchCard(gameCard.GameImageMonsterName);
+                var matchingCards = _cardRepo.SearchCardsAsync(db, gameCard.GameImageMonsterName);
                 var replacementCard = matchingCards.FirstOrDefault();
                 if (replacementCard == null)
                 {
                     gameCard.ReplacementImageMonsterName = gameCard.GameImageMonsterName;
-                    gameCard.ReplacementImageFile = _errorImageFile;
+                    gameCard.ReplacementImageFile = _fileRepo.ErrorImage;
+                    _logger.LogInformation($"No match was found for {gameCard.GameImageMonsterName} - picking the error image");
                     return gameCard;
                 }
 
@@ -96,14 +112,14 @@ namespace Blue_Eyes_White_Dragon.Business
                 if (matchingCards.Count > 1)
                 {
                     //TODO Gotta implement a way to show more than one card if multiple are found
-                    Debug.WriteLine($"{matchingCards.Count} matching cards found for {gameCard.GameImageMonsterName} picked: {gameCard.ReplacementImageFileName}");
+                    _logger.LogInformation($"{matchingCards.Count} matching cards found for {gameCard.GameImageMonsterName} picked: {gameCard.ReplacementImageFileName}");
                 }
                 return gameCard;
 
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Databas error: {e}, inner: {e.InnerException}");
+                _logger.LogInformation($"Databas error: {e}, inner: {e.InnerException}");
                 gameCard.ReplacementImageMonsterName = gameCard.GameImageMonsterName;
                 return gameCard;
             }

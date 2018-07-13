@@ -6,6 +6,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
 {
     public interface ICardRepository
     {
-        List<Card> SearchCard(string gameCardName);
+        List<Card> SearchCards(string cardName);
+        List<Card> SearchCardsAsync(ICardDbContext db, string gameCardGameImageMonsterName);
     }
 }

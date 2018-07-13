@@ -175,7 +175,7 @@
             this.btn_run.TabIndex = 1;
             this.btn_run.Text = "Auto Match All";
             this.btn_run.UseVisualStyleBackColor = true;
-            this.btn_run.Click += new System.EventHandler(this.btn_run_Click);
+            this.btn_run.Click += new System.EventHandler(this.Btn_run_Click);
             // 
             // txt_search
             // 
@@ -183,7 +183,7 @@
             this.txt_search.Name = "txt_search";
             this.txt_search.Size = new System.Drawing.Size(150, 20);
             this.txt_search.TabIndex = 0;
-            this.txt_search.TextChanged += new System.EventHandler(this.txt_search_TextChanged);
+            this.txt_search.TextChanged += new System.EventHandler(this.Txt_search_TextChanged);
             // 
             // panel1
             // 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Blue_Eyes_White_Dragon.DataAccess
 {
-    public class CardDbContext : DbContext
+    public class CardDbContext : DbContext, ICardDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder
         optionsBuilder)

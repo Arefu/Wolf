@@ -29,7 +29,7 @@ namespace Blue_Eyes_White_Dragon.UI.Models
 
         public override string ToString()
         {
-            return $"GameImageFilePath:{GameImageFilePath} GameImageMonsterName:{GameImageMonsterName}" +
+            return $"GameImageFilePath:{GameImageFilePath} GameImageMonsterName:{GameImageMonsterName} " +
                    $"ReplacementImageFilePath:{ReplacementImageFilePath} ReplacementImageMonsterName:{ReplacementImageMonsterName}";
         }
     }
