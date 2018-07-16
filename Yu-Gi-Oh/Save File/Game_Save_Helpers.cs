@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using System.Windows.Forms;
+using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using Yu_Gi_Oh.File_Handling.Utility;
 
 namespace Yu_Gi_Oh.Save_File
 {
     public partial class Game_Save
     {
+        /// <summary>
+        ///     Get The Save File Path On Disk.
+        /// </summary>
+        /// <returns>The Location Of The Save File.</returns>
+        public static string SaveFileLocation = "";
+
         /// <summary>
         ///     Set the users duel points, be sure to call Save after to keep changes!
         /// </summary>
@@ -37,7 +43,8 @@ namespace Yu_Gi_Oh.Save_File
         /// <seealso cref="Save()" />
         public void UnlockAllRecipes()
         {
-            for (var Counter = 0; Counter < Misc.UnlockedRecipes.Length; Counter++) Misc.UnlockedRecipes[Counter] = true;
+            for (var Counter = 0; Counter < Misc.UnlockedRecipes.Length; Counter++)
+                Misc.UnlockedRecipes[Counter] = true;
         }
 
         /// <summary>
@@ -46,7 +53,8 @@ namespace Yu_Gi_Oh.Save_File
         /// <seealso cref="Save()" />
         public void UnlockAllAvatars()
         {
-            for (var Counter = 0; Counter < Misc.UnlockedAvatars.Length; Counter++) Misc.UnlockedAvatars[Counter] = true;
+            for (var Counter = 0; Counter < Misc.UnlockedAvatars.Length; Counter++)
+                Misc.UnlockedAvatars[Counter] = true;
         }
 
         /// <summary>
@@ -155,12 +163,10 @@ namespace Yu_Gi_Oh.Save_File
 
         private static uint GetSignature(IList<byte> Buffer)
         {
-            for (var Counter = 0; Counter < 4; Counter++)
-            {
-                Buffer[12 + Counter] = 0;
-            }
+            for (var Counter = 0; Counter < 4; Counter++) Buffer[12 + Counter] = 0;
 
-            return (uint)Buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (Current, File) => ((uint)Current >> 8) ^ XorTable[(byte)Current ^ File]);
+            return (uint) Buffer.Aggregate<byte, ulong>(0xFFFFFFFF,
+                (Current, File) => ((uint) Current >> 8) ^ XorTable[(byte) Current ^ File]);
         }
 
         /// <summary>
@@ -186,11 +192,6 @@ namespace Yu_Gi_Oh.Save_File
             File.WriteAllBytes(Path, Buffer);
         }
 
-        /// <summary>
-        ///     Get The Save File Path On Disk.
-        /// </summary>
-        /// <returns>The Location Of The Save File.</returns>
-        public static string SaveFileLocation = "";
         public static string GetSaveFilePath()
         {
             var InstallDir = LOTD_Archive.GetInstallDirectory();

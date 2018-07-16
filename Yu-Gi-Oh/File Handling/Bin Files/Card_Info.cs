@@ -193,7 +193,9 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         /// <summary>
         ///     Does the card belong in the side deck.
         /// </summary>
-        public bool IsExtraDeckCard => CardTypeFlags.HasFlag(CardTypeFlags.Xyz) || CardTypeFlags.HasFlag(CardTypeFlags.Fusion) || CardTypeFlags.HasFlag(CardTypeFlags.Synchro);
+        public bool IsExtraDeckCard => CardTypeFlags.HasFlag(CardTypeFlags.Xyz) ||
+                                       CardTypeFlags.HasFlag(CardTypeFlags.Fusion) ||
+                                       CardTypeFlags.HasFlag(CardTypeFlags.Synchro);
 
         /// <summary>
         ///     Is the card a spell.
@@ -226,13 +228,17 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                 var cardFlags = CardTypeFlags;
 
                 if (cardFlags.HasFlag(CardTypeFlags.Synchro))
-                    return cardFlags.HasFlag(CardTypeFlags.Pendulum) ? CardFrameType.PendulumSynchro : CardFrameType.Synchro;
+                    return cardFlags.HasFlag(CardTypeFlags.Pendulum)
+                        ? CardFrameType.PendulumSynchro
+                        : CardFrameType.Synchro;
 
                 if (cardFlags.HasFlag(CardTypeFlags.Xyz))
                     return cardFlags.HasFlag(CardTypeFlags.Pendulum) ? CardFrameType.PendulumXyz : CardFrameType.Xyz;
 
                 if (cardFlags.HasFlag(CardTypeFlags.Pendulum))
-                    return cardFlags.HasFlag(CardTypeFlags.Effect) ? CardFrameType.PendulumEffect : CardFrameType.PendulumNormal;
+                    return cardFlags.HasFlag(CardTypeFlags.Effect)
+                        ? CardFrameType.PendulumEffect
+                        : CardFrameType.PendulumNormal;
 
                 if (cardFlags.HasFlag(CardTypeFlags.Token))
                     return CardFrameType.Token;
@@ -243,7 +249,9 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                 if (cardFlags.HasFlag(CardTypeFlags.Ritual))
                     return CardFrameType.Ritual;
 
-                if (cardFlags.HasFlag(CardTypeFlags.Effect) || cardFlags.HasFlag(CardTypeFlags.SpecialSummon) || cardFlags.HasFlag(CardTypeFlags.Union) || cardFlags.HasFlag(CardTypeFlags.Toon) || cardFlags.HasFlag(CardTypeFlags.Gemini))
+                if (cardFlags.HasFlag(CardTypeFlags.Effect) || cardFlags.HasFlag(CardTypeFlags.SpecialSummon) ||
+                    cardFlags.HasFlag(CardTypeFlags.Union) || cardFlags.HasFlag(CardTypeFlags.Toon) ||
+                    cardFlags.HasFlag(CardTypeFlags.Gemini))
                     return CardFrameType.Effect;
 
                 return CardFrameType.Normal;
@@ -300,7 +308,8 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                 case CardType.TunerEffect: return CardTypeFlags.Tuner | CardTypeFlags.Effect;
                 case CardType.Synchro: return CardTypeFlags.Synchro;
                 case CardType.SynchroEffect: return CardTypeFlags.Synchro | CardTypeFlags.Effect;
-                case CardType.SynchroTunerEffect: return CardTypeFlags.Synchro | CardTypeFlags.Tuner | CardTypeFlags.Effect;
+                case CardType.SynchroTunerEffect:
+                    return CardTypeFlags.Synchro | CardTypeFlags.Tuner | CardTypeFlags.Effect;
                 case CardType.DarkTunerEffect: return CardTypeFlags.DarkTuner | CardTypeFlags.Effect;
                 case CardType.DarkSynchroEffect: return CardTypeFlags.DarkSynchro | CardTypeFlags.Effect;
                 case CardType.Xyz: return CardTypeFlags.Xyz;
@@ -309,14 +318,21 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                 case CardType.Pendulum: return CardTypeFlags.Pendulum;
                 case CardType.PendulumEffect: return CardTypeFlags.Pendulum | CardTypeFlags.Effect;
                 case CardType.EffectSp: return CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
-                case CardType.ToonEffectSp: return CardTypeFlags.Toon | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
-                case CardType.SpiritEffectSp: return CardTypeFlags.Spirit | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
-                case CardType.TunerEffectSp: return CardTypeFlags.Tuner | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
-                case CardType.DarkTunerEffectSp: return CardTypeFlags.DarkTuner | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
+                case CardType.ToonEffectSp:
+                    return CardTypeFlags.Toon | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
+                case CardType.SpiritEffectSp:
+                    return CardTypeFlags.Spirit | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
+                case CardType.TunerEffectSp:
+                    return CardTypeFlags.Tuner | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
+                case CardType.DarkTunerEffectSp:
+                    return CardTypeFlags.DarkTuner | CardTypeFlags.Effect | CardTypeFlags.SpecialSummon;
                 case CardType.FlipTunerEffect: return CardTypeFlags.Flip | CardTypeFlags.Tuner | CardTypeFlags.Effect;
-                case CardType.PendulumTunerEffect: return CardTypeFlags.Pendulum | CardTypeFlags.Tuner | CardTypeFlags.Effect;
-                case CardType.XyzPendulumEffect: return CardTypeFlags.Xyz | CardTypeFlags.Pendulum | CardTypeFlags.Effect;
-                case CardType.PendulumFlipEffect: return CardTypeFlags.Pendulum | CardTypeFlags.Flip | CardTypeFlags.Effect;
+                case CardType.PendulumTunerEffect:
+                    return CardTypeFlags.Pendulum | CardTypeFlags.Tuner | CardTypeFlags.Effect;
+                case CardType.XyzPendulumEffect:
+                    return CardTypeFlags.Xyz | CardTypeFlags.Pendulum | CardTypeFlags.Effect;
+                case CardType.PendulumFlipEffect:
+                    return CardTypeFlags.Pendulum | CardTypeFlags.Flip | CardTypeFlags.Effect;
                 case CardType.AnyNormal: return CardTypeFlags.Any | CardTypeFlags.Normal;
                 case CardType.AnyFusion: return CardTypeFlags.Any | CardTypeFlags.Fusion;
                 case CardType.AnyFlip: return CardTypeFlags.Any | CardTypeFlags.Flip;

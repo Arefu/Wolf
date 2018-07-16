@@ -143,8 +143,10 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
 
             public override string ToString()
             {
-                return "id1: " + Id1 + " id2: " + Id1 + " signatureCard: " + SignatureCardId + " deckOwner: " + DeckOwnerId + " unk1: " + Unk1 +
-                       " deckFileName: '" + DeckFileName + "' deckName: '" + DeckName + "' unk4: '" + DeckDescription + "' unkStr1: '" + UnkStr1 + "'";
+                return "id1: " + Id1 + " id2: " + Id1 + " signatureCard: " + SignatureCardId + " deckOwner: " +
+                       DeckOwnerId + " unk1: " + Unk1 +
+                       " deckFileName: '" + DeckFileName + "' deckName: '" + DeckName + "' unk4: '" + DeckDescription +
+                       "' unkStr1: '" + UnkStr1 + "'";
             }
 
             public Char_Data.Item GetDeckOwner(Char_Data charData)

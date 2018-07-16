@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using Yu_Gi_Oh.File_Handling.Main_Files;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
-using Yu_Gi_Oh.File_Handling.Utility;
 using Yu_Gi_Oh.Save_File;
 
 namespace Elroy
@@ -104,7 +103,8 @@ namespace Elroy
             save.Load();
             save.SetAllCampaignDuels(CampaignDuelState.Complete);
             save.Save();
-            MessageBox.Show("Done Unlocking All DLC!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Done Unlocking All DLC!\nYou Will Need To Play Through The Story To Unlock The Duels.",
+                "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void unlockOtherToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,7 +119,9 @@ namespace Elroy
             save.UnlockAllRecipes();
             save.SetAllCampaignDuels(CampaignDuelState.Complete);
             save.Save();
-            MessageBox.Show("Done Unlocking All Content!\nYou Will Need To Play Through The Story To Unlock The Duels.", "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);}
+            MessageBox.Show("Done Unlocking All Content!\nYou Will Need To Play Through The Story To Unlock The Duels.",
+                "All Content Unlocked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
 
         private void unlockCardsToolStripMenuItem_Click(object sender, EventArgs e)

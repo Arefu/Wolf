@@ -40,12 +40,18 @@ namespace Launch_Ldr
 
                 if (!RequireMeta)
                 {
-                    if (!File.Exists(Plugin.ToLower().Replace(".dll", string.Empty) + "_info.json")) Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.", Utilities.Event.Warning);
+                    if (!File.Exists(Plugin.ToLower().Replace(".dll", string.Empty) + "_info.json"))
+                        Utilities.Log(
+                            $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Loading Anyway.",
+                            Utilities.Event.Warning);
                     Plugins.Add(new FileInfo(Plugin).FullName);
                 }
                 else
                 {
-                    if (!File.Exists(Plugin.ToLower().Replace(".dll", string.Empty) + "_info.json")) Utilities.Log($"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.", Utilities.Event.Error);
+                    if (!File.Exists(Plugin.ToLower().Replace(".dll", string.Empty) + "_info.json"))
+                        Utilities.Log(
+                            $"No {Plugin.ToLower().Replace(".dll", string.Empty)}_info.json Found, Agro Was Specified. I Won't Load This.",
+                            Utilities.Event.Error);
                 }
             }
 

@@ -97,7 +97,8 @@ namespace Yu_Gi_Oh.Save_File
 
             Stats.Clear();
 
-            if (BattlePacks == null || BattlePacks.Length != Constants.NumBattlePacks) BattlePacks = new Battle_Pack_Save[Constants.NumBattlePacks];
+            if (BattlePacks == null || BattlePacks.Length != Constants.NumBattlePacks)
+                BattlePacks = new Battle_Pack_Save[Constants.NumBattlePacks];
 
             for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++)
             {
@@ -164,7 +165,8 @@ namespace Yu_Gi_Oh.Save_File
 
                     Stats.Load(Reader);
 
-                    for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++) BattlePacks[Counter].Load(Reader);
+                    for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++)
+                        BattlePacks[Counter].Load(Reader);
 
                     Misc.Load(Reader);
 
@@ -191,10 +193,7 @@ namespace Yu_Gi_Oh.Save_File
         public void Save(string Path)
         {
             var Buffer = ToArray();
-            if (Buffer != null)
-            {
-                File.WriteAllBytes(Path, Buffer);
-            }
+            if (Buffer != null) File.WriteAllBytes(Path, Buffer);
         }
 
         public byte[] ToArray()
@@ -205,23 +204,25 @@ namespace Yu_Gi_Oh.Save_File
                 Writer.Write(HeaderMagic1);
                 Writer.Write(HeaderMagic2);
                 Writer.Write(FileLength);
-                Writer.Write((uint)0);
+                Writer.Write((uint) 0);
                 Writer.Write(PlayCount);
 
-                Writer.Write((uint)5);
-                Writer.Write((uint)5);
-                Writer.Write((uint)0);
-                Writer.Write((uint)0x3F800000);
+                Writer.Write((uint) 5);
+                Writer.Write((uint) 5);
+                Writer.Write((uint) 0);
+                Writer.Write((uint) 0x3F800000);
 
                 (Stats ?? new Stat_Save()).Save(Writer);
 
-                for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++) (BattlePacks[Counter] ?? new Battle_Pack_Save()).Save(Writer);
+                for (var Counter = 0; Counter < Constants.NumBattlePacks; Counter++)
+                    (BattlePacks[Counter] ?? new Battle_Pack_Save()).Save(Writer);
 
                 (Misc ?? new Misc_Save()).Save(Writer);
 
                 (Campaign ?? new Campaign_Save()).Save(Writer);
 
-                for (var Counter = 0; Counter < Constants.NumUserDecks; Counter++) (Decks[Counter] ?? new Deck_Save()).Save(Writer);
+                for (var Counter = 0; Counter < Constants.NumUserDecks; Counter++)
+                    (Decks[Counter] ?? new Deck_Save()).Save(Writer);
 
                 (CardList ?? new Card_List_Save()).Save(Writer);
 

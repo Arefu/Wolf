@@ -29,11 +29,12 @@ LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS* ExceptionInfo)
 	{
 		stringstream ErrorMessage;
 		ErrorMessage << "Something Happened Creating Log File! The Error Is At:\n" << ExceptionInfo
-		                                                                              ->ExceptionRecord->ExceptionAddress <<
+		                                                                              ->ExceptionRecord->
+		                                                                              ExceptionAddress <<
 			"\nThe Message Is: " << ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode) <<
 			"\nPlease Take A Screen Shot And Report Me In The Discord!";
 		string PrintableError = ErrorMessage.str();
-		MessageBox(NULL, PrintableError.c_str(), "Uh-Oh!", 0);
+		MessageBox(nullptr, PrintableError.c_str(), "Uh-Oh!", 0);
 	}
 	ErrorLogFile << "Yu-Gi-Oh! Crashed. Here Is Some Information.\n";
 	ErrorLogFile << "Exception Address: ";

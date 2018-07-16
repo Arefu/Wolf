@@ -10,7 +10,14 @@ namespace Yu_Gi_Oh.Save_File
 
         public Campaign_Save()
         {
-            DuelsBySeries = new Dictionary<Duel_Series, Duel[]> {{Duel_Series.YuGiOh, new Duel[DuelsPerSeries]}, {Duel_Series.YuGiOhGX, new Duel[DuelsPerSeries]}, {Duel_Series.YuGiOh5D, new Duel[DuelsPerSeries]}, {Duel_Series.YuGiOhZEXAL, new Duel[DuelsPerSeries]}, {Duel_Series.YuGiOhARCV, new Duel[DuelsPerSeries]}};
+            DuelsBySeries = new Dictionary<Duel_Series, Duel[]>
+            {
+                {Duel_Series.YuGiOh, new Duel[DuelsPerSeries]},
+                {Duel_Series.YuGiOhGX, new Duel[DuelsPerSeries]},
+                {Duel_Series.YuGiOh5D, new Duel[DuelsPerSeries]},
+                {Duel_Series.YuGiOhZEXAL, new Duel[DuelsPerSeries]},
+                {Duel_Series.YuGiOhARCV, new Duel[DuelsPerSeries]}
+            };
 
             foreach (var seriesDuels in DuelsBySeries)
                 for (var i = 0; i < DuelsPerSeries; i++)

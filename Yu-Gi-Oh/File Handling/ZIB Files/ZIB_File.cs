@@ -39,7 +39,8 @@ namespace Yu_Gi_Oh.File_Handling.ZIB_Files
 
         public long CalculateLength()
         {
-            if (!string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk)) return new FileInfo(FilePathOnDisk).Length;
+            if (!string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk))
+                return new FileInfo(FilePathOnDisk).Length;
             return Length;
         }
 
@@ -50,7 +51,8 @@ namespace Yu_Gi_Oh.File_Handling.ZIB_Files
 
         public byte[] Load(BinaryReader reader)
         {
-            if (!string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk)) return File.ReadAllBytes(FilePathOnDisk);
+            if (!string.IsNullOrEmpty(FilePathOnDisk) && File.Exists(FilePathOnDisk))
+                return File.ReadAllBytes(FilePathOnDisk);
             if (Offset == 0 && Length == 0) return null;
 
             if (Owner.File != null && Owner.File.IsArchiveFile)

@@ -31,7 +31,9 @@ namespace Yu_Gi_Oh.File_Handling
 
         public byte[] LoadBuffer(string path)
         {
-            return System.IO.File.Exists(path) ? System.IO.File.ReadAllBytes(path) : throw new FileNotFoundException("Can't Load/Find File! CHECK CODE PLEASE!");
+            return System.IO.File.Exists(path)
+                ? System.IO.File.ReadAllBytes(path)
+                : throw new FileNotFoundException("Can't Load/Find File! CHECK CODE PLEASE!");
         }
 
         public byte[] LoadBuffer(BinaryReader reader)
@@ -57,7 +59,8 @@ namespace Yu_Gi_Oh.File_Handling
                 }
 
                 if (ZibFile.Owner?.File == null || ZibFile.Offset <= 0 || ZibFile.Length <= 0) return false;
-                ZibFile.Owner.File.Archive.Reader.BaseStream.Position = ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
+                ZibFile.Owner.File.Archive.Reader.BaseStream.Position =
+                    ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
                 Load(ZibFile.Owner.File.Archive.Reader, ZibFile.Length);
                 return true;
             }
@@ -102,7 +105,8 @@ namespace Yu_Gi_Oh.File_Handling
 
                 if (ZibFile.Owner?.File == null || ZibFile.Offset <= 0 || ZibFile.Length <= 0) return false;
 
-                ZibFile.Owner.File.Archive.Reader.BaseStream.Position = ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
+                ZibFile.Owner.File.Archive.Reader.BaseStream.Position =
+                    ZibFile.Owner.File.ArchiveOffset + ZibFile.Offset;
                 Load(ZibFile.Owner.File.Archive.Reader, ZibFile.Length, language);
                 return true;
             }
@@ -199,7 +203,9 @@ namespace Yu_Gi_Oh.File_Handling
         private Localized_Text.Language GetLanguage()
         {
             if (File != null) return LOTD_File.GetLanguageFromFileName(File.Name);
-            return ZibFile != null ? LOTD_File.GetLanguageFromFileName(ZibFile.FileName) : Localized_Text.Language.Unknown;
+            return ZibFile != null
+                ? LOTD_File.GetLanguageFromFileName(ZibFile.FileName)
+                : Localized_Text.Language.Unknown;
         }
 
         protected int GetStringSize(string str, Encoding encoding)

@@ -185,9 +185,12 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             var SubDirectory = "";
             while (dirInfoPath != null)
             {
-                if (dirInfoPath.FullName.Equals(DirInfoBasePath.FullName, StringComparison.OrdinalIgnoreCase)) return true;
+                if (dirInfoPath.FullName.Equals(DirInfoBasePath.FullName, StringComparison.OrdinalIgnoreCase))
+                    return true;
 
-                SubDirectory = string.IsNullOrEmpty(SubDirectory) ? dirInfoPath.Name : System.IO.Path.Combine(dirInfoPath.Name, SubDirectory);
+                SubDirectory = string.IsNullOrEmpty(SubDirectory)
+                    ? dirInfoPath.Name
+                    : System.IO.Path.Combine(dirInfoPath.Name, SubDirectory);
                 dirInfoPath = dirInfoPath.Parent;
             }
 
@@ -200,7 +203,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             if (!Directory.Exists(directory)) return files.ToArray();
 
             var searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            files.AddRange(Directory.GetFiles(directory, "*.*", searchOption).Select(filePath => AddFileOnDisk(filePath, rootDir)).Where(file => file != null));
+            files.AddRange(Directory.GetFiles(directory, "*.*", searchOption)
+                .Select(filePath => AddFileOnDisk(filePath, rootDir)).Where(file => file != null));
 
             return files.ToArray();
         }
@@ -249,7 +253,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             rootDir = Path.GetFullPath(rootDir);
 
             var dir = isFile ? Path.GetDirectoryName(path) : path;
-            if (!IsSameOrSubDirectory(rootDir, dir)) throw new Exception("Path Needs To Be A Sub-Directory Of RootDir! PLEASE CHECK CODE!");
+            if (!IsSameOrSubDirectory(rootDir, dir))
+                throw new Exception("Path Needs To Be A Sub-Directory Of RootDir! PLEASE CHECK CODE!");
 
             var pathUri = new Uri(path);
             var referenceUri = new Uri(rootDir);

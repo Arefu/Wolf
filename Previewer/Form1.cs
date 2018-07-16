@@ -50,7 +50,8 @@ namespace Previewer
 
             if (Directory.Exists("cardcropHD400.jpg.zib Unpacked"))
             {
-                var ImageFile = Path.Combine(Path.Combine(Application.StartupPath, "cardcropHD400.jpg.zib Unpacked"), $"{Card.Cards[GlobalIndex].CardId.ToString()}.jpg");
+                var ImageFile = Path.Combine(Path.Combine(Application.StartupPath, "cardcropHD400.jpg.zib Unpacked"),
+                    $"{Card.Cards[GlobalIndex].CardId.ToString()}.jpg");
                 if (File.Exists(ImageFile))
                 {
                     pictureBox1.Image = Image.FromFile(ImageFile);
@@ -58,7 +59,8 @@ namespace Previewer
                 }
                 else if (Directory.Exists("cardcropHD401.jpg.zib Unpacked"))
                 {
-                    ImageFile = Path.Combine(Path.Combine(Application.StartupPath, "cardcropHD401.jpg.zib Unpacked"), $"{Card.Cards[GlobalIndex].CardId.ToString()}.jpg");
+                    ImageFile = Path.Combine(Path.Combine(Application.StartupPath, "cardcropHD401.jpg.zib Unpacked"),
+                        $"{Card.Cards[GlobalIndex].CardId.ToString()}.jpg");
 
                     if (File.Exists(ImageFile))
                     {
@@ -120,7 +122,8 @@ namespace Previewer
             }
             else
             {
-                MessageBox.Show(@"You're At The Last Card", @"No More Cards!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"You're At The Last Card", @"No More Cards!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
 
@@ -156,7 +159,8 @@ namespace Previewer
             }
             else
             {
-                MessageBox.Show(@"You're At The Fist Card", @"No More Cards!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(@"You're At The Fist Card", @"No More Cards!", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
         }
 

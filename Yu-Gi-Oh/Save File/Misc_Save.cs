@@ -59,15 +59,9 @@ namespace Yu_Gi_Oh.Save_File
         {
             DuelPoints = 1000;
 
-            for (var Count = 0; Count < Challenges.Length; Count++)
-            {
-                Challenges[Count] = DeulistChallengeState.Locked;
-            }
+            for (var Count = 0; Count < Challenges.Length; Count++) Challenges[Count] = DeulistChallengeState.Locked;
 
-            for (var Count = 0; Count < UnlockedRecipes.Length; Count++)
-            {
-                UnlockedRecipes[Count] = false;
-            }
+            for (var Count = 0; Count < UnlockedRecipes.Length; Count++) UnlockedRecipes[Count] = false;
 
             CompleteTutorials = CompleteTutorials.None;
             UnlockedContent = UnlockedContent.None;
@@ -94,9 +88,7 @@ namespace Yu_Gi_Oh.Save_File
             }
 
             for (var Count = 0; Count < Constants.NumDeckDataSlots; Count++)
-            {
                 Challenges[Count] = (DeulistChallengeState) Reader.ReadInt32();
-            }
 
             var UnlockedRecipesBuffer = Reader.ReadBytes(60);
             for (var Counter = 0; Counter < Constants.NumDeckDataSlots; Counter++)
@@ -135,9 +127,7 @@ namespace Yu_Gi_Oh.Save_File
             Writer.Write(UnlockedAvatarsBuffer);
 
             for (var Counter = 0; Counter < Constants.NumDeckDataSlots; Counter++)
-            {
                 Writer.Write((int) Challenges[Counter]);
-            }
 
             var UnlockedRecipesBuffer = new byte[60];
             for (var Counter = 0; Counter < UnlockedRecipes.Length; Counter++)

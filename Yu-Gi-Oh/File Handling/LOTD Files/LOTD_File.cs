@@ -89,7 +89,9 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             if (GetLanguageFromFileName(Name) == language) return this;
 
             var fileName = GetFileNameWithLanguage(Name, language);
-            return !string.IsNullOrEmpty(fileName) ? Archive.Root.FindFile(Path.Combine(Directory.FullName, fileName)) : null;
+            return !string.IsNullOrEmpty(fileName)
+                ? Archive.Root.FindFile(Path.Combine(Directory.FullName, fileName))
+                : null;
         }
 
         public File_Data GetData()

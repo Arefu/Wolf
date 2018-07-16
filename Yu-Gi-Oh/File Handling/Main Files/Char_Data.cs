@@ -135,7 +135,8 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
 
             public override string ToString()
             {
-                return "id: " + Id + " series: " + Series + " challengeDeckId: " + ChallengeDeckId + " unk3: " + Unk3 + " dlcId: " + DlcId + " unk5: " + Unk5 +
+                return "id: " + Id + " series: " + Series + " challengeDeckId: " + ChallengeDeckId + " unk3: " + Unk3 +
+                       " dlcId: " + DlcId + " unk5: " + Unk5 +
                        " type: " + Type + " codeName: '" + CodeName + "' name: '" + Name + "' bio: '" + Bio + "'";
             }
         }

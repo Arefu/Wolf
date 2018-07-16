@@ -118,9 +118,11 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
             LoadCardNameTypes(Cards, CardNameTypes);
         }
 
-        private void LoadCardNameTypes(Dictionary<short, Card_Info> cards, IDictionary<CardNameType, HashSet<short>> cardNameTypes)
+        private void LoadCardNameTypes(Dictionary<short, Card_Info> cards,
+            IDictionary<CardNameType, HashSet<short>> cardNameTypes)
         {
-            using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Named.bin").LoadBuffer())))
+            using (var reader =
+                new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Named.bin").LoadBuffer())))
             {
                 var numArchetypes = reader.ReadUInt16();
                 var numCards = reader.ReadUInt16();
@@ -152,15 +154,18 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
 
         private void LoadCardGenre(IEnumerable<Card_Info> cards)
         {
-            using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Genre.bin").LoadBuffer())))
+            using (var reader =
+                new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Genre.bin").LoadBuffer())))
             {
                 foreach (var card in cards) card.Genre = (CardGenre) reader.ReadUInt64();
             }
         }
 
-        private void LoadCardProps(IEnumerable<Card_Info> cards, IDictionary<short, Card_Info> cardsById, IReadOnlyDictionary<short, ZIB_File> cardImagesById)
+        private void LoadCardProps(IEnumerable<Card_Info> cards, IDictionary<short, Card_Info> cardsById,
+            IReadOnlyDictionary<short, ZIB_File> cardImagesById)
         {
-            using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Prop.bin").LoadBuffer())))
+            using (var reader =
+                new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/CARD_Prop.bin").LoadBuffer())))
             {
                 foreach (var card in cards)
                 {
@@ -174,8 +179,10 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
         {
             var First = (A1 << 18) | (((A1 & 0x7FC000) | (A1 >> 18)) >> 5);
 
-            var Second = (((A2 & 1u) | (A2 << 21)) & 0x80000001) | (((A2 & 0x7800) | (((A2 & 0x780) | ((A2 & 0x7E) << 10)) << 8)) << 6) |
-                         (((A2 & 0x38000) | (((A2 & 0x7C0000) | (((A2 & 0x7800000) | ((A2 >> 8) & 0x780000)) >> 9)) >> 8)) >> 1);
+            var Second = (((A2 & 1u) | (A2 << 21)) & 0x80000001) |
+                         (((A2 & 0x7800) | (((A2 & 0x780) | ((A2 & 0x7E) << 10)) << 8)) << 6) |
+                         (((A2 & 0x38000) |
+                           (((A2 & 0x7C0000) | (((A2 & 0x7800000) | ((A2 >> 8) & 0x780000)) >> 9)) >> 8)) >> 1);
 
             var CardId = (short) ((First >> 18) & 0x3FFF);
             var Atk = (First >> 9) & 0x1FF;
@@ -203,11 +210,15 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
 
             Debug.Assert(CardId < Constants.MaxCardId + 1);
 
-            if (!Enum.IsDefined(typeof(MonsterType), MonsterType) || !Enum.IsDefined(typeof(SpellType), SpellType) || !Enum.IsDefined(typeof(CardType), CardType) || !Enum.IsDefined(typeof(CardAttribute), Attribute))
+            if (!Enum.IsDefined(typeof(MonsterType), MonsterType) || !Enum.IsDefined(typeof(SpellType), SpellType) ||
+                !Enum.IsDefined(typeof(CardType), CardType) || !Enum.IsDefined(typeof(CardAttribute), Attribute))
                 Debug.Assert(false);
         }
 
-        private static void LoadCardNamesAndDescriptions(Localized_Text.Language language, IList<Card_Info> cards, IReadOnlyDictionary<Localized_Text.Language, byte[]> indxByLanguage, IReadOnlyDictionary<Localized_Text.Language, byte[]> namesByLanguage, IReadOnlyDictionary<Localized_Text.Language, byte[]> descriptionsByLanguage)
+        private static void LoadCardNamesAndDescriptions(Localized_Text.Language language, IList<Card_Info> cards,
+            IReadOnlyDictionary<Localized_Text.Language, byte[]> indxByLanguage,
+            IReadOnlyDictionary<Localized_Text.Language, byte[]> namesByLanguage,
+            IReadOnlyDictionary<Localized_Text.Language, byte[]> descriptionsByLanguage)
         {
             if (language == Localized_Text.Language.Unknown) return;
 
@@ -257,7 +268,9 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
             return result;
         }
 
-        private void LoadRelatedCards(IReadOnlyList<Card_Info> cards, IReadOnlyDictionary<short, Card_Info> cardsByCardId, IList<Card_Tag_Info> tags, IReadOnlyDictionary<Localized_Text.Language, byte[]> taginfos)
+        private void LoadRelatedCards(IReadOnlyList<Card_Info> cards,
+            IReadOnlyDictionary<short, Card_Info> cardsByCardId, IList<Card_Tag_Info> tags,
+            IReadOnlyDictionary<Localized_Text.Language, byte[]> taginfos)
         {
             foreach (Localized_Text.Language language in Enum.GetValues(typeof(Localized_Text.Language)))
             {
@@ -304,7 +317,8 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                 }
             }
 
-            using (var reader = new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/tagdata.bin").LoadBuffer())))
+            using (var reader =
+                new BinaryReader(new MemoryStream(Manager.Archive.Root.FindFile("bin/tagdata.bin").LoadBuffer())))
             {
                 var dataStart = reader.BaseStream.Position + cards.Count * 8;
 
@@ -321,7 +335,9 @@ namespace Yu_Gi_Oh.File_Handling.Bin_Files
                     {
                         var card = cards[i];
                         card.RelatedCards.Clear();
-                        for (var j = 0; j < tagCount; j++) card.RelatedCards.Add(new RelatedCardInfo(cardsByCardId[reader.ReadInt16()], Tags[reader.ReadInt16()]));
+                        for (var j = 0; j < tagCount; j++)
+                            card.RelatedCards.Add(new RelatedCardInfo(cardsByCardId[reader.ReadInt16()],
+                                Tags[reader.ReadInt16()]));
                     }
 
                     reader.BaseStream.Position = tempOffset;
