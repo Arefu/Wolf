@@ -9,7 +9,7 @@ using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.UI
 {
-    public partial class CardArtEditor : Form, IArtworkEditor
+    public partial class ArtworkEditor : Form, IArtworkEditor
     {
         ///The designer threw up when I tried to assign the ImageLists declaratively
         ///so we are doing it yolo style.
@@ -17,7 +17,7 @@ namespace Blue_Eyes_White_Dragon.UI
         private readonly ImageList _smallImageList;
         private readonly BlueEyesLogic _blueEyesLogic;
 
-        public CardArtEditor()
+        public ArtworkEditor()
         {
             InitializeComponent();
             _largeImageList = new ImageList();

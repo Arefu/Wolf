@@ -59,7 +59,7 @@ namespace Blue_Eyes_White_Dragon.Business
             return artworkList.ToList();
         }
 
-        public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList)
+        public List<Artwork> UpdateArtworkModelsWithReplacementAsync(List<Artwork> artworkList)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -67,12 +67,12 @@ namespace Blue_Eyes_White_Dragon.Business
             var numberOfArtwork = artworkList.Count;
             long numberProcessed = 0;
             var artworkBag = new ConcurrentBag<Artwork>(artworkList);
-            Parallel.For(0, artworkBag.Count, i => 
+            Parallel.For(0, 1000, i =>
             {
                 var gameArtwork = artworkList[i];
                 using (var db = _cardDbFactory.CreateCardDbContext())
                 {
-                    ProcessArtwork(gameArtwork, db);
+                    ProcessArtworkAsync(gameArtwork, db);
                 }
                 Interlocked.Increment(ref numberProcessed);
                 _logger.LogInformation($"{Interlocked.Read(ref numberProcessed)} of {numberOfArtwork} processed");
@@ -84,18 +84,45 @@ namespace Blue_Eyes_White_Dragon.Business
             return artworkList;
         }
 
-        private void ProcessArtwork(Artwork gameArtwork, ICardDbContext db)
+        public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList)
         {
-            var replacementCard = FindSuitableReplacementCard(gameArtwork, db);
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            var numberOfArtwork = artworkList.Count;
+            long numberProcessed = 0;
+
+            foreach (var artwork in artworkList)
+            {
+                var gameArtwork = artwork;
+                ProcessArtwork(gameArtwork);
+                numberProcessed++;
+                _logger.LogInformation($"{numberProcessed} of {numberOfArtwork} processed");
+            }
+            stopwatch.Stop();
+            _logger.LogInformation($"Processed {artworkList.Count} in {stopwatch.ElapsedMilliseconds}ms");
+
+            return artworkList;
+        }
+
+
+        private void ProcessArtwork(Artwork gameArtwork)
+        {
+            var replacementCard = FindSuitableReplacementCard(gameArtwork);
             gameArtwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
             gameArtwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
         }
+        private void ProcessArtworkAsync(Artwork gameArtwork, ICardDbContext db)
+        {
+            //var replacementCard = FindSuitableReplacementCardAsync(gameArtwork, db);
+            //gameArtwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
+            //gameArtwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
+        }
 
-        private Artwork FindSuitableReplacementCard(Artwork gameCard, ICardDbContext db)
+        private Artwork FindSuitableReplacementCard(Artwork gameCard)
         {
             try
             {
-                var matchingCards = _cardRepo.SearchCardsAsync(db, gameCard.GameImageMonsterName);
+                var matchingCards = _cardRepo.SearchCards(gameCard.GameImageMonsterName);
                 var replacementCard = matchingCards.FirstOrDefault();
                 if (replacementCard == null)
                 {

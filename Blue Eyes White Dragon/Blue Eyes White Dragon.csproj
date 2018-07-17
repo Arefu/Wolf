@@ -157,11 +157,11 @@
     <Compile Include="DataAccess\Interface\ICardRepository.cs" />
     <Compile Include="UI\Interface\IArtworkEditor.cs" />
     <Compile Include="UI\Models\Artwork.cs" />
-    <Compile Include="UI\CardArtEditor.cs">
+    <Compile Include="UI\ArtworkEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\CardArtEditor.Designer.cs">
-      <DependentUpon>CardArtEditor.cs</DependentUpon>
+    <Compile Include="UI\ArtworkEditor.Designer.cs">
+      <DependentUpon>ArtworkEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,8 +169,8 @@
     <Compile Include="DataAccess\Models\Texts.cs" />
     <Compile Include="Utility\Interface\ILogger.cs" />
     <Compile Include="Utility\Logger.cs" />
-    <EmbeddedResource Include="UI\CardArtEditor.resx">
-      <DependentUpon>CardArtEditor.cs</DependentUpon>
+    <EmbeddedResource Include="UI\ArtworkEditor.resx">
+      <DependentUpon>ArtworkEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -17,7 +17,7 @@ namespace Blue_Eyes_White_Dragon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CardArtEditor());
+            Application.Run(new ArtworkEditor());
         }
     }
 }

@@ -11,23 +11,24 @@ using Blue_Eyes_White_Dragon.UI.Models;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
 using Blue_Eyes_White_Dragon.Utility;
 using Blue_Eyes_White_Dragon.Utility.Interface;
+using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
-    public class BlueEyesLogic : IArtworkEditor
+    public class BlueEyesLogic
     {
         /// <summary>
         /// This is a reference to the actual UI. This way we can call UI methods from the logic layer
         /// when we have something new to present to the user
         /// </summary>
-        private readonly CardArtEditor _cardArtEditorUi;
+        private readonly ArtworkEditor _cardArtEditorUi;
         private readonly ArtworkManager _artworkManager;
         private readonly IFileRepository _fileRepo;
         private readonly ICardRepository _cardRepo;
         private readonly IGameFileRepository _gameFileRepo;
         private readonly ILogger _logger;
 
-        public BlueEyesLogic(CardArtEditor cardArtEditorUi)
+        public BlueEyesLogic(ArtworkEditor cardArtEditorUi)
         {
             _logger = new Logger();
             _cardArtEditorUi = cardArtEditorUi;
@@ -102,6 +103,15 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger.LogInformation($"Image: {imagePath} is about to be shown");
             _logger.LogInformation($"SmallImageList count: {smallImageListCount}");
             _logger.LogInformation($"LargeImageList count: {largeImageListCount}");
+        }
+
+        public void LogFilterResults(ObjectListView listView)
+        {
+            _logger.LogInformation("Listing filtered results:");
+            for (int i = 0; i < listView.Items.Count; i++)
+            {
+                _logger.LogInformation(listView.Items[i].ToString());
+            }
         }
     }
 }

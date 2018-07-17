@@ -11,6 +11,8 @@ namespace Blue_Eyes_White_Dragon.Business
     {
         public static string GameImagesLocation => ConfigurationManager.AppSettings["GameImagesLocation"];
         public static string ReplacementImagesLocation => ConfigurationManager.AppSettings["ReplacementImagesLocation"];
+        public static readonly string StringError = "Internal Error";
+
         public enum SupportedImageTypes
         {
             jpg,
