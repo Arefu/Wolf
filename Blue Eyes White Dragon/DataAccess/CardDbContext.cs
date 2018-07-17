@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess
         {
             var cardDbLocation = ConfigurationManager.AppSettings["CardDbLocation"];
 
-            string connectionStringBuilder = new SqliteConnectionStringBuilder()
+            var connectionStringBuilder = new SqliteConnectionStringBuilder()
             {
                 DataSource = cardDbLocation
             }.ToString();

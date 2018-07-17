@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
@@ -11,6 +7,12 @@ namespace Blue_Eyes_White_Dragon.Business
     {
         public static string GameImagesLocation => ConfigurationManager.AppSettings["GameImagesLocation"];
         public static string ReplacementImagesLocation => ConfigurationManager.AppSettings["ReplacementImagesLocation"];
+        public static string Jpg => Enum.GetName(typeof(Constants.SupportedImageTypes), Constants.SupportedImageTypes.jpg);
+        public static string Png => Enum.GetName(typeof(Constants.SupportedImageTypes), Constants.SupportedImageTypes.png);
+
+        public static int ConsoleLimit = 20000;
+        public static string ArtworkMatchFileName = "ArtworkMatch.json";
+
         public static readonly string StringError = "Internal Error";
 
         public enum SupportedImageTypes

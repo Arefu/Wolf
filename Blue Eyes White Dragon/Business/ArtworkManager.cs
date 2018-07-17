@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Factory.Interface;
+using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
@@ -16,7 +17,7 @@ using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
-    public class ArtworkManager
+    public class ArtworkManager : IArtworkManager
     {
         private readonly IFileRepository _fileRepo;
         private readonly ICardRepository _cardRepo;
@@ -45,43 +46,24 @@ namespace Blue_Eyes_White_Dragon.Business
             Parallel.For(0, gameCards.Count, i =>
             {
                 var gameCard = gameCards[i];
+                var gameImageFile = _fileRepo.FindImageFile(gameCard, gameImagesLocation);
+
+                _fileRepo.GetJpegDimension(gameImageFile.FullName, out var width, out var height);
+
                 artworkList.Add(new Artwork()
                 {
-                    GameImageFile = _fileRepo.FindImageFile(gameCard, gameImagesLocation),
+                    GameImageFile = gameImageFile,
                     GameImageMonsterName = gameCard.Name,
                     GameImagesDir = gameImagesLocation,
-                    ReplacementImagesDir = replacementImagesLocation
+                    ReplacementImagesDir = replacementImagesLocation,
+                    GameImageHeight = height,
+                    GameImageWidth = width
                 });
             });
             stopwatch.Stop();
             _logger.LogInformation($"Created {gameCards.Count} ArtworkModels in {stopwatch.ElapsedMilliseconds}ms");
 
             return artworkList.ToList();
-        }
-
-        public List<Artwork> UpdateArtworkModelsWithReplacementAsync(List<Artwork> artworkList)
-        {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            var numberOfArtwork = artworkList.Count;
-            long numberProcessed = 0;
-            var artworkBag = new ConcurrentBag<Artwork>(artworkList);
-            Parallel.For(0, 1000, i =>
-            {
-                var gameArtwork = artworkList[i];
-                using (var db = _cardDbFactory.CreateCardDbContext())
-                {
-                    ProcessArtworkAsync(gameArtwork, db);
-                }
-                Interlocked.Increment(ref numberProcessed);
-                _logger.LogInformation($"{Interlocked.Read(ref numberProcessed)} of {numberOfArtwork} processed");
-            });
-
-            stopwatch.Stop();
-            _logger.LogInformation($"Processed {artworkList.Count} in {stopwatch.ElapsedMilliseconds}ms");
-
-            return artworkList;
         }
 
         public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList)
@@ -96,7 +78,7 @@ namespace Blue_Eyes_White_Dragon.Business
                 var gameArtwork = artwork;
                 ProcessArtwork(gameArtwork);
                 numberProcessed++;
-                _logger.LogInformation($"{numberProcessed} of {numberOfArtwork} processed");
+                _logger.LogInformation($"{numberProcessed} of {numberOfArtwork} processed - {artwork.GameImageMonsterName}");
             }
             stopwatch.Stop();
             _logger.LogInformation($"Processed {artworkList.Count} in {stopwatch.ElapsedMilliseconds}ms");
@@ -104,18 +86,11 @@ namespace Blue_Eyes_White_Dragon.Business
             return artworkList;
         }
 
-
         private void ProcessArtwork(Artwork gameArtwork)
         {
             var replacementCard = FindSuitableReplacementCard(gameArtwork);
             gameArtwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
             gameArtwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
-        }
-        private void ProcessArtworkAsync(Artwork gameArtwork, ICardDbContext db)
-        {
-            //var replacementCard = FindSuitableReplacementCardAsync(gameArtwork, db);
-            //gameArtwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
-            //gameArtwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
         }
 
         private Artwork FindSuitableReplacementCard(Artwork gameCard)

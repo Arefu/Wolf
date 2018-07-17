@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
+using Blue_Eyes_White_Dragon.UI.Models;
 using Blue_Eyes_White_Dragon.Utility.Interface;
+using Newtonsoft.Json;
 
 namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 {
@@ -16,10 +15,12 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
     {
         private readonly ILogger _logger;
         public FileInfo ErrorImage { get; set; }
+        private readonly string _directoryName;
 
-        public FileRepository(ILogger logger)
+        public FileRepository(ILogger logger, string directoryName)
         {
             _logger = logger;
+            _directoryName = directoryName;
             //I'd rather do this on boot than the first time the image is needed, eg. with a lambda
             ErrorImage = LoadErrorImage();
         }
@@ -106,6 +107,102 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 Properties.Resources.error.Save(errorImagePath);
             }
             return errorImage;
+        }
+
+        public bool GetJpegDimension(string fileName, out int width, out int height)
+        {
+            width = height = 0;
+            bool found = false;
+            bool eof = false;
+
+            FileStream stream = new FileStream(fileName,FileMode.Open,FileAccess.Read);
+            BinaryReader reader = new BinaryReader(stream);
+
+            while (!found || eof)
+            {
+                // read 0xFF and the type
+                reader.ReadByte();
+                byte type = reader.ReadByte();
+
+                // get length
+                int len = 0;
+                switch (type)
+                {
+                    // start and end of the image
+                    case 0xD8:
+                    case 0xD9:
+                        len = 0;
+                        break;
+
+                    // restart interval
+                    case 0xDD:
+                        len = 2;
+                        break;
+
+                    // the next two bytes is the length
+                    default:
+                        int lenHi = reader.ReadByte();
+                        int lenLo = reader.ReadByte();
+                        len = (lenHi << 8 | lenLo) - 2;
+                        break;
+                }
+
+                // EOF?
+                if (type == 0xD9)
+                    eof = true;
+
+                // process the data
+                if (len > 0)
+                {
+                    // read the data
+                    byte[] data = reader.ReadBytes(len);
+
+                    // this is what we are looking for
+                    if (type == 0xC0)
+                    {
+                        height = data[1] << 8 | data[2];
+                        width = data[3] << 8 | data[4];
+                        found = true;
+                    }
+                }
+            }
+            reader.Close();
+            stream.Close();
+            return found;
+        }
+
+        public bool GetPngDimension(string fileName, out int width, out int height)
+        {
+            var buff = new byte[32];
+            using (var d = File.OpenRead(fileName))
+            {
+                d.Read(buff, 0, 32);
+            }
+            const int wOff = 16;
+            const int hOff = 20;
+            width = BitConverter.ToInt32(new[] { buff[wOff + 3], buff[wOff + 2], buff[wOff + 1], buff[wOff + 0], }, 0);
+            height = BitConverter.ToInt32(new[] { buff[hOff + 3], buff[hOff + 2], buff[hOff + 1], buff[hOff + 0], }, 0);
+            return true;
+        }
+
+        public string SaveArtworkMatchToFile(List<Artwork> artworkList)
+        {
+            var fileName = Constants.ArtworkMatchFileName;
+            var path = Path.Combine(_directoryName, fileName);
+
+            string jsonArtwork = JsonConvert.SerializeObject(artworkList, Formatting.Indented);
+            File.WriteAllText(path, jsonArtwork);
+            return path;
+        }
+
+        public List<Artwork> LoadArtworkMatchFromFile(string path)
+        {
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string json = reader.ReadToEnd();
+                List<Artwork> files = (List<Artwork>) JsonConvert.DeserializeObject<List<Artwork>>(json);
+                return files;
+            }
         }
     }
 }

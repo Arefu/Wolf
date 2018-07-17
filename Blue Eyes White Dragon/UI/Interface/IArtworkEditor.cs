@@ -13,8 +13,9 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         void AddObjectsToObjectListView(List<Artwork> artworkList);
         bool LargeImageListContains(string gameImagePath);
         void SmallImageListAdd(string imagePath, Image smallImage);
-        void LargeImagelistAdd(string imagePath, Image largeImage);
-        int SmallImageListGetCount();
-        int LargeImageListGetCount();
+        int GetConsoleLineNumber();
+        void AppendConsoleText(string message);
+        void RemoveOldestLine();
+        void ShowMessageBox(string empty);
     }
 }
