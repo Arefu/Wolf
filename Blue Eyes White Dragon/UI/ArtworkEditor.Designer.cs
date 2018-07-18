@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.imageRenderer1 = new BrightIdeasSoftware.ImageRenderer();
             this.imageRenderer2 = new BrightIdeasSoftware.ImageRenderer();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.objlist_artwork_editor = new BrightIdeasSoftware.FastObjectListView();
+            this.Row = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.GIHeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.GIWidth = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.GIFileName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -67,14 +66,9 @@
             this.grpbox_load.SuspendLayout();
             this.SuspendLayout();
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // objlist_artwork_editor
             // 
+            this.objlist_artwork_editor.AllColumns.Add(this.Row);
             this.objlist_artwork_editor.AllColumns.Add(this.GIHeight);
             this.objlist_artwork_editor.AllColumns.Add(this.GIWidth);
             this.objlist_artwork_editor.AllColumns.Add(this.GIFileName);
@@ -87,6 +81,7 @@
             this.objlist_artwork_editor.AllColumns.Add(this.RIWidth);
             this.objlist_artwork_editor.CellEditUseWholeCell = false;
             this.objlist_artwork_editor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Row,
             this.GIHeight,
             this.GIWidth,
             this.GIFileName,
@@ -99,6 +94,7 @@
             this.RIWidth});
             this.objlist_artwork_editor.Cursor = System.Windows.Forms.Cursors.Default;
             this.objlist_artwork_editor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.objlist_artwork_editor.IsSearchOnSortColumn = false;
             this.objlist_artwork_editor.Location = new System.Drawing.Point(0, 0);
             this.objlist_artwork_editor.Name = "objlist_artwork_editor";
             this.objlist_artwork_editor.RowHeight = 256;
@@ -110,22 +106,37 @@
             this.objlist_artwork_editor.View = System.Windows.Forms.View.Details;
             this.objlist_artwork_editor.VirtualMode = true;
             // 
+            // Row
+            // 
+            this.Row.IsEditable = false;
+            this.Row.Searchable = false;
+            this.Row.Sortable = false;
+            this.Row.Text = "Row";
+            this.Row.UseFiltering = false;
+            this.Row.Width = 35;
+            // 
             // GIHeight
             // 
+            this.GIHeight.Searchable = false;
             this.GIHeight.Text = "Height";
+            this.GIHeight.UseFiltering = false;
             // 
             // GIWidth
             // 
+            this.GIWidth.Searchable = false;
             this.GIWidth.Text = "Width";
+            this.GIWidth.UseFiltering = false;
             // 
             // GIFileName
             // 
             this.GIFileName.Text = "File Name";
+            this.GIFileName.UseFiltering = false;
             this.GIFileName.Width = 100;
             // 
             // GICardName
             // 
             this.GICardName.Text = "Card Name";
+            this.GICardName.UseFiltering = false;
             this.GICardName.Width = 100;
             this.GICardName.WordWrap = true;
             // 
@@ -136,7 +147,9 @@
             this.GI.MinimumWidth = 256;
             this.GI.Renderer = this.imageRenderer1;
             this.GI.Searchable = false;
+            this.GI.Sortable = false;
             this.GI.Text = "Game Image";
+            this.GI.UseFiltering = false;
             this.GI.Width = 256;
             // 
             // RI
@@ -146,27 +159,37 @@
             this.RI.MinimumWidth = 256;
             this.RI.Renderer = this.imageRenderer2;
             this.RI.Searchable = false;
+            this.RI.Sortable = false;
             this.RI.Text = "Replacement Image";
+            this.RI.UseFiltering = false;
             this.RI.Width = 256;
             // 
             // RICardName
             // 
+            this.RICardName.Searchable = false;
             this.RICardName.Text = "Card Name";
+            this.RICardName.UseFiltering = false;
             this.RICardName.Width = 100;
             this.RICardName.WordWrap = true;
             // 
             // RIFileName
             // 
+            this.RIFileName.Searchable = false;
             this.RIFileName.Text = "File Name";
+            this.RIFileName.UseFiltering = false;
             this.RIFileName.Width = 100;
             // 
             // RIHeight
             // 
+            this.RIHeight.Searchable = false;
             this.RIHeight.Text = "Height";
+            this.RIHeight.UseFiltering = false;
             // 
             // RIWidth
             // 
+            this.RIWidth.Searchable = false;
             this.RIWidth.Text = "Width";
+            this.RIWidth.UseFiltering = false;
             // 
             // pnl_object_list
             // 
@@ -338,7 +361,6 @@
 
         #endregion
         private BrightIdeasSoftware.ImageRenderer imageRenderer1;
-        private System.Windows.Forms.ImageList imageList1;
         private BrightIdeasSoftware.ImageRenderer imageRenderer2;
         private BrightIdeasSoftware.FastObjectListView objlist_artwork_editor;
         private BrightIdeasSoftware.OLVColumn GIHeight;
@@ -366,5 +388,6 @@
         private System.Windows.Forms.TextBox txt_card_match_path;
         private System.Windows.Forms.Button btn_match_run;
         private System.Windows.Forms.OpenFileDialog open_file_browse_match_file;
+        private BrightIdeasSoftware.OLVColumn Row;
     }
 }

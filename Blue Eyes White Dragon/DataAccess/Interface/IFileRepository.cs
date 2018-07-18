@@ -14,9 +14,8 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
         List<FileInfo> FindFiles(DirectoryInfo gameImagesLocation);
         Dictionary<string, string> FindFilesAndNameAsDictionary(DirectoryInfo gameImagesLocation);
         FileInfo FindImageFile(Card replacementCard, DirectoryInfo imagesLocation);
-        string SaveArtworkMatchToFile(List<Artwork> artworkList);
-        bool GetPngDimension(string fileName, out int width, out int height);
-        bool GetJpegDimension(string fileName, out int width, out int height);
+        string SaveArtworkMatchToFile(IEnumerable<Artwork> artworkList);
         List<Artwork> LoadArtworkMatchFromFile(string path);
+        void CalculateHeightAndWidth(IEnumerable<Artwork> artworkList);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business;
+using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.Utility.Interface;
 
@@ -12,28 +13,28 @@ namespace Blue_Eyes_White_Dragon.Utility
 {
     public class ConsoleLogger : ILogger
     {
-        private readonly IArtworkEditor _artworkEditorUi;
+        private readonly IArtworkEditorPresenter _artworkEditorPresenter;
 
-        public ConsoleLogger(IArtworkEditor artworkEditorUi)
+        public ConsoleLogger(IArtworkEditorPresenter artworkEditorPresenter)
         {
-            _artworkEditorUi = artworkEditorUi;
+            _artworkEditorPresenter = artworkEditorPresenter;
         }
 
         public void LogInformation(string message)
         {
-            var textLength = _artworkEditorUi.GetConsoleLineNumber();
+            var textLength = _artworkEditorPresenter.GetConsoleLineNumber();
             ClipTextBox(textLength);
 
             var newline = $"\r\n";
             var formattedMessage = $"{message}{newline}";
-            _artworkEditorUi.AppendConsoleText(formattedMessage);
+            _artworkEditorPresenter.AppendConsoleText(formattedMessage);
 
         }
         private void ClipTextBox(int allText)
         {
             if (allText > Constants.ConsoleLimit)
             {
-                _artworkEditorUi.RemoveOldestLine();
+                _artworkEditorPresenter.RemoveOldestLine();
             }
         }
     }

@@ -161,6 +161,8 @@
     <Compile Include="DataAccess\Repository\CardRepository.cs" />
     <Compile Include="DataAccess\Interface\IFileRepository.cs" />
     <Compile Include="DataAccess\Interface\ICardRepository.cs" />
+    <Compile Include="Presenter\ArtworkEditorPresenter.cs" />
+    <Compile Include="Presenter\Interface\IArtworkEditorPresenter.cs" />
     <Compile Include="UI\Interface\IArtworkEditor.cs" />
     <Compile Include="UI\Models\Artwork.cs" />
     <Compile Include="UI\ArtworkEditor.cs">

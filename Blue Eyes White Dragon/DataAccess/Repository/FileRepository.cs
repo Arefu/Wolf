@@ -100,7 +100,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public FileInfo LoadErrorImage()
         {
-            var errorImagePath = Path.Combine(Path.GetTempPath(), "error.bmp");
+            var errorImagePath = Path.Combine(Path.GetTempPath(), Constants.ErrorImageName);
             var errorImage = new FileInfo(errorImagePath);
             if (!errorImage.Exists)
             {
@@ -185,7 +185,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             return true;
         }
 
-        public string SaveArtworkMatchToFile(List<Artwork> artworkList)
+        public string SaveArtworkMatchToFile(IEnumerable<Artwork> artworkList)
         {
             var fileName = Constants.ArtworkMatchFileName;
             var path = Path.Combine(_directoryName, fileName);
@@ -203,6 +203,62 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 List<Artwork> files = (List<Artwork>) JsonConvert.DeserializeObject<List<Artwork>>(json);
                 return files;
             }
+        }
+
+        public void CalculateHeightAndWidth(IEnumerable<Artwork> artworkList)
+        {
+            foreach (var artwork in artworkList)
+            {
+                if (!artwork.IsMatched)
+                {
+                    _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageMonsterName));
+                    return;
+                }
+
+                var width = 0;
+                var height = 0;
+
+                var path = artwork.GameImageFilePath;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    CalculateHeightAndWidth(path, out width, out height);
+                    artwork.GameImageWidth = width;
+                    artwork.GameImageHeight = height;
+                }
+
+                path = artwork.ReplacementImageFilePath;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    CalculateHeightAndWidth(path, out width, out height);
+                    artwork.ReplacementImageWidth = width;
+                    artwork.ReplacementImageHeight = height;
+                }
+            }
+        }
+
+        private void CalculateHeightAndWidth(string path, out int width, out int height)
+        {
+            var jpg = Constants.Jpg;
+            var png = Constants.Png;
+
+            var imageFile = new FileInfo(path);
+            var fileType = imageFile.Extension.ToLower().Substring(1);
+
+            if (fileType == jpg)
+            {
+                GetJpegDimension(path, out width, out height);
+            }
+            else if (fileType == png)
+            {
+                GetPngDimension(path, out width, out height);
+            }
+            else
+            {
+                _logger.LogInformation(Localization.ErrorUnsupportedFileType(fileType));
+                width = 0;
+                height = 0;
+            }
+
         }
     }
 }
