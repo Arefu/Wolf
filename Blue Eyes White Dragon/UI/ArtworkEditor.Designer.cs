@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.imageRenderer1 = new BrightIdeasSoftware.ImageRenderer();
-            this.imageRenderer2 = new BrightIdeasSoftware.ImageRenderer();
+            this.components = new System.ComponentModel.Container();
+            this.GameImageRenderer = new BrightIdeasSoftware.ImageRenderer();
+            this.ReplacementImageRenderer = new BrightIdeasSoftware.ImageRenderer();
             this.objlist_artwork_editor = new BrightIdeasSoftware.FastObjectListView();
             this.Row = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.GIHeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -42,6 +43,7 @@
             this.RIFileName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.RIHeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.RIWidth = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.BtnCustomArt = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.pnl_object_list = new System.Windows.Forms.Panel();
             this.pnl_sidebar = new System.Windows.Forms.Panel();
             this.grpbox_console = new System.Windows.Forms.GroupBox();
@@ -57,6 +59,7 @@
             this.txt_card_match_path = new System.Windows.Forms.TextBox();
             this.btn_match_run = new System.Windows.Forms.Button();
             this.open_file_browse_match_file = new System.Windows.Forms.OpenFileDialog();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_editor)).BeginInit();
             this.pnl_object_list.SuspendLayout();
             this.pnl_sidebar.SuspendLayout();
@@ -79,6 +82,7 @@
             this.objlist_artwork_editor.AllColumns.Add(this.RIFileName);
             this.objlist_artwork_editor.AllColumns.Add(this.RIHeight);
             this.objlist_artwork_editor.AllColumns.Add(this.RIWidth);
+            this.objlist_artwork_editor.AllColumns.Add(this.BtnCustomArt);
             this.objlist_artwork_editor.CellEditUseWholeCell = false;
             this.objlist_artwork_editor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Row,
@@ -91,15 +95,18 @@
             this.RICardName,
             this.RIFileName,
             this.RIHeight,
-            this.RIWidth});
+            this.RIWidth,
+            this.BtnCustomArt});
             this.objlist_artwork_editor.Cursor = System.Windows.Forms.Cursors.Default;
             this.objlist_artwork_editor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.objlist_artwork_editor.IsSearchOnSortColumn = false;
             this.objlist_artwork_editor.Location = new System.Drawing.Point(0, 0);
             this.objlist_artwork_editor.Name = "objlist_artwork_editor";
             this.objlist_artwork_editor.RowHeight = 256;
+            this.objlist_artwork_editor.ShowFilterMenuOnRightClick = false;
             this.objlist_artwork_editor.ShowGroups = false;
-            this.objlist_artwork_editor.Size = new System.Drawing.Size(1310, 1039);
+            this.objlist_artwork_editor.Size = new System.Drawing.Size(1332, 1039);
+            this.objlist_artwork_editor.SmallImageList = this.imageList1;
             this.objlist_artwork_editor.TabIndex = 0;
             this.objlist_artwork_editor.UseCompatibleStateImageBehavior = false;
             this.objlist_artwork_editor.UseFiltering = true;
@@ -108,10 +115,10 @@
             // 
             // Row
             // 
-            this.Row.IsEditable = false;
             this.Row.Searchable = false;
             this.Row.Sortable = false;
             this.Row.Text = "Row";
+            this.Row.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Row.UseFiltering = false;
             this.Row.Width = 35;
             // 
@@ -119,23 +126,27 @@
             // 
             this.GIHeight.Searchable = false;
             this.GIHeight.Text = "Height";
+            this.GIHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GIHeight.UseFiltering = false;
             // 
             // GIWidth
             // 
             this.GIWidth.Searchable = false;
             this.GIWidth.Text = "Width";
+            this.GIWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GIWidth.UseFiltering = false;
             // 
             // GIFileName
             // 
             this.GIFileName.Text = "File Name";
+            this.GIFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GIFileName.UseFiltering = false;
             this.GIFileName.Width = 100;
             // 
             // GICardName
             // 
             this.GICardName.Text = "Card Name";
+            this.GICardName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GICardName.UseFiltering = false;
             this.GICardName.Width = 100;
             this.GICardName.WordWrap = true;
@@ -145,10 +156,11 @@
             this.GI.Groupable = false;
             this.GI.IsEditable = false;
             this.GI.MinimumWidth = 256;
-            this.GI.Renderer = this.imageRenderer1;
+            this.GI.Renderer = this.GameImageRenderer;
             this.GI.Searchable = false;
             this.GI.Sortable = false;
-            this.GI.Text = "Game Image";
+            this.GI.Text = "Original Artwork";
+            this.GI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GI.UseFiltering = false;
             this.GI.Width = 256;
             // 
@@ -157,10 +169,11 @@
             this.RI.Groupable = false;
             this.RI.IsEditable = false;
             this.RI.MinimumWidth = 256;
-            this.RI.Renderer = this.imageRenderer2;
+            this.RI.Renderer = this.ReplacementImageRenderer;
             this.RI.Searchable = false;
             this.RI.Sortable = false;
-            this.RI.Text = "Replacement Image";
+            this.RI.Text = "New Artwork";
+            this.RI.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RI.UseFiltering = false;
             this.RI.Width = 256;
             // 
@@ -168,6 +181,7 @@
             // 
             this.RICardName.Searchable = false;
             this.RICardName.Text = "Card Name";
+            this.RICardName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RICardName.UseFiltering = false;
             this.RICardName.Width = 100;
             this.RICardName.WordWrap = true;
@@ -176,6 +190,7 @@
             // 
             this.RIFileName.Searchable = false;
             this.RIFileName.Text = "File Name";
+            this.RIFileName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RIFileName.UseFiltering = false;
             this.RIFileName.Width = 100;
             // 
@@ -183,13 +198,26 @@
             // 
             this.RIHeight.Searchable = false;
             this.RIHeight.Text = "Height";
+            this.RIHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RIHeight.UseFiltering = false;
             // 
             // RIWidth
             // 
             this.RIWidth.Searchable = false;
             this.RIWidth.Text = "Width";
+            this.RIWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RIWidth.UseFiltering = false;
+            // 
+            // BtnCustomArt
+            // 
+            this.BtnCustomArt.ButtonSize = new System.Drawing.Size(70, 20);
+            this.BtnCustomArt.IsButton = true;
+            this.BtnCustomArt.Searchable = false;
+            this.BtnCustomArt.Sortable = false;
+            this.BtnCustomArt.Text = "Custom Artwork";
+            this.BtnCustomArt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.BtnCustomArt.UseFiltering = false;
+            this.BtnCustomArt.Width = 120;
             // 
             // pnl_object_list
             // 
@@ -197,7 +225,7 @@
             this.pnl_object_list.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_object_list.Location = new System.Drawing.Point(404, 0);
             this.pnl_object_list.Name = "pnl_object_list";
-            this.pnl_object_list.Size = new System.Drawing.Size(1310, 1039);
+            this.pnl_object_list.Size = new System.Drawing.Size(1332, 1039);
             this.pnl_object_list.TabIndex = 3;
             // 
             // pnl_sidebar
@@ -337,11 +365,17 @@
             this.open_file_browse_match_file.Filter = "Json files|*.json|All files|*.*";
             this.open_file_browse_match_file.ShowHelp = true;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(256, 256);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // ArtworkEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1714, 1039);
+            this.ClientSize = new System.Drawing.Size(1736, 1039);
             this.Controls.Add(this.pnl_object_list);
             this.Controls.Add(this.pnl_sidebar);
             this.Name = "ArtworkEditor";
@@ -360,8 +394,8 @@
         }
 
         #endregion
-        private BrightIdeasSoftware.ImageRenderer imageRenderer1;
-        private BrightIdeasSoftware.ImageRenderer imageRenderer2;
+        private BrightIdeasSoftware.ImageRenderer GameImageRenderer;
+        private BrightIdeasSoftware.ImageRenderer ReplacementImageRenderer;
         private BrightIdeasSoftware.FastObjectListView objlist_artwork_editor;
         private BrightIdeasSoftware.OLVColumn GIHeight;
         private BrightIdeasSoftware.OLVColumn GIWidth;
@@ -389,5 +423,7 @@
         private System.Windows.Forms.Button btn_match_run;
         private System.Windows.Forms.OpenFileDialog open_file_browse_match_file;
         private BrightIdeasSoftware.OLVColumn Row;
+        private BrightIdeasSoftware.OLVColumn BtnCustomArt;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

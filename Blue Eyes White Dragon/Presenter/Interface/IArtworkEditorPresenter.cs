@@ -17,5 +17,6 @@ namespace Blue_Eyes_White_Dragon.Presenter.Interface
         void ShowMessageBox(string message);
         void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList);
         void ClearObjectsFromObjectListView();
+        void OpenCustomArtPicker(Artwork artwork, int rowIndex);
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.UI.Models;
 
 namespace Blue_Eyes_White_Dragon.UI.Interface
@@ -18,5 +14,6 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         void RemoveOldestLine();
         void ShowMessageBox(string empty);
         void ClearObjectsFromObjectListView();
+        void RefreshObject(Artwork artwork);
     }
 }

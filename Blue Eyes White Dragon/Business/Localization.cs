@@ -9,5 +9,6 @@
         public static string InformationSaveComplete(string path) { return $"Save successful to {path}"; }
         public static string ErrorUnsupportedFileType(string fileType) { return $"Error can not calculate height and width for file type {fileType}"; }
         public static string ErrorCalculateNoMatch(string artworkGameImageMonsterName) { return $"Error can not calculate height and width for {artworkGameImageMonsterName} without a match"; }
+        public static string InformationArtworkUpdated(string monsterName) { return $"Artwork have been changed for {monsterName}"; }
     }
 }

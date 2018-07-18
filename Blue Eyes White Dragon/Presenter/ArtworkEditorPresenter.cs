@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
+using Blue_Eyes_White_Dragon.UI;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
 
@@ -142,6 +144,23 @@ namespace Blue_Eyes_White_Dragon.Presenter
         public void ClearObjectsFromObjectListView()
         {
             _artworkEditorUi.ClearObjectsFromObjectListView();
+        }
+
+        public void OpenCustomArtPicker(Artwork artwork, int rowIndex)
+        {
+            using (var artworkPicker = new ArtworkPicker(artwork))
+            {
+                switch (artworkPicker.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        var pickedArtwork = artworkPicker.ArtworkSearch;
+                        _blueEyesLogic.RunCustomArtPicked(artwork, rowIndex, pickedArtwork);
+                        _artworkEditorUi.RefreshObject(artwork);
+                        break;
+                    case DialogResult.Cancel:
+                        break;
+                }
+            }
         }
     }
 }

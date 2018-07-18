@@ -45,6 +45,8 @@ namespace Blue_Eyes_White_Dragon.Business
 
         public void RunMatchAll()
         {
+            _artworkEditorPresenter.ClearObjectsFromObjectListView();
+
             var gameImagesLocation = _fileRepo.LoadCardDir(Constants.GameImagesLocation);
             var replacementImagesLocation = _fileRepo.LoadCardDir(Constants.ReplacementImagesLocation);
 
@@ -98,6 +100,24 @@ namespace Blue_Eyes_White_Dragon.Business
         {
             Properties.Settings.Default.LastUsedLoadPath = filePath;
             Properties.Settings.Default.Save();
+        }
+
+        public void RunCustomArtPicked(Artwork artwork, int rowIndex, ArtworkSearch pickedArtwork)
+        {
+            var pickedImageFile = pickedArtwork.ImageFile;
+            SwapAlternateImages(artwork, artwork.ReplacementImageFile, pickedImageFile);
+
+            artwork.ReplacementImageFile = pickedImageFile;
+
+            _logger.LogInformation(Localization.InformationArtworkUpdated(artwork.GameImageMonsterName));
+        }
+
+        private void SwapAlternateImages(Artwork artwork, FileInfo orgImageFile, FileInfo newImageFile)
+        {
+            var altImages = artwork.AlternateReplacementImages;
+            altImages.Remove(newImageFile);
+            altImages.Add(orgImageFile);
+            artwork.AlternateReplacementImages = altImages;
         }
 
         private IEnumerable<Artwork> SortArtwork(IEnumerable<Artwork> artworkList)

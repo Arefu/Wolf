@@ -102,17 +102,17 @@ namespace Blue_Eyes_White_Dragon.Business
 
             if (replacementCard == null)
             {
-                return HandleNoMatchFound(artwork);
+                return HandleNoMatch(artwork);
             }
 
             if (matchingCards.Count == 1)
             {
-                HandleSingleMatchFound(replacementCard, artwork);
+                HandleSingleMatch(replacementCard, artwork);
             }
 
             if (matchingCards.Count > 1)
             {
-                HandleMultipleMatchesFound(matchingCards, artwork, replacementCard);
+                HandleMultipleMatches(matchingCards, artwork);
             }
 
             return artwork;
@@ -131,21 +131,27 @@ namespace Blue_Eyes_White_Dragon.Business
             }
         }
 
-        private void HandleSingleMatchFound(Card replacementCard, Artwork artwork)
+        private void HandleSingleMatch(Card replacementCard, Artwork artwork)
         {
             var imageFile = _fileRepo.FindImageFile(replacementCard, artwork.ReplacementImagesDir);
             artwork.ReplacementImageFile = imageFile;
             artwork.IsMatched = true;
         }
 
-        private void HandleMultipleMatchesFound(List<Card> matchingCards, Artwork artwork, Card replacementCard)
+        private void HandleMultipleMatches(ICollection<Card> matchingCards, Artwork artwork)
         {
-            //TODO Gotta implement a way to show more than one card if multiple are found
-            HandleSingleMatchFound(replacementCard, artwork);
-            _logger.LogInformation($"{matchingCards.Count} matching cards found for {artwork.GameImageMonsterName} picked: {artwork.ReplacementImageFileName}");
+            var firstCard = matchingCards.First();
+            matchingCards.Remove(firstCard);
+            HandleSingleMatch(firstCard, artwork);
+
+            foreach (var card in matchingCards)
+            {
+                var imageFile = _fileRepo.FindImageFile(card, artwork.ReplacementImagesDir);
+                artwork.AlternateReplacementImages.Add(imageFile);
+            }
         }
 
-        private Artwork HandleNoMatchFound(Artwork artwork)
+        private Artwork HandleNoMatch(Artwork artwork)
         {
             artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
             artwork.ReplacementImageFile = _fileRepo.ErrorImage;
