@@ -34,11 +34,12 @@
             this.CardName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.CardImage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.BtnOk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_search = new System.Windows.Forms.Button();
+            this.lbl_how_to_search = new System.Windows.Forms.Label();
+            this.txtbox_search = new System.Windows.Forms.TextBox();
+            this.ImageRenderer = new BrightIdeasSoftware.ImageRenderer();
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_picker)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +84,7 @@
             // 
             // CardImage
             // 
+            this.CardImage.Renderer = this.ImageRenderer;
             this.CardImage.Searchable = false;
             this.CardImage.Text = "Image";
             this.CardImage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -97,47 +99,48 @@
             this.BtnOk.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.BtnOk.Width = 100;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(256, 256);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.btn_search);
+            this.panel1.Controls.Add(this.lbl_how_to_search);
+            this.panel1.Controls.Add(this.txtbox_search);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(803, 109);
             this.panel1.TabIndex = 1;
             // 
-            // button1
+            // btn_search
             // 
-            this.button1.Location = new System.Drawing.Point(297, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_search.Location = new System.Drawing.Point(297, 40);
+            this.btn_search.Name = "btn_search";
+            this.btn_search.Size = new System.Drawing.Size(75, 23);
+            this.btn_search.TabIndex = 2;
+            this.btn_search.Text = "Search";
+            this.btn_search.UseVisualStyleBackColor = true;
+            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
             // 
-            // label1
+            // lbl_how_to_search
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Enter the name of a card";
+            this.lbl_how_to_search.AutoSize = true;
+            this.lbl_how_to_search.Location = new System.Drawing.Point(32, 26);
+            this.lbl_how_to_search.Name = "lbl_how_to_search";
+            this.lbl_how_to_search.Size = new System.Drawing.Size(130, 13);
+            this.lbl_how_to_search.TabIndex = 1;
+            this.lbl_how_to_search.Text = "Search the card database";
             // 
-            // textBox1
+            // txtbox_search
             // 
-            this.textBox1.Location = new System.Drawing.Point(35, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(256, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(256, 256);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.txtbox_search.Location = new System.Drawing.Point(35, 42);
+            this.txtbox_search.Name = "txtbox_search";
+            this.txtbox_search.Size = new System.Drawing.Size(256, 20);
+            this.txtbox_search.TabIndex = 0;
             // 
             // ArtworkPicker
             // 
@@ -159,13 +162,14 @@
 
         private BrightIdeasSoftware.FastObjectListView objlist_artwork_picker;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btn_search;
+        private System.Windows.Forms.Label lbl_how_to_search;
+        private System.Windows.Forms.TextBox txtbox_search;
         private BrightIdeasSoftware.OLVColumn Row;
         private BrightIdeasSoftware.OLVColumn CardName;
         private BrightIdeasSoftware.OLVColumn CardImage;
         private BrightIdeasSoftware.OLVColumn BtnOk;
         private System.Windows.Forms.ImageList imageList1;
+        private BrightIdeasSoftware.ImageRenderer ImageRenderer;
     }
 }

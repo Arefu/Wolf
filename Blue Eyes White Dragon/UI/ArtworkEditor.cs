@@ -1,25 +1,34 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.Business;
-using Blue_Eyes_White_Dragon.Presenter;
+using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
+using Blue_Eyes_White_Dragon.Utility.DI;
 using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.UI
 {
     public partial class ArtworkEditor : Form, IArtworkEditor
     {
-        private readonly IArtworkEditorPresenter _artworkEditorPresenter;
+        private readonly IArtworkPickerPresenterFactory _artworkPickerPresenterFactory;
+        public event Func<object, object> GameImageGetterEvent;
+        public event Func<object, object> ReplacementImageGetterEvent;
+        public event Action MatchAllAction;
+        public event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
+        public event Action<IEnumerable<Artwork>> SaveAction;
+        public event Action<string> LoadAction;
+        public event Action<string> SavePathSettingAction;
 
-        public ArtworkEditor()
+        public ArtworkEditor(IArtworkPickerPresenterFactory artworkPickerPresenterFactory) 
         {
+            _artworkPickerPresenterFactory = artworkPickerPresenterFactory ?? throw new ArgumentNullException(nameof(artworkPickerPresenterFactory));
             InitializeComponent();
-            _artworkEditorPresenter = new ArtworkEditorPresenter(this);
             Init();
         }
 
@@ -49,14 +58,14 @@ namespace Blue_Eyes_White_Dragon.UI
         private void SetupColumns()
         {
             GI.AspectGetter = x => ((Artwork) x)?.GameImageFilePath;
-            GI.ImageGetter = _artworkEditorPresenter.GameImageGetter;
+            GI.ImageGetter = x => GameImageGetterEvent;
             GIFileName.AspectGetter = x => ((Artwork) x)?.GameImageFileName;
             GICardName.AspectGetter = x => ((Artwork) x)?.GameImageMonsterName;
             GIWidth.AspectGetter = x => ((Artwork)x)?.GameImageWidth;
             GIHeight.AspectGetter = x => ((Artwork)x)?.GameImageHeight;
 
             RI.AspectGetter = x => ((Artwork)x)?.ReplacementImageFilePath;
-            RI.ImageGetter = _artworkEditorPresenter.ReplacementImageGetter;
+            RI.ImageGetter = x => ReplacementImageGetterEvent;
             RICardName.AspectGetter = x => ((Artwork)x)?.ReplacementImageMonsterName;
             RIFileName.AspectGetter = x => ((Artwork)x)?.ReplacementImageFileName;
             RIWidth.AspectGetter = x => ((Artwork) x)?.ReplacementImageWidth;
@@ -69,7 +78,7 @@ namespace Blue_Eyes_White_Dragon.UI
         private void CustomArtClicked(object sender, CellClickEventArgs e)
         {
             var artwork = (Artwork) e.Model;
-            _artworkEditorPresenter.OpenCustomArtPicker(artwork, e.RowIndex);
+            OpenArtworkPicker(artwork);
         }
 
         private void FilterRows()
@@ -81,14 +90,12 @@ namespace Blue_Eyes_White_Dragon.UI
                 objlist_artwork_editor.DefaultRenderer = new HighlightTextRenderer(filter);
             }
 
-            var a = objlist_artwork_editor.FilteredObjects;
             objlist_artwork_editor.AdditionalFilter = filter;
-            var b = objlist_artwork_editor.FilteredObjects;
         }
 
         private void Btn_run_Click(object sender, EventArgs e)
         {
-            _artworkEditorPresenter.MatchAll();
+            MatchAllAction?.Invoke();
         }
 
         private void Txt_search_TextChanged(object sender, EventArgs e)
@@ -138,14 +145,34 @@ namespace Blue_Eyes_White_Dragon.UI
             objlist_artwork_editor.RefreshObject(artwork);
         }
 
+        private void OpenArtworkPicker(Artwork artwork)
+        {
+            using (var artworkPickerPresenter = _artworkPickerPresenterFactory.NewArtworkPickerPresenter())
+            {
+                artworkPickerPresenter.SetCurrentArtwork(artwork);
+                switch (artworkPickerPresenter.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        var pickedArtwork = artworkPickerPresenter.ArtworkSearchResult;
+                        CustomArtPickedAction?.Invoke(artwork, pickedArtwork);
+                        RefreshObject(artwork);
+                        break;
+                    case DialogResult.Cancel:
+                        break;
+                }
+            }
+        }
+
         private void Btn_save_match_Click(object sender, EventArgs e)
         {
-            _artworkEditorPresenter.Save();
+            var objects = (ArrayList) objlist_artwork_editor.Objects;
+            var artworks = objects.Cast<Artwork>().ToList();
+            SaveAction?.Invoke(artworks);
         }
 
         private void Btn_load_match_Click(object sender, EventArgs e)
         {
-            _artworkEditorPresenter.Load(txt_card_match_path.Text);
+            LoadAction?.Invoke(txt_card_match_path.Text);
         }
 
         private void Richtextbox_console_TextChanged(object sender, EventArgs e)
@@ -159,7 +186,7 @@ namespace Blue_Eyes_White_Dragon.UI
             if (open_file_browse_match_file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var filePath = open_file_browse_match_file.FileName;
-                _artworkEditorPresenter.SavePathSetting(filePath);
+                SavePathSettingAction?.Invoke(filePath);
                 txt_card_match_path.Text = filePath;
             }
         }

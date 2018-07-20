@@ -85,6 +85,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
@@ -145,13 +148,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\BlueEyesLogic.cs" />
-    <Compile Include="Business\Constants.cs" />
-    <Compile Include="Business\Factory\CardDbContextFactory.cs" />
-    <Compile Include="Business\Factory\Interface\ICardDbContextFactory.cs" />
-    <Compile Include="Business\Interface\IBlueEyesLogic.cs" />
+    <Compile Include="Business\Interface\IArtworkPickerLogic.cs" />
+    <Compile Include="Business\Factory\ArtworkPickerPresenterFactory.cs" />
+    <Compile Include="Utility\DI\FactoryModule.cs" />
+    <Compile Include="Utility\DI\MiscModule.cs" />
+    <Compile Include="Business\ArtworkEditorLogic.cs" />
+    <Compile Include="Business\ArtworkPickerLogic.cs" />
+    <Compile Include="Utility\Constants.cs" />
+    <Compile Include="Business\Interface\IArtworkEditorLogic.cs" />
     <Compile Include="Business\Interface\IArtworkManager.cs" />
-    <Compile Include="Business\Localization.cs" />
+    <Compile Include="Business\Interface\IArtworkPickerPresenterFactory.cs" />
+    <Compile Include="Utility\DI\LogicModule.cs" />
+    <Compile Include="Utility\DI\PresenterModule.cs" />
+    <Compile Include="Utility\DI\RepositoryModule.cs" />
+    <Compile Include="Utility\DI\UiModule.cs" />
+    <Compile Include="Utility\Localization.cs" />
     <Compile Include="DataAccess\Interface\ICardDbContext.cs" />
     <Compile Include="DataAccess\Repository\GameFileRepository.cs" />
     <Compile Include="DataAccess\Interface\IGameFileRepository.cs" />
@@ -163,7 +174,7 @@
     <Compile Include="DataAccess\Interface\ICardRepository.cs" />
     <Compile Include="Presenter\ArtworkEditorPresenter.cs" />
     <Compile Include="Presenter\ArtworkPickerPresenter.cs" />
-    <Compile Include="Presenter\IArtworkPicker.cs" />
+    <Compile Include="Presenter\Interface\IArtworkPicker.cs" />
     <Compile Include="Presenter\Interface\IArtworkEditorPresenter.cs" />
     <Compile Include="UI\ArtworkPicker.cs">
       <SubType>Form</SubType>
@@ -186,7 +197,7 @@
     <Compile Include="Business\Models\Card.cs" />
     <Compile Include="DataAccess\Models\Texts.cs" />
     <Compile Include="Utility\Interface\ILogger.cs" />
-    <Compile Include="Utility\ConsoleLogger.cs" />
+    <Compile Include="Utility\Logging\ConsoleLogger.cs" />
     <EmbeddedResource Include="UI\ArtworkEditor.resx">
       <DependentUpon>ArtworkEditor.cs</DependentUpon>
     </EmbeddedResource>

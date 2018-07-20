@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Blue_Eyes_White_Dragon.Business;
+using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
 using Blue_Eyes_White_Dragon.Utility.Interface;
 using Newtonsoft.Json;
 
@@ -19,9 +20,8 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public FileRepository(ILogger logger, string directoryName)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _directoryName = directoryName;
-            //I'd rather do this on boot than the first time the image is needed, eg. with a lambda
             ErrorImage = LoadErrorImage();
         }
 
@@ -190,25 +190,36 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             var fileName = Constants.ArtworkMatchFileName;
             var path = Path.Combine(_directoryName, fileName);
 
-            string jsonArtwork = JsonConvert.SerializeObject(artworkList, Formatting.Indented);
+            var jsonArtwork = JsonConvert.SerializeObject(artworkList, Formatting.Indented);
             File.WriteAllText(path, jsonArtwork);
             return path;
         }
 
-        public List<Artwork> LoadArtworkMatchFromFile(string path)
+        public IEnumerable<Artwork> LoadArtworkMatchFromFile(string path)
         {
-            using (StreamReader reader = new StreamReader(path))
+            try
             {
-                string json = reader.ReadToEnd();
-                List<Artwork> files = (List<Artwork>) JsonConvert.DeserializeObject<List<Artwork>>(json);
-                return files;
+                using (var reader = new StreamReader(path))
+                {
+                    var json = reader.ReadToEnd();
+                    var files = JsonConvert.DeserializeObject<List<Artwork>>(json);
+                    return files;
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogException(e);
+                throw;
             }
         }
 
-        public void CalculateHeightAndWidth(IEnumerable<Artwork> artworkList)
+        public void CalculateHeightAndWidth(IEnumerable<Artwork> artworks)
         {
-            foreach (var artwork in artworkList)
+            var artworkList = artworks.ToList();
+
+            Parallel.For(0, artworkList.Count, i =>
             {
+                var artwork = artworkList[i];
                 if (!artwork.IsMatched)
                 {
                     _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageMonsterName));
@@ -233,7 +244,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     artwork.ReplacementImageWidth = width;
                     artwork.ReplacementImageHeight = height;
                 }
-            }
+            });
         }
 
         private void CalculateHeightAndWidth(string path, out int width, out int height)

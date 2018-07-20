@@ -1,25 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.Business;
+using System.IO;
+using System.Linq;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
+using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Presenter
 {
     public class ArtworkEditorPresenter : IArtworkEditorPresenter
     {
-        private readonly IArtworkEditor _artworkEditorUi;
-        private readonly IBlueEyesLogic _blueEyesLogic;
+        private readonly IArtworkEditorLogic _artworkEditorLogic;
+        private readonly ILogger _logger;
+        public IArtworkEditor View { get; }
 
-        public ArtworkEditorPresenter(IArtworkEditor artworkEditorUi)
+        public ArtworkEditorPresenter(IArtworkEditor view, IArtworkEditorLogic artworkEditorLogic, ILogger logger)
         {
-            _artworkEditorUi = artworkEditorUi;
-            _blueEyesLogic = new BlueEyesLogic(this);
+            _artworkEditorLogic = artworkEditorLogic ?? throw new ArgumentNullException(nameof(artworkEditorLogic));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            View = view ?? throw new ArgumentNullException(nameof(view));
+
+            LoadEvents();
+        }
+
+        private void LoadEvents()
+        {
+            View.GameImageGetterEvent += GameImageGetter;
+            View.ReplacementImageGetterEvent += ReplacementImageGetter;
+            View.CustomArtPickedAction += CustomArtPicked;
+            View.LoadAction += Load;
+            View.SaveAction += Save;
+            View.MatchAllAction += MatchAll;
+            View.SavePathSettingAction += SavePathSetting;
+
+            _logger.AppendTextToConsole += AppendConsoleText;
+            _logger.AppendExceptionToConsole += AppendConsoleException;
         }
 
         public object ReplacementImageGetter(object row)
@@ -29,12 +49,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
             var artworkRow = ((Artwork)row);
             var replacementImagePath = artworkRow.ReplacementImageFilePath;
 
-            if (string.IsNullOrEmpty(replacementImagePath))
-            {
-                throw new ArgumentNullException($"Can not load ReplacementImageGetter for: {artworkRow}");
-            }
-
-            if (_artworkEditorUi.SmallImageListContains(replacementImagePath)) return replacementImagePath;
+            if (View.SmallImageListContains(replacementImagePath)) return replacementImagePath;
 
             Image image = Image.FromFile(replacementImagePath);
             UpdateImageLists(replacementImagePath, image);
@@ -50,12 +65,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
             var artworkRow = ((Artwork)row);
             var gameImagePath = artworkRow.GameImageFilePath;
 
-            if (string.IsNullOrEmpty(gameImagePath))
-            {
-                throw new ArgumentNullException($"Can not load GameImageGetter for: {artworkRow}");
-            }
-
-            if (_artworkEditorUi.SmallImageListContains(gameImagePath)) return gameImagePath;
+            if (View.SmallImageListContains(gameImagePath)) return gameImagePath;
 
             Image image = Image.FromFile(gameImagePath);
             UpdateImageLists(gameImagePath, image);
@@ -66,101 +76,118 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
         private void UpdateImageLists(string imagePath, Image image)
         {
-            _artworkEditorUi.SmallImageListAdd(imagePath, image);
+            View.SmallImageListAdd(imagePath, image);
         }
 
         public void MatchAll()
         {
-            _blueEyesLogic.RunMatchAll();
+            View.ClearObjectsFromObjectListView();
+            var artworkList = _artworkEditorLogic.RunMatchAll();
+            View.AddObjectsToObjectListView(artworkList);
         }
 
-        public void Save()
+        public void Save(IEnumerable<Artwork> artworks)
         {
             try
             {
-                _blueEyesLogic.RunSaveMatch();
+                _artworkEditorLogic.RunSaveMatch(artworks);
             }
             catch (Exception e)
             {
-                AppendConsoleException(e);
+                _logger.LogException(e);
             }
         }
 
-        private void AppendConsoleException(Exception exception)
+        private void AppendConsoleException(string message)
         {
-            var message = $"Exception: {exception.Message} \\r\\n InnerException: {exception.InnerException?.Message}";
-            AppendConsoleText(message);
+            ClipTextBox();
+            var formattedMessage = Localization.ExceptionFormattedForConsole(message);
+            AppendConsoleText(formattedMessage);
+        }
+
+        private void ClipTextBox()
+        {
+            var textLength = GetConsoleLineNumber();
+
+            if (textLength > Constants.ConsoleLimit)
+            {
+                View.RemoveOldestLine();
+            }
         }
 
         public void Load(string path)
         {
-            try
+            _logger.LogInformation(Localization.InformationLoading);
+            if (string.IsNullOrEmpty(path))
             {
-                _blueEyesLogic.RunLoadMatch(path);
+                View.ShowMessageBox(Localization.ErrorEnterPath);
+                return;
             }
-            catch (Exception e)
+
+            var jsonFile = new FileInfo(path);
+            if (!jsonFile.Exists)
             {
-                AppendConsoleException(e);
+                View.ShowMessageBox(Localization.ErrorFileNotExist);
+                return;
             }
+
+            var artworks = _artworkEditorLogic.LoadArtworkMatch(path).ToList();
+
+            if (artworks.Count == 0)
+            {
+                View.ShowMessageBox(Localization.ErrorFileEmptyOrInvalid);
+                return;
+            }
+
+            View.ClearObjectsFromObjectListView();
+            _artworkEditorLogic.CalculateHeightAndWidth(artworks);
+            var sortedArtwork = _artworkEditorLogic.SortArtwork(artworks);
+
+            View.AddObjectsToObjectListView(sortedArtwork);
+            _logger.LogInformation(Localization.InformationLoadComplete(path));
         }
 
-        public int GetConsoleLineNumber()
+        private int GetConsoleLineNumber()
         {
-            return _artworkEditorUi.GetConsoleLineNumber();
+            return View.GetConsoleLineNumber();
         }
 
-        public void AppendConsoleText(string formattedMessage)
+        private void AppendConsoleText(string formattedMessage)
         {
-            _artworkEditorUi.AppendConsoleText(formattedMessage);
-        }
-
-        public void RemoveOldestLine()
-        {
-            _artworkEditorUi.RemoveOldestLine();
+            View.AppendConsoleText(formattedMessage);
         }
 
         public void SavePathSetting(string filePath)
         {
             try
             {
-                _blueEyesLogic.SavePathSetting(filePath);
+                _artworkEditorLogic.SavePathSetting(filePath);
             }
             catch (Exception e)
             {
-                AppendConsoleException(e);
+                _logger.LogException(e);
             }
         }
 
-        public void ShowMessageBox(string message)
+        private void ShowMessageBox(string message)
         {
-            _artworkEditorUi.ShowMessageBox(message);
+            View.ShowMessageBox(message);
         }
 
-        public void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList)
+        private void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList)
         {
-            _artworkEditorUi.AddObjectsToObjectListView(artworkList);
+            View.AddObjectsToObjectListView(artworkList);
         }
 
-        public void ClearObjectsFromObjectListView()
+        private void ClearObjectsFromObjectListView()
         {
-            _artworkEditorUi.ClearObjectsFromObjectListView();
+            View.ClearObjectsFromObjectListView();
         }
 
-        public void OpenCustomArtPicker(Artwork artwork, int rowIndex)
+        public void CustomArtPicked(Artwork artwork, ArtworkSearch pickedArtwork)
         {
-            using (var artworkPicker = new ArtworkPicker(artwork))
-            {
-                switch (artworkPicker.ShowDialog())
-                {
-                    case DialogResult.OK:
-                        var pickedArtwork = artworkPicker.ArtworkSearch;
-                        _blueEyesLogic.RunCustomArtPicked(artwork, rowIndex, pickedArtwork);
-                        _artworkEditorUi.RefreshObject(artwork);
-                        break;
-                    case DialogResult.Cancel:
-                        break;
-                }
-            }
+            _artworkEditorLogic.RunCustomArtPicked(artwork, pickedArtwork);
         }
+
     }
 }

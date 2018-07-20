@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.UI;
+using Blue_Eyes_White_Dragon.Business;
+using Blue_Eyes_White_Dragon.Business.Interface;
+using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
 
@@ -13,11 +12,29 @@ namespace Blue_Eyes_White_Dragon.Presenter
 {
     public class ArtworkPickerPresenter : IArtworkPickerPresenter
     {
-        private readonly IArtworkPicker _artworkPickerUi;
+        public ArtworkSearch ArtworkSearchResult { get; private set; }
+        private IArtworkPicker View { get; }
+        private readonly IArtworkPickerLogic _artworkPickerLogic;
 
-        public ArtworkPickerPresenter(IArtworkPicker artworkPickerUi)
+        public ArtworkPickerPresenter(IArtworkPicker view, IArtworkPickerLogic artworkPickerLogic)
         {
-            _artworkPickerUi = artworkPickerUi;
+            View = view ?? throw new ArgumentNullException(nameof(view));
+            _artworkPickerLogic = artworkPickerLogic ?? throw new ArgumentNullException(nameof(artworkPickerLogic));
+
+            LoadEvents();
+        }
+
+        private void LoadEvents()
+        {
+            View.LoadAlternateImages += LoadAlternateArtwork;
+            View.SearchCards += SearchCards;
+            View.ImageGetter += ImageGetter;
+            View.CardPicked += CardPicked;
+        }
+
+        private void CardPicked(ArtworkSearch artworkSearch)
+        {
+            ArtworkSearchResult = artworkSearch;
         }
 
         public object ImageGetter(object row)
@@ -27,10 +44,10 @@ namespace Blue_Eyes_White_Dragon.Presenter
             var artworkSearchRow = ((ArtworkSearch)row);
             var imagePath = artworkSearchRow.ImageFilePath;
 
-            if (_artworkPickerUi.SmallImageListContains(imagePath)) return imagePath;
+            if (View.SmallImageListContains(imagePath)) return imagePath;
 
-            Image image = Image.FromFile(imagePath);
-            UpdateImageLists(imagePath, image);
+            var image = Image.FromFile(imagePath);
+            View.SmallImageListAdd(imagePath, image);
             return imagePath;
         }
 
@@ -43,13 +60,28 @@ namespace Blue_Eyes_White_Dragon.Presenter
                 CardName = artwork.GameImageMonsterName,
                 ImageFile = x
             });
-            _artworkPickerUi.AddObjectsToObjectListView(artworkSearch);
+            View.AddObjectsToObjectListView(artworkSearch);
         }
 
-        private void UpdateImageLists(string imagePath, Image image)
+        public void SearchCards(string text)
         {
-            _artworkPickerUi.SmallImageListAdd(imagePath, image);
+            var searchResults = _artworkPickerLogic.SearchCards(text);
+            View.AddObjectsToObjectListView(searchResults);
         }
 
+        public DialogResult ShowDialog()
+        {
+            return View.ShowDialog();
+        }
+
+        public void Dispose()
+        {
+            View?.Dispose();
+        }
+
+        public void SetCurrentArtwork(Artwork artwork)
+        {
+            View.SetCurrentArtwork(artwork);
+        }
     }
 }

@@ -4,15 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Blue_Eyes_White_Dragon.Business.Factory.Interface;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Business.Models;
-using Blue_Eyes_White_Dragon.DataAccess;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
 using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
@@ -26,15 +22,12 @@ namespace Blue_Eyes_White_Dragon.Business
         /// A rather hacky way to supply a string path to the artwork model
         /// </summary>
         private readonly ILogger _logger;
-        private readonly ICardDbContextFactory _cardDbFactory;
 
-        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo,
-            ILogger logger, ICardDbContextFactory cardDbFactory)
+        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, ILogger logger)
         {
-            _fileRepo = fileRepo;
-            _cardRepo = cardRepo;
-            _logger = logger;
-            _cardDbFactory = cardDbFactory;
+            _fileRepo = fileRepo ?? throw new ArgumentNullException(nameof(fileRepo));
+            _cardRepo = cardRepo ?? throw new ArgumentNullException(nameof(cardRepo));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)

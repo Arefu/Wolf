@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Blue_Eyes_White_Dragon.Business
+namespace Blue_Eyes_White_Dragon.Utility
 {
     public static class Constants
     {

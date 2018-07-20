@@ -3,37 +3,43 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.Business;
-using Blue_Eyes_White_Dragon.Presenter;
-using Blue_Eyes_White_Dragon.UI.Interface;
+using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
 using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.UI
 {
     public partial class ArtworkPicker : Form, IArtworkPicker
     {
-        private readonly IArtworkPickerPresenter _artworkPickerPresenter;
-        public ArtworkSearch ArtworkSearch;
-        private ImageList _smallImageList;
+        public ArtworkSearch ArtworkSearchResult { get; private set; }
+        private Artwork _currentArtwork;
+        public event Action<Artwork> LoadAlternateImages;
+        public event Action<string> SearchCards;
+        public event Action<ArtworkSearch> CardPicked;
+        public event Func<object, object> ImageGetter;
 
-        public ArtworkPicker(Artwork artwork)
+        public ArtworkPicker()
         {
             InitializeComponent();
-            _artworkPickerPresenter = new ArtworkPickerPresenter(this);
-            Init(artwork);
+            Init();
         }
 
-        private void Init(Artwork artwork)
+        private void Init()
         {
             SetupColumns();
             SetupButtons();
-            LoadData(artwork);
         }
 
-        private void LoadData(Artwork artwork)
+        public void SetCurrentArtwork(Artwork artwork)
         {
-            _artworkPickerPresenter.LoadAlternateArtwork(artwork);
+            _currentArtwork = artwork;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            LoadAlternateImages?.Invoke(_currentArtwork);
         }
 
         private void SetupColumns()
@@ -41,7 +47,7 @@ namespace Blue_Eyes_White_Dragon.UI
             Row.AspectGetter = x => objlist_artwork_picker.IndexOf(x) + 1;
             CardName.AspectGetter = x => ((ArtworkSearch) x)?.CardName;
             CardImage.AspectGetter = x => ((ArtworkSearch) x)?.ImageFilePath;
-            CardImage.ImageGetter = _artworkPickerPresenter.ImageGetter;
+            CardImage.ImageGetter = x => ImageGetter;
         }
 
         private void SetupButtons()
@@ -52,7 +58,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void OkClicked(object sender, CellClickEventArgs e)
         {
-            ArtworkSearch = (ArtworkSearch)e.Model;
+            CardPicked?.Invoke((ArtworkSearch)e.Model);
             this.DialogResult = DialogResult.OK;
         }
 
@@ -69,6 +75,11 @@ namespace Blue_Eyes_White_Dragon.UI
         public void AddObjectsToObjectListView(IEnumerable<ArtworkSearch> artworkSearchList)
         {
             objlist_artwork_picker.AddObjects(artworkSearchList.ToList());
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            SearchCards?.Invoke(txtbox_search.Text);
         }
     }
 }

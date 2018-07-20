@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.UI;
+using Blue_Eyes_White_Dragon.Presenter;
+using Blue_Eyes_White_Dragon.Utility.DI;
+using Ninject;
 
 namespace Blue_Eyes_White_Dragon
 {
@@ -15,9 +14,13 @@ namespace Blue_Eyes_White_Dragon
         [STAThread]
         static void Main()
         {
+            IKernel kernel = new StandardKernel(new MiscModule(), new FactoryModule(), new LogicModule(), new PresenterModule(), new RepositoryModule(), new UiModule());
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ArtworkEditor());
+
+            var presenter = kernel.Get<ArtworkEditorPresenter>();
+            Application.Run((Form)presenter.View);
         }
     }
 }

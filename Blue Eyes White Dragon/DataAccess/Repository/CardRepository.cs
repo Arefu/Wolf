@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
-using Blue_Eyes_White_Dragon.DataAccess.Models;
 using Blue_Eyes_White_Dragon.Utility.Interface;
-using Yu_Gi_Oh.Save_File;
 
 namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 {
@@ -18,8 +14,8 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public CardRepository(ICardDbContext db, ILogger logger)
         {
-            _db = db;
-            _logger = logger;
+            _db = db ?? throw new ArgumentNullException(nameof(db));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public List<Card> SearchCards(string cardName)
