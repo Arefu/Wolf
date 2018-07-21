@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
@@ -39,23 +41,14 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 .ToList();
         }
 
-        public Dictionary<string, string> FindFilesAndNameAsDictionary(DirectoryInfo gameImagesLocation)
-        {
-            return Directory
-                .EnumerateFiles(gameImagesLocation.FullName)
-                .Where(IsFileTypeSupported)
-                .Select(x => new FileInfo(x))
-                .ToDictionary(key => Path.GetFileNameWithoutExtension(key.Name), y => y.FullName);
-        }
-
-        public FileInfo FindImageFile(Card card, DirectoryInfo imagesLocation)
+        public FileInfo FindImageFile(string filename, DirectoryInfo imagesLocation)
         {
             FileInfo imageFile = null;
             List<FileInfo> imagesWithCardId = new List<FileInfo>();
 
             foreach (var supportedImageType in GetSupportedFileTypes())
             {
-                var cardName = card.Id.ToString();
+                var cardName = filename;
                 var path = Path.Combine(imagesLocation.FullName, cardName);
                 var filePath = Path.ChangeExtension(path, supportedImageType);
                 var tempFile = new FileInfo(filePath);
@@ -68,14 +61,13 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
             if (imagesWithCardId.Count > 1)
             {
-                imageFile = imagesWithCardId
-                    .FirstOrDefault(x => x.Extension == Constants.SupportedImageTypes.jpg.ToString());
-                _logger.LogInformation($"{imagesWithCardId.Count} images found for {card.Name} picking: {imageFile?.Name}");
+                imageFile = imagesWithCardId.FirstOrDefault(x => x.Extension == Constants.SupportedImageTypes.jpg.ToString());
+                _logger.LogInformation($"{imagesWithCardId.Count} images found for {filename} picking: {imageFile?.Name}");
                 //TODO what to do when a jpg and a png of the card exists in the folder?
             }
             else if (imagesWithCardId.Count == 0)
             {
-                _logger.LogInformation($"no image was found for the card: {card.Name} and id: {card.Id}");
+                _logger.LogInformation($"no image was found for the card: {filename}");
                 return ErrorImage;
             }
             else
@@ -245,6 +237,24 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     artwork.ReplacementImageHeight = height;
                 }
             });
+        }
+
+        public FileInfo FindPendulumFromResource(Artwork artwork)
+        {
+            var executableLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (executableLocation != null)
+            {
+                var dir = new DirectoryInfo(Path.Combine(executableLocation, Constants.ResourcePendulumLocation));
+                var imageFile = FindImageFile(artwork.GameImageFileName, dir);
+                if (imageFile.Exists)
+                {
+                    _logger.LogInformation(Localization.InformationFoundPendulumImage(artwork.GameImageMonsterName, imageFile.FullName.ToString()));
+                    return imageFile;
+                }
+            }
+
+            _logger.LogInformation(Localization.ErrorPendulumNotFound(artwork.GameImageMonsterName));
+            return ErrorImage;
         }
 
         private void CalculateHeightAndWidth(string path, out int width, out int height)

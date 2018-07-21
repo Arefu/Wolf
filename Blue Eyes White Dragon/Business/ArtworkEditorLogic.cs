@@ -27,14 +27,14 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IEnumerable<Artwork> RunMatchAll()
+        public IEnumerable<Artwork> RunMatchAll(bool useIncludedPendulum)
         {
             var gameImagesLocation = _fileRepo.LoadCardDir(Constants.GameImagesLocation);
             var replacementImagesLocation = _fileRepo.LoadCardDir(Constants.ReplacementImagesLocation);
 
             var gameCards = _gameFileRepo.GetAllCards();
             var artworkListWithGameCards = _artworkManager.CreateArtworkModels(gameCards, gameImagesLocation, replacementImagesLocation);
-            var artworkListWithReplacements = _artworkManager.UpdateArtworkModelsWithReplacement(artworkListWithGameCards);
+            var artworkListWithReplacements = _artworkManager.UpdateArtworkModelsWithReplacement(artworkListWithGameCards, useIncludedPendulum);
             CalculateHeightAndWidth(artworkListWithReplacements);
             return SortArtwork(artworkListWithReplacements);
         }

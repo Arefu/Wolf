@@ -9,6 +9,7 @@ using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using Blue_Eyes_White_Dragon.Utility;
 using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
@@ -39,7 +40,7 @@ namespace Blue_Eyes_White_Dragon.Business
             Parallel.For(0, gameCards.Count, i =>
             {
                 var gameCard = gameCards[i];
-                var gameImageFile = _fileRepo.FindImageFile(gameCard, gameImagesLocation);
+                var gameImageFile = _fileRepo.FindImageFile(gameCard.Id.ToString(), gameImagesLocation);
 
                 artworkList.Add(new Artwork()
                 {
@@ -47,7 +48,8 @@ namespace Blue_Eyes_White_Dragon.Business
                     GameImageMonsterName = gameCard.Name,
                     GameImagesDir = gameImagesLocation,
                     ReplacementImagesDir = replacementImagesLocation,
-                    IsMatched = false
+                    IsMatched = false,
+                    IsPendulum = gameCard.IsPendulum
                 });
             });
             stopwatch.Stop();
@@ -56,12 +58,7 @@ namespace Blue_Eyes_White_Dragon.Business
             return artworkList.ToList();
         }
 
-        private long MiliToSec(long stopwatchElapsedMilliseconds)
-        {
-            return stopwatchElapsedMilliseconds / 1000;
-        }
-
-        public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList)
+        public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList, bool useIncludedPendulum)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -70,7 +67,14 @@ namespace Blue_Eyes_White_Dragon.Business
 
             foreach (var artwork in artworkList)
             {
-                ProcessArtwork(artwork);
+                if (useIncludedPendulum && artwork.IsPendulum)
+                {
+                    ProcessArtworkAsPendulum(artwork);
+                }
+                else
+                {
+                    ProcessArtwork(artwork);
+                }
                 numberProcessed++;
                 _logger.LogInformation($"{numberProcessed} of {numberOfArtwork} processed - {artwork.GameImageMonsterName}");
             }
@@ -78,6 +82,14 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger.LogInformation($"Processed {artworkList.Count} in {MiliToSec(stopwatch.ElapsedMilliseconds)}s");
 
             return artworkList;
+        }
+
+        private void ProcessArtworkAsPendulum(Artwork artwork)
+        {
+            var replacementImageFile = _fileRepo.FindPendulumFromResource(artwork);
+            artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
+            artwork.ReplacementImageFile = replacementImageFile;
+            artwork.IsMatched = true;
         }
 
         private void ProcessArtwork(Artwork artwork)
@@ -126,7 +138,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
         private void HandleSingleMatch(Card replacementCard, Artwork artwork)
         {
-            var imageFile = _fileRepo.FindImageFile(replacementCard, artwork.ReplacementImagesDir);
+            var imageFile = _fileRepo.FindImageFile(replacementCard.Id.ToString(), artwork.ReplacementImagesDir);
             artwork.ReplacementImageFile = imageFile;
             artwork.IsMatched = true;
         }
@@ -139,7 +151,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
             foreach (var card in matchingCards)
             {
-                var imageFile = _fileRepo.FindImageFile(card, artwork.ReplacementImagesDir);
+                var imageFile = _fileRepo.FindImageFile(card.Id.ToString(), artwork.ReplacementImagesDir);
                 artwork.AlternateReplacementImages.Add(imageFile);
             }
         }
@@ -152,5 +164,11 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger.LogInformation($"No match was found for {artwork.GameImageMonsterName} - picking the error image");
             return artwork;
         }
+
+        private long MiliToSec(long stopwatchElapsedMilliseconds)
+        {
+            return stopwatchElapsedMilliseconds / 1000;
+        }
+
     }
 }

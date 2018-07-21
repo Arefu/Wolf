@@ -24,6 +24,7 @@ namespace Blue_Eyes_White_Dragon.UI
         public event Action<IEnumerable<Artwork>> SaveAction;
         public event Action<string> LoadAction;
         public event Action<string> SavePathSettingAction;
+        public event Action<bool> UsePendulumCheckedChanged;
 
         public ArtworkEditor(IArtworkPickerPresenterFactory artworkPickerPresenterFactory) 
         {
@@ -189,6 +190,11 @@ namespace Blue_Eyes_White_Dragon.UI
                 SavePathSettingAction?.Invoke(filePath);
                 txt_card_match_path.Text = filePath;
             }
+        }
+
+        private void Chckbx_use_pendulum_CheckedChanged(object sender, EventArgs e)
+        {
+            UsePendulumCheckedChanged?.Invoke(checkBox1.Checked);
         }
     }
 }

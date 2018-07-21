@@ -18,6 +18,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
         private readonly IArtworkEditorLogic _artworkEditorLogic;
         private readonly ILogger _logger;
         public IArtworkEditor View { get; }
+        private bool UseIncludedPendulum = true;
 
         public ArtworkEditorPresenter(IArtworkEditor view, IArtworkEditorLogic artworkEditorLogic, ILogger logger)
         {
@@ -37,6 +38,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.SaveAction += Save;
             View.MatchAllAction += MatchAll;
             View.SavePathSettingAction += SavePathSetting;
+            View.UsePendulumCheckedChanged += SetPendulumChecked;
 
             _logger.AppendTextToConsole += AppendConsoleText;
             _logger.AppendExceptionToConsole += AppendConsoleException;
@@ -82,7 +84,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
         public void MatchAll()
         {
             View.ClearObjectsFromObjectListView();
-            var artworkList = _artworkEditorLogic.RunMatchAll();
+            var artworkList = _artworkEditorLogic.RunMatchAll(UseIncludedPendulum);
             View.AddObjectsToObjectListView(artworkList);
         }
 
@@ -189,5 +191,9 @@ namespace Blue_Eyes_White_Dragon.Presenter
             _artworkEditorLogic.RunCustomArtPicked(artwork, pickedArtwork);
         }
 
+        private void SetPendulumChecked(bool isChecked)
+        {
+            UseIncludedPendulum = isChecked;
+        }
     }
 }

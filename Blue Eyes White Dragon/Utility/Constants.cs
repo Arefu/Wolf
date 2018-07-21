@@ -9,6 +9,8 @@ namespace Blue_Eyes_White_Dragon.Utility
         public static string ReplacementImagesLocation => ConfigurationManager.AppSettings["ReplacementImagesLocation"];
         public static string Jpg => Enum.GetName(typeof(Constants.SupportedImageTypes), Constants.SupportedImageTypes.jpg);
         public static string Png => Enum.GetName(typeof(Constants.SupportedImageTypes), Constants.SupportedImageTypes.png);
+        public static string ResourcePendulumLocation = "Resources\\Pendulums";
+
         public static string BtnTextOk = "Ok";
 
         public static string BtnTextCustom = "Open Art Picker";

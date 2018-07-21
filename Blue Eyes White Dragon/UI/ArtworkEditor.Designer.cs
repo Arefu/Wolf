@@ -44,8 +44,10 @@
             this.RIHeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.RIWidth = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.BtnCustomArt = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pnl_object_list = new System.Windows.Forms.Panel();
             this.pnl_sidebar = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpbox_console = new System.Windows.Forms.GroupBox();
             this.richtextbox_console = new System.Windows.Forms.RichTextBox();
             this.grpbox_left_top = new System.Windows.Forms.GroupBox();
@@ -59,7 +61,6 @@
             this.txt_card_match_path = new System.Windows.Forms.TextBox();
             this.btn_match_run = new System.Windows.Forms.Button();
             this.open_file_browse_match_file = new System.Windows.Forms.OpenFileDialog();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_editor)).BeginInit();
             this.pnl_object_list.SuspendLayout();
             this.pnl_sidebar.SuspendLayout();
@@ -219,6 +220,12 @@
             this.BtnCustomArt.UseFiltering = false;
             this.BtnCustomArt.Width = 120;
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(256, 256);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // pnl_object_list
             // 
             this.pnl_object_list.Controls.Add(this.objlist_artwork_editor);
@@ -230,6 +237,7 @@
             // 
             // pnl_sidebar
             // 
+            this.pnl_sidebar.Controls.Add(this.checkBox1);
             this.pnl_sidebar.Controls.Add(this.grpbox_console);
             this.pnl_sidebar.Controls.Add(this.grpbox_left_top);
             this.pnl_sidebar.Controls.Add(this.grpbox_bottom_left);
@@ -240,6 +248,19 @@
             this.pnl_sidebar.Name = "pnl_sidebar";
             this.pnl_sidebar.Size = new System.Drawing.Size(404, 1039);
             this.pnl_sidebar.TabIndex = 1;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(119, 88);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(166, 17);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Use included pendulum cards";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.Chckbx_use_pendulum_CheckedChanged);
             // 
             // grpbox_console
             // 
@@ -352,7 +373,7 @@
             // 
             // btn_match_run
             // 
-            this.btn_match_run.Location = new System.Drawing.Point(154, 88);
+            this.btn_match_run.Location = new System.Drawing.Point(154, 112);
             this.btn_match_run.Name = "btn_match_run";
             this.btn_match_run.Size = new System.Drawing.Size(100, 50);
             this.btn_match_run.TabIndex = 1;
@@ -364,12 +385,6 @@
             // 
             this.open_file_browse_match_file.Filter = "Json files|*.json|All files|*.*";
             this.open_file_browse_match_file.ShowHelp = true;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(256, 256);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // ArtworkEditor
             // 
@@ -383,6 +398,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_editor)).EndInit();
             this.pnl_object_list.ResumeLayout(false);
             this.pnl_sidebar.ResumeLayout(false);
+            this.pnl_sidebar.PerformLayout();
             this.grpbox_console.ResumeLayout(false);
             this.grpbox_left_top.ResumeLayout(false);
             this.grpbox_left_top.PerformLayout();
@@ -425,5 +441,6 @@
         private BrightIdeasSoftware.OLVColumn Row;
         private BrightIdeasSoftware.OLVColumn BtnCustomArt;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

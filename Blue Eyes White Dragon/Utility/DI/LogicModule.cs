@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Ninject.Modules;

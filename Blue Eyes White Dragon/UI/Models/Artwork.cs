@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Utility;
 using Newtonsoft.Json;
 
@@ -31,6 +30,7 @@ namespace Blue_Eyes_White_Dragon.UI.Models
         [JsonIgnore] public int ReplacementImageWidth { get; set; }
 
         public bool IsMatched { get; set; }
+        public bool IsPendulum { get; set; }
         public List<FileInfo> AlternateReplacementImages { get; set; } = new List<FileInfo>();
 
         public override string ToString()

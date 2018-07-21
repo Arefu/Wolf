@@ -14,6 +14,7 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         event Action<IEnumerable<Artwork>> SaveAction;
         event Action<string> LoadAction;
         event Action<string> SavePathSettingAction;
+        event Action<bool> UsePendulumCheckedChanged;
         void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList);
         bool SmallImageListContains(string gameImagePath);
         void SmallImageListAdd(string imagePath, Image smallImage);

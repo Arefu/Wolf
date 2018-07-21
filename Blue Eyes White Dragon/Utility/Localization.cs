@@ -1,4 +1,6 @@
-﻿namespace Blue_Eyes_White_Dragon.Utility
+﻿using System.IO;
+
+namespace Blue_Eyes_White_Dragon.Utility
 {
     public static class Localization
     {
@@ -9,6 +11,7 @@
         public static string InformationCalculatingImageDimensions = "Calculating image dimensions";
         public static string InformationCalculationComplete = "Calculating completed";
         public static string InformationLoading = "Loading";
+        public static string ErrorPendulumNotFound(string monsterName){ return $"Error could not find the image for the pendulum card {monsterName}"; } 
 
         public static string InformationLoadComplete(string path) { return $"Load successful from {path}"; }
         public static string InformationSaveComplete(string path) { return $"Save successful to {path}"; }
@@ -18,5 +21,10 @@
         public static string Exception(string exceptionMessage, string innerExceptionMessage) { return $"Exception: {exceptionMessage} \\r\\n InnerException: {innerExceptionMessage}"; }
         public static string ExceptionFormattedForConsole(string message) { return $"{message}{Localization.GetNewline}"; }
         public static string MessageFormattedForConsole(string message) { return $"{message}{Localization.GetNewline}"; }
+
+        public static string InformationFoundPendulumImage(string artworkGameImageMonsterName, string imageFilePath)
+        {
+            return $"Found {imageFilePath} for {artworkGameImageMonsterName}";
+        }
     }
 }

@@ -30,19 +30,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
             return cards;
         }
-
-        public List<Card> SearchCardsAsync(ICardDbContext db, string cardName)
-        {
-            var cards = db.Texts
-                .Where(s => s.Name == cardName)
-                .Select(x =>
-                    new Card() {
-                        Id = x.Id,
-                        Name = x.Name
-                    }).ToList();
-
-            return cards;
-        }
     }
 
 }

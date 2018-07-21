@@ -12,10 +12,10 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
 
         DirectoryInfo LoadCardDir(string locationSetting);
         List<FileInfo> FindFiles(DirectoryInfo gameImagesLocation);
-        Dictionary<string, string> FindFilesAndNameAsDictionary(DirectoryInfo gameImagesLocation);
-        FileInfo FindImageFile(Card replacementCard, DirectoryInfo imagesLocation);
+        FileInfo FindImageFile(string filename, DirectoryInfo imagesLocation);
         string SaveArtworkMatchToFile(IEnumerable<Artwork> artworkList);
         IEnumerable<Artwork> LoadArtworkMatchFromFile(string path);
         void CalculateHeightAndWidth(IEnumerable<Artwork> artworks);
+        FileInfo FindPendulumFromResource(Artwork artwork);
     }
 }
