@@ -8,14 +8,11 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
 {
     public interface IFileRepository
     {
-        FileInfo ErrorImage { get; set; }
-
-        DirectoryInfo LoadCardDir(string locationSetting);
-        List<FileInfo> FindFiles(DirectoryInfo gameImagesLocation);
-        FileInfo FindImageFile(string filename, DirectoryInfo imagesLocation);
+        FileInfo GetImageFile(string filename, DirectoryInfo imagesLocation);
         string SaveArtworkMatchToFile(IEnumerable<Artwork> artworkList);
         IEnumerable<Artwork> LoadArtworkMatchFromFile(string path);
         void CalculateHeightAndWidth(IEnumerable<Artwork> artworks);
-        FileInfo FindPendulumFromResource(Artwork artwork);
+        List<string> GetSupportedFileTypes();
+
     }
 }

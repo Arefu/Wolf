@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Blue_Eyes_White_Dragon.Utility;
+using Blue_Eyes_White_Dragon.Misc;
 using Newtonsoft.Json;
 
 namespace Blue_Eyes_White_Dragon.UI.Models
 {
     public class Artwork
     {
-        /// <summary>
-        /// GameImage is referred to as GI
-        /// </summary>
+        public int CardId { get; set; }
+        
         public FileInfo GameImageFile { get; set; }
         [JsonIgnore] public string GameImageFilePath => GameImageFile?.FullName ?? Constants.StringError;
         [JsonIgnore] public string GameImageFileName => GameImageFile?.Name ?? Constants.StringError;
@@ -18,9 +17,6 @@ namespace Blue_Eyes_White_Dragon.UI.Models
         [JsonIgnore] public int GameImageHeight { get; set; }
         [JsonIgnore] public int GameImageWidth { get; set; }
 
-        /// <summary>
-        /// ReplacementImage is reffered to as RI
-        /// </summary>
         public FileInfo ReplacementImageFile { get; set; }
         [JsonIgnore] public string ReplacementImageFilePath => ReplacementImageFile?.FullName ?? Constants.StringError;
         [JsonIgnore] public string ReplacementImageFileName => ReplacementImageFile?.Name ?? Constants.StringError;

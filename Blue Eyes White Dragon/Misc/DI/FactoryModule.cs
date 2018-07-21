@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Factory;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Ninject.Modules;
 
-namespace Blue_Eyes_White_Dragon.Utility.DI
+namespace Blue_Eyes_White_Dragon.Misc.DI
 {
     public class FactoryModule : NinjectModule
     {

@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
+using Blue_Eyes_White_Dragon.Misc;
+using Blue_Eyes_White_Dragon.Misc.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
-using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
@@ -27,11 +27,8 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public IEnumerable<Artwork> RunMatchAll(bool useIncludedPendulum)
+        public IEnumerable<Artwork> RunMatchAll(DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation, bool useIncludedPendulum)
         {
-            var gameImagesLocation = _fileRepo.LoadCardDir(Constants.GameImagesLocation);
-            var replacementImagesLocation = _fileRepo.LoadCardDir(Constants.ReplacementImagesLocation);
-
             var gameCards = _gameFileRepo.GetAllCards();
             var artworkListWithGameCards = _artworkManager.CreateArtworkModels(gameCards, gameImagesLocation, replacementImagesLocation);
             var artworkListWithReplacements = _artworkManager.UpdateArtworkModelsWithReplacement(artworkListWithGameCards, useIncludedPendulum);
@@ -71,7 +68,6 @@ namespace Blue_Eyes_White_Dragon.Business
             _logger.LogInformation(Localization.InformationCalculatingImageDimensions);
             _fileRepo.CalculateHeightAndWidth(artworkList);
             _logger.LogInformation(Localization.InformationCalculationComplete);
-
         }
 
         private void SwapAlternateImages(Artwork artwork, FileInfo orgImageFile, FileInfo newImageFile)

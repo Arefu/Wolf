@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
+using Blue_Eyes_White_Dragon.Misc;
+using Blue_Eyes_White_Dragon.Misc.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
-using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
@@ -18,17 +18,17 @@ namespace Blue_Eyes_White_Dragon.Business
     {
         private readonly IFileRepository _fileRepo;
         private readonly ICardRepository _cardRepo;
-        /// <summary>
-        /// Points to an error image located in the users temp directory.
-        /// A rather hacky way to supply a string path to the artwork model
-        /// </summary>
         private readonly ILogger _logger;
+        private readonly IResourceRepository _resourceRepo;
+        private readonly FileInfo _errorImage;
 
-        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, ILogger logger)
+        public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, ILogger logger, IResourceRepository resourceRepo)
         {
             _fileRepo = fileRepo ?? throw new ArgumentNullException(nameof(fileRepo));
             _cardRepo = cardRepo ?? throw new ArgumentNullException(nameof(cardRepo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _resourceRepo = resourceRepo;
+            _errorImage = _resourceRepo.LoadErrorImageFromResource();
         }
 
         public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
@@ -40,11 +40,12 @@ namespace Blue_Eyes_White_Dragon.Business
             Parallel.For(0, gameCards.Count, i =>
             {
                 var gameCard = gameCards[i];
-                var gameImageFile = _fileRepo.FindImageFile(gameCard.Id.ToString(), gameImagesLocation);
+                var gameImageFile = SearchForImages(gameCard.Id, gameImagesLocation);
 
                 artworkList.Add(new Artwork()
                 {
-                    GameImageFile = gameImageFile,
+                    CardId = gameCard.Id,
+                    GameImageFile = gameImageFile ?? _errorImage,
                     GameImageMonsterName = gameCard.Name,
                     GameImagesDir = gameImagesLocation,
                     ReplacementImagesDir = replacementImagesLocation,
@@ -63,7 +64,7 @@ namespace Blue_Eyes_White_Dragon.Business
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var numberOfArtwork = artworkList.Count;
-            long numberProcessed = 0;
+            long progress = 0;
 
             foreach (var artwork in artworkList)
             {
@@ -75,21 +76,31 @@ namespace Blue_Eyes_White_Dragon.Business
                 {
                     ProcessArtwork(artwork);
                 }
-                numberProcessed++;
-                _logger.LogInformation($"{numberProcessed} of {numberOfArtwork} processed - {artwork.GameImageMonsterName}");
+                progress++;
+                _logger.LogInformation(Localization.ProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
             }
             stopwatch.Stop();
-            _logger.LogInformation($"Processed {artworkList.Count} in {MiliToSec(stopwatch.ElapsedMilliseconds)}s");
+            _logger.LogInformation(Localization.ProcessingDone(artworkList.Count, MiliToSec(stopwatch.ElapsedMilliseconds)));
 
             return artworkList;
         }
 
         private void ProcessArtworkAsPendulum(Artwork artwork)
         {
-            var replacementImageFile = _fileRepo.FindPendulumFromResource(artwork);
+            var pendulumLocation = _resourceRepo.GetPendulumPathFromResource();
+            var currentPendulumImage = SearchForImages(artwork.CardId, pendulumLocation);
+
+            if (currentPendulumImage != null)
+            {
+                artwork.ReplacementImageFile = currentPendulumImage;
+                artwork.IsMatched = true;
+            }
+            else
+            {
+                artwork.ReplacementImageFile = _errorImage;
+                artwork.IsMatched = false;
+            }
             artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
-            artwork.ReplacementImageFile = replacementImageFile;
-            artwork.IsMatched = true;
         }
 
         private void ProcessArtwork(Artwork artwork)
@@ -107,7 +118,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
             if (replacementCard == null)
             {
-                return HandleNoMatch(artwork);
+                HandleNoMatch(artwork);
             }
 
             if (matchingCards.Count == 1)
@@ -138,9 +149,17 @@ namespace Blue_Eyes_White_Dragon.Business
 
         private void HandleSingleMatch(Card replacementCard, Artwork artwork)
         {
-            var imageFile = _fileRepo.FindImageFile(replacementCard.Id.ToString(), artwork.ReplacementImagesDir);
-            artwork.ReplacementImageFile = imageFile;
-            artwork.IsMatched = true;
+            var imageFile = SearchForImages(replacementCard.Id, artwork.ReplacementImagesDir);
+            if (imageFile != null)
+            {
+                artwork.ReplacementImageFile = imageFile;
+                artwork.IsMatched = true;
+            }
+            else
+            {
+                artwork.ReplacementImageFile = _errorImage;
+                artwork.IsMatched = false;
+            }
         }
 
         private void HandleMultipleMatches(ICollection<Card> matchingCards, Artwork artwork)
@@ -151,18 +170,17 @@ namespace Blue_Eyes_White_Dragon.Business
 
             foreach (var card in matchingCards)
             {
-                var imageFile = _fileRepo.FindImageFile(card.Id.ToString(), artwork.ReplacementImagesDir);
+                var imageFile = SearchForImages(card.Id, artwork.ReplacementImagesDir) ?? _errorImage;
                 artwork.AlternateReplacementImages.Add(imageFile);
             }
         }
 
-        private Artwork HandleNoMatch(Artwork artwork)
+        private void HandleNoMatch(Artwork artwork)
         {
             artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
-            artwork.ReplacementImageFile = _fileRepo.ErrorImage;
+            artwork.ReplacementImageFile = _errorImage;
             artwork.IsMatched = false;
-            _logger.LogInformation($"No match was found for {artwork.GameImageMonsterName} - picking the error image");
-            return artwork;
+            _logger.LogInformation(Localization.ErrorNoMatch(artwork.GameImageMonsterName));
         }
 
         private long MiliToSec(long stopwatchElapsedMilliseconds)
@@ -170,5 +188,47 @@ namespace Blue_Eyes_White_Dragon.Business
             return stopwatchElapsedMilliseconds / 1000;
         }
 
+        private FileInfo SearchForImages(int cardId, DirectoryInfo directory)
+        {
+            FileInfo imageFile = null;
+
+            var images = SearchForImagesInDirectory(cardId, directory);
+
+            if (images.Count > 1)
+            {
+                imageFile = images.FirstOrDefault(x => x.Extension == Constants.SupportedImageTypes.jpg.ToString());
+                _logger.LogInformation($"{images.Count} images found for {cardId} picking: {imageFile?.Name}");
+                //TODO what to do when a jpg and a png of the card exists in the folder?
+            }
+            else if (images.Count == 0)
+            {
+                _logger.LogInformation($"no image was found for the card: {cardId}");
+                return null;
+            }
+            else
+            {
+                imageFile = images.First();
+            }
+            return imageFile;
+        }
+
+        private List<FileInfo> SearchForImagesInDirectory(int cardId, DirectoryInfo directory)
+        {
+            List<FileInfo> foundImages = new List<FileInfo>();
+
+            var filetypes = _fileRepo.GetSupportedFileTypes();
+
+            foreach (var supportedImageType in filetypes)
+            {
+                var filename = Path.ChangeExtension(cardId.ToString(), supportedImageType);
+                var image = _fileRepo.GetImageFile(filename, directory);
+                if (image != null)
+                {
+                    foundImages.Add(image);
+                }
+            }
+
+            return foundImages;
+        }
     }
 }

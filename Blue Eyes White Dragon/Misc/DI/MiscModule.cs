@@ -1,11 +1,11 @@
 ﻿using System;
 using Blue_Eyes_White_Dragon.DataAccess;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
-using Blue_Eyes_White_Dragon.Utility.Interface;
-using Blue_Eyes_White_Dragon.Utility.Logging;
+using Blue_Eyes_White_Dragon.Misc.Interface;
+using Blue_Eyes_White_Dragon.Misc.Logging;
 using Ninject.Modules;
 
-namespace Blue_Eyes_White_Dragon.Utility.DI
+namespace Blue_Eyes_White_Dragon.Misc.DI
 {
     public class MiscModule : NinjectModule
     {

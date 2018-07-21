@@ -150,19 +150,21 @@
   <ItemGroup>
     <Compile Include="Business\Interface\IArtworkPickerLogic.cs" />
     <Compile Include="Business\Factory\ArtworkPickerPresenterFactory.cs" />
-    <Compile Include="Utility\DI\FactoryModule.cs" />
-    <Compile Include="Utility\DI\MiscModule.cs" />
+    <Compile Include="DataAccess\Interface\IResourceRepository.cs" />
+    <Compile Include="DataAccess\Repository\ResourceRepository.cs" />
+    <Compile Include="Misc\DI\FactoryModule.cs" />
+    <Compile Include="Misc\DI\MiscModule.cs" />
     <Compile Include="Business\ArtworkEditorLogic.cs" />
     <Compile Include="Business\ArtworkPickerLogic.cs" />
-    <Compile Include="Utility\Constants.cs" />
+    <Compile Include="Misc\Constants.cs" />
     <Compile Include="Business\Interface\IArtworkEditorLogic.cs" />
     <Compile Include="Business\Interface\IArtworkManager.cs" />
     <Compile Include="Business\Interface\IArtworkPickerPresenterFactory.cs" />
-    <Compile Include="Utility\DI\LogicModule.cs" />
-    <Compile Include="Utility\DI\PresenterModule.cs" />
-    <Compile Include="Utility\DI\RepositoryModule.cs" />
-    <Compile Include="Utility\DI\UiModule.cs" />
-    <Compile Include="Utility\Localization.cs" />
+    <Compile Include="Misc\DI\LogicModule.cs" />
+    <Compile Include="Misc\DI\PresenterModule.cs" />
+    <Compile Include="Misc\DI\RepositoryModule.cs" />
+    <Compile Include="Misc\DI\UiModule.cs" />
+    <Compile Include="Misc\Localization.cs" />
     <Compile Include="DataAccess\Interface\ICardDbContext.cs" />
     <Compile Include="DataAccess\Repository\GameFileRepository.cs" />
     <Compile Include="DataAccess\Interface\IGameFileRepository.cs" />
@@ -196,8 +198,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Business\Models\Card.cs" />
     <Compile Include="DataAccess\Models\Texts.cs" />
-    <Compile Include="Utility\Interface\ILogger.cs" />
-    <Compile Include="Utility\Logging\ConsoleLogger.cs" />
+    <Compile Include="Misc\Interface\ILogger.cs" />
+    <Compile Include="Misc\Logging\ConsoleLogger.cs" />
     <EmbeddedResource Include="UI\ArtworkEditor.resx">
       <DependentUpon>ArtworkEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -238,7 +240,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\error.bmp" />
+    <Content Include="Resources\error.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Pendulums\11134.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

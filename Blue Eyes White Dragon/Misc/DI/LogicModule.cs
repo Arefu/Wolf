@@ -3,7 +3,7 @@ using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Ninject.Modules;
 
-namespace Blue_Eyes_White_Dragon.Utility.DI
+namespace Blue_Eyes_White_Dragon.Misc.DI
 {
     public class LogicModule : NinjectModule
     {

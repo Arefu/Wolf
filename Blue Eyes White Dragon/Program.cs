@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using Blue_Eyes_White_Dragon.Misc.DI;
 using Blue_Eyes_White_Dragon.Presenter;
-using Blue_Eyes_White_Dragon.Utility.DI;
 using Ninject;
 
 namespace Blue_Eyes_White_Dragon

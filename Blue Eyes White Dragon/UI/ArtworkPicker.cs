@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
 using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.UI
@@ -52,7 +52,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void SetupButtons()
         {
-            BtnOk.AspectGetter = x => Constants.BtnTextOk;
+            BtnOk.AspectGetter = x => Localization.BtnTextOk;
             objlist_artwork_picker.ButtonClick += OkClicked;
         }
 

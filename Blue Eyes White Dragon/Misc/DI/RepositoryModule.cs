@@ -3,12 +3,12 @@ using System.IO;
 using System.Reflection;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Repository;
-using Blue_Eyes_White_Dragon.Utility.Logging;
+using Blue_Eyes_White_Dragon.Misc.Logging;
 using Ninject;
 using Ninject.Modules;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
 
-namespace Blue_Eyes_White_Dragon.Utility.DI
+namespace Blue_Eyes_White_Dragon.Misc.DI
 {
     public class RepositoryModule : NinjectModule
     {
@@ -26,6 +26,7 @@ namespace Blue_Eyes_White_Dragon.Utility.DI
                 manager.Load();
                 return manager;
             }).InSingletonScope();
+            kernel.Bind<IResourceRepository>().To<ResourceRepository>();
         }
     }
 }

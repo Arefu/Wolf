@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blue_Eyes_White_Dragon.Utility.Interface
+namespace Blue_Eyes_White_Dragon.Misc.Interface
 {
     public interface ILogger
     {
@@ -12,5 +8,6 @@ namespace Blue_Eyes_White_Dragon.Utility.Interface
         void LogException(Exception e);
         event Action<string> AppendTextToConsole;
         event Action<string> AppendExceptionToConsole;
+        void LogError(string message);
     }
 }

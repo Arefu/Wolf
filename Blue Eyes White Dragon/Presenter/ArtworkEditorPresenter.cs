@@ -4,12 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Blue_Eyes_White_Dragon.Business.Interface;
+using Blue_Eyes_White_Dragon.Misc;
+using Blue_Eyes_White_Dragon.Misc.Interface;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
-using Blue_Eyes_White_Dragon.UI;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
-using Blue_Eyes_White_Dragon.Utility.Interface;
 
 namespace Blue_Eyes_White_Dragon.Presenter
 {
@@ -18,7 +17,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
         private readonly IArtworkEditorLogic _artworkEditorLogic;
         private readonly ILogger _logger;
         public IArtworkEditor View { get; }
-        private bool UseIncludedPendulum = true;
+        private bool _useIncludedPendulum = true;
 
         public ArtworkEditorPresenter(IArtworkEditor view, IArtworkEditorLogic artworkEditorLogic, ILogger logger)
         {
@@ -81,10 +80,10 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.SmallImageListAdd(imagePath, image);
         }
 
-        public void MatchAll()
+        public void MatchAll(string gameImagesLocation, string replacementImagesLocation)
         {
             View.ClearObjectsFromObjectListView();
-            var artworkList = _artworkEditorLogic.RunMatchAll(UseIncludedPendulum);
+            var artworkList = _artworkEditorLogic.RunMatchAll(new DirectoryInfo(gameImagesLocation), new DirectoryInfo(replacementImagesLocation), _useIncludedPendulum);
             View.AddObjectsToObjectListView(artworkList);
         }
 
@@ -193,7 +192,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
         private void SetPendulumChecked(bool isChecked)
         {
-            UseIncludedPendulum = isChecked;
+            _useIncludedPendulum = isChecked;
         }
     }
 }

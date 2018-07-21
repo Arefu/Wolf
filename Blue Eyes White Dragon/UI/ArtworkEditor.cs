@@ -5,11 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Business.Interface;
-using Blue_Eyes_White_Dragon.Presenter.Interface;
+using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Blue_Eyes_White_Dragon.Utility;
-using Blue_Eyes_White_Dragon.Utility.DI;
 using BrightIdeasSoftware;
 
 namespace Blue_Eyes_White_Dragon.UI
@@ -19,7 +17,7 @@ namespace Blue_Eyes_White_Dragon.UI
         private readonly IArtworkPickerPresenterFactory _artworkPickerPresenterFactory;
         public event Func<object, object> GameImageGetterEvent;
         public event Func<object, object> ReplacementImageGetterEvent;
-        public event Action MatchAllAction;
+        public event Action<string, string> MatchAllAction;
         public event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         public event Action<IEnumerable<Artwork>> SaveAction;
         public event Action<string> LoadAction;
@@ -42,7 +40,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void SetupButtons()
         {
-            BtnCustomArt.AspectGetter = x => Constants.BtnTextCustom;
+            BtnCustomArt.AspectGetter = x => Localization.BtnTextCustom;
             objlist_artwork_editor.ButtonClick += CustomArtClicked;
         }
 
@@ -96,7 +94,10 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void Btn_run_Click(object sender, EventArgs e)
         {
-            MatchAllAction?.Invoke();
+            //TODO create 2 dialogs for browsing the locations
+            var gameImagesLocation = Constants.GameImagesLocation;
+            var replacementImagesLocation = Constants.ReplacementImagesLocation;
+            MatchAllAction?.Invoke(gameImagesLocation, replacementImagesLocation);
         }
 
         private void Txt_search_TextChanged(object sender, EventArgs e)

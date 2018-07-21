@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Blue_Eyes_White_Dragon.Utility
+﻿namespace Blue_Eyes_White_Dragon.Misc
 {
     public static class Localization
     {
@@ -25,6 +23,27 @@ namespace Blue_Eyes_White_Dragon.Utility
         public static string InformationFoundPendulumImage(string artworkGameImageMonsterName, string imageFilePath)
         {
             return $"Found {imageFilePath} for {artworkGameImageMonsterName}";
+        }
+
+        public static string ErrorNoMatch(string monsterName)
+        {
+            return $"No match was found for {monsterName} - picking the error image";
+        }
+
+        public static string ErrorExecutableLocationNotFound = "Error loading the execution directory";
+        public static string ErrorLoadingErrorImage = "Error loading the image for errors";
+
+        public static string BtnTextOk = "Ok";
+        public static string BtnTextCustom = "Open Art Picker";
+
+        public static string ProcessingProgress(long progress, int totalAmount, string monsterName)
+        {
+            return $"{progress} of {totalAmount} processed - {monsterName}";
+        }
+
+        public static string ProcessingDone(int amountProcessed, long secondsElapsed)
+        {
+            return $"Processed {amountProcessed} in {secondsElapsed}s";
         }
     }
 }

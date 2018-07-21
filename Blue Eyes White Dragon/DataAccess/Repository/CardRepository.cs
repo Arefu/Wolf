@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
-using Blue_Eyes_White_Dragon.Utility.Interface;
+using Blue_Eyes_White_Dragon.Misc.Interface;
 
 namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 {

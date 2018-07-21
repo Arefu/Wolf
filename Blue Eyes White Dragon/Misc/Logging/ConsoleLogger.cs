@@ -1,12 +1,16 @@
 ﻿using System;
-using Blue_Eyes_White_Dragon.Utility.Interface;
+using Blue_Eyes_White_Dragon.Misc.Interface;
 
-namespace Blue_Eyes_White_Dragon.Utility.Logging
+namespace Blue_Eyes_White_Dragon.Misc.Logging
 {
     public class ConsoleLogger : ILogger
     {
         public event Action<string> AppendTextToConsole;
         public event Action<string> AppendExceptionToConsole;
+        public void LogError(string message)
+        {
+            LogInformation(message);
+        }
 
         public void LogInformation(string message)
         {
