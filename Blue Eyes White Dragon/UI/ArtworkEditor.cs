@@ -14,15 +14,17 @@ namespace Blue_Eyes_White_Dragon.UI
 {
     public partial class ArtworkEditor : Form, IArtworkEditor
     {
-        private readonly IArtworkPickerPresenterFactory _artworkPickerPresenterFactory;
         public event Func<object, object> GameImageGetterEvent;
         public event Func<object, object> ReplacementImageGetterEvent;
         public event Action<string, string> MatchAllAction;
         public event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         public event Action<IEnumerable<Artwork>> SaveAction;
         public event Action<string> LoadAction;
-        public event Action<string> SavePathSettingAction;
+        public event Action<string, Constants.Setting> SavePathSettingAction;
         public event Action<bool> UsePendulumCheckedChanged;
+
+        private readonly IArtworkPickerPresenterFactory _artworkPickerPresenterFactory;
+        private const int StartingNumberOfRowIndex = 1;
 
         public ArtworkEditor(IArtworkPickerPresenterFactory artworkPickerPresenterFactory) 
         {
@@ -35,7 +37,6 @@ namespace Blue_Eyes_White_Dragon.UI
         {
             SetupColumns();
             SetupButtons();
-            LoadSettings();
         }
 
         private void SetupButtons()
@@ -44,34 +45,42 @@ namespace Blue_Eyes_White_Dragon.UI
             objlist_artwork_editor.ButtonClick += CustomArtClicked;
         }
 
-        private void LoadSettings()
-        {
-            txt_card_match_path.Text = Properties.Settings.Default.LastUsedLoadPath;
-        }
-
-        public void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList)
+        public void AddObjectsToObjectListView(IEnumerable<IUiModel> artworkList)
         {
             objlist_artwork_editor.AddObjects(artworkList.ToList());
         }
 
         private void SetupColumns()
         {
-            GI.AspectGetter = x => ((Artwork) x)?.GameImageFilePath;
+            GI.AspectGetter = x => ((Artwork) x)?.GameImageFile.FullName;
             GI.ImageGetter = x => GameImageGetterEvent;
             GIFileName.AspectGetter = x => ((Artwork) x)?.GameImageFileName;
             GICardName.AspectGetter = x => ((Artwork) x)?.GameImageMonsterName;
             GIWidth.AspectGetter = x => ((Artwork)x)?.GameImageWidth;
             GIHeight.AspectGetter = x => ((Artwork)x)?.GameImageHeight;
 
-            RI.AspectGetter = x => ((Artwork)x)?.ReplacementImageFilePath;
+            RI.AspectGetter = x => ((Artwork)x)?.ReplacementImageFile.FullName;
             RI.ImageGetter = x => ReplacementImageGetterEvent;
             RICardName.AspectGetter = x => ((Artwork)x)?.ReplacementImageMonsterName;
             RIFileName.AspectGetter = x => ((Artwork)x)?.ReplacementImageFileName;
             RIWidth.AspectGetter = x => ((Artwork) x)?.ReplacementImageWidth;
             RIHeight.AspectGetter = x => ((Artwork) x)?.ReplacementImageHeight;
 
-            //Makes the row count from 1 instead of 0
-            Row.AspectGetter = x => objlist_artwork_editor.IndexOf(x) + 1;
+            Row.AspectGetter = x => objlist_artwork_editor.IndexOf(x) + StartingNumberOfRowIndex;
+
+            HasAltImages.AspectGetter = x =>
+            {
+                var row = ((Artwork) x);
+                if (row == null) return "";
+                if (row.AlternateReplacementImages.Any())
+                {
+                    return Localization.BtnTextYes;
+                }
+                else
+                {
+                    return Localization.BtnTextBlank;
+                }
+            };
         }
 
         private void CustomArtClicked(object sender, CellClickEventArgs e)
@@ -94,9 +103,8 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void Btn_run_Click(object sender, EventArgs e)
         {
-            //TODO create 2 dialogs for browsing the locations
-            var gameImagesLocation = Constants.GameImagesLocation;
-            var replacementImagesLocation = Constants.ReplacementImagesLocation;
+            var gameImagesLocation = txt_browse_game_images.Text;
+            var replacementImagesLocation = txt_browse_replacement_images.Text;
             MatchAllAction?.Invoke(gameImagesLocation, replacementImagesLocation);
         }
 
@@ -142,9 +150,29 @@ namespace Blue_Eyes_White_Dragon.UI
             objlist_artwork_editor.ClearObjects();
         }
 
-        public void RefreshObject(Artwork artwork)
+        public void RefreshObject(IUiModel artwork)
         {
             objlist_artwork_editor.RefreshObject(artwork);
+        }
+
+        public void SetLoadPath(string path)
+        {
+            txt_card_match_path.Text = path;
+        }
+
+        public void SetGameImagesPath(string path)
+        {
+            txt_browse_game_images.Text = path;
+        }
+
+        public void SetReplacementImagesPath(string path)
+        {
+            txt_browse_replacement_images.Text = path;
+        }
+
+        public void SetCardDbPath(string path)
+        {
+            txt_browse_carddb.Text = path;
         }
 
         private void OpenArtworkPicker(Artwork artwork)
@@ -183,19 +211,49 @@ namespace Blue_Eyes_White_Dragon.UI
             richtextbox_console.ScrollToCaret();
         }
 
-        private void Btn_browse_match_file_path_Click(object sender, EventArgs e)
+        private void Btn_browse_load_match_path_Click(object sender, EventArgs e)
         {
-            if (open_file_browse_match_file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (browse_json_file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var filePath = open_file_browse_match_file.FileName;
-                SavePathSettingAction?.Invoke(filePath);
+                var filePath = browse_json_file.FileName;
+                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LastUsedLoadPath);
                 txt_card_match_path.Text = filePath;
+            }
+        }
+
+        private void Btn_browse_game_images_Click(object sender, EventArgs e)
+        {
+            if (browse_open_folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var filePath = browse_open_folder.SelectedPath;
+                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LastUsedGameImagePath);
+                txt_browse_game_images.Text = filePath;
+            }
+        }
+
+        private void Btn_browse_replacement_images_Click(object sender, EventArgs e)
+        {
+            if (browse_open_folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var filePath = browse_open_folder.SelectedPath;
+                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LastUsedReplacementImagePath);
+                txt_browse_replacement_images.Text = filePath;
             }
         }
 
         private void Chckbx_use_pendulum_CheckedChanged(object sender, EventArgs e)
         {
             UsePendulumCheckedChanged?.Invoke(checkBox1.Checked);
+        }
+
+        private void Btn_browse_carddb_Click(object sender, EventArgs e)
+        {
+            if (browse_carddb.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var filePath = browse_carddb.FileName;
+                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LasstUsedCardDbPath);
+                txt_browse_carddb.Text = filePath;
+            }
         }
     }
 }

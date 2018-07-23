@@ -150,8 +150,13 @@
   <ItemGroup>
     <Compile Include="Business\Interface\IArtworkPickerLogic.cs" />
     <Compile Include="Business\Factory\ArtworkPickerPresenterFactory.cs" />
+    <Compile Include="DataAccess\Models\ArtworkSerialize.cs" />
     <Compile Include="DataAccess\Interface\IResourceRepository.cs" />
+    <Compile Include="DataAccess\Interface\ISettingRepository.cs" />
+    <Compile Include="DataAccess\Interface\ISaveAndLoadRepository.cs" />
     <Compile Include="DataAccess\Repository\ResourceRepository.cs" />
+    <Compile Include="DataAccess\Repository\SaveAndAndLoadRepository.cs" />
+    <Compile Include="DataAccess\Repository\SettingRepository.cs" />
     <Compile Include="Misc\DI\FactoryModule.cs" />
     <Compile Include="Misc\DI\MiscModule.cs" />
     <Compile Include="Business\ArtworkEditorLogic.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="DataAccess\Interface\ICardRepository.cs" />
     <Compile Include="Presenter\ArtworkEditorPresenter.cs" />
     <Compile Include="Presenter\ArtworkPickerPresenter.cs" />
+    <Compile Include="Presenter\Interface\IArtworkObjectListView.cs" />
     <Compile Include="Presenter\Interface\IArtworkPicker.cs" />
     <Compile Include="Presenter\Interface\IArtworkEditorPresenter.cs" />
     <Compile Include="UI\ArtworkPicker.cs">
@@ -184,6 +190,8 @@
     <Compile Include="UI\ArtworkPicker.Designer.cs">
       <DependentUpon>ArtworkPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Interface\IConsoleLogUi.cs" />
+    <Compile Include="UI\Interface\IUiModel.cs" />
     <Compile Include="UI\Models\ArtworkSearch.cs" />
     <Compile Include="UI\Interface\IArtworkPickerPresenter.cs" />
     <Compile Include="UI\Interface\IArtworkEditor.cs" />
@@ -202,6 +210,7 @@
     <Compile Include="Misc\Logging\ConsoleLogger.cs" />
     <EmbeddedResource Include="UI\ArtworkEditor.resx">
       <DependentUpon>ArtworkEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

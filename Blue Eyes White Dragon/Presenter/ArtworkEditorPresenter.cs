@@ -26,6 +26,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View = view ?? throw new ArgumentNullException(nameof(view));
 
             LoadEvents();
+            LoadSettings();
         }
 
         private void LoadEvents()
@@ -41,6 +42,32 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
             _logger.AppendTextToConsole += AppendConsoleText;
             _logger.AppendExceptionToConsole += AppendConsoleException;
+        }
+
+        private void LoadSettings()
+        {
+            var settings = (Constants.Setting[])Enum.GetValues(typeof(Constants.Setting));
+            foreach (var setting in settings)
+            {
+                var path = _artworkEditorLogic.GetPathSetting(setting);
+                switch (setting)
+                {
+                    case Constants.Setting.LastUsedLoadPath:
+                        View.SetLoadPath(path);
+                        break;
+                    case Constants.Setting.LastUsedGameImagePath:
+                        View.SetGameImagesPath(path);
+                        break;
+                    case Constants.Setting.LastUsedReplacementImagePath:
+                        View.SetReplacementImagesPath(path);
+                        break;
+                    case Constants.Setting.LasstUsedCardDbPath:
+                        View.SetCardDbPath(path);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(setting), setting, null);
+                }
+            }
         }
 
         public object ReplacementImageGetter(object row)
@@ -158,11 +185,11 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.AppendConsoleText(formattedMessage);
         }
 
-        public void SavePathSetting(string filePath)
+        public void SavePathSetting(string filePath, Constants.Setting setting)
         {
             try
             {
-                _artworkEditorLogic.SavePathSetting(filePath);
+                _artworkEditorLogic.SavePathSetting(filePath, setting);
             }
             catch (Exception e)
             {

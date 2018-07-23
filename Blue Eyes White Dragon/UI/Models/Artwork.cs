@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Blue_Eyes_White_Dragon.Misc;
+using Blue_Eyes_White_Dragon.UI.Interface;
 using Newtonsoft.Json;
 
 namespace Blue_Eyes_White_Dragon.UI.Models
 {
-    public class Artwork
+    public class Artwork : IUiModel
     {
         public int CardId { get; set; }
         
         public FileInfo GameImageFile { get; set; }
-        [JsonIgnore] public string GameImageFilePath => GameImageFile?.FullName ?? Constants.StringError;
-        [JsonIgnore] public string GameImageFileName => GameImageFile?.Name ?? Constants.StringError;
+        public string GameImageFilePath => GameImageFile?.FullName ?? Constants.StringError;
+        public string GameImageFileName => GameImageFile?.Name ?? Constants.StringError;
         public string GameImageMonsterName { get; set; }
-        public DirectoryInfo GameImagesDir { get; set; }
-        [JsonIgnore] public int GameImageHeight { get; set; }
-        [JsonIgnore] public int GameImageWidth { get; set; }
+        public int GameImageHeight { get; set; }
+        public int GameImageWidth { get; set; }
 
         public FileInfo ReplacementImageFile { get; set; }
-        [JsonIgnore] public string ReplacementImageFilePath => ReplacementImageFile?.FullName ?? Constants.StringError;
-        [JsonIgnore] public string ReplacementImageFileName => ReplacementImageFile?.Name ?? Constants.StringError;
+        public string ReplacementImageFilePath => ReplacementImageFile?.FullName ?? Constants.StringError;
+        public string ReplacementImageFileName => ReplacementImageFile?.Name ?? Constants.StringError;
         public string ReplacementImageMonsterName { get; set; }
-        public DirectoryInfo ReplacementImagesDir { get; set; }
-        [JsonIgnore] public int ReplacementImageHeight { get; set; }
-        [JsonIgnore] public int ReplacementImageWidth { get; set; }
+        public int ReplacementImageHeight { get; set; }
+        public int ReplacementImageWidth { get; set; }
 
         public bool IsMatched { get; set; }
         public bool IsPendulum { get; set; }

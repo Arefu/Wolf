@@ -18,12 +18,26 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public List<Card> SearchCards(string cardName)
+        public List<Card> GetCards(string cardName)
         {
             var cards = _db.Texts
                 .Where(s => s.Name == cardName)
                 .Select(x =>
                     new Card() {
+                        Id = x.Id,
+                        Name = x.Name
+                    }).ToList();
+
+            return cards;
+        }
+
+        public List<Card> SearchCards(string cardName)
+        {
+            var cards = _db.Texts
+                .Where(s => s.Name.ToLower().Contains(cardName.ToLower()))
+                .Select(x =>
+                    new Card()
+                    {
                         Id = x.Id,
                         Name = x.Name
                     }).ToList();

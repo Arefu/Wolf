@@ -44,9 +44,19 @@
             this.RIHeight = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.RIWidth = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.BtnCustomArt = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.HasAltImages = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pnl_object_list = new System.Windows.Forms.Panel();
             this.pnl_sidebar = new System.Windows.Forms.Panel();
+            this.lbl_carddb_location = new System.Windows.Forms.Label();
+            this.btn_browse_carddb = new System.Windows.Forms.Button();
+            this.txt_browse_carddb = new System.Windows.Forms.TextBox();
+            this.lbl_replacement_images_location = new System.Windows.Forms.Label();
+            this.lbl_game_images_location = new System.Windows.Forms.Label();
+            this.btn_browse_replacement_images = new System.Windows.Forms.Button();
+            this.btn_browse_game_images = new System.Windows.Forms.Button();
+            this.txt_browse_game_images = new System.Windows.Forms.TextBox();
+            this.txt_browse_replacement_images = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpbox_console = new System.Windows.Forms.GroupBox();
             this.richtextbox_console = new System.Windows.Forms.RichTextBox();
@@ -60,7 +70,9 @@
             this.lbl_card_match_path = new System.Windows.Forms.Label();
             this.txt_card_match_path = new System.Windows.Forms.TextBox();
             this.btn_match_run = new System.Windows.Forms.Button();
-            this.open_file_browse_match_file = new System.Windows.Forms.OpenFileDialog();
+            this.browse_json_file = new System.Windows.Forms.OpenFileDialog();
+            this.browse_open_folder = new System.Windows.Forms.FolderBrowserDialog();
+            this.browse_carddb = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_editor)).BeginInit();
             this.pnl_object_list.SuspendLayout();
             this.pnl_sidebar.SuspendLayout();
@@ -84,6 +96,7 @@
             this.objlist_artwork_editor.AllColumns.Add(this.RIHeight);
             this.objlist_artwork_editor.AllColumns.Add(this.RIWidth);
             this.objlist_artwork_editor.AllColumns.Add(this.BtnCustomArt);
+            this.objlist_artwork_editor.AllColumns.Add(this.HasAltImages);
             this.objlist_artwork_editor.CellEditUseWholeCell = false;
             this.objlist_artwork_editor.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Row,
@@ -97,7 +110,8 @@
             this.RIFileName,
             this.RIHeight,
             this.RIWidth,
-            this.BtnCustomArt});
+            this.BtnCustomArt,
+            this.HasAltImages});
             this.objlist_artwork_editor.Cursor = System.Windows.Forms.Cursors.Default;
             this.objlist_artwork_editor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.objlist_artwork_editor.IsSearchOnSortColumn = false;
@@ -106,7 +120,7 @@
             this.objlist_artwork_editor.RowHeight = 256;
             this.objlist_artwork_editor.ShowFilterMenuOnRightClick = false;
             this.objlist_artwork_editor.ShowGroups = false;
-            this.objlist_artwork_editor.Size = new System.Drawing.Size(1332, 1039);
+            this.objlist_artwork_editor.Size = new System.Drawing.Size(1428, 907);
             this.objlist_artwork_editor.SmallImageList = this.imageList1;
             this.objlist_artwork_editor.TabIndex = 0;
             this.objlist_artwork_editor.UseCompatibleStateImageBehavior = false;
@@ -220,6 +234,14 @@
             this.BtnCustomArt.UseFiltering = false;
             this.BtnCustomArt.Width = 120;
             // 
+            // HasAltImages
+            // 
+            this.HasAltImages.Searchable = false;
+            this.HasAltImages.Text = "Alternatives Found";
+            this.HasAltImages.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.HasAltImages.UseFiltering = false;
+            this.HasAltImages.Width = 102;
+            // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
@@ -232,11 +254,20 @@
             this.pnl_object_list.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_object_list.Location = new System.Drawing.Point(404, 0);
             this.pnl_object_list.Name = "pnl_object_list";
-            this.pnl_object_list.Size = new System.Drawing.Size(1332, 1039);
+            this.pnl_object_list.Size = new System.Drawing.Size(1428, 907);
             this.pnl_object_list.TabIndex = 3;
             // 
             // pnl_sidebar
             // 
+            this.pnl_sidebar.Controls.Add(this.lbl_carddb_location);
+            this.pnl_sidebar.Controls.Add(this.btn_browse_carddb);
+            this.pnl_sidebar.Controls.Add(this.txt_browse_carddb);
+            this.pnl_sidebar.Controls.Add(this.lbl_replacement_images_location);
+            this.pnl_sidebar.Controls.Add(this.lbl_game_images_location);
+            this.pnl_sidebar.Controls.Add(this.btn_browse_replacement_images);
+            this.pnl_sidebar.Controls.Add(this.btn_browse_game_images);
+            this.pnl_sidebar.Controls.Add(this.txt_browse_game_images);
+            this.pnl_sidebar.Controls.Add(this.txt_browse_replacement_images);
             this.pnl_sidebar.Controls.Add(this.checkBox1);
             this.pnl_sidebar.Controls.Add(this.grpbox_console);
             this.pnl_sidebar.Controls.Add(this.grpbox_left_top);
@@ -246,15 +277,93 @@
             this.pnl_sidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnl_sidebar.Location = new System.Drawing.Point(0, 0);
             this.pnl_sidebar.Name = "pnl_sidebar";
-            this.pnl_sidebar.Size = new System.Drawing.Size(404, 1039);
+            this.pnl_sidebar.Size = new System.Drawing.Size(404, 907);
             this.pnl_sidebar.TabIndex = 1;
+            // 
+            // lbl_carddb_location
+            // 
+            this.lbl_carddb_location.AutoSize = true;
+            this.lbl_carddb_location.Location = new System.Drawing.Point(9, 184);
+            this.lbl_carddb_location.Name = "lbl_carddb_location";
+            this.lbl_carddb_location.Size = new System.Drawing.Size(112, 13);
+            this.lbl_carddb_location.TabIndex = 12;
+            this.lbl_carddb_location.Text = "Path to card database";
+            // 
+            // btn_browse_carddb
+            // 
+            this.btn_browse_carddb.Location = new System.Drawing.Point(313, 198);
+            this.btn_browse_carddb.Name = "btn_browse_carddb";
+            this.btn_browse_carddb.Size = new System.Drawing.Size(75, 23);
+            this.btn_browse_carddb.TabIndex = 11;
+            this.btn_browse_carddb.Text = "Browse";
+            this.btn_browse_carddb.UseVisualStyleBackColor = true;
+            this.btn_browse_carddb.Click += new System.EventHandler(this.Btn_browse_carddb_Click);
+            // 
+            // txt_browse_carddb
+            // 
+            this.txt_browse_carddb.Location = new System.Drawing.Point(9, 200);
+            this.txt_browse_carddb.Name = "txt_browse_carddb";
+            this.txt_browse_carddb.Size = new System.Drawing.Size(298, 20);
+            this.txt_browse_carddb.TabIndex = 10;
+            // 
+            // lbl_replacement_images_location
+            // 
+            this.lbl_replacement_images_location.AutoSize = true;
+            this.lbl_replacement_images_location.Location = new System.Drawing.Point(9, 142);
+            this.lbl_replacement_images_location.Name = "lbl_replacement_images_location";
+            this.lbl_replacement_images_location.Size = new System.Drawing.Size(167, 13);
+            this.lbl_replacement_images_location.TabIndex = 9;
+            this.lbl_replacement_images_location.Text = "Path to the images to replace with";
+            // 
+            // lbl_game_images_location
+            // 
+            this.lbl_game_images_location.AutoSize = true;
+            this.lbl_game_images_location.Location = new System.Drawing.Point(9, 99);
+            this.lbl_game_images_location.Name = "lbl_game_images_location";
+            this.lbl_game_images_location.Size = new System.Drawing.Size(165, 13);
+            this.lbl_game_images_location.TabIndex = 8;
+            this.lbl_game_images_location.Text = "Path to the images from the game";
+            // 
+            // btn_browse_replacement_images
+            // 
+            this.btn_browse_replacement_images.Location = new System.Drawing.Point(313, 156);
+            this.btn_browse_replacement_images.Name = "btn_browse_replacement_images";
+            this.btn_browse_replacement_images.Size = new System.Drawing.Size(75, 23);
+            this.btn_browse_replacement_images.TabIndex = 7;
+            this.btn_browse_replacement_images.Text = "Browse";
+            this.btn_browse_replacement_images.UseVisualStyleBackColor = true;
+            this.btn_browse_replacement_images.Click += new System.EventHandler(this.Btn_browse_replacement_images_Click);
+            // 
+            // btn_browse_game_images
+            // 
+            this.btn_browse_game_images.Location = new System.Drawing.Point(313, 115);
+            this.btn_browse_game_images.Name = "btn_browse_game_images";
+            this.btn_browse_game_images.Size = new System.Drawing.Size(75, 23);
+            this.btn_browse_game_images.TabIndex = 4;
+            this.btn_browse_game_images.Text = "Browse";
+            this.btn_browse_game_images.UseVisualStyleBackColor = true;
+            this.btn_browse_game_images.Click += new System.EventHandler(this.Btn_browse_game_images_Click);
+            // 
+            // txt_browse_game_images
+            // 
+            this.txt_browse_game_images.Location = new System.Drawing.Point(9, 115);
+            this.txt_browse_game_images.Name = "txt_browse_game_images";
+            this.txt_browse_game_images.Size = new System.Drawing.Size(298, 20);
+            this.txt_browse_game_images.TabIndex = 6;
+            // 
+            // txt_browse_replacement_images
+            // 
+            this.txt_browse_replacement_images.Location = new System.Drawing.Point(9, 158);
+            this.txt_browse_replacement_images.Name = "txt_browse_replacement_images";
+            this.txt_browse_replacement_images.Size = new System.Drawing.Size(298, 20);
+            this.txt_browse_replacement_images.TabIndex = 5;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(119, 88);
+            this.checkBox1.Location = new System.Drawing.Point(111, 248);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(166, 17);
             this.checkBox1.TabIndex = 4;
@@ -274,11 +383,10 @@
             // 
             // richtextbox_console
             // 
-            this.richtextbox_console.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richtextbox_console.Location = new System.Drawing.Point(3, 16);
             this.richtextbox_console.Name = "richtextbox_console";
             this.richtextbox_console.ReadOnly = true;
-            this.richtextbox_console.Size = new System.Drawing.Size(394, 523);
+            this.richtextbox_console.Size = new System.Drawing.Size(394, 382);
             this.richtextbox_console.TabIndex = 2;
             this.richtextbox_console.Text = "";
             this.richtextbox_console.TextChanged += new System.EventHandler(this.Richtextbox_console_TextChanged);
@@ -305,18 +413,18 @@
             // grpbox_bottom_left
             // 
             this.grpbox_bottom_left.Controls.Add(this.btn_save_match);
-            this.grpbox_bottom_left.Location = new System.Drawing.Point(3, 373);
+            this.grpbox_bottom_left.Location = new System.Drawing.Point(3, 419);
             this.grpbox_bottom_left.Name = "grpbox_bottom_left";
-            this.grpbox_bottom_left.Size = new System.Drawing.Size(385, 118);
+            this.grpbox_bottom_left.Size = new System.Drawing.Size(391, 72);
             this.grpbox_bottom_left.TabIndex = 2;
             this.grpbox_bottom_left.TabStop = false;
             this.grpbox_bottom_left.Text = "Save";
             // 
             // btn_save_match
             // 
-            this.btn_save_match.Location = new System.Drawing.Point(151, 36);
+            this.btn_save_match.Location = new System.Drawing.Point(137, 19);
             this.btn_save_match.Name = "btn_save_match";
-            this.btn_save_match.Size = new System.Drawing.Size(100, 50);
+            this.btn_save_match.Size = new System.Drawing.Size(100, 30);
             this.btn_save_match.TabIndex = 4;
             this.btn_save_match.Text = "Save Match";
             this.btn_save_match.UseVisualStyleBackColor = true;
@@ -328,28 +436,28 @@
             this.grpbox_load.Controls.Add(this.btn_load_match);
             this.grpbox_load.Controls.Add(this.lbl_card_match_path);
             this.grpbox_load.Controls.Add(this.txt_card_match_path);
-            this.grpbox_load.Location = new System.Drawing.Point(3, 168);
+            this.grpbox_load.Location = new System.Drawing.Point(3, 307);
             this.grpbox_load.Name = "grpbox_load";
-            this.grpbox_load.Size = new System.Drawing.Size(391, 199);
+            this.grpbox_load.Size = new System.Drawing.Size(391, 106);
             this.grpbox_load.TabIndex = 2;
             this.grpbox_load.TabStop = false;
             this.grpbox_load.Text = "Load";
             // 
             // btn_browse_match_file_path
             // 
-            this.btn_browse_match_file_path.Location = new System.Drawing.Point(310, 61);
+            this.btn_browse_match_file_path.Location = new System.Drawing.Point(310, 29);
             this.btn_browse_match_file_path.Name = "btn_browse_match_file_path";
             this.btn_browse_match_file_path.Size = new System.Drawing.Size(75, 23);
             this.btn_browse_match_file_path.TabIndex = 3;
             this.btn_browse_match_file_path.Text = "Browse";
             this.btn_browse_match_file_path.UseVisualStyleBackColor = true;
-            this.btn_browse_match_file_path.Click += new System.EventHandler(this.Btn_browse_match_file_path_Click);
+            this.btn_browse_match_file_path.Click += new System.EventHandler(this.Btn_browse_load_match_path_Click);
             // 
             // btn_load_match
             // 
-            this.btn_load_match.Location = new System.Drawing.Point(151, 117);
+            this.btn_load_match.Location = new System.Drawing.Point(137, 66);
             this.btn_load_match.Name = "btn_load_match";
-            this.btn_load_match.Size = new System.Drawing.Size(100, 50);
+            this.btn_load_match.Size = new System.Drawing.Size(100, 30);
             this.btn_load_match.TabIndex = 2;
             this.btn_load_match.Text = "Load Match";
             this.btn_load_match.UseVisualStyleBackColor = true;
@@ -358,7 +466,7 @@
             // lbl_card_match_path
             // 
             this.lbl_card_match_path.AutoSize = true;
-            this.lbl_card_match_path.Location = new System.Drawing.Point(3, 47);
+            this.lbl_card_match_path.Location = new System.Drawing.Point(6, 16);
             this.lbl_card_match_path.Name = "lbl_card_match_path";
             this.lbl_card_match_path.Size = new System.Drawing.Size(103, 13);
             this.lbl_card_match_path.TabIndex = 1;
@@ -366,31 +474,38 @@
             // 
             // txt_card_match_path
             // 
-            this.txt_card_match_path.Location = new System.Drawing.Point(6, 63);
+            this.txt_card_match_path.Location = new System.Drawing.Point(6, 32);
             this.txt_card_match_path.Name = "txt_card_match_path";
             this.txt_card_match_path.Size = new System.Drawing.Size(298, 20);
             this.txt_card_match_path.TabIndex = 0;
             // 
             // btn_match_run
             // 
-            this.btn_match_run.Location = new System.Drawing.Point(154, 112);
+            this.btn_match_run.Location = new System.Drawing.Point(140, 271);
             this.btn_match_run.Name = "btn_match_run";
-            this.btn_match_run.Size = new System.Drawing.Size(100, 50);
+            this.btn_match_run.Size = new System.Drawing.Size(100, 30);
             this.btn_match_run.TabIndex = 1;
             this.btn_match_run.Text = "Auto Match All";
             this.btn_match_run.UseVisualStyleBackColor = true;
             this.btn_match_run.Click += new System.EventHandler(this.Btn_run_Click);
             // 
-            // open_file_browse_match_file
+            // browse_json_file
             // 
-            this.open_file_browse_match_file.Filter = "Json files|*.json|All files|*.*";
-            this.open_file_browse_match_file.ShowHelp = true;
+            this.browse_json_file.Filter = "Json files|*.json|All files|*.*";
+            // 
+            // browse_open_folder
+            // 
+            this.browse_open_folder.Description = "Open the folder containing the images";
+            // 
+            // browse_carddb
+            // 
+            this.browse_carddb.Filter = "cdb files|*.cdb|All files|*.*";
             // 
             // ArtworkEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1736, 1039);
+            this.ClientSize = new System.Drawing.Size(1832, 907);
             this.Controls.Add(this.pnl_object_list);
             this.Controls.Add(this.pnl_sidebar);
             this.Name = "ArtworkEditor";
@@ -437,10 +552,22 @@
         private System.Windows.Forms.Label lbl_card_match_path;
         private System.Windows.Forms.TextBox txt_card_match_path;
         private System.Windows.Forms.Button btn_match_run;
-        private System.Windows.Forms.OpenFileDialog open_file_browse_match_file;
+        private System.Windows.Forms.OpenFileDialog browse_json_file;
         private BrightIdeasSoftware.OLVColumn Row;
         private BrightIdeasSoftware.OLVColumn BtnCustomArt;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private BrightIdeasSoftware.OLVColumn HasAltImages;
+        private System.Windows.Forms.Button btn_browse_replacement_images;
+        private System.Windows.Forms.Button btn_browse_game_images;
+        private System.Windows.Forms.TextBox txt_browse_game_images;
+        private System.Windows.Forms.TextBox txt_browse_replacement_images;
+        private System.Windows.Forms.Label lbl_replacement_images_location;
+        private System.Windows.Forms.Label lbl_game_images_location;
+        private System.Windows.Forms.FolderBrowserDialog browse_open_folder;
+        private System.Windows.Forms.Label lbl_carddb_location;
+        private System.Windows.Forms.Button btn_browse_carddb;
+        private System.Windows.Forms.TextBox txt_browse_carddb;
+        private System.Windows.Forms.OpenFileDialog browse_carddb;
     }
 }

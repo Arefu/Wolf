@@ -7,19 +7,16 @@ using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Misc.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
-using Newtonsoft.Json;
 
 namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 {
     public class FileRepository : IFileRepository
     {
         private readonly ILogger _logger;
-        private readonly string _directoryName;
 
-        public FileRepository(ILogger logger, string directoryName)
+        public FileRepository(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _directoryName = directoryName;
         }
 
         public FileInfo GetImageFile(string filename, DirectoryInfo imagesLocation)
@@ -37,35 +34,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public List<string> GetSupportedFileTypes()
         {
-            return Enum.GetNames(typeof(Constants.SupportedImageTypes)).ToList();
-        }
-
-        public string SaveArtworkMatchToFile(IEnumerable<Artwork> artworkList)
-        {
-            var fileName = Constants.ArtworkMatchFileName;
-            var path = Path.Combine(_directoryName, fileName);
-
-            var jsonArtwork = JsonConvert.SerializeObject(artworkList, Formatting.Indented);
-            File.WriteAllText(path, jsonArtwork);
-            return path;
-        }
-
-        public IEnumerable<Artwork> LoadArtworkMatchFromFile(string path)
-        {
-            try
-            {
-                using (var reader = new StreamReader(path))
-                {
-                    var json = reader.ReadToEnd();
-                    var files = JsonConvert.DeserializeObject<List<Artwork>>(json);
-                    return files;
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.LogException(e);
-                throw;
-            }
+            return Enum.GetNames(typeof(Constants.SupportedImageType)).ToList();
         }
 
         public void CalculateHeightAndWidth(IEnumerable<Artwork> artworks)
@@ -124,9 +93,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 width = 0;
                 height = 0;
             }
-
-
-
         }
 
         private bool GetJpegDimension(string fileName, out int width, out int height)

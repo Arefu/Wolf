@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
+using Blue_Eyes_White_Dragon.UI.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
 using BrightIdeasSoftware;
 
@@ -31,9 +32,9 @@ namespace Blue_Eyes_White_Dragon.UI
             SetupButtons();
         }
 
-        public void SetCurrentArtwork(Artwork artwork)
+        public void SetCurrentArtwork(IUiModel artwork)
         {
-            _currentArtwork = artwork;
+            _currentArtwork = (Artwork)artwork;
             LoadData();
         }
 
@@ -59,7 +60,7 @@ namespace Blue_Eyes_White_Dragon.UI
         private void OkClicked(object sender, CellClickEventArgs e)
         {
             CardPicked?.Invoke((ArtworkSearch)e.Model);
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         public bool SmallImageListContains(string imagePath)
@@ -72,14 +73,29 @@ namespace Blue_Eyes_White_Dragon.UI
             objlist_artwork_picker.SmallImageList.Images.Add(imagePath, image);
         }
 
-        public void AddObjectsToObjectListView(IEnumerable<ArtworkSearch> artworkSearchList)
+        public void AddObjectsToObjectListView(IEnumerable<IUiModel> artworkSearchList)
         {
             objlist_artwork_picker.AddObjects(artworkSearchList.ToList());
         }
 
-        private void btn_search_Click(object sender, EventArgs e)
+        public void RefreshObject(IUiModel artwork)
+        {
+            objlist_artwork_picker.RefreshObject(artwork);
+        }
+
+        private void Btn_search_Click(object sender, EventArgs e)
         {
             SearchCards?.Invoke(txtbox_search.Text);
+        }
+
+        private void Btn_cancel_pick_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+
+        public void ClearObjectsFromObjectListView()
+        {
+            objlist_artwork_picker.ClearObjects();
         }
     }
 }

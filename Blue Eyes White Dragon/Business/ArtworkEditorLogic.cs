@@ -17,14 +17,19 @@ namespace Blue_Eyes_White_Dragon.Business
         private readonly ICardRepository _cardRepo;
         private readonly IGameFileRepository _gameFileRepo;
         private readonly ILogger _logger;
+        private readonly ISettingRepository _settingRepo;
+        private readonly ISaveAndLoadRepository _saveAndLoadRepo;
 
-        public ArtworkEditorLogic(IArtworkManager artworkManager, IFileRepository fileRepo, ICardRepository cardRepo, IGameFileRepository gameFileRepo, ILogger logger)
+        public ArtworkEditorLogic(IArtworkManager artworkManager, IFileRepository fileRepo, ICardRepository cardRepo,
+            IGameFileRepository gameFileRepo, ILogger logger, ISettingRepository settingRepo, ISaveAndLoadRepository saveAndLoadRepo)
         {
             _artworkManager = artworkManager ?? throw new ArgumentNullException(nameof(artworkManager));
             _fileRepo = fileRepo ?? throw new ArgumentNullException(nameof(fileRepo));
             _cardRepo = cardRepo ?? throw new ArgumentNullException(nameof(cardRepo));
             _gameFileRepo = gameFileRepo ?? throw new ArgumentNullException(nameof(gameFileRepo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _settingRepo = settingRepo;
+            _saveAndLoadRepo = saveAndLoadRepo;
         }
 
         public IEnumerable<Artwork> RunMatchAll(DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation, bool useIncludedPendulum)
@@ -38,14 +43,13 @@ namespace Blue_Eyes_White_Dragon.Business
 
         public void RunSaveMatch(IEnumerable<Artwork> artworks)
         {
-            var path = _fileRepo.SaveArtworkMatchToFile(artworks);
+            var path = _saveAndLoadRepo.SaveArtworkMatchToFile(artworks);
             _logger.LogInformation(Localization.InformationSaveComplete(path));
         }
 
-        public void SavePathSetting(string filePath)
+        public void SavePathSetting(string filePath, Constants.Setting setting)
         {
-            Properties.Settings.Default.LastUsedLoadPath = filePath;
-            Properties.Settings.Default.Save();
+            _settingRepo.SavePathSetting(filePath, setting);
         }
 
         public void RunCustomArtPicked(Artwork artwork, ArtworkSearch pickedArtwork)
@@ -60,7 +64,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
         public IEnumerable<Artwork> LoadArtworkMatch(string path)
         {
-            return _fileRepo.LoadArtworkMatchFromFile(path);
+            return _saveAndLoadRepo.LoadArtworkMatchFromFile(path);
         }
 
         public void CalculateHeightAndWidth(List<Artwork> artworkList)
@@ -83,5 +87,9 @@ namespace Blue_Eyes_White_Dragon.Business
             return artworkList.OrderBy(x => x.GameImageMonsterName).ToList();
         }
 
+        public string GetPathSetting(Constants.Setting setting)
+        {
+            return _settingRepo.GetPathSetting(setting);
+        }
     }
 }

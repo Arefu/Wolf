@@ -18,7 +18,7 @@ namespace Blue_Eyes_White_Dragon.Misc.DI
 
             kernel.Bind<ICardRepository>().To<CardRepository>();
             var assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            kernel.Bind<IFileRepository>().ToMethod(x => new FileRepository(x.Kernel.Get<ConsoleLogger>(), assemblyDir));
+            kernel.Bind<IFileRepository>().ToMethod(x => new FileRepository(x.Kernel.Get<ConsoleLogger>()));
             kernel.Bind<IGameFileRepository>().ToMethod(x => new GameFileRepository(x.Kernel.Get<Manager>()));
             kernel.Bind<Manager>().ToMethod(x =>
             {
@@ -27,6 +27,8 @@ namespace Blue_Eyes_White_Dragon.Misc.DI
                 return manager;
             }).InSingletonScope();
             kernel.Bind<IResourceRepository>().To<ResourceRepository>();
+            kernel.Bind<ISettingRepository>().To<SettingRepository>();
+            kernel.Bind<ISaveAndLoadRepository>().ToMethod(x => new SaveAndAndLoadRepository(assemblyDir,x.Kernel.Get<ConsoleLogger>()));
         }
     }
 }

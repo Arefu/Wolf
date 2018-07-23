@@ -33,13 +33,14 @@
             this.Row = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.CardName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.CardImage = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.ImageRenderer = new BrightIdeasSoftware.ImageRenderer();
             this.BtnOk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_search = new System.Windows.Forms.Button();
             this.lbl_how_to_search = new System.Windows.Forms.Label();
             this.txtbox_search = new System.Windows.Forms.TextBox();
-            this.ImageRenderer = new BrightIdeasSoftware.ImageRenderer();
+            this.btn_cancel_pick = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_picker)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -107,6 +108,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_cancel_pick);
             this.panel1.Controls.Add(this.btn_search);
             this.panel1.Controls.Add(this.lbl_how_to_search);
             this.panel1.Controls.Add(this.txtbox_search);
@@ -124,7 +126,7 @@
             this.btn_search.TabIndex = 2;
             this.btn_search.Text = "Search";
             this.btn_search.UseVisualStyleBackColor = true;
-            this.btn_search.Click += new System.EventHandler(this.btn_search_Click);
+            this.btn_search.Click += new System.EventHandler(this.Btn_search_Click);
             // 
             // lbl_how_to_search
             // 
@@ -142,10 +144,23 @@
             this.txtbox_search.Size = new System.Drawing.Size(256, 20);
             this.txtbox_search.TabIndex = 0;
             // 
+            // btn_cancel_pick
+            // 
+            this.btn_cancel_pick.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_cancel_pick.Location = new System.Drawing.Point(716, 42);
+            this.btn_cancel_pick.Name = "btn_cancel_pick";
+            this.btn_cancel_pick.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancel_pick.TabIndex = 3;
+            this.btn_cancel_pick.Text = "Cancel";
+            this.btn_cancel_pick.UseVisualStyleBackColor = true;
+            this.btn_cancel_pick.Click += new System.EventHandler(this.Btn_cancel_pick_Click);
+            // 
             // ArtworkPicker
             // 
+            this.AcceptButton = this.btn_search;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btn_cancel_pick;
             this.ClientSize = new System.Drawing.Size(803, 854);
             this.Controls.Add(this.objlist_artwork_picker);
             this.Controls.Add(this.panel1);
@@ -171,5 +186,6 @@
         private BrightIdeasSoftware.OLVColumn BtnOk;
         private System.Windows.Forms.ImageList imageList1;
         private BrightIdeasSoftware.ImageRenderer ImageRenderer;
+        private System.Windows.Forms.Button btn_cancel_pick;
     }
 }

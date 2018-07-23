@@ -66,6 +66,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
         public void SearchCards(string text)
         {
             var searchResults = _artworkPickerLogic.SearchCards(text);
+            View.ClearObjectsFromObjectListView();
             View.AddObjectsToObjectListView(searchResults);
         }
 

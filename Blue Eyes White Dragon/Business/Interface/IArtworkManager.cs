@@ -9,5 +9,6 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
     {
         List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation);
         List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList, bool useIncludedPendulum);
+        FileInfo SearchForImage(int cardId, DirectoryInfo directory);
     }
 }
