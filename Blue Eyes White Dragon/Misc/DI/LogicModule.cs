@@ -11,10 +11,10 @@ namespace Blue_Eyes_White_Dragon.Misc.DI
         {
             var kernel = Kernel ?? throw new ArgumentNullException(nameof(Kernel));
 
-            kernel.Bind<IArtworkEditorLogic>().To<ArtworkEditorLogic>();
+            kernel.Bind<IArtworkEditorLogic>().To<ArtworkEditorLogic>().InSingletonScope();
             kernel.Bind<IArtworkPickerLogic>().To<ArtworkPickerLogic>();
 
-            kernel.Bind<IArtworkManager>().To<ArtworkManager>();
+            kernel.Bind<IArtworkManager>().To<ArtworkManager>().InSingletonScope();
         }
     }
 }

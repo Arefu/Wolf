@@ -19,7 +19,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 case Constants.Setting.LastUsedReplacementImagePath:
                     Properties.Settings.Default.LastUsedReplacementImagePath = filePath;
                     break;
-                case Constants.Setting.LasstUsedCardDbPath:
+                case Constants.Setting.LastUsedCardDbPath:
                     Properties.Settings.Default.LasstUsedCardDbPath = filePath;
                     break;
                 default:
@@ -38,7 +38,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     return Properties.Settings.Default.LastUsedGameImagePath ;
                 case Constants.Setting.LastUsedReplacementImagePath:
                     return Properties.Settings.Default.LastUsedReplacementImagePath;
-                case Constants.Setting.LasstUsedCardDbPath:
+                case Constants.Setting.LastUsedCardDbPath:
                     return Properties.Settings.Default.LasstUsedCardDbPath;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(setting), setting, null);

@@ -11,6 +11,7 @@ using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Misc.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
+using PhotoSauce.MagicScaler;
 
 namespace Blue_Eyes_White_Dragon.Business
 {
@@ -22,9 +23,11 @@ namespace Blue_Eyes_White_Dragon.Business
         private readonly IResourceRepository _resourceRepo;
         private readonly ISettingRepository _settingRepo;
         private readonly FileInfo _errorImage;
+        private readonly IImageRepository _imageRepo;
 
         public ArtworkManager(IFileRepository fileRepo, ICardRepository cardRepo, ILogger logger, 
-            IResourceRepository resourceRepo, ISettingRepository settingRepo
+            IResourceRepository resourceRepo, ISettingRepository settingRepo,
+            IImageRepository imageRepo
         )
         {
             _fileRepo = fileRepo ?? throw new ArgumentNullException(nameof(fileRepo));
@@ -33,6 +36,7 @@ namespace Blue_Eyes_White_Dragon.Business
             _resourceRepo = resourceRepo;
             _settingRepo = settingRepo;
             _errorImage = _resourceRepo.LoadErrorImageFromResource();
+            _imageRepo = imageRepo;
         }
 
         public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
@@ -53,17 +57,25 @@ namespace Blue_Eyes_White_Dragon.Business
                     IsPendulum = gameCard.IsPendulum
                 });
             });
+
+            //foreach (var artwork in artworkList)
+            //{
+            //    var gameCard = gameCards.Find(x => x.Id == artwork.CardId);
+            //    artwork.GameImageFile = SearchForImage(gameCard.Id, gameImagesLocation) ?? _errorImage;
+            //}
+
             return artworkList.ToList();
         }
 
-        public List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList, bool useIncludedPendulum)
+        public List<Artwork> UpdateArtworkModelsWithReplacement(IEnumerable<Artwork> artworkList, bool useIncludedPendulum)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var numberOfArtwork = artworkList.Count;
+            var artworks = artworkList.ToList();
+            var numberOfArtwork = artworks.Count;
             long progress = 0;
 
-            foreach (var artwork in artworkList)
+            foreach (var artwork in artworks)
             {
                 if (useIncludedPendulum && artwork.IsPendulum)
                 {
@@ -77,9 +89,9 @@ namespace Blue_Eyes_White_Dragon.Business
                 _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
             }
             stopwatch.Stop();
-            _logger.LogInformation(Localization.InformationProcessingDone(artworkList.Count, MiliToSec(stopwatch.ElapsedMilliseconds)));
+            _logger.LogInformation(Localization.InformationProcessingDone(artworks.Count, MiliToSec(stopwatch.ElapsedMilliseconds)));
 
-            return artworkList;
+            return artworks;
         }
 
         private void ProcessArtworkAsPendulum(Artwork artwork)
@@ -138,7 +150,7 @@ namespace Blue_Eyes_White_Dragon.Business
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Databas error: {e}, inner: {e.InnerException} for {artwork.GameImageMonsterName}");
+                _logger.LogInformation($"Database error: {e}, inner: {e.InnerException} for {artwork.GameImageMonsterName}");
                 return new List<Card>();
             }
         }
@@ -202,7 +214,7 @@ namespace Blue_Eyes_White_Dragon.Business
             if (images.Count > 1)
             {
                 imageFile = images.FirstOrDefault(x => x.Extension == Constants.SupportedImageType.jpg.ToString());
-                _logger.LogInformation($"{images.Count} images found for {cardId} picking: {imageFile?.Name}");
+                _logger.LogInformation(Localization.InformationMultipleImagesFound(images.Count, cardId, imageFile?.Name));
                 //TODO what to do when a jpg and a png of the card exists in the folder?
             }
             else if (images.Count == 0)
@@ -215,6 +227,62 @@ namespace Blue_Eyes_White_Dragon.Business
                 imageFile = images.First();
             }
             return imageFile;
+        }
+
+        public void ConvertAll(IEnumerable<Artwork> artworks)
+        {
+            var artworkList = artworks.ToList();
+            var destinationPath = _resourceRepo.GetOutputPath();
+            long progress = 0;
+            var numberOfArtwork = artworkList.ToList().Count();
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            _logger.LogInformation(Localization.InformationConvertingImages);
+
+            var settings = new ProcessImageSettings
+            {
+                SaveFormat = FileFormat.Jpeg,
+                JpegQuality = 92,
+            };
+
+            foreach (var artwork in artworkList)
+            {
+                var imageFile = artwork.ReplacementImageFile;
+                if (artwork.IsPendulum)
+                {
+                    ConvertPendulumArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings);
+                }
+                else
+                {
+                    ConvertNormalArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings);
+                }
+                _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
+                progress++;
+            }
+
+            stopwatch.Stop();
+            _logger.LogInformation(Localization.InformationProcessingDone(numberOfArtwork, MiliToSec(stopwatch.ElapsedMilliseconds)));
+
+        }
+
+        private void ConvertNormalArtwork(DirectoryInfo destinationPath, string orgName, FileInfo imageFile,
+            ProcessImageSettings settings)
+        {
+            settings.Width = 304;
+            settings.Height = 304;
+            settings.JpegSubsampleMode = ChromaSubsampleMode.Subsample420;
+            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings);
+        }
+
+        private void ConvertPendulumArtwork(DirectoryInfo destinationPath, string orgName, FileInfo imageFile,
+            ProcessImageSettings settings)
+        {
+            settings.Width = 347;
+            settings.Height = 444;
+            settings.JpegSubsampleMode = ChromaSubsampleMode.Default;
+            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings);
         }
 
         private List<FileInfo> SearchForImagesInDirectory(int cardId, DirectoryInfo directory)

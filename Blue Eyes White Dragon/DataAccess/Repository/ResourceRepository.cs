@@ -39,5 +39,10 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             _logger.LogError(Localization.ErrorLoadingErrorImage);
             return null;
         }
+
+        public DirectoryInfo GetOutputPath()
+        {
+            return new DirectoryInfo(Path.Combine(_resourceLocation, Constants.ResourceOutputPath));
+        }
     }
 }

@@ -15,5 +15,8 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
         void CalculateHeightAndWidth(List<Artwork> artworkList);
         IEnumerable<Artwork> SortArtwork(IEnumerable<Artwork> artworkList);
         string GetPathSetting(Constants.Setting setting);
+        void RunConvertAll(IEnumerable<Artwork> artworks);
+        void SetDbLocation(string path);
+        string LoadDbPath();
     }
 }

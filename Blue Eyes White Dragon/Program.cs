@@ -14,7 +14,8 @@ namespace Blue_Eyes_White_Dragon
         [STAThread]
         static void Main()
         {
-            IKernel kernel = new StandardKernel(new MiscModule(), new FactoryModule(), new LogicModule(), new PresenterModule(), new RepositoryModule(), new UiModule());
+            IKernel kernel = new StandardKernel(new MiscModule(), new FactoryModule(), new LogicModule(), 
+                new PresenterModule(), new RepositoryModule(), new UiModule());
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

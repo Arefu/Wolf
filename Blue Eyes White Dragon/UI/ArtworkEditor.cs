@@ -17,10 +17,12 @@ namespace Blue_Eyes_White_Dragon.UI
         public event Func<object, object> GameImageGetterEvent;
         public event Func<object, object> ReplacementImageGetterEvent;
         public event Action<string, string> MatchAllAction;
+        public event Action<IEnumerable<Artwork>> ConvertAllAction;
         public event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         public event Action<IEnumerable<Artwork>> SaveAction;
         public event Action<string> LoadAction;
         public event Action<string, Constants.Setting> SavePathSettingAction;
+        public event Action<string> CardDbPathChanged;
         public event Action<bool> UsePendulumCheckedChanged;
 
         private readonly IArtworkPickerPresenterFactory _artworkPickerPresenterFactory;
@@ -130,8 +132,18 @@ namespace Blue_Eyes_White_Dragon.UI
 
         public void AppendConsoleText(string message)
         {
+            if (ControlInvokeRequired(richtextbox_console, () => AppendConsoleText(message))) return;
+
             richtextbox_console.AppendText(message);
         }
+        private bool ControlInvokeRequired(Control c, Action a)
+        {
+            if (c.InvokeRequired) c.Invoke(new MethodInvoker(delegate { a(); }));
+            else return false;
+
+            return true;
+        }
+
 
         public void RemoveOldestLine()
         {
@@ -195,9 +207,14 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void Btn_save_match_Click(object sender, EventArgs e)
         {
-            var objects = (ArrayList) objlist_artwork_editor.Objects;
-            var artworks = objects.Cast<Artwork>().ToList();
+            var artworks = GetArtworks();
             SaveAction?.Invoke(artworks);
+        }
+
+        private IEnumerable<Artwork> GetArtworks()
+        {
+            var objects = (ArrayList)objlist_artwork_editor.Objects;
+            return objects.Cast<Artwork>().ToList();
         }
 
         private void Btn_load_match_Click(object sender, EventArgs e)
@@ -251,9 +268,15 @@ namespace Blue_Eyes_White_Dragon.UI
             if (browse_carddb.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 var filePath = browse_carddb.FileName;
-                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LasstUsedCardDbPath);
+                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LastUsedCardDbPath);
+                CardDbPathChanged?.Invoke(filePath);
                 txt_browse_carddb.Text = filePath;
             }
+        }
+
+        private void Btn_convert_all_Click(object sender, EventArgs e)
+        {
+            ConvertAllAction?.Invoke(GetArtworks());
         }
     }
 }

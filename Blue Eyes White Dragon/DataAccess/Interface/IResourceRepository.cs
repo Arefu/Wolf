@@ -7,5 +7,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
     {
         DirectoryInfo GetPendulumPathFromResource();
         FileInfo LoadErrorImageFromResource();
+        DirectoryInfo GetOutputPath();
     }
 }

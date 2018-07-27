@@ -91,6 +91,9 @@
     <Reference Include="ObjectListView, Version=2.9.1.1072, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
       <HintPath>..\packages\ObjectListView.Official.2.9.1\lib\net20\ObjectListView.dll</HintPath>
     </Reference>
+    <Reference Include="PhotoSauce.MagicScaler, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PhotoSauce.MagicScaler.0.8.4\lib\net46\PhotoSauce.MagicScaler.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion.Linq, Version=2.2.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
       <HintPath>..\packages\Remotion.Linq.2.2.0\lib\net45\Remotion.Linq.dll</HintPath>
     </Reference>
@@ -148,6 +151,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Factory\DbFactory.cs" />
+    <Compile Include="Business\Interface\IDbFactory.cs" />
+    <Compile Include="DataAccess\Interface\IImageRepository.cs" />
+    <Compile Include="DataAccess\Repository\ImageRepository.cs" />
     <Compile Include="Business\Interface\IArtworkPickerLogic.cs" />
     <Compile Include="Business\Factory\ArtworkPickerPresenterFactory.cs" />
     <Compile Include="DataAccess\Models\ArtworkSerialize.cs" />

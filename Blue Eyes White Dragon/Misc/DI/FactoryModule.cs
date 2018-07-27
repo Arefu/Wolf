@@ -12,6 +12,7 @@ namespace Blue_Eyes_White_Dragon.Misc.DI
             var kernel = Kernel ?? throw new ArgumentNullException(nameof(Kernel));
 
             kernel.Bind<IArtworkPickerPresenterFactory>().ToMethod(x => new ArtworkPickerPresenterFactory(kernel));
+            kernel.Bind<IDbFactory>().To<DbFactory>().InSingletonScope();
         }
     }
 }

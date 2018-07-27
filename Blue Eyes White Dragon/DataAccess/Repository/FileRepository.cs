@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,11 +25,9 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             var imageFile = new FileInfo(Path.Combine(imagesLocation.FullName, filename));
             if (imageFile.Exists)
             {
-                _logger.LogInformation(Localization.InformationFoundPendulumImage(filename, imageFile.FullName));
                 return imageFile;
             }
 
-            _logger.LogInformation(Localization.ErrorPendulumNotFound(filename));
             return null;
         }
 
@@ -41,15 +40,8 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
         {
             var artworkList = artworks.ToList();
 
-            Parallel.For(0, artworkList.Count, i =>
+            foreach (var artwork in artworkList)
             {
-                var artwork = artworkList[i];
-                if (!artwork.IsMatched)
-                {
-                    _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageMonsterName));
-                    return;
-                }
-
                 var width = 0;
                 var height = 0;
 
@@ -61,6 +53,12 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     artwork.GameImageHeight = height;
                 }
 
+                if (!artwork.IsMatched)
+                {
+                    _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageMonsterName));
+                    continue;
+                }
+
                 path = artwork.ReplacementImageFilePath;
                 if (!string.IsNullOrEmpty(path))
                 {
@@ -68,8 +66,21 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     artwork.ReplacementImageWidth = width;
                     artwork.ReplacementImageHeight = height;
                 }
-            });
+            }
         }
+
+        //private void CalculateHeightAndWidth(string path, out int width, out int height)
+        //{
+        //    using (Stream stream = File.OpenRead(path))
+        //    {
+        //        using (Image sourceImage = Image.FromStream(stream, false, false))
+        //        {
+        //            width = sourceImage.Width;
+        //            height = sourceImage.Height;
+        //        }
+        //    }
+        //}
+
 
         private void CalculateHeightAndWidth(string path, out int width, out int height)
         {

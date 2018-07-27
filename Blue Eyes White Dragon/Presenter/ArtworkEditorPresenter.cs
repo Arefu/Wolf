@@ -27,6 +27,13 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
             LoadEvents();
             LoadSettings();
+            LoadDbPath();
+        }
+
+        private void LoadDbPath()
+        {
+            var dbLocation = _artworkEditorLogic.LoadDbPath();
+            SetDbLocation(dbLocation);
         }
 
         private void LoadEvents()
@@ -37,8 +44,10 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.LoadAction += Load;
             View.SaveAction += Save;
             View.MatchAllAction += MatchAll;
+            View.ConvertAllAction += ConvertAll;
             View.SavePathSettingAction += SavePathSetting;
             View.UsePendulumCheckedChanged += SetPendulumChecked;
+            View.CardDbPathChanged += SetDbLocation;
 
             _logger.AppendTextToConsole += AppendConsoleText;
             _logger.AppendExceptionToConsole += AppendConsoleException;
@@ -61,7 +70,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
                     case Constants.Setting.LastUsedReplacementImagePath:
                         View.SetReplacementImagesPath(path);
                         break;
-                    case Constants.Setting.LasstUsedCardDbPath:
+                    case Constants.Setting.LastUsedCardDbPath:
                         View.SetCardDbPath(path);
                         break;
                     default:
@@ -112,6 +121,11 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.ClearObjectsFromObjectListView();
             var artworkList = _artworkEditorLogic.RunMatchAll(new DirectoryInfo(gameImagesLocation), new DirectoryInfo(replacementImagesLocation), _useIncludedPendulum);
             View.AddObjectsToObjectListView(artworkList);
+        }
+
+        public void ConvertAll(IEnumerable<Artwork> artworks)
+        {
+            _artworkEditorLogic.RunConvertAll(artworks);
         }
 
         public void Save(IEnumerable<Artwork> artworks)
@@ -197,21 +211,6 @@ namespace Blue_Eyes_White_Dragon.Presenter
             }
         }
 
-        private void ShowMessageBox(string message)
-        {
-            View.ShowMessageBox(message);
-        }
-
-        private void AddObjectsToObjectListView(IEnumerable<Artwork> artworkList)
-        {
-            View.AddObjectsToObjectListView(artworkList);
-        }
-
-        private void ClearObjectsFromObjectListView()
-        {
-            View.ClearObjectsFromObjectListView();
-        }
-
         public void CustomArtPicked(Artwork artwork, ArtworkSearch pickedArtwork)
         {
             _artworkEditorLogic.RunCustomArtPicked(artwork, pickedArtwork);
@@ -220,6 +219,11 @@ namespace Blue_Eyes_White_Dragon.Presenter
         private void SetPendulumChecked(bool isChecked)
         {
             _useIncludedPendulum = isChecked;
+        }
+
+        private void SetDbLocation(string path)
+        {
+            _artworkEditorLogic.SetDbLocation(path);
         }
     }
 }

@@ -15,5 +15,6 @@ namespace Blue_Eyes_White_Dragon.Presenter.Interface
         void Load(string path);
         void SavePathSetting(string filePath, Constants.Setting setting);
         void CustomArtPicked(Artwork artwork, ArtworkSearch pickedArtwork);
+        void ConvertAll(IEnumerable<Artwork> artworks);
     }
 }

@@ -9,6 +9,9 @@ namespace Blue_Eyes_White_Dragon.Misc
         public static string ReplacementImagesLocation => ConfigurationManager.AppSettings["ReplacementImagesLocation"];
         public static string Jpg => Enum.GetName(typeof(Constants.SupportedImageType), Constants.SupportedImageType.jpg);
         public static string Png => Enum.GetName(typeof(Constants.SupportedImageType), Constants.SupportedImageType.png);
+        public static string ResourceOutputPath = "Output";
+
+        public const string JpgMimeType = "image/jpeg";
 
         public static string ResourceLocation = "Resources";
         public static string ResourcePendulumLocation = "Pendulums";
@@ -24,12 +27,13 @@ namespace Blue_Eyes_White_Dragon.Misc
             png,
         }
 
+
         public enum Setting
         {
             LastUsedLoadPath,
             LastUsedGameImagePath,
             LastUsedReplacementImagePath,
-            LasstUsedCardDbPath
+            LastUsedCardDbPath
         }
     }
 }

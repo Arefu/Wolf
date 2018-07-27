@@ -7,6 +7,7 @@ namespace Blue_Eyes_White_Dragon.Misc.Logging
     {
         public event Action<string> AppendTextToConsole;
         public event Action<string> AppendExceptionToConsole;
+        private string log;
         public void LogError(string message)
         {
             LogInformation(message);
@@ -15,6 +16,7 @@ namespace Blue_Eyes_White_Dragon.Misc.Logging
         public void LogInformation(string message)
         {
             var formattedMessage = Localization.MessageFormattedForConsole(message);
+            log += formattedMessage;
             AppendTextToConsole?.Invoke(formattedMessage);
         }
 

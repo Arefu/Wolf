@@ -8,7 +8,8 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
     public interface IArtworkManager
     {
         List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation);
-        List<Artwork> UpdateArtworkModelsWithReplacement(List<Artwork> artworkList, bool useIncludedPendulum);
+        List<Artwork> UpdateArtworkModelsWithReplacement(IEnumerable<Artwork> artworkList, bool useIncludedPendulum);
         FileInfo SearchForImage(int cardId, DirectoryInfo directory);
+        void ConvertAll(IEnumerable<Artwork> artworks);
     }
 }

@@ -11,6 +11,7 @@
         public static string InformationCalculatingImageDimensions = "Calculating image dimensions";
         public static string InformationCalculationComplete = "Calculating completed";
         public static string InformationLoading = "Loading";
+        public static string InformationConvertingImages = "Converting images to jpg, quality 92 and subsampling 4x2x2";
 
         public static string InformationLoadComplete(string path) { return $"Load successful from {path}"; }
         public static string InformationSaveComplete(string path) { return $"Save successful to {path}"; }
@@ -19,6 +20,7 @@
         public static string InformationFoundPendulumImage(string artworkGameImageMonsterName, string imageFilePath) { return $"Found {imageFilePath} for {artworkGameImageMonsterName}"; }
         public static string InformationProcessingProgress(long progress, int totalAmount, string monsterName) { return $"{progress} of {totalAmount} processed - {monsterName}"; }
         public static string InformationProcessingDone(int amountProcessed, long secondsElapsed) { return $"Processed {amountProcessed} in {secondsElapsed}s"; }
+        public static string InformationMultipleImagesFound(int imagesCount, int cardId, string imageFileName) { return $"{imagesCount} images found for {cardId} picking: {imageFileName}"; }
 
         public static string Exception(string exceptionMessage, string innerExceptionMessage) { return $"Exception: {exceptionMessage} \\r\\n InnerException: {innerExceptionMessage}"; }
         public static string ExceptionFormattedForConsole(string message) { return $"{message}{Localization.GetNewline}"; }
@@ -33,5 +35,6 @@
         public static string BtnTextCustom = "Open Art Picker";
         public static string BtnTextYes = "Yes";
         public static string BtnTextBlank = "";
+
     }
 }

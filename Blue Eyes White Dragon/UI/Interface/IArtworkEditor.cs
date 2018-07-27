@@ -12,11 +12,13 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         event Func<object, object> GameImageGetterEvent;
         event Func<object, object> ReplacementImageGetterEvent;
         event Action<string, string> MatchAllAction;
+        event Action<IEnumerable<Artwork>> ConvertAllAction;
         event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         event Action<IEnumerable<Artwork>> SaveAction;
         event Action<string> LoadAction;
         event Action<string, Constants.Setting> SavePathSettingAction;
         event Action<bool> UsePendulumCheckedChanged;
+        event Action<string> CardDbPathChanged;
         void ShowMessageBox(string message);
         void SetLoadPath(string path);
         void SetGameImagesPath(string path);

@@ -48,6 +48,7 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pnl_object_list = new System.Windows.Forms.Panel();
             this.pnl_sidebar = new System.Windows.Forms.Panel();
+            this.btn_convert_all = new System.Windows.Forms.Button();
             this.lbl_carddb_location = new System.Windows.Forms.Label();
             this.btn_browse_carddb = new System.Windows.Forms.Button();
             this.txt_browse_carddb = new System.Windows.Forms.TextBox();
@@ -69,7 +70,7 @@
             this.btn_load_match = new System.Windows.Forms.Button();
             this.lbl_card_match_path = new System.Windows.Forms.Label();
             this.txt_card_match_path = new System.Windows.Forms.TextBox();
-            this.btn_match_run = new System.Windows.Forms.Button();
+            this.btn_match_all = new System.Windows.Forms.Button();
             this.browse_json_file = new System.Windows.Forms.OpenFileDialog();
             this.browse_open_folder = new System.Windows.Forms.FolderBrowserDialog();
             this.browse_carddb = new System.Windows.Forms.OpenFileDialog();
@@ -259,6 +260,7 @@
             // 
             // pnl_sidebar
             // 
+            this.pnl_sidebar.Controls.Add(this.btn_convert_all);
             this.pnl_sidebar.Controls.Add(this.lbl_carddb_location);
             this.pnl_sidebar.Controls.Add(this.btn_browse_carddb);
             this.pnl_sidebar.Controls.Add(this.txt_browse_carddb);
@@ -273,12 +275,22 @@
             this.pnl_sidebar.Controls.Add(this.grpbox_left_top);
             this.pnl_sidebar.Controls.Add(this.grpbox_bottom_left);
             this.pnl_sidebar.Controls.Add(this.grpbox_load);
-            this.pnl_sidebar.Controls.Add(this.btn_match_run);
+            this.pnl_sidebar.Controls.Add(this.btn_match_all);
             this.pnl_sidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnl_sidebar.Location = new System.Drawing.Point(0, 0);
             this.pnl_sidebar.Name = "pnl_sidebar";
             this.pnl_sidebar.Size = new System.Drawing.Size(404, 907);
             this.pnl_sidebar.TabIndex = 1;
+            // 
+            // btn_convert_all
+            // 
+            this.btn_convert_all.Location = new System.Drawing.Point(257, 271);
+            this.btn_convert_all.Name = "btn_convert_all";
+            this.btn_convert_all.Size = new System.Drawing.Size(100, 30);
+            this.btn_convert_all.TabIndex = 13;
+            this.btn_convert_all.Text = "Convert All";
+            this.btn_convert_all.UseVisualStyleBackColor = true;
+            this.btn_convert_all.Click += new System.EventHandler(this.Btn_convert_all_Click);
             // 
             // lbl_carddb_location
             // 
@@ -301,6 +313,7 @@
             // 
             // txt_browse_carddb
             // 
+            this.txt_browse_carddb.Enabled = false;
             this.txt_browse_carddb.Location = new System.Drawing.Point(9, 200);
             this.txt_browse_carddb.Name = "txt_browse_carddb";
             this.txt_browse_carddb.Size = new System.Drawing.Size(298, 20);
@@ -346,6 +359,7 @@
             // 
             // txt_browse_game_images
             // 
+            this.txt_browse_game_images.Enabled = false;
             this.txt_browse_game_images.Location = new System.Drawing.Point(9, 115);
             this.txt_browse_game_images.Name = "txt_browse_game_images";
             this.txt_browse_game_images.Size = new System.Drawing.Size(298, 20);
@@ -353,6 +367,7 @@
             // 
             // txt_browse_replacement_images
             // 
+            this.txt_browse_replacement_images.Enabled = false;
             this.txt_browse_replacement_images.Location = new System.Drawing.Point(9, 158);
             this.txt_browse_replacement_images.Name = "txt_browse_replacement_images";
             this.txt_browse_replacement_images.Size = new System.Drawing.Size(298, 20);
@@ -363,7 +378,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(111, 248);
+            this.checkBox1.Location = new System.Drawing.Point(21, 248);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(166, 17);
             this.checkBox1.TabIndex = 4;
@@ -474,20 +489,21 @@
             // 
             // txt_card_match_path
             // 
+            this.txt_card_match_path.Enabled = false;
             this.txt_card_match_path.Location = new System.Drawing.Point(6, 32);
             this.txt_card_match_path.Name = "txt_card_match_path";
             this.txt_card_match_path.Size = new System.Drawing.Size(298, 20);
             this.txt_card_match_path.TabIndex = 0;
             // 
-            // btn_match_run
+            // btn_match_all
             // 
-            this.btn_match_run.Location = new System.Drawing.Point(140, 271);
-            this.btn_match_run.Name = "btn_match_run";
-            this.btn_match_run.Size = new System.Drawing.Size(100, 30);
-            this.btn_match_run.TabIndex = 1;
-            this.btn_match_run.Text = "Auto Match All";
-            this.btn_match_run.UseVisualStyleBackColor = true;
-            this.btn_match_run.Click += new System.EventHandler(this.Btn_run_Click);
+            this.btn_match_all.Location = new System.Drawing.Point(21, 271);
+            this.btn_match_all.Name = "btn_match_all";
+            this.btn_match_all.Size = new System.Drawing.Size(100, 30);
+            this.btn_match_all.TabIndex = 1;
+            this.btn_match_all.Text = "Auto Match All";
+            this.btn_match_all.UseVisualStyleBackColor = true;
+            this.btn_match_all.Click += new System.EventHandler(this.Btn_run_Click);
             // 
             // browse_json_file
             // 
@@ -551,7 +567,7 @@
         private System.Windows.Forms.Button btn_load_match;
         private System.Windows.Forms.Label lbl_card_match_path;
         private System.Windows.Forms.TextBox txt_card_match_path;
-        private System.Windows.Forms.Button btn_match_run;
+        private System.Windows.Forms.Button btn_match_all;
         private System.Windows.Forms.OpenFileDialog browse_json_file;
         private BrightIdeasSoftware.OLVColumn Row;
         private BrightIdeasSoftware.OLVColumn BtnCustomArt;
@@ -569,5 +585,6 @@
         private System.Windows.Forms.Button btn_browse_carddb;
         private System.Windows.Forms.TextBox txt_browse_carddb;
         private System.Windows.Forms.OpenFileDialog browse_carddb;
+        private System.Windows.Forms.Button btn_convert_all;
     }
 }
