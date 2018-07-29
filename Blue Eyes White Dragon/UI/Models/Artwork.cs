@@ -26,6 +26,7 @@ namespace Blue_Eyes_White_Dragon.UI.Models
 
         public bool IsMatched { get; set; }
         public bool IsPendulum { get; set; }
+        public string ZibFilename { get; set; }
         public List<FileInfo> AlternateReplacementImages { get; set; } = new List<FileInfo>();
 
         public override string ToString()

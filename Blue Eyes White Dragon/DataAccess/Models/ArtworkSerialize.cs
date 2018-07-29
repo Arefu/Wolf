@@ -12,7 +12,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Models
         public bool IsPendulum { get; set; }
         public bool IsMatched { get; set; }
         public List<string> AlternateReplacementImages { get; set; } = new List<string>();
-
-
+        public string ZibFilename { get; set; }
     }
 }

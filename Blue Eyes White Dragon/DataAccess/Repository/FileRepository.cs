@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Misc.Interface;
@@ -39,7 +37,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
         public void CalculateHeightAndWidth(IEnumerable<Artwork> artworks)
         {
             var artworkList = artworks.ToList();
-
+            var progress = 0;
             foreach (var artwork in artworkList)
             {
                 var width = 0;
@@ -66,21 +64,11 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                     artwork.ReplacementImageWidth = width;
                     artwork.ReplacementImageHeight = height;
                 }
+
+                progress++;
+                //_logger.LogInformation(Localization.InformationProcessingProgress(progress,artworkList.Count,artwork.GameImageMonsterName));
             }
         }
-
-        //private void CalculateHeightAndWidth(string path, out int width, out int height)
-        //{
-        //    using (Stream stream = File.OpenRead(path))
-        //    {
-        //        using (Image sourceImage = Image.FromStream(stream, false, false))
-        //        {
-        //            width = sourceImage.Width;
-        //            height = sourceImage.Height;
-        //        }
-        //    }
-        //}
-
 
         private void CalculateHeightAndWidth(string path, out int width, out int height)
         {

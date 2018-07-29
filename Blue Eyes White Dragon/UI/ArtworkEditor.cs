@@ -16,7 +16,7 @@ namespace Blue_Eyes_White_Dragon.UI
     {
         public event Func<object, object> GameImageGetterEvent;
         public event Func<object, object> ReplacementImageGetterEvent;
-        public event Action<string, string> MatchAllAction;
+        public event Action<string> MatchAllAction;
         public event Action<IEnumerable<Artwork>> ConvertAllAction;
         public event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         public event Action<IEnumerable<Artwork>> SaveAction;
@@ -105,9 +105,8 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void Btn_run_Click(object sender, EventArgs e)
         {
-            var gameImagesLocation = txt_browse_game_images.Text;
             var replacementImagesLocation = txt_browse_replacement_images.Text;
-            MatchAllAction?.Invoke(gameImagesLocation, replacementImagesLocation);
+            MatchAllAction?.Invoke(replacementImagesLocation);
         }
 
         private void Txt_search_TextChanged(object sender, EventArgs e)
@@ -136,6 +135,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
             richtextbox_console.AppendText(message);
         }
+
         private bool ControlInvokeRequired(Control c, Action a)
         {
             if (c.InvokeRequired) c.Invoke(new MethodInvoker(delegate { a(); }));
@@ -143,7 +143,6 @@ namespace Blue_Eyes_White_Dragon.UI
 
             return true;
         }
-
 
         public void RemoveOldestLine()
         {
@@ -238,6 +237,7 @@ namespace Blue_Eyes_White_Dragon.UI
             }
         }
 
+        //TODO this textbox is not used for anything anymore
         private void Btn_browse_game_images_Click(object sender, EventArgs e)
         {
             if (browse_open_folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)

@@ -7,7 +7,7 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
 {
     public interface IArtworkEditorLogic
     {
-        IEnumerable<Artwork> RunMatchAll(DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation, bool useIncludedPendulum);
+        IEnumerable<Artwork> RunMatchAll(DirectoryInfo replacementImagesLocation, bool useIncludedPendulum);
         void RunSaveMatch(IEnumerable<Artwork> artworks);
         void SavePathSetting(string filePath, Constants.Setting setting);
         void RunCustomArtPicked(Artwork artwork, ArtworkSearch pickedArtwork);

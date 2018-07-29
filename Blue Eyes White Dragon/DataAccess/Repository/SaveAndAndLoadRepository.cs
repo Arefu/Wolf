@@ -45,6 +45,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 CardId = artwork.CardId,
                 IsPendulum = artwork.IsPendulum,
                 IsMatched = artwork.IsMatched,
+                ZibFilename = artwork.ZibFilename
             };
         }
 
@@ -77,6 +78,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 CardId = artworkSerialize.CardId,
                 IsMatched = artworkSerialize.IsMatched,
                 IsPendulum = artworkSerialize.IsPendulum,
+                ZibFilename = artworkSerialize.ZibFilename
             };
         }
     }

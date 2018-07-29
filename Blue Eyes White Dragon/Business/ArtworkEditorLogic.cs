@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.Misc;
@@ -35,10 +33,10 @@ namespace Blue_Eyes_White_Dragon.Business
             _dbFactory = dbFactory ?? throw new ArgumentNullException(nameof(dbFactory));
         }
 
-        public IEnumerable<Artwork> RunMatchAll(DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation, bool useIncludedPendulum)
+        public IEnumerable<Artwork> RunMatchAll(DirectoryInfo replacementImagesLocation, bool useIncludedPendulum)
         {
             var gameCards = _gameFileRepo.GetAllCards();
-            var artworkListWithGameCards = _artworkManager.CreateArtworkModels(gameCards, gameImagesLocation, replacementImagesLocation);
+            var artworkListWithGameCards = _artworkManager.CreateArtworkModels(gameCards, replacementImagesLocation);
             var artworkListWithReplacements = _artworkManager.UpdateArtworkModelsWithReplacement(artworkListWithGameCards, useIncludedPendulum);
             CalculateHeightAndWidth(artworkListWithReplacements);
             return SortArtwork(artworkListWithReplacements);

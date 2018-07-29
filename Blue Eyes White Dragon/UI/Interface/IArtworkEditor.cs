@@ -11,7 +11,7 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
     {
         event Func<object, object> GameImageGetterEvent;
         event Func<object, object> ReplacementImageGetterEvent;
-        event Action<string, string> MatchAllAction;
+        event Action<string> MatchAllAction;
         event Action<IEnumerable<Artwork>> ConvertAllAction;
         event Action<Artwork, ArtworkSearch> CustomArtPickedAction;
         event Action<IEnumerable<Artwork>> SaveAction;

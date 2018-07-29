@@ -39,14 +39,15 @@ namespace Blue_Eyes_White_Dragon.Business
             _imageRepo = imageRepo;
         }
 
-        public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo gameImagesLocation, DirectoryInfo replacementImagesLocation)
+        public List<Artwork> CreateArtworkModels(List<Card> gameCards, DirectoryInfo replacementImagesLocation)
         {
             var artworkList = new ConcurrentBag<Artwork>();
 
             Parallel.For(0, gameCards.Count, i =>
             {
                 var gameCard = gameCards[i];
-                var gameImageFile = SearchForImage(gameCard.Id, gameImagesLocation);
+
+                var gameImageFile = SearchForGameImagesInBothFolders(gameCard.Id);
 
                 artworkList.Add(new Artwork()
                 {
@@ -54,17 +55,20 @@ namespace Blue_Eyes_White_Dragon.Business
                     GameImageFile = gameImageFile ?? _errorImage,
                     GameImageMonsterName = gameCard.Name,
                     IsMatched = false,
-                    IsPendulum = gameCard.IsPendulum
+                    IsPendulum = gameCard.IsPendulum,
+                    ZibFilename = gameImageFile?.Directory?.Name
                 });
             });
 
-            //foreach (var artwork in artworkList)
-            //{
-            //    var gameCard = gameCards.Find(x => x.Id == artwork.CardId);
-            //    artwork.GameImageFile = SearchForImage(gameCard.Id, gameImagesLocation) ?? _errorImage;
-            //}
-
             return artworkList.ToList();
+        }
+
+        private FileInfo SearchForGameImagesInBothFolders(int gameCardId)
+        {
+            var cardsFolder = new DirectoryInfo(Constants.CardsFolderName);
+            var cardsDlcFolder = new DirectoryInfo(Constants.CardsDlcFolderName);
+
+            return SearchForImage(gameCardId, cardsFolder) ?? SearchForImage(gameCardId, cardsDlcFolder);
         }
 
         public List<Artwork> UpdateArtworkModelsWithReplacement(IEnumerable<Artwork> artworkList, bool useIncludedPendulum)
@@ -219,7 +223,7 @@ namespace Blue_Eyes_White_Dragon.Business
             }
             else if (images.Count == 0)
             {
-                _logger.LogInformation(Localization.ErrorNoImageFound(cardId));
+                //_logger.LogInformation(Localization.ErrorNoImageFound(cardId));
                 return null;
             }
             else
@@ -252,11 +256,11 @@ namespace Blue_Eyes_White_Dragon.Business
                 var imageFile = artwork.ReplacementImageFile;
                 if (artwork.IsPendulum)
                 {
-                    ConvertPendulumArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings);
+                    ConvertPendulumArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings, artwork.ZibFilename);
                 }
                 else
                 {
-                    ConvertNormalArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings);
+                    ConvertNormalArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings, artwork.ZibFilename);
                 }
                 _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
                 progress++;
@@ -268,21 +272,21 @@ namespace Blue_Eyes_White_Dragon.Business
         }
 
         private void ConvertNormalArtwork(DirectoryInfo destinationPath, string orgName, FileInfo imageFile,
-            ProcessImageSettings settings)
+            ProcessImageSettings settings, string zibFilename)
         {
             settings.Width = 304;
             settings.Height = 304;
             settings.JpegSubsampleMode = ChromaSubsampleMode.Subsample420;
-            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings);
+            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings, zibFilename);
         }
 
         private void ConvertPendulumArtwork(DirectoryInfo destinationPath, string orgName, FileInfo imageFile,
-            ProcessImageSettings settings)
+            ProcessImageSettings settings, string zibFilename)
         {
             settings.Width = 347;
             settings.Height = 444;
             settings.JpegSubsampleMode = ChromaSubsampleMode.Default;
-            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings);
+            _imageRepo.ConvertImage(destinationPath, imageFile, orgName, settings, zibFilename);
         }
 
         private List<FileInfo> SearchForImagesInDirectory(int cardId, DirectoryInfo directory)

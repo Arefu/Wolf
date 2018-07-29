@@ -116,10 +116,10 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.SmallImageListAdd(imagePath, image);
         }
 
-        public void MatchAll(string gameImagesLocation, string replacementImagesLocation)
+        public void MatchAll(string replacementImagesLocation)
         {
             View.ClearObjectsFromObjectListView();
-            var artworkList = _artworkEditorLogic.RunMatchAll(new DirectoryInfo(gameImagesLocation), new DirectoryInfo(replacementImagesLocation), _useIncludedPendulum);
+            var artworkList = _artworkEditorLogic.RunMatchAll(new DirectoryInfo(replacementImagesLocation), _useIncludedPendulum);
             View.AddObjectsToObjectListView(artworkList);
         }
 

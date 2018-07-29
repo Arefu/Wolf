@@ -10,7 +10,7 @@ namespace Blue_Eyes_White_Dragon.Presenter.Interface
         IArtworkEditor View { get; }
         object ReplacementImageGetter(object row);
         object GameImageGetter(object row);
-        void MatchAll(string gameImagesLocation, string replacementImagesLocation);
+        void MatchAll(string replacementImagesLocation);
         void Save(IEnumerable<Artwork> artworks);
         void Load(string path);
         void SavePathSetting(string filePath, Constants.Setting setting);

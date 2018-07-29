@@ -6,6 +6,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
     public interface IImageRepository
     {
         void ConvertImage(DirectoryInfo destinationPath, FileInfo imageFile, string orgName,
-            ProcessImageSettings settings);
+            ProcessImageSettings settings, string isDlcCard);
     }
 }

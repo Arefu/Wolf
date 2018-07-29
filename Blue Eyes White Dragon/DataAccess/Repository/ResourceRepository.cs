@@ -16,7 +16,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
         {
             _logger = logger;
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? throw new InvalidOperationException();
-            _resourceLocation = Path.Combine(executionPath, Constants.ResourceLocation);
+            _resourceLocation = Path.Combine(executionPath, Constants.ResourceFolderName);
             if (_resourceLocation == null)
             {
                 _logger.LogError(Localization.ErrorExecutableLocationNotFound);
@@ -42,7 +42,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public DirectoryInfo GetOutputPath()
         {
-            return new DirectoryInfo(Path.Combine(_resourceLocation, Constants.ResourceOutputPath));
+            return new DirectoryInfo(Path.Combine(_resourceLocation, Constants.OutputFolderName));
         }
     }
 }

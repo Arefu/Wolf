@@ -25,7 +25,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 {
                     Id = x.Value.CardId,
                     Name = x.Value.Name.GetText(Localized_Text.Language.English),
-                    IsPendulum = x.Value.IsPendulum
+                    IsPendulum = x.Value.IsPendulum,
                 }).ToList();
         }
     }
