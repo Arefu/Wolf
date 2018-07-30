@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Misc;
@@ -96,6 +97,16 @@ namespace Blue_Eyes_White_Dragon.UI
         public void ClearObjectsFromObjectListView()
         {
             objlist_artwork_picker.ClearObjects();
+        }
+
+        private void Btn_browse_image_Click(object sender, EventArgs e)
+        {
+            if (dlg_browse_image.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var filePath = dlg_browse_image.FileName;
+                CardPicked?.Invoke(new ArtworkSearch(){ImageFile = new FileInfo(filePath)});
+                DialogResult = DialogResult.OK;
+            }
         }
     }
 }

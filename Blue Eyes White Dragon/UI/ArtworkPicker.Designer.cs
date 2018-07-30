@@ -37,10 +37,12 @@
             this.BtnOk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_browse_image = new System.Windows.Forms.Button();
+            this.btn_cancel_pick = new System.Windows.Forms.Button();
             this.btn_search = new System.Windows.Forms.Button();
             this.lbl_how_to_search = new System.Windows.Forms.Label();
             this.txtbox_search = new System.Windows.Forms.TextBox();
-            this.btn_cancel_pick = new System.Windows.Forms.Button();
+            this.dlg_browse_image = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.objlist_artwork_picker)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -108,6 +110,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_browse_image);
             this.panel1.Controls.Add(this.btn_cancel_pick);
             this.panel1.Controls.Add(this.btn_search);
             this.panel1.Controls.Add(this.lbl_how_to_search);
@@ -117,6 +120,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(803, 109);
             this.panel1.TabIndex = 1;
+            // 
+            // btn_browse_image
+            // 
+            this.btn_browse_image.Location = new System.Drawing.Point(476, 39);
+            this.btn_browse_image.Name = "btn_browse_image";
+            this.btn_browse_image.Size = new System.Drawing.Size(103, 23);
+            this.btn_browse_image.TabIndex = 4;
+            this.btn_browse_image.Text = "Browse for Image";
+            this.btn_browse_image.UseVisualStyleBackColor = true;
+            this.btn_browse_image.Click += new System.EventHandler(this.Btn_browse_image_Click);
+            // 
+            // btn_cancel_pick
+            // 
+            this.btn_cancel_pick.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btn_cancel_pick.Location = new System.Drawing.Point(716, 42);
+            this.btn_cancel_pick.Name = "btn_cancel_pick";
+            this.btn_cancel_pick.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancel_pick.TabIndex = 3;
+            this.btn_cancel_pick.Text = "Cancel";
+            this.btn_cancel_pick.UseVisualStyleBackColor = true;
+            this.btn_cancel_pick.Click += new System.EventHandler(this.Btn_cancel_pick_Click);
             // 
             // btn_search
             // 
@@ -144,16 +168,9 @@
             this.txtbox_search.Size = new System.Drawing.Size(256, 20);
             this.txtbox_search.TabIndex = 0;
             // 
-            // btn_cancel_pick
+            // dlg_browse_image
             // 
-            this.btn_cancel_pick.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_cancel_pick.Location = new System.Drawing.Point(716, 42);
-            this.btn_cancel_pick.Name = "btn_cancel_pick";
-            this.btn_cancel_pick.Size = new System.Drawing.Size(75, 23);
-            this.btn_cancel_pick.TabIndex = 3;
-            this.btn_cancel_pick.Text = "Cancel";
-            this.btn_cancel_pick.UseVisualStyleBackColor = true;
-            this.btn_cancel_pick.Click += new System.EventHandler(this.Btn_cancel_pick_Click);
+            this.dlg_browse_image.FileName = "BrowseImage";
             // 
             // ArtworkPicker
             // 
@@ -187,5 +204,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private BrightIdeasSoftware.ImageRenderer ImageRenderer;
         private System.Windows.Forms.Button btn_cancel_pick;
+        private System.Windows.Forms.Button btn_browse_image;
+        private System.Windows.Forms.OpenFileDialog dlg_browse_image;
     }
 }

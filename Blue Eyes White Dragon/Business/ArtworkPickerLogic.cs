@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using Blue_Eyes_White_Dragon.Business.Interface;
@@ -12,19 +13,17 @@ namespace Blue_Eyes_White_Dragon.Business
     public class ArtworkPickerLogic : IArtworkPickerLogic
     {
         private readonly ICardRepository _cardRepo;
-        private readonly IFileRepository _fileRepo;
         private readonly IArtworkManager _artworkManager;
         private readonly ISettingRepository _settingRepo;
 
-        public ArtworkPickerLogic(ICardRepository cardRepo, IFileRepository fileRepo, IArtworkManager artworkManager, ISettingRepository settingRepo)
+        public ArtworkPickerLogic(ICardRepository cardRepo, IArtworkManager artworkManager, ISettingRepository settingRepo)
         {
             _cardRepo = cardRepo ?? throw new ArgumentNullException(nameof(cardRepo));
-            _fileRepo = fileRepo;
-            _artworkManager = artworkManager;
-            _settingRepo = settingRepo;
+            _artworkManager = artworkManager ?? throw new ArgumentNullException(nameof(artworkManager));
+            _settingRepo = settingRepo ?? throw new ArgumentNullException(nameof(settingRepo));
         }
 
-        public IEnumerable<ArtworkSearch> SearchCards(string cardName)
+        public IEnumerable<ArtworkSearch> SearchArtwork(string cardName)
         {
             var cards = _cardRepo.SearchCards(cardName);
             var replacementImagesLocation = new DirectoryInfo(_settingRepo.GetPathSetting(Constants.Setting.LastUsedReplacementImagePath));

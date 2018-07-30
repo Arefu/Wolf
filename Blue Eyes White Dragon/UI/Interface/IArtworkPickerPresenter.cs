@@ -10,7 +10,7 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         ArtworkSearch ArtworkSearchResult { get; }
         object ImageGetter(object row);
         void LoadAlternateArtwork(Artwork artwork);
-        void SearchCards(string text);
+        void SearchArtwork(string text);
         DialogResult ShowDialog();
         void SetCurrentArtwork(Artwork artwork);
     }

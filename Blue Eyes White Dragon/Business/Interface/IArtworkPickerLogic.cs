@@ -5,6 +5,6 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
 {
     public interface IArtworkPickerLogic
     {
-        IEnumerable<ArtworkSearch> SearchCards(string cardName);
+        IEnumerable<ArtworkSearch> SearchArtwork(string cardName);
     }
 }

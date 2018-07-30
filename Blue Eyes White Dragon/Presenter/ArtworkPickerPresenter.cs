@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.Business;
 using Blue_Eyes_White_Dragon.Business.Interface;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Interface;
@@ -27,7 +26,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
         private void LoadEvents()
         {
             View.LoadAlternateImages += LoadAlternateArtwork;
-            View.SearchCards += SearchCards;
+            View.SearchCards += SearchArtwork;
             View.ImageGetter += ImageGetter;
             View.CardPicked += CardPicked;
         }
@@ -63,9 +62,9 @@ namespace Blue_Eyes_White_Dragon.Presenter
             View.AddObjectsToObjectListView(artworkSearch);
         }
 
-        public void SearchCards(string text)
+        public void SearchArtwork(string text)
         {
-            var searchResults = _artworkPickerLogic.SearchCards(text);
+            var searchResults = _artworkPickerLogic.SearchArtwork(text);
             View.ClearObjectsFromObjectListView();
             View.AddObjectsToObjectListView(searchResults);
         }
