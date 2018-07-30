@@ -53,7 +53,7 @@ namespace Blue_Eyes_White_Dragon.Business
                 {
                     CardId = gameCard.Id,
                     GameImageFile = gameImageFile ?? _errorImage,
-                    GameImageMonsterName = gameCard.Name,
+                    GameImageCardName = gameCard.Name,
                     IsMatched = false,
                     IsPendulum = gameCard.IsPendulum,
                     ZibFilename = gameImageFile?.Directory?.Name
@@ -90,7 +90,7 @@ namespace Blue_Eyes_White_Dragon.Business
                     ProcessArtwork(artwork);
                 }
                 progress++;
-                _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
+                _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageCardName));
             }
             stopwatch.Stop();
             _logger.LogInformation(Localization.InformationProcessingDone(artworks.Count, MiliToSec(stopwatch.ElapsedMilliseconds)));
@@ -113,13 +113,13 @@ namespace Blue_Eyes_White_Dragon.Business
                 artwork.ReplacementImageFile = _errorImage;
                 artwork.IsMatched = false;
             }
-            artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
+            artwork.ReplacementImageCardName = artwork.GameImageCardName;
         }
 
         private void ProcessArtwork(Artwork artwork)
         {
             var replacementCard = FindSuitableReplacementCard(artwork);
-            artwork.ReplacementImageMonsterName = replacementCard.GameImageMonsterName;
+            artwork.ReplacementImageCardName = replacementCard.GameImageCardName;
             artwork.ReplacementImageFile = replacementCard.ReplacementImageFile;
         }
 
@@ -150,11 +150,11 @@ namespace Blue_Eyes_White_Dragon.Business
         {
             try
             {
-                return _cardRepo.GetCards(artwork.GameImageMonsterName);
+                return _cardRepo.GetCards(artwork.GameImageCardName);
             }
             catch (Exception e)
             {
-                _logger.LogInformation($"Database error: {e}, inner: {e.InnerException} for {artwork.GameImageMonsterName}");
+                _logger.LogInformation($"Database error: {e}, inner: {e.InnerException} for {artwork.GameImageCardName}");
                 return new List<Card>();
             }
         }
@@ -198,10 +198,10 @@ namespace Blue_Eyes_White_Dragon.Business
 
         private void HandleNoMatch(Artwork artwork)
         {
-            artwork.ReplacementImageMonsterName = artwork.GameImageMonsterName;
+            artwork.ReplacementImageCardName = artwork.GameImageCardName;
             artwork.ReplacementImageFile = _errorImage;
             artwork.IsMatched = false;
-            _logger.LogInformation(Localization.ErrorNoMatch(artwork.GameImageMonsterName));
+            _logger.LogInformation(Localization.ErrorNoMatch(artwork.GameImageCardName));
         }
 
         private long MiliToSec(long stopwatchElapsedMilliseconds)
@@ -262,13 +262,37 @@ namespace Blue_Eyes_White_Dragon.Business
                 {
                     ConvertNormalArtwork(destinationPath, artwork.GameImageFileName, imageFile, settings, artwork.ZibFilename);
                 }
-                _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageMonsterName));
+                _logger.LogInformation(Localization.InformationProcessingProgress(progress, numberOfArtwork, artwork.GameImageCardName));
                 progress++;
             }
 
             stopwatch.Stop();
             _logger.LogInformation(Localization.InformationProcessingDone(numberOfArtwork, MiliToSec(stopwatch.ElapsedMilliseconds)));
 
+        }
+
+        public void FixMissingArtwork(List<Artwork> artworks)
+        {
+            foreach (var artwork in artworks)
+            {
+                if (!artwork.GameImageFile.Exists)
+                {
+                    _logger.LogError(Localization.ErrorImageDoesNotExist(artwork.GameImageFilePath, artwork.GameImageCardName));
+                    artwork.GameImageFile = _errorImage;
+                    SetAsNotMatched(artwork);
+                }
+                if (!artwork.ReplacementImageFile.Exists)
+                {
+                    _logger.LogError(Localization.ErrorImageDoesNotExist(artwork.ReplacementImageFilePath, artwork.ReplacementImageCardName));
+                    artwork.ReplacementImageFile = _errorImage;
+                    SetAsNotMatched(artwork);
+                }
+            }
+        }
+
+        private void SetAsNotMatched(Artwork artwork)
+        {
+            artwork.IsMatched = false;
         }
 
         private void ConvertNormalArtwork(DirectoryInfo destinationPath, string orgName, FileInfo imageFile,

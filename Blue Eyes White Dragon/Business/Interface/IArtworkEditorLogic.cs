@@ -18,5 +18,7 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
         void RunConvertAll(IEnumerable<Artwork> artworks);
         void SetDbLocation(string path);
         string LoadDbPath();
+        void FixMissingArtwork(List<Artwork> artworks);
+        bool GameImageFoldersExist();
     }
 }

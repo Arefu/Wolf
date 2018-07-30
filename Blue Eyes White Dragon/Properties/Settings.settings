@@ -5,9 +5,6 @@
     <Setting Name="LastUsedLoadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="LastUsedGameImagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="LastUsedReplacementImagePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>

@@ -21,7 +21,6 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         event Action<string> CardDbPathChanged;
         void ShowMessageBox(string message);
         void SetLoadPath(string path);
-        void SetGameImagesPath(string path);
         void SetReplacementImagesPath(string path);
         void SetCardDbPath(string path);
     }

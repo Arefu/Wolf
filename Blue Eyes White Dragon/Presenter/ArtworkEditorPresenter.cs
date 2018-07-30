@@ -64,9 +64,6 @@ namespace Blue_Eyes_White_Dragon.Presenter
                     case Constants.Setting.LastUsedLoadPath:
                         View.SetLoadPath(path);
                         break;
-                    case Constants.Setting.LastUsedGameImagePath:
-                        View.SetGameImagesPath(path);
-                        break;
                     case Constants.Setting.LastUsedReplacementImagePath:
                         View.SetReplacementImagesPath(path);
                         break;
@@ -118,6 +115,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
         public void MatchAll(string replacementImagesLocation)
         {
+            if (!GameImageFoldersExist()) return;
             View.ClearObjectsFromObjectListView();
             var artworkList = _artworkEditorLogic.RunMatchAll(new DirectoryInfo(replacementImagesLocation), _useIncludedPendulum);
             View.AddObjectsToObjectListView(artworkList);
@@ -159,6 +157,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
         public void Load(string path)
         {
+            if (!GameImageFoldersExist()) return;
             _logger.LogInformation(Localization.InformationLoading);
             if (string.IsNullOrEmpty(path))
             {
@@ -181,12 +180,33 @@ namespace Blue_Eyes_White_Dragon.Presenter
                 return;
             }
 
+            _artworkEditorLogic.FixMissingArtwork(artworks);
+
             View.ClearObjectsFromObjectListView();
-            _artworkEditorLogic.CalculateHeightAndWidth(artworks);
+            try
+            {
+                _artworkEditorLogic.CalculateHeightAndWidth(artworks);
+            }
+            catch (Exception e)
+            {
+                _logger.LogException(e);
+            }
+
             var sortedArtwork = _artworkEditorLogic.SortArtwork(artworks);
 
             View.AddObjectsToObjectListView(sortedArtwork);
             _logger.LogInformation(Localization.InformationLoadComplete(path));
+        }
+
+        private bool GameImageFoldersExist()
+        {
+            var exists = _artworkEditorLogic.GameImageFoldersExist();
+            if (!exists)
+            {
+                _logger.LogError(Localization.ErrorGameImagesMissing());
+                return false;
+            }
+            return true;
         }
 
         private int GetConsoleLineNumber()

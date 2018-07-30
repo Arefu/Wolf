@@ -13,9 +13,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 case Constants.Setting.LastUsedLoadPath:
                     Properties.Settings.Default.LastUsedLoadPath = filePath;
                     break;
-                case Constants.Setting.LastUsedGameImagePath:
-                    Properties.Settings.Default.LastUsedGameImagePath = filePath;
-                    break;
                 case Constants.Setting.LastUsedReplacementImagePath:
                     Properties.Settings.Default.LastUsedReplacementImagePath = filePath;
                     break;
@@ -34,8 +31,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             {
                 case Constants.Setting.LastUsedLoadPath:
                     return Properties.Settings.Default.LastUsedLoadPath;
-                case Constants.Setting.LastUsedGameImagePath:
-                    return Properties.Settings.Default.LastUsedGameImagePath ;
                 case Constants.Setting.LastUsedReplacementImagePath:
                     return Properties.Settings.Default.LastUsedReplacementImagePath;
                 case Constants.Setting.LastUsedCardDbPath:

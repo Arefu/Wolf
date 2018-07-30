@@ -38,9 +38,9 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             return new ArtworkSerialize
             {
                 GameImageFilePath = artwork.GameImageFilePath,
-                GameImageMonsterName = artwork.GameImageMonsterName,
+                GameImageMonsterName = artwork.GameImageCardName,
                 ReplacementImageFilePath = artwork.ReplacementImageFilePath,
-                ReplacementImageMonsterName = artwork.ReplacementImageMonsterName,
+                ReplacementImageMonsterName = artwork.ReplacementImageCardName,
                 AlternateReplacementImages = artwork.AlternateReplacementImages.Select(y => y.FullName).ToList(),
                 CardId = artwork.CardId,
                 IsPendulum = artwork.IsPendulum,
@@ -71,10 +71,10 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             return new Artwork()
             {
                 GameImageFile = new FileInfo(artworkSerialize.GameImageFilePath),
-                GameImageMonsterName = artworkSerialize.GameImageMonsterName,
+                GameImageCardName = artworkSerialize.GameImageMonsterName,
                 AlternateReplacementImages = artworkSerialize.AlternateReplacementImages.Select(z => new FileInfo(z)).ToList(),
                 ReplacementImageFile = new FileInfo(artworkSerialize.ReplacementImageFilePath),
-                ReplacementImageMonsterName = artworkSerialize.ReplacementImageMonsterName,
+                ReplacementImageCardName = artworkSerialize.ReplacementImageMonsterName,
                 CardId = artworkSerialize.CardId,
                 IsMatched = artworkSerialize.IsMatched,
                 IsPendulum = artworkSerialize.IsPendulum,

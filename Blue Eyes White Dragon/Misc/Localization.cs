@@ -30,6 +30,8 @@
         public static string ErrorPendulumNotFound(string monsterName) { return $"Error could not find the image for the pendulum card {monsterName}"; }
         public static string ErrorNoMatch(string monsterName) { return $"No match was found for {monsterName} - picking the error image"; }
         public static string ErrorNoImageFound(int cardId) { return $"no image was found for the card: {cardId}"; }
+        public static string ErrorImageDoesNotExist(string path, string monstername) { return $"Error the file {path} does not exist for the monster {monstername}"; }
+        public static string ErrorGameImagesMissing() { return "Error game images have not been extracted correctly, please extract them before running this tool"; }
 
         public static string BtnTextOk = "OK";
         public static string BtnTextCustom = "Open Art Picker";

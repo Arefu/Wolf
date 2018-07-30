@@ -34,6 +34,11 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             return Enum.GetNames(typeof(Constants.SupportedImageType)).ToList();
         }
 
+        public bool FolderExist(string cardsDlcFolderName)
+        {
+            return new DirectoryInfo(cardsDlcFolderName).Exists;
+        }
+
         public void CalculateHeightAndWidth(IEnumerable<Artwork> artworks)
         {
             var artworkList = artworks.ToList();
@@ -44,6 +49,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
                 var height = 0;
 
                 var path = artwork.GameImageFilePath;
+
                 if (!string.IsNullOrEmpty(path))
                 {
                     CalculateHeightAndWidth(path, out width, out height);
@@ -53,7 +59,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
                 if (!artwork.IsMatched)
                 {
-                    _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageMonsterName));
+                    _logger.LogInformation(Localization.ErrorCalculateNoMatch(artwork.GameImageCardName));
                     continue;
                 }
 

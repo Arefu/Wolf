@@ -38,18 +38,6 @@ namespace Blue_Eyes_White_Dragon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastUsedGameImagePath {
-            get {
-                return ((string)(this["LastUsedGameImagePath"]));
-            }
-            set {
-                this["LastUsedGameImagePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastUsedReplacementImagePath {
             get {
                 return ((string)(this["LastUsedReplacementImagePath"]));

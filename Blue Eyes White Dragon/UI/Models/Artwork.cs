@@ -13,14 +13,14 @@ namespace Blue_Eyes_White_Dragon.UI.Models
         public FileInfo GameImageFile { get; set; }
         public string GameImageFilePath => GameImageFile?.FullName ?? Constants.StringError;
         public string GameImageFileName => GameImageFile?.Name ?? Constants.StringError;
-        public string GameImageMonsterName { get; set; }
+        public string GameImageCardName { get; set; }
         public int GameImageHeight { get; set; }
         public int GameImageWidth { get; set; }
 
         public FileInfo ReplacementImageFile { get; set; }
         public string ReplacementImageFilePath => ReplacementImageFile?.FullName ?? Constants.StringError;
         public string ReplacementImageFileName => ReplacementImageFile?.Name ?? Constants.StringError;
-        public string ReplacementImageMonsterName { get; set; }
+        public string ReplacementImageCardName { get; set; }
         public int ReplacementImageHeight { get; set; }
         public int ReplacementImageWidth { get; set; }
 
@@ -31,8 +31,8 @@ namespace Blue_Eyes_White_Dragon.UI.Models
 
         public override string ToString()
         {
-            return $"GameImageFilePath:{GameImageFilePath} GameImageMonsterName:{GameImageMonsterName} " +
-                   $"ReplacementImageFilePath:{ReplacementImageFilePath} ReplacementImageMonsterName:{ReplacementImageMonsterName}";
+            return $"GameImageFilePath:{GameImageFilePath} GameImageMonsterName:{GameImageCardName} " +
+                   $"ReplacementImageFilePath:{ReplacementImageFilePath} ReplacementImageMonsterName:{ReplacementImageCardName}";
         }
     }
 }

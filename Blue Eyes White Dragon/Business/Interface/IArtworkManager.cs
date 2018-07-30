@@ -11,5 +11,6 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
         List<Artwork> UpdateArtworkModelsWithReplacement(IEnumerable<Artwork> artworkList, bool useIncludedPendulum);
         FileInfo SearchForImage(int cardId, DirectoryInfo directory);
         void ConvertAll(IEnumerable<Artwork> artworks);
+        void FixMissingArtwork(List<Artwork> artworks);
     }
 }

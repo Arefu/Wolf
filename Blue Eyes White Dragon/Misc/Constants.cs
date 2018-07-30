@@ -32,7 +32,6 @@ namespace Blue_Eyes_White_Dragon.Misc
         public enum Setting
         {
             LastUsedLoadPath,
-            LastUsedGameImagePath,
             LastUsedReplacementImagePath,
             LastUsedCardDbPath
         }

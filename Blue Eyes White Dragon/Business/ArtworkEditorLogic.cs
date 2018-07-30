@@ -63,6 +63,16 @@ namespace Blue_Eyes_White_Dragon.Business
             return _settingRepo.GetPathSetting(Constants.Setting.LastUsedCardDbPath);
         }
 
+        public void FixMissingArtwork(List<Artwork> artworks)
+        {
+            _artworkManager.FixMissingArtwork(artworks);
+        }
+
+        public bool GameImageFoldersExist()
+        {
+            return _fileRepo.FolderExist(Constants.CardsFolderName) && _fileRepo.FolderExist(Constants.CardsDlcFolderName);
+        }
+
         public void SavePathSetting(string filePath, Constants.Setting setting)
         {
             _settingRepo.SavePathSetting(filePath, setting);
@@ -75,7 +85,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
             artwork.ReplacementImageFile = pickedImageFile;
 
-            _logger.LogInformation(Localization.InformationArtworkUpdated(artwork.GameImageMonsterName));
+            _logger.LogInformation(Localization.InformationArtworkUpdated(artwork.GameImageCardName));
         }
 
         public IEnumerable<Artwork> LoadArtworkMatch(string path)
@@ -100,7 +110,7 @@ namespace Blue_Eyes_White_Dragon.Business
 
         public IEnumerable<Artwork> SortArtwork(IEnumerable<Artwork> artworkList)
         {
-            return artworkList.OrderBy(x => x.GameImageMonsterName).ToList();
+            return artworkList.OrderBy(x => x.GameImageCardName).ToList();
         }
 
         public string GetPathSetting(Constants.Setting setting)

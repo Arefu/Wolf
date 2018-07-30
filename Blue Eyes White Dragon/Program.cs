@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Blue_Eyes_White_Dragon.Misc.DI;
+using Blue_Eyes_White_Dragon.Misc.Logging;
 using Blue_Eyes_White_Dragon.Presenter;
 using Ninject;
 
@@ -21,7 +22,16 @@ namespace Blue_Eyes_White_Dragon
             Application.SetCompatibleTextRenderingDefault(false);
 
             var presenter = kernel.Get<ArtworkEditorPresenter>();
-            Application.Run((Form)presenter.View);
+            var logger = kernel.Get<ConsoleLogger>();
+            try
+            {
+                Application.Run((Form)presenter.View);
+            }
+            catch (Exception e)
+            {
+                logger.LogException(e);
+                throw;
+            }
         }
     }
 }

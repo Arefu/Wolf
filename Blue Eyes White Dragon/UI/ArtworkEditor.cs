@@ -57,13 +57,13 @@ namespace Blue_Eyes_White_Dragon.UI
             GI.AspectGetter = x => ((Artwork) x)?.GameImageFile.FullName;
             GI.ImageGetter = x => GameImageGetterEvent;
             GIFileName.AspectGetter = x => ((Artwork) x)?.GameImageFileName;
-            GICardName.AspectGetter = x => ((Artwork) x)?.GameImageMonsterName;
+            GICardName.AspectGetter = x => ((Artwork) x)?.GameImageCardName;
             GIWidth.AspectGetter = x => ((Artwork)x)?.GameImageWidth;
             GIHeight.AspectGetter = x => ((Artwork)x)?.GameImageHeight;
 
             RI.AspectGetter = x => ((Artwork)x)?.ReplacementImageFile.FullName;
             RI.ImageGetter = x => ReplacementImageGetterEvent;
-            RICardName.AspectGetter = x => ((Artwork)x)?.ReplacementImageMonsterName;
+            RICardName.AspectGetter = x => ((Artwork)x)?.ReplacementImageCardName;
             RIFileName.AspectGetter = x => ((Artwork)x)?.ReplacementImageFileName;
             RIWidth.AspectGetter = x => ((Artwork) x)?.ReplacementImageWidth;
             RIHeight.AspectGetter = x => ((Artwork) x)?.ReplacementImageHeight;
@@ -171,11 +171,6 @@ namespace Blue_Eyes_White_Dragon.UI
             txt_card_match_path.Text = path;
         }
 
-        public void SetGameImagesPath(string path)
-        {
-            txt_browse_game_images.Text = path;
-        }
-
         public void SetReplacementImagesPath(string path)
         {
             txt_browse_replacement_images.Text = path;
@@ -237,17 +232,6 @@ namespace Blue_Eyes_White_Dragon.UI
             }
         }
 
-        //TODO this textbox is not used for anything anymore
-        private void Btn_browse_game_images_Click(object sender, EventArgs e)
-        {
-            if (browse_open_folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                var filePath = browse_open_folder.SelectedPath;
-                SavePathSettingAction?.Invoke(filePath, Constants.Setting.LastUsedGameImagePath);
-                txt_browse_game_images.Text = filePath;
-            }
-        }
-
         private void Btn_browse_replacement_images_Click(object sender, EventArgs e)
         {
             if (browse_open_folder.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -277,6 +261,11 @@ namespace Blue_Eyes_White_Dragon.UI
         private void Btn_convert_all_Click(object sender, EventArgs e)
         {
             ConvertAllAction?.Invoke(GetArtworks());
+        }
+
+        private void txt_browse_replacement_images_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

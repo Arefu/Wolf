@@ -56,7 +56,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
             var artworkSearch = artwork.AlternateReplacementImages.Select(x => new ArtworkSearch()
             {
-                CardName = artwork.GameImageMonsterName,
+                CardName = artwork.GameImageCardName,
                 ImageFile = x
             });
             View.AddObjectsToObjectListView(artworkSearch);

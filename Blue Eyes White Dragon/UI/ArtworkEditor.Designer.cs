@@ -53,10 +53,7 @@
             this.btn_browse_carddb = new System.Windows.Forms.Button();
             this.txt_browse_carddb = new System.Windows.Forms.TextBox();
             this.lbl_replacement_images_location = new System.Windows.Forms.Label();
-            this.lbl_game_images_location = new System.Windows.Forms.Label();
             this.btn_browse_replacement_images = new System.Windows.Forms.Button();
-            this.btn_browse_game_images = new System.Windows.Forms.Button();
-            this.txt_browse_game_images = new System.Windows.Forms.TextBox();
             this.txt_browse_replacement_images = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpbox_console = new System.Windows.Forms.GroupBox();
@@ -265,10 +262,7 @@
             this.pnl_sidebar.Controls.Add(this.btn_browse_carddb);
             this.pnl_sidebar.Controls.Add(this.txt_browse_carddb);
             this.pnl_sidebar.Controls.Add(this.lbl_replacement_images_location);
-            this.pnl_sidebar.Controls.Add(this.lbl_game_images_location);
             this.pnl_sidebar.Controls.Add(this.btn_browse_replacement_images);
-            this.pnl_sidebar.Controls.Add(this.btn_browse_game_images);
-            this.pnl_sidebar.Controls.Add(this.txt_browse_game_images);
             this.pnl_sidebar.Controls.Add(this.txt_browse_replacement_images);
             this.pnl_sidebar.Controls.Add(this.checkBox1);
             this.pnl_sidebar.Controls.Add(this.grpbox_console);
@@ -295,7 +289,7 @@
             // lbl_carddb_location
             // 
             this.lbl_carddb_location.AutoSize = true;
-            this.lbl_carddb_location.Location = new System.Drawing.Point(9, 184);
+            this.lbl_carddb_location.Location = new System.Drawing.Point(9, 174);
             this.lbl_carddb_location.Name = "lbl_carddb_location";
             this.lbl_carddb_location.Size = new System.Drawing.Size(112, 13);
             this.lbl_carddb_location.TabIndex = 12;
@@ -303,7 +297,7 @@
             // 
             // btn_browse_carddb
             // 
-            this.btn_browse_carddb.Location = new System.Drawing.Point(313, 198);
+            this.btn_browse_carddb.Location = new System.Drawing.Point(313, 188);
             this.btn_browse_carddb.Name = "btn_browse_carddb";
             this.btn_browse_carddb.Size = new System.Drawing.Size(75, 23);
             this.btn_browse_carddb.TabIndex = 11;
@@ -314,7 +308,7 @@
             // txt_browse_carddb
             // 
             this.txt_browse_carddb.Enabled = false;
-            this.txt_browse_carddb.Location = new System.Drawing.Point(9, 200);
+            this.txt_browse_carddb.Location = new System.Drawing.Point(9, 190);
             this.txt_browse_carddb.Name = "txt_browse_carddb";
             this.txt_browse_carddb.Size = new System.Drawing.Size(298, 20);
             this.txt_browse_carddb.TabIndex = 10;
@@ -322,24 +316,15 @@
             // lbl_replacement_images_location
             // 
             this.lbl_replacement_images_location.AutoSize = true;
-            this.lbl_replacement_images_location.Location = new System.Drawing.Point(9, 142);
+            this.lbl_replacement_images_location.Location = new System.Drawing.Point(9, 107);
             this.lbl_replacement_images_location.Name = "lbl_replacement_images_location";
             this.lbl_replacement_images_location.Size = new System.Drawing.Size(167, 13);
             this.lbl_replacement_images_location.TabIndex = 9;
             this.lbl_replacement_images_location.Text = "Path to the images to replace with";
             // 
-            // lbl_game_images_location
-            // 
-            this.lbl_game_images_location.AutoSize = true;
-            this.lbl_game_images_location.Location = new System.Drawing.Point(9, 99);
-            this.lbl_game_images_location.Name = "lbl_game_images_location";
-            this.lbl_game_images_location.Size = new System.Drawing.Size(165, 13);
-            this.lbl_game_images_location.TabIndex = 8;
-            this.lbl_game_images_location.Text = "Path to the images from the game";
-            // 
             // btn_browse_replacement_images
             // 
-            this.btn_browse_replacement_images.Location = new System.Drawing.Point(313, 156);
+            this.btn_browse_replacement_images.Location = new System.Drawing.Point(313, 121);
             this.btn_browse_replacement_images.Name = "btn_browse_replacement_images";
             this.btn_browse_replacement_images.Size = new System.Drawing.Size(75, 23);
             this.btn_browse_replacement_images.TabIndex = 7;
@@ -347,31 +332,14 @@
             this.btn_browse_replacement_images.UseVisualStyleBackColor = true;
             this.btn_browse_replacement_images.Click += new System.EventHandler(this.Btn_browse_replacement_images_Click);
             // 
-            // btn_browse_game_images
-            // 
-            this.btn_browse_game_images.Location = new System.Drawing.Point(313, 115);
-            this.btn_browse_game_images.Name = "btn_browse_game_images";
-            this.btn_browse_game_images.Size = new System.Drawing.Size(75, 23);
-            this.btn_browse_game_images.TabIndex = 4;
-            this.btn_browse_game_images.Text = "Browse";
-            this.btn_browse_game_images.UseVisualStyleBackColor = true;
-            this.btn_browse_game_images.Click += new System.EventHandler(this.Btn_browse_game_images_Click);
-            // 
-            // txt_browse_game_images
-            // 
-            this.txt_browse_game_images.Enabled = false;
-            this.txt_browse_game_images.Location = new System.Drawing.Point(9, 115);
-            this.txt_browse_game_images.Name = "txt_browse_game_images";
-            this.txt_browse_game_images.Size = new System.Drawing.Size(298, 20);
-            this.txt_browse_game_images.TabIndex = 6;
-            // 
             // txt_browse_replacement_images
             // 
             this.txt_browse_replacement_images.Enabled = false;
-            this.txt_browse_replacement_images.Location = new System.Drawing.Point(9, 158);
+            this.txt_browse_replacement_images.Location = new System.Drawing.Point(9, 123);
             this.txt_browse_replacement_images.Name = "txt_browse_replacement_images";
             this.txt_browse_replacement_images.Size = new System.Drawing.Size(298, 20);
             this.txt_browse_replacement_images.TabIndex = 5;
+            this.txt_browse_replacement_images.TextChanged += new System.EventHandler(this.txt_browse_replacement_images_TextChanged);
             // 
             // checkBox1
             // 
@@ -575,11 +543,8 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private BrightIdeasSoftware.OLVColumn HasAltImages;
         private System.Windows.Forms.Button btn_browse_replacement_images;
-        private System.Windows.Forms.Button btn_browse_game_images;
-        private System.Windows.Forms.TextBox txt_browse_game_images;
         private System.Windows.Forms.TextBox txt_browse_replacement_images;
         private System.Windows.Forms.Label lbl_replacement_images_location;
-        private System.Windows.Forms.Label lbl_game_images_location;
         private System.Windows.Forms.FolderBrowserDialog browse_open_folder;
         private System.Windows.Forms.Label lbl_carddb_location;
         private System.Windows.Forms.Button btn_browse_carddb;
