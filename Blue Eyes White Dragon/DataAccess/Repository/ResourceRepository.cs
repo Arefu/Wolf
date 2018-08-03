@@ -25,7 +25,7 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
 
         public DirectoryInfo GetPendulumPathFromResource()
         {
-            return new DirectoryInfo(Path.Combine(_resourceLocation, Constants.ResourcePendulumLocation));
+            return new DirectoryInfo(Constants.ResourcePendulumLocation);
         }
 
         public FileInfo LoadErrorImageFromResource()
