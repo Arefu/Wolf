@@ -9,6 +9,6 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Interface
         FileInfo GetImageFile(string filename, DirectoryInfo imagesLocation);
         void CalculateHeightAndWidth(IEnumerable<Artwork> artworks);
         List<string> GetSupportedFileTypes();
-        bool FolderExist(string cardsDlcFolderName);
+        bool FolderExist(string path);
     }
 }

@@ -181,6 +181,11 @@ namespace Blue_Eyes_White_Dragon.UI
             txt_browse_carddb.Text = path;
         }
 
+        public void EnablePendulumChkbx(bool value)
+        {
+            chkbx_pendulum.Enabled = value;
+        }
+
         private void OpenArtworkPicker(Artwork artwork)
         {
             using (var artworkPickerPresenter = _artworkPickerPresenterFactory.NewArtworkPickerPresenter())
@@ -244,7 +249,7 @@ namespace Blue_Eyes_White_Dragon.UI
 
         private void Chckbx_use_pendulum_CheckedChanged(object sender, EventArgs e)
         {
-            UsePendulumCheckedChanged?.Invoke(checkBox1.Checked);
+            UsePendulumCheckedChanged?.Invoke(chkbx_pendulum.Checked);
         }
 
         private void Btn_browse_carddb_Click(object sender, EventArgs e)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
 
 namespace Blue_Eyes_White_Dragon.UI.Interface

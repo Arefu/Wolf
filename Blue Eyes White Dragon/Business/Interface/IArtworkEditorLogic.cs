@@ -20,5 +20,6 @@ namespace Blue_Eyes_White_Dragon.Business.Interface
         string LoadDbPath();
         void FixMissingArtwork(List<Artwork> artworks);
         bool GameImageFoldersExist();
+        bool PendulumFolderExists();
     }
 }

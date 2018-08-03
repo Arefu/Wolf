@@ -73,6 +73,11 @@ namespace Blue_Eyes_White_Dragon.Business
             return _fileRepo.FolderExist(Constants.CardsFolderName) && _fileRepo.FolderExist(Constants.CardsDlcFolderName);
         }
 
+        public bool PendulumFolderExists()
+        {
+            return _fileRepo.FolderExist(Constants.ResourcePendulumLocation);
+        }
+
         public void SavePathSetting(string filePath, Constants.Setting setting)
         {
             _settingRepo.SavePathSetting(filePath, setting);

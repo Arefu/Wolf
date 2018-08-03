@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Blue_Eyes_White_Dragon.Business.Models;
 using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Models;
 using Blue_Eyes_White_Dragon.Misc;

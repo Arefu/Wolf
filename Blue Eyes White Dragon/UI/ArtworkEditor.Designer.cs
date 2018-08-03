@@ -55,7 +55,7 @@
             this.lbl_replacement_images_location = new System.Windows.Forms.Label();
             this.btn_browse_replacement_images = new System.Windows.Forms.Button();
             this.txt_browse_replacement_images = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkbx_pendulum = new System.Windows.Forms.CheckBox();
             this.grpbox_console = new System.Windows.Forms.GroupBox();
             this.richtextbox_console = new System.Windows.Forms.RichTextBox();
             this.grpbox_left_top = new System.Windows.Forms.GroupBox();
@@ -264,7 +264,7 @@
             this.pnl_sidebar.Controls.Add(this.lbl_replacement_images_location);
             this.pnl_sidebar.Controls.Add(this.btn_browse_replacement_images);
             this.pnl_sidebar.Controls.Add(this.txt_browse_replacement_images);
-            this.pnl_sidebar.Controls.Add(this.checkBox1);
+            this.pnl_sidebar.Controls.Add(this.chkbx_pendulum);
             this.pnl_sidebar.Controls.Add(this.grpbox_console);
             this.pnl_sidebar.Controls.Add(this.grpbox_left_top);
             this.pnl_sidebar.Controls.Add(this.grpbox_bottom_left);
@@ -341,18 +341,16 @@
             this.txt_browse_replacement_images.TabIndex = 5;
             this.txt_browse_replacement_images.TextChanged += new System.EventHandler(this.txt_browse_replacement_images_TextChanged);
             // 
-            // checkBox1
+            // chkbx_pendulum
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(21, 248);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(166, 17);
-            this.checkBox1.TabIndex = 4;
-            this.checkBox1.Text = "Use included pendulum cards";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.Chckbx_use_pendulum_CheckedChanged);
+            this.chkbx_pendulum.AutoSize = true;
+            this.chkbx_pendulum.Location = new System.Drawing.Point(21, 248);
+            this.chkbx_pendulum.Name = "chkbx_pendulum";
+            this.chkbx_pendulum.Size = new System.Drawing.Size(195, 17);
+            this.chkbx_pendulum.TabIndex = 4;
+            this.chkbx_pendulum.Text = "Use pendulum cards from resources";
+            this.chkbx_pendulum.UseVisualStyleBackColor = true;
+            this.chkbx_pendulum.CheckedChanged += new System.EventHandler(this.Chckbx_use_pendulum_CheckedChanged);
             // 
             // grpbox_console
             // 
@@ -540,7 +538,7 @@
         private BrightIdeasSoftware.OLVColumn Row;
         private BrightIdeasSoftware.OLVColumn BtnCustomArt;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkbx_pendulum;
         private BrightIdeasSoftware.OLVColumn HasAltImages;
         private System.Windows.Forms.Button btn_browse_replacement_images;
         private System.Windows.Forms.TextBox txt_browse_replacement_images;

@@ -1,7 +1,5 @@
-﻿using System.Configuration;
-using Blue_Eyes_White_Dragon.DataAccess.Interface;
+﻿using Blue_Eyes_White_Dragon.DataAccess.Interface;
 using Blue_Eyes_White_Dragon.DataAccess.Models;
-using JetBrains.Annotations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Blue_Eyes_White_Dragon.Misc;
+﻿using Blue_Eyes_White_Dragon.Misc;
 
 namespace Blue_Eyes_White_Dragon.DataAccess.Interface
 {

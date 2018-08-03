@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.Presenter.Interface;
 using Blue_Eyes_White_Dragon.UI.Models;
@@ -23,5 +22,6 @@ namespace Blue_Eyes_White_Dragon.UI.Interface
         void SetLoadPath(string path);
         void SetReplacementImagesPath(string path);
         void SetCardDbPath(string path);
+        void EnablePendulumChkbx(bool value);
     }
 }

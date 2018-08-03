@@ -28,6 +28,7 @@ namespace Blue_Eyes_White_Dragon.Presenter
             LoadEvents();
             LoadSettings();
             LoadDbPath();
+            LoadPendulumUi();
         }
 
         private void LoadDbPath()
@@ -51,6 +52,12 @@ namespace Blue_Eyes_White_Dragon.Presenter
 
             _logger.AppendTextToConsole += AppendConsoleText;
             _logger.AppendExceptionToConsole += AppendConsoleException;
+        }
+
+        private void LoadPendulumUi()
+        {
+            var exists = _artworkEditorLogic.PendulumFolderExists();
+            View.EnablePendulumChkbx(exists);
         }
 
         private void LoadSettings()

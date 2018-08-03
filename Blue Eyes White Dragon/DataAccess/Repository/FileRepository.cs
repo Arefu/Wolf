@@ -34,9 +34,9 @@ namespace Blue_Eyes_White_Dragon.DataAccess.Repository
             return Enum.GetNames(typeof(Constants.SupportedImageType)).ToList();
         }
 
-        public bool FolderExist(string cardsDlcFolderName)
+        public bool FolderExist(string path)
         {
-            return new DirectoryInfo(cardsDlcFolderName).Exists;
+            return new DirectoryInfo(path).Exists;
         }
 
         public void CalculateHeightAndWidth(IEnumerable<Artwork> artworks)

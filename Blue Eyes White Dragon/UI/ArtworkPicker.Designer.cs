@@ -134,7 +134,7 @@
             // btn_cancel_pick
             // 
             this.btn_cancel_pick.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_cancel_pick.Location = new System.Drawing.Point(716, 42);
+            this.btn_cancel_pick.Location = new System.Drawing.Point(716, 39);
             this.btn_cancel_pick.Name = "btn_cancel_pick";
             this.btn_cancel_pick.Size = new System.Drawing.Size(75, 23);
             this.btn_cancel_pick.TabIndex = 3;

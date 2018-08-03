@@ -21,6 +21,10 @@
         public static string InformationProcessingProgress(long progress, int totalAmount, string monsterName) { return $"{progress} of {totalAmount} processed - {monsterName}"; }
         public static string InformationProcessingDone(int amountProcessed, long secondsElapsed) { return $"Processed {amountProcessed} in {secondsElapsed}s"; }
         public static string InformationMultipleImagesFound(int imagesCount, int cardId, string imageFileName) { return $"{imagesCount} images found for {cardId} picking: {imageFileName}"; }
+        public static string ArtworkToString(string gameImageFilePath, string gameImageCardName, string replacementImageFilePath, string replacementImageCardName)
+        {
+            return $"GameImageFilePath:{gameImageFilePath} GameImageMonsterName:{gameImageCardName} ReplacementImageFilePath:{replacementImageFilePath} ReplacementImageMonsterName:{replacementImageCardName}";
+        }
 
         public static string Exception(string exceptionMessage, string innerExceptionMessage) { return $"Exception: {exceptionMessage} \\r\\n InnerException: {innerExceptionMessage}"; }
         public static string ExceptionFormattedForConsole(string message) { return $"{message}{Localization.GetNewline}"; }

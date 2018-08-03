@@ -2,7 +2,6 @@
 using System.IO;
 using Blue_Eyes_White_Dragon.Misc;
 using Blue_Eyes_White_Dragon.UI.Interface;
-using Newtonsoft.Json;
 
 namespace Blue_Eyes_White_Dragon.UI.Models
 {
@@ -31,8 +30,7 @@ namespace Blue_Eyes_White_Dragon.UI.Models
 
         public override string ToString()
         {
-            return $"GameImageFilePath:{GameImageFilePath} GameImageMonsterName:{GameImageCardName} " +
-                   $"ReplacementImageFilePath:{ReplacementImageFilePath} ReplacementImageMonsterName:{ReplacementImageCardName}";
+            return Localization.ArtworkToString(GameImageFilePath, GameImageCardName, ReplacementImageFilePath, ReplacementImageCardName);
         }
     }
 }
