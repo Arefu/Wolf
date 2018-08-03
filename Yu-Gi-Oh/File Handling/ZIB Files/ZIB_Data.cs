@@ -140,10 +140,13 @@ namespace Yu_Gi_Oh.File_Handling.ZIB_Files
         public void Dump(string outputDir, BinaryReader reader)
         {
             if (outputDir == null) outputDir = string.Empty;
-            if (File != null) outputDir = Path.Combine(outputDir, Path.GetFileNameWithoutExtension(File.FullName) ?? throw new NullReferenceException());
+            if (File != null)
+                outputDir = Path.Combine(outputDir,
+                    Path.GetFileNameWithoutExtension(File.FullName) ?? throw new NullReferenceException());
             if (!string.IsNullOrEmpty(outputDir) && !Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
 
-            foreach (var file in Files.Values) System.IO.File.WriteAllBytes(Path.Combine(outputDir, file.FileName), file.Load(reader));
+            foreach (var file in Files.Values)
+                System.IO.File.WriteAllBytes(Path.Combine(outputDir, file.FileName), file.Load(reader));
         }
     }
 }

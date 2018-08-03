@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using Yu_Gi_Oh.File_Handling.Bin_Files;
 using Yu_Gi_Oh.File_Handling.Main_Files;
 using Yu_Gi_Oh.File_Handling.Miscellaneous_Files;
@@ -18,6 +17,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
 {
     public class LOTD_Archive
     {
+        public static string InstallDir = "";
+
         public LOTD_Archive()
         {
             InstallDirectory = GetInstallDirectory();
@@ -91,7 +92,9 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
                         var filePathLengthStr = line.Substring(unknownStart, unknownEnd - unknownStart);
                         var filePath = line.Substring(unknownEnd + 1);
 
-                        if (long.TryParse(lengthStr, NumberStyles.HexNumber, null, out var length) && int.TryParse(filePathLengthStr, NumberStyles.HexNumber, null, out var filePathLength) && filePathLength == filePath.Length)
+                        if (long.TryParse(lengthStr, NumberStyles.HexNumber, null, out var length) &&
+                            int.TryParse(filePathLengthStr, NumberStyles.HexNumber, null, out var filePathLength) &&
+                            filePathLength == filePath.Length)
                         {
                             Root.AddFile(filePath, offset, length);
 
@@ -132,7 +135,9 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             foreach (var filePath in filePaths)
             {
                 var file = Root.FindFile(filePath);
-                if (file == null) throw new Exception("Archive loader is broken. File path not found in archive structure: '" + filePath + "'");
+                if (file == null)
+                    throw new Exception("Archive loader is broken. File path not found in archive structure: '" +
+                                        filePath + "'");
             }
         }
 
@@ -153,7 +158,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
 
         public void Save(string outputDir, bool createBackup)
         {
-            if (string.IsNullOrEmpty(outputDir) || !Directory.Exists(outputDir)) throw new Exception("Invalid directory! CHECK CODE PLEASE!");
+            if (string.IsNullOrEmpty(outputDir) || !Directory.Exists(outputDir))
+                throw new Exception("Invalid directory! CHECK CODE PLEASE!");
 
             throw new NotImplementedException();
         }
@@ -195,7 +201,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             return result;
         }
 
-        public Dictionary<Localized_Text.Language, byte[]> LoadLocalizedBuffer(string search, bool startsWithElseContains)
+        public Dictionary<Localized_Text.Language, byte[]> LoadLocalizedBuffer(string search,
+            bool startsWithElseContains)
         {
             var result = new Dictionary<Localized_Text.Language, byte[]>();
 
@@ -211,7 +218,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
                         var language = LOTD_File.GetLanguageFromFileName(zibFile.FileName);
                         if (language == Localized_Text.Language.Unknown) continue;
 
-                        if (startsWithElseContains && zibFile.FileName.ToLower().StartsWith(search) || !startsWithElseContains && zibFile.FileName.ToLower().Contains(search))
+                        if (startsWithElseContains && zibFile.FileName.ToLower().StartsWith(search) ||
+                            !startsWithElseContains && zibFile.FileName.ToLower().Contains(search))
                             result.Add(language, zibFile.LoadBuffer());
                     }
                 }
@@ -220,7 +228,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
                     var language = LOTD_File.GetLanguageFromFileName(file.Name);
                     if (language == Localized_Text.Language.Unknown) continue;
 
-                    if (startsWithElseContains && file.Name.ToLower().StartsWith(search) || !startsWithElseContains && file.Name.ToLower().Contains(search))
+                    if (startsWithElseContains && file.Name.ToLower().StartsWith(search) ||
+                        !startsWithElseContains && file.Name.ToLower().Contains(search))
                         result.Add(language, file.LoadBuffer());
                 }
 
@@ -301,7 +310,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
                 var buffer2 = ms.ToArray();
                 if (file.FileType == File_Types.Dfymoo)
                 {
-                    Debug.Assert(Encoding.ASCII.GetString(paddedBuffer).TrimEnd('\r', '\n') == Encoding.ASCII.GetString(buffer2).TrimEnd('\r', '\n'));
+                    Debug.Assert(Encoding.ASCII.GetString(paddedBuffer).TrimEnd('\r', '\n') ==
+                                 Encoding.ASCII.GetString(buffer2).TrimEnd('\r', '\n'));
                 }
                 else
                 {
@@ -316,10 +326,15 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             using (var Ofd = new FolderBrowserDialog())
             {
                 Ofd.Description = "Please Navigate To Your Install Directory";
-                Ofd.ShowDialog();
-                return Ofd.SelectedPath;
+
+                if (Ofd.ShowDialog() == DialogResult.OK)
+                {
+                    InstallDir = Ofd.SelectedPath;
+                    return InstallDir;
+                }
+
+                return null;
             }
-            
         }
     }
 }

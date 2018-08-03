@@ -24,4 +24,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Johnathon%27s Data\Documents\Visual Studio 2017\Projects\Wolf\FreeStore\freestore_info.json" />
+  </ItemGroup>
 </Project>

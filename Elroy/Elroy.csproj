@@ -45,7 +45,6 @@
     <Compile Include="DeckExtract.Designer.cs">
       <DependentUpon>DeckExtract.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeckInfo.cs" />
     <Compile Include="DeckManager.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -127,8 +127,11 @@ namespace Yu_Gi_Oh.File_Handling.Miscellaneous_Files
                 foreach (var item in Items.Values)
                 {
                     streamWriter.WriteLine("n " + item.Name);
-                    if (item.HasSourceRect) streamWriter.WriteLine("s " + item.X + " " + item.Y + " " + item.Width + " " + item.Height);
-                    if (item.HasOffsetSize) streamWriter.WriteLine("o " + item.OffsetSizeX + " " + item.OffsetSizeY + " " + item.OffsetSizeWidth + " " + item.OffsetSizeHeight);
+                    if (item.HasSourceRect)
+                        streamWriter.WriteLine("s " + item.X + " " + item.Y + " " + item.Width + " " + item.Height);
+                    if (item.HasOffsetSize)
+                        streamWriter.WriteLine("o " + item.OffsetSizeX + " " + item.OffsetSizeY + " " +
+                                               item.OffsetSizeWidth + " " + item.OffsetSizeHeight);
                     streamWriter.WriteLine("~");
                 }
 

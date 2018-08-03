@@ -137,7 +137,8 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
                 writer.WriteOffset(fileStartPos, tempOffset);
                 writer.WriteOffset(fileStartPos, tempOffset + characterNameLen);
                 writer.WriteOffset(fileStartPos, tempOffset + characterNameLen + characterPositionLen);
-                writer.WriteOffset(fileStartPos, tempOffset + characterNameLen + characterPositionLen + characterExpressionLen);
+                writer.WriteOffset(fileStartPos,
+                    tempOffset + characterNameLen + characterPositionLen + characterExpressionLen);
                 writer.BaseStream.Position = tempOffset;
 
                 writer.WriteNullTerminatedString(scriptText.CharacterName.GetText(language), encoding);
@@ -168,7 +169,8 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
 
             public override string ToString()
             {
-                return "codeName: '" + CodeName + "' textStartIndex: " + TextEndIndex + " textEndIndex: " + TextEndIndex;
+                return "codeName: '" + CodeName + "' textStartIndex: " + TextEndIndex + " textEndIndex: " +
+                       TextEndIndex;
             }
         }
 

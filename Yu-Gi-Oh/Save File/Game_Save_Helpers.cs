@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using System.Windows.Forms;
+using Yu_Gi_Oh.File_Handling.LOTD_Files;
 using Yu_Gi_Oh.File_Handling.Utility;
 
 namespace Yu_Gi_Oh.Save_File
@@ -11,13 +11,19 @@ namespace Yu_Gi_Oh.Save_File
     public partial class Game_Save
     {
         /// <summary>
+        ///     Get The Save File Path On Disk.
+        /// </summary>
+        /// <returns>The Location Of The Save File.</returns>
+        public static string SaveFileLocation = "";
+
+        /// <summary>
         ///     Set the users duel points, be sure to call Save after to keep changes!
         /// </summary>
-        /// <param name="duelPoints"></param>
+        /// <param name="DuelPoints"></param>
         /// <seealso cref="Save()" />
-        public void SetDuelPoints(int duelPoints)
+        public void SetDuelPoints(int DuelPoints)
         {
-            Misc.DuelPoints = duelPoints;
+            Misc.DuelPoints = DuelPoints;
         }
 
         /// <summary>
@@ -37,7 +43,8 @@ namespace Yu_Gi_Oh.Save_File
         /// <seealso cref="Save()" />
         public void UnlockAllRecipes()
         {
-            for (var i = 0; i < Misc.UnlockedRecipes.Length; i++) Misc.UnlockedRecipes[i] = true;
+            for (var Counter = 0; Counter < Misc.UnlockedRecipes.Length; Counter++)
+                Misc.UnlockedRecipes[Counter] = true;
         }
 
         /// <summary>
@@ -46,66 +53,67 @@ namespace Yu_Gi_Oh.Save_File
         /// <seealso cref="Save()" />
         public void UnlockAllAvatars()
         {
-            for (var i = 0; i < Misc.UnlockedAvatars.Length; i++) Misc.UnlockedAvatars[i] = true;
+            for (var Counter = 0; Counter < Misc.UnlockedAvatars.Length; Counter++)
+                Misc.UnlockedAvatars[Counter] = true;
         }
 
         /// <summary>
         ///     Set Challenges to specified state, be sure to call Save after to keep changes!
         /// </summary>
-        /// <param name="state">What State To Set The Challenges To</param>
+        /// <param name="State">What State To Set The Challenges To</param>
         /// <seealso cref="Save()" />
-        public void SetAllChallenges(DeulistChallengeState state)
+        public void SetAllChallenges(DeulistChallengeState State)
         {
-            for (var i = 0; i < Misc.Challenges.Length; i++) Misc.Challenges[i] = state;
+            for (var Counter = 0; Counter < Misc.Challenges.Length; Counter++) Misc.Challenges[Counter] = State;
         }
 
         /// <summary>
         ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
-        /// <param name="state">What state to set the challenges to</param>
+        /// <param name="State">What state to set the challenges to</param>
         /// <seealso cref="Save()" />
-        public void SetAllCampaignDuels(CampaignDuelState state)
+        public void SetAllCampaignDuels(CampaignDuelState State)
         {
-            SetAllCampaignDuels(state, CampaignDuelState.Locked, false);
+            SetAllCampaignDuels(State, CampaignDuelState.Locked, false);
         }
 
         /// <summary>
         ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
-        /// <param name="state">What state to set the challenges to</param>
-        /// <param name="reverseState">What state to set the reverse duel to</param>
+        /// <param name="State">What state to set the challenges to</param>
+        /// <param name="ReverseState">What state to set the reverse duel to</param>
         /// <seealso cref="Save()" />
-        public void SetAllCampaignDuels(CampaignDuelState state, CampaignDuelState reverseState)
+        public void SetAllCampaignDuels(CampaignDuelState State, CampaignDuelState ReverseState)
         {
-            SetAllCampaignDuels(state, reverseState, true);
+            SetAllCampaignDuels(State, ReverseState, true);
         }
 
         /// <summary>
         ///     Set campaign duels to the specified state, be sure to call Save after to keep changes!
         /// </summary>
-        /// <param name="state">What state to set the challenges to</param>
-        /// <param name="reverseState">what state to set the reverse duel to</param>
-        /// <param name="setReverseState">Should the reverse state be set</param>
+        /// <param name="State">What state to set the challenges to</param>
+        /// <param name="ReverseState">what state to set the reverse duel to</param>
+        /// <param name="SetReverseState">Should the reverse state be set</param>
         /// <seealso cref="Save()" />
-        private void SetAllCampaignDuels(CampaignDuelState state, CampaignDuelState reverseState, bool setReverseState)
+        private void SetAllCampaignDuels(CampaignDuelState State, CampaignDuelState ReverseState, bool SetReverseState)
         {
-            for (var count = 0; count < Campaign_Save.DuelsPerSeries; count++)
+            for (var Counter = 0; Counter < Campaign_Save.DuelsPerSeries; Counter++)
             {
-                var tempState = count == 0 ? CampaignDuelState.Available : state;
+                var TempState = Counter == 0 ? CampaignDuelState.Available : State;
 
-                Campaign.DuelsBySeries[Duel_Series.YuGiOh][count].State = tempState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhGX][count].State = tempState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOh5D][count].State = tempState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhZEXAL][count].State = tempState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhARCV][count].State = tempState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOh][Counter].State = TempState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhGX][Counter].State = TempState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOh5D][Counter].State = TempState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhZEXAL][Counter].State = TempState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhARCV][Counter].State = TempState;
 
-                if (!setReverseState) continue;
+                if (!SetReverseState) continue;
 
-                Campaign.DuelsBySeries[Duel_Series.YuGiOh][count].ReverseDuelState = reverseState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhGX][count].ReverseDuelState = reverseState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOh5D][count].ReverseDuelState = reverseState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhZEXAL][count].ReverseDuelState = reverseState;
-                Campaign.DuelsBySeries[Duel_Series.YuGiOhARCV][count].ReverseDuelState = reverseState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOh][Counter].ReverseDuelState = ReverseState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhGX][Counter].ReverseDuelState = ReverseState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOh5D][Counter].ReverseDuelState = ReverseState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhZEXAL][Counter].ReverseDuelState = ReverseState;
+                Campaign.DuelsBySeries[Duel_Series.YuGiOhARCV][Counter].ReverseDuelState = ReverseState;
             }
         }
 
@@ -121,46 +129,44 @@ namespace Yu_Gi_Oh.Save_File
         /// <summary>
         ///     sets owned cards to own the specified amount. Call save after!
         /// </summary>
-        /// <param name="cardCount">Tested with a max of 3 more might break the game!</param>
+        /// <param name="CardCount">Tested with a max of 3 more might break the game!</param>
         /// <seealso cref="Save()" />
-        public void SetAllOwnedCardsCount(byte cardCount)
+        public void SetAllOwnedCardsCount(byte CardCount)
         {
-            SetAllOwnedCardsCount(cardCount, true);
+            SetAllOwnedCardsCount(CardCount, true);
         }
 
         /// <summary>
         ///     Sets all owned
         /// </summary>
-        /// <param name="cardCount"></param>
-        /// <param name="seen"></param>
-        public void SetAllOwnedCardsCount(byte cardCount, bool seen)
+        /// <param name="CardCount"></param>
+        /// <param name="Seen"></param>
+        public void SetAllOwnedCardsCount(byte CardCount, bool Seen)
         {
-            for (var i = 0; i < CardList.Cards.Length; i++)
+            for (var Counter = 0; Counter < CardList.Cards.Length; Counter++)
             {
-                CardList.Cards[i].Seen = seen;
-                CardList.Cards[i].Count = cardCount;
+                CardList.Cards[Counter].Seen = Seen;
+                CardList.Cards[Counter].Count = CardCount;
             }
         }
 
-        private static void SaveSignature(byte[] buffer)
+        private static void SaveSignature(byte[] Buffer)
         {
-            var saveCount = BitConverter.ToUInt32(buffer, 16) + 1;
-            var saveCountBuf = BitConverter.GetBytes(saveCount);
-            Buffer.BlockCopy(saveCountBuf, 0, buffer, 16, 4);
+            var SaveCount = BitConverter.ToUInt32(Buffer, 16) + 1;
+            var SaveCountBuf = BitConverter.GetBytes(SaveCount);
+            System.Buffer.BlockCopy(SaveCountBuf, 0, Buffer, 16, 4);
 
-            var signature = GetSignature(buffer);
-            var signatureBuf = BitConverter.GetBytes(signature);
-            Buffer.BlockCopy(signatureBuf, 0, buffer, 12, 4);
+            var Signature = GetSignature(Buffer);
+            var SignatureBuf = BitConverter.GetBytes(Signature);
+            System.Buffer.BlockCopy(SignatureBuf, 0, Buffer, 12, 4);
         }
 
-        private static uint GetSignature(IList<byte> buffer)
+        private static uint GetSignature(IList<byte> Buffer)
         {
-            for (var i = 0; i < 4; i++)
-            {
-                buffer[12 + i] = 0;
-            }
+            for (var Counter = 0; Counter < 4; Counter++) Buffer[12 + Counter] = 0;
 
-            return (uint)buffer.Aggregate<byte, ulong>(0xFFFFFFFF, (current, file) => ((uint)current >> 8) ^ XorTable[(byte)current ^ file]);
+            return (uint) Buffer.Aggregate<byte, ulong>(0xFFFFFFFF,
+                (Current, File) => ((uint) Current >> 8) ^ XorTable[(byte) Current ^ File]);
         }
 
         /// <summary>
@@ -176,50 +182,46 @@ namespace Yu_Gi_Oh.Save_File
         ///     Fix the game signature on disk to make the game think the save is still valid
         /// </summary>
         /// <seealso cref="FixGameSaveSignatureOnDisk()" />
-        /// <param name="path">Path to the save file (use for pirated copies)</param>
-        public void FixGameSaveSignatureOnDisk(string path)
+        /// <param name="Path">Path to the save file (use for pirated copies)</param>
+        public void FixGameSaveSignatureOnDisk(string Path)
         {
-            if (!File.Exists(path)) return;
+            if (!File.Exists(Path)) return;
 
-            var buffer = File.ReadAllBytes(path);
-            SaveSignature(buffer);
-            File.WriteAllBytes(path, buffer);
+            var Buffer = File.ReadAllBytes(Path);
+            SaveSignature(Buffer);
+            File.WriteAllBytes(Path, Buffer);
         }
 
-        /// <summary>
-        ///     Get The Save File Path On Disk.
-        /// </summary>
-        /// <returns>The Location Of The Save File.</returns>
         public static string GetSaveFilePath()
         {
-            var installDir = LOTD_Archive.GetInstallDirectory();
-            if (string.IsNullOrEmpty(installDir)) return null;
+            var InstallDir = LOTD_Archive.GetInstallDirectory();
+            if (string.IsNullOrEmpty(InstallDir)) return null;
 
-            var steamAppId = 0;
+            var SteamAppId = 0;
 
-            var appIdFile = Path.Combine(installDir, "steam_appid.txt");
-            if (File.Exists(appIdFile))
+            var AppIdFile = Path.Combine(InstallDir, "steam_appid.txt");
+            if (File.Exists(AppIdFile))
             {
-                var lines = File.ReadAllLines(appIdFile);
-                if (lines.Length > 0) int.TryParse(lines[0], out steamAppId);
+                var Lines = File.ReadAllLines(AppIdFile);
+                if (Lines.Length > 0) int.TryParse(Lines[0], out SteamAppId);
             }
 
-            if (steamAppId > 0)
+            if (SteamAppId > 0)
             {
-                var userdataDir = Path.Combine(installDir, "..\\..\\..\\userdata\\");
-                if (Directory.Exists(Path.GetFullPath(userdataDir)))
+                var UserdataDir = Path.Combine(InstallDir, "..\\..\\..\\userdata\\");
+                if (Directory.Exists(Path.GetFullPath(UserdataDir)))
                 {
-                    var dirs = Directory.GetDirectories(userdataDir);
-                    foreach (var dir in dirs)
+                    var Dirs = Directory.GetDirectories(UserdataDir);
+                    foreach (var Dir in Dirs)
                     {
-                        var dirName = new DirectoryInfo(dir).Name;
+                        var DirName = new DirectoryInfo(Dir).Name;
 
-                        if (!long.TryParse(dirName, out var userid)) continue;
-                        var saveDataDir = Path.Combine(dir, string.Empty + steamAppId, "remote");
-                        if (Directory.Exists(saveDataDir))
+                        if (!long.TryParse(DirName, out var Userid)) continue;
+                        var SaveDataDir = Path.Combine(Dir, string.Empty + SteamAppId, "remote");
+                        if (Directory.Exists(SaveDataDir))
                         {
-                            var saveDataFile = Path.Combine(saveDataDir, "savegame.dat");
-                            if (File.Exists(saveDataFile)) return Path.GetFullPath(saveDataFile);
+                            var SaveDataFile = Path.Combine(SaveDataDir, "savegame.dat");
+                            if (File.Exists(SaveDataFile)) return Path.GetFullPath(SaveDataFile);
                         }
 
                         break;
@@ -231,14 +233,11 @@ namespace Yu_Gi_Oh.Save_File
             {
                 Ofd.Title = "Please locate Save File";
                 var Res = Ofd.ShowDialog();
-                if (Res == DialogResult.OK)
-                {
-                    return Ofd.FileName;
-                }
+                if (Res != DialogResult.OK) return null;
+
+                SaveFileLocation = Ofd.FileName;
+                return SaveFileLocation;
             }
-
-
-            return null;
         }
     }
 }

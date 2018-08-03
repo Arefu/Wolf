@@ -67,7 +67,8 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
 
                 if (!Items.TryGetValue(id, out var item))
                 {
-                    item = new Item(id, series, displayIndex, playerCharId, opponentCharId, playerDeckId, opponentDeckId, arenaId, unk8, dlcId);
+                    item = new Item(id, series, displayIndex, playerCharId, opponentCharId, playerDeckId,
+                        opponentDeckId, arenaId, unk8, dlcId);
                     Items.Add(item.Id, item);
                 }
 
@@ -114,9 +115,13 @@ namespace Yu_Gi_Oh.File_Handling.Main_Files
                 writer.WriteOffset(fileStartPos, tempOffset);
                 writer.WriteOffset(fileStartPos, tempOffset + codeNameLen);
                 writer.WriteOffset(fileStartPos, tempOffset + codeNameLen + playerAlternateSkinLen);
-                writer.WriteOffset(fileStartPos, tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen);
-                writer.WriteOffset(fileStartPos, tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen + nameLen);
-                writer.WriteOffset(fileStartPos, tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen + nameLen + descriptionLen);
+                writer.WriteOffset(fileStartPos,
+                    tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen);
+                writer.WriteOffset(fileStartPos,
+                    tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen + nameLen);
+                writer.WriteOffset(fileStartPos,
+                    tempOffset + codeNameLen + playerAlternateSkinLen + opponentAlternateSkinLen + nameLen +
+                    descriptionLen);
                 writer.BaseStream.Position = tempOffset;
 
                 writer.WriteNullTerminatedString(item.CodeName.GetText(language), encoding1);

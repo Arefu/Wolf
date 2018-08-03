@@ -8,9 +8,9 @@ namespace Yu_Gi_Oh.Save_File
 {
     public class Deck_Save_Database : Save_Data_Chunk
     {
-        private const int maxMainDeckCards = 60;
-        private const int maxSideDeckCards = 15;
-        private const int maxExtraDeckCards = 15;
+        private const int MaxMainDeckCards = 60;
+        private const int MaxSideDeckCards = 15;
+        private const int MaxExtraDeckCards = 15;
 
         public Deck_Save_Database()
         {
@@ -42,81 +42,81 @@ namespace Yu_Gi_Oh.Save_File
             IsDeckComplete = false;
         }
 
-        protected void LoadDeckData(BinaryReader reader)
+        public void LoadDeckData(BinaryReader Reader)
         {
-            DeckName = Encoding.Unicode.GetString(reader.ReadBytes(Constants.DeckNameByteLen)).TrimEnd('\0');
+            DeckName = Encoding.Unicode.GetString(Reader.ReadBytes(Constants.DeckNameByteLen)).TrimEnd('\0');
 
-            var numMainDeckCards = reader.ReadInt16();
-            var numSideDeckCards = reader.ReadInt16();
-            var numExtraDeckCards = reader.ReadInt16();
+            var NumMainDeckCards = Reader.ReadInt16();
+            var NumSideDeckCards = Reader.ReadInt16();
+            var NumExtraDeckCards = Reader.ReadInt16();
 
-            for (var i = 0; i < maxMainDeckCards; i++)
+            for (var Count = 0; Count < MaxMainDeckCards; Count++)
             {
-                var cardId = reader.ReadInt16();
-                if (cardId > 0) MainDeckCards.Add(cardId);
+                var CardId = Reader.ReadInt16();
+                if (CardId > 0) MainDeckCards.Add(CardId);
             }
 
-            for (var i = 0; i < maxSideDeckCards; i++)
+            for (var Count = 0; Count < MaxSideDeckCards; Count++)
             {
-                var cardId = reader.ReadInt16();
-                if (cardId > 0) SideDeckCards.Add(cardId);
+                var CardId = Reader.ReadInt16();
+                if (CardId > 0) SideDeckCards.Add(CardId);
             }
 
-            for (var i = 0; i < maxExtraDeckCards; i++)
+            for (var Count = 0; Count < MaxExtraDeckCards; Count++)
             {
-                var cardId = reader.ReadInt16();
-                if (cardId > 0) ExtraDeckCards.Add(cardId);
+                var CardId = Reader.ReadInt16();
+                if (CardId > 0) ExtraDeckCards.Add(CardId);
             }
 
-            reader.ReadBytes(12);
-            reader.ReadBytes(12);
-            reader.ReadUInt32();
-            reader.ReadUInt32();
-            reader.ReadUInt32();
-            DeckAvatarId = reader.ReadInt32();
-            reader.ReadUInt32();
-            reader.ReadUInt32();
-            IsDeckComplete = reader.ReadUInt32() == 1;
+            Reader.ReadBytes(12);
+            Reader.ReadBytes(12);
+            Reader.ReadUInt32();
+            Reader.ReadUInt32();
+            Reader.ReadUInt32();
+            DeckAvatarId = Reader.ReadInt32();
+            Reader.ReadUInt32();
+            Reader.ReadUInt32();
+            IsDeckComplete = Reader.ReadUInt32() == 1;
         }
 
-        protected void SaveDeckData(BinaryWriter writer)
+        protected void SaveDeckData(BinaryWriter Writer)
         {
-            writer.Write(Encoding.Unicode.GetBytes(DeckName, Constants.DeckNameByteLen, Constants.DeckNameUsableLen));
+            Writer.Write(Encoding.Unicode.GetBytes(DeckName, Constants.DeckNameByteLen, Constants.DeckNameUsableLen));
 
-            writer.Write((short) Math.Min(maxMainDeckCards, MainDeckCards.Count));
-            writer.Write((short) Math.Min(maxSideDeckCards, SideDeckCards.Count));
-            writer.Write((short) Math.Min(maxExtraDeckCards, ExtraDeckCards.Count));
+            Writer.Write((short) Math.Min(MaxMainDeckCards, MainDeckCards.Count));
+            Writer.Write((short) Math.Min(MaxSideDeckCards, SideDeckCards.Count));
+            Writer.Write((short) Math.Min(MaxExtraDeckCards, ExtraDeckCards.Count));
 
-            for (var i = 0; i < maxMainDeckCards; i++)
+            for (var Count = 0; Count < MaxMainDeckCards; Count++)
             {
-                short cardId = 0;
-                if (MainDeckCards.Count > i) cardId = MainDeckCards[i];
-                writer.Write(cardId);
+                short CardId = 0;
+                if (MainDeckCards.Count > Count) CardId = MainDeckCards[Count];
+                Writer.Write(CardId);
             }
 
-            for (var i = 0; i < maxSideDeckCards; i++)
+            for (var Count = 0; Count < MaxSideDeckCards; Count++)
             {
-                short cardId = 0;
-                if (SideDeckCards.Count > i) cardId = SideDeckCards[i];
-                writer.Write(cardId);
+                short CardId = 0;
+                if (SideDeckCards.Count > Count) CardId = SideDeckCards[Count];
+                Writer.Write(CardId);
             }
 
-            for (var i = 0; i < maxExtraDeckCards; i++)
+            for (var Count = 0; Count < MaxExtraDeckCards; Count++)
             {
-                short cardId = 0;
-                if (ExtraDeckCards.Count > i) cardId = ExtraDeckCards[i];
-                writer.Write(cardId);
+                short CardId = 0;
+                if (ExtraDeckCards.Count > Count) CardId = ExtraDeckCards[Count];
+                Writer.Write(CardId);
             }
 
-            writer.Write(new byte[12]);
-            writer.Write(new byte[12]);
-            writer.Write((uint) 0);
-            writer.Write((uint) 0);
-            writer.Write((uint) 0);
-            writer.Write(DeckAvatarId);
-            writer.Write((uint) 0);
-            writer.Write((uint) 0);
-            writer.Write((uint) (IsDeckComplete ? 1 : 0));
+            Writer.Write(new byte[12]);
+            Writer.Write(new byte[12]);
+            Writer.Write((uint) 0);
+            Writer.Write((uint) 0);
+            Writer.Write((uint) 0);
+            Writer.Write(DeckAvatarId);
+            Writer.Write((uint) 0);
+            Writer.Write((uint) 0);
+            Writer.Write((uint) (IsDeckComplete ? 1 : 0));
         }
     }
 }

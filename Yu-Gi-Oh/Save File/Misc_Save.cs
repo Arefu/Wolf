@@ -59,15 +59,9 @@ namespace Yu_Gi_Oh.Save_File
         {
             DuelPoints = 1000;
 
-            for (var i = 0; i < Challenges.Length; i++)
-            {
-                Challenges[i] = DeulistChallengeState.Locked;
-            }
+            for (var Count = 0; Count < Challenges.Length; Count++) Challenges[Count] = DeulistChallengeState.Locked;
 
-            for (var i = 0; i < UnlockedRecipes.Length; i++)
-            {
-                UnlockedRecipes[i] = false;
-            }
+            for (var Count = 0; Count < UnlockedRecipes.Length; Count++) UnlockedRecipes[Count] = false;
 
             CompleteTutorials = CompleteTutorials.None;
             UnlockedContent = UnlockedContent.None;
@@ -78,85 +72,81 @@ namespace Yu_Gi_Oh.Save_File
         /// <summary>
         ///     Loads the save.
         /// </summary>
-        /// <param name="reader">New instance of BinaryReader loading the Save File.</param>
-        public override void Load(BinaryReader reader)
+        /// <param name="Reader">New instance of BinaryReader loading the Save File.</param>
+        public override void Load(BinaryReader Reader)
         {
-            reader.ReadBytes(16);
+            Reader.ReadBytes(16);
 
-            DuelPoints = (int) reader.ReadInt64();
+            DuelPoints = (int) Reader.ReadInt64();
 
-            var unlockedAvatarsBuffer = reader.ReadBytes(32);
-            for (var i = 0; i < UnlockedAvatars.Length; i++)
+            var UnlockedAvatarsBuffer = Reader.ReadBytes(32);
+            for (var Counter = 0; Counter < UnlockedAvatars.Length; Counter++)
             {
-                var byteIndex = i / 8;
-                var bitIndex = i % 8;
-                UnlockedAvatars[i] = (unlockedAvatarsBuffer[byteIndex] & (byte) (1 << bitIndex)) != 0;
+                var ByteIndex = Counter / 8;
+                var BitIndex = Counter % 8;
+                UnlockedAvatars[Counter] = (UnlockedAvatarsBuffer[ByteIndex] & (byte) (1 << BitIndex)) != 0;
             }
 
-            for (var i = 0; i < Constants.NumDeckDataSlots; i++)
+            for (var Count = 0; Count < Constants.NumDeckDataSlots; Count++)
+                Challenges[Count] = (DeulistChallengeState) Reader.ReadInt32();
+
+            var UnlockedRecipesBuffer = Reader.ReadBytes(60);
+            for (var Counter = 0; Counter < Constants.NumDeckDataSlots; Counter++)
             {
-                Challenges[i] = (DeulistChallengeState) reader.ReadInt32();
+                var ByteIndex = Counter / 8;
+                var BitIndex = Counter % 8;
+                UnlockedRecipes[Counter] = (UnlockedRecipesBuffer[ByteIndex] & (byte) (1 << BitIndex)) != 0;
             }
 
-            var unlockedRecipesBuffer = reader.ReadBytes(60);
-            for (var i = 0; i < Constants.NumDeckDataSlots; i++)
-            {
-                var byteIndex = i / 8;
-                var bitIndex = i % 8;
-                UnlockedRecipes[i] = (unlockedRecipesBuffer[byteIndex] & (byte) (1 << bitIndex)) != 0;
-            }
+            UnlockedShopPacks = (UnlockedShopPacks) Reader.ReadUInt32();
+            UnlockedBattlePacks = (UnlockedBattlePacks) Reader.ReadUInt32();
+            Reader.ReadBytes(8);
 
-            UnlockedShopPacks = (UnlockedShopPacks) reader.ReadUInt32();
-            UnlockedBattlePacks = (UnlockedBattlePacks) reader.ReadUInt32();
-            reader.ReadBytes(8);
-
-            CompleteTutorials = (CompleteTutorials) reader.ReadInt32();
-            UnlockedContent = (UnlockedContent) reader.ReadInt32();
+            CompleteTutorials = (CompleteTutorials) Reader.ReadInt32();
+            UnlockedContent = (UnlockedContent) Reader.ReadInt32();
         }
 
         /// <summary>
         ///     Writes the save back to the file..
         /// </summary>
-        /// <param name="writer">New instance of BinaryWriter for writing the Save File.</param>
-        public override void Save(BinaryWriter writer)
+        /// <param name="Writer">New instance of BinaryWriter for writing the Save File.</param>
+        public override void Save(BinaryWriter Writer)
         {
-            writer.Write(new byte[16]);
-            writer.Write((long) DuelPoints);
-            var unlockedAvatarsBuffer = new byte[32];
-            for (var i = 0; i < UnlockedAvatars.Length; i++)
+            Writer.Write(new byte[16]);
+            Writer.Write((long) DuelPoints);
+            var UnlockedAvatarsBuffer = new byte[32];
+            for (var Counter = 0; Counter < UnlockedAvatars.Length; Counter++)
             {
-                if (!UnlockedAvatars[i]) continue;
+                if (!UnlockedAvatars[Counter]) continue;
 
-                var byteIndex = i / 8;
-                var bitIndex = i % 8;
-                unlockedAvatarsBuffer[byteIndex] |= (byte) (1 << bitIndex);
+                var ByteIndex = Counter / 8;
+                var BitIndex = Counter % 8;
+                UnlockedAvatarsBuffer[ByteIndex] |= (byte) (1 << BitIndex);
             }
 
-            writer.Write(unlockedAvatarsBuffer);
+            Writer.Write(UnlockedAvatarsBuffer);
 
-            for (var i = 0; i < Constants.NumDeckDataSlots; i++)
+            for (var Counter = 0; Counter < Constants.NumDeckDataSlots; Counter++)
+                Writer.Write((int) Challenges[Counter]);
+
+            var UnlockedRecipesBuffer = new byte[60];
+            for (var Counter = 0; Counter < UnlockedRecipes.Length; Counter++)
             {
-                writer.Write((int) Challenges[i]);
+                if (!UnlockedRecipes[Counter]) continue;
+
+                var ByteIndex = Counter / 8;
+                var BitIndex = Counter % 8;
+                UnlockedRecipesBuffer[ByteIndex] |= (byte) (1 << BitIndex);
             }
 
-            var unlockedRecipesBuffer = new byte[60];
-            for (var i = 0; i < UnlockedRecipes.Length; i++)
-            {
-                if (!UnlockedRecipes[i]) continue;
+            Writer.Write(UnlockedRecipesBuffer);
 
-                var byteIndex = i / 8;
-                var bitIndex = i % 8;
-                unlockedRecipesBuffer[byteIndex] |= (byte) (1 << bitIndex);
-            }
+            Writer.Write((uint) UnlockedShopPacks);
+            Writer.Write((uint) UnlockedBattlePacks);
+            Writer.Write(new byte[8]);
 
-            writer.Write(unlockedRecipesBuffer);
-
-            writer.Write((uint) UnlockedShopPacks);
-            writer.Write((uint) UnlockedBattlePacks);
-            writer.Write(new byte[8]);
-
-            writer.Write((int) CompleteTutorials);
-            writer.Write((int) UnlockedContent);
+            Writer.Write((int) CompleteTutorials);
+            Writer.Write((int) UnlockedContent);
         }
     }
 }

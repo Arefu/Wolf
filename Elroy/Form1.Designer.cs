@@ -205,9 +205,6 @@
             this.unlockDLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unlockOtherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unlockCardsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ofEachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ofEachToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox39.SuspendLayout();
@@ -2335,26 +2332,26 @@
             // opemToolStripMenuItem
             // 
             this.opemToolStripMenuItem.Name = "opemToolStripMenuItem";
-            this.opemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.opemToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.opemToolStripMenuItem.Text = "Open";
             this.opemToolStripMenuItem.Click += new System.EventHandler(this.opemToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -2384,34 +2381,10 @@
             // 
             // unlockCardsToolStripMenuItem
             // 
-            this.unlockCardsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xToolStripMenuItem,
-            this.ofEachToolStripMenuItem,
-            this.ofEachToolStripMenuItem1});
             this.unlockCardsToolStripMenuItem.Name = "unlockCardsToolStripMenuItem";
             this.unlockCardsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.unlockCardsToolStripMenuItem.Text = "Unlock Cards";
-            // 
-            // xToolStripMenuItem
-            // 
-            this.xToolStripMenuItem.Name = "xToolStripMenuItem";
-            this.xToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.xToolStripMenuItem.Text = "1 Of Each";
-            this.xToolStripMenuItem.Click += new System.EventHandler(this.xToolStripMenuItem_Click);
-            // 
-            // ofEachToolStripMenuItem
-            // 
-            this.ofEachToolStripMenuItem.Name = "ofEachToolStripMenuItem";
-            this.ofEachToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.ofEachToolStripMenuItem.Text = "2 Of Each";
-            this.ofEachToolStripMenuItem.Click += new System.EventHandler(this.ofEachToolStripMenuItem_Click);
-            // 
-            // ofEachToolStripMenuItem1
-            // 
-            this.ofEachToolStripMenuItem1.Name = "ofEachToolStripMenuItem1";
-            this.ofEachToolStripMenuItem1.Size = new System.Drawing.Size(124, 22);
-            this.ofEachToolStripMenuItem1.Text = "3 Of Each";
-            this.ofEachToolStripMenuItem1.Click += new System.EventHandler(this.ofEachToolStripMenuItem1_Click);
+            this.unlockCardsToolStripMenuItem.Click += new System.EventHandler(this.unlockCardsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -2659,9 +2632,6 @@
         private System.Windows.Forms.ToolStripMenuItem unlockDLCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlockOtherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unlockCardsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem xToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ofEachToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ofEachToolStripMenuItem1;
         public static System.Windows.Forms.NumericUpDown numericUpDown43;
         public static System.Windows.Forms.NumericUpDown numericUpDown40;
         public static System.Windows.Forms.NumericUpDown numericUpDown39;

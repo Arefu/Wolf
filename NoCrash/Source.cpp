@@ -1,15 +1,11 @@
 #include "stdafx.h"
 
-using namespace std;
-
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		MessageBox(nullptr,
-		           "Hello! I Am The Crash Handler For The Wolf Project\nPlease, If Your Game Crashes Report This On The Discord!\nThere Is A Log In The Games Install Directory.",
-		           "Yu-Gi-Oh! Crash Handler", 0);
+		MessageBox(nullptr,"Hello! I Am The Crash Handler For The Wolf Project\nPlease, If Your Game Crashes Report This On The Discord!\nThere Is A Log In The Games Install Directory.","Yu-Gi-Oh! Crash Handler", 0);
 		SetUnhandledExceptionFilter(UnhandledException);
 		break;
 	case DLL_THREAD_ATTACH:
@@ -27,13 +23,9 @@ LONG WINAPI UnhandledException(struct _EXCEPTION_POINTERS* ExceptionInfo)
 	ErrorLogFile.open("Log.txt");
 	if (!ErrorLogFile.is_open())
 	{
-		stringstream ErrorMessage;
-		ErrorMessage << "Something Happened Creating Log File! The Error Is At:\n" << ExceptionInfo
-		                                                                              ->ExceptionRecord->ExceptionAddress <<
-			"\nThe Message Is: " << ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode) <<
-			"\nPlease Take A Screen Shot And Report Me In The Discord!";
-		string PrintableError = ErrorMessage.str();
-		MessageBox(NULL, PrintableError.c_str(), "Uh-Oh!", 0);
+		std::stringstream ErrorMessage;
+		ErrorMessage << "Something Happened Creating Log File! The Error Is At:\n" << ExceptionInfo->ExceptionRecord->ExceptionAddress << "\nThe Message Is: " << ExceptionCodeToString(ExceptionInfo->ExceptionRecord->ExceptionCode) << "\nPlease Take A Screen Shot And Report Me In The Discord!";
+		MessageBox(nullptr, ErrorMessage.str().c_str(), "Uh-Oh!", 0);
 	}
 	ErrorLogFile << "Yu-Gi-Oh! Crashed. Here Is Some Information.\n";
 	ErrorLogFile << "Exception Address: ";
