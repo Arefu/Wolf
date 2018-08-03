@@ -20,3 +20,7 @@ The C++ also require [Microsoft's Detour](https://github.com/microsoft/detours/)
 For these work on anything less than Windows 10 you'll need to retarget the solutions to lower frameworks, all the tools should work on any framework however I can't promise this and won't fix any issues that occur on lower than what I develop for, upgrade your computer is likely to be my answer.
 
 The game and all its assets are the property of Other Ocean Interactive and or Konami Digital Entertainment. No part of the game may be copied, reproduced or distributed without the prior written permission of either of the listed parties. These tools are for educational use and should be used as such. Please keep that in mind before you go using them online to gain unfair advantages or ruining the game experince for other players.
+
+
+## Projects Made Using These Tools
+* [Requiem Mod](https://www.moddb.com/mods/lotdrequiem-mod/downloads/requiem13) by Moonlit Death
