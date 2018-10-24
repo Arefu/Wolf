@@ -85,6 +85,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\Johnathon%27s Data\Documents\Visual Studio 2017\Projects\Wolf\BetterMP\Source.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\Johnathon%27s Data\Documents\Visual Studio 2017\Projects\Wolf\BetterMP\stdafx.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

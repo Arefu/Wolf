@@ -1,20 +1,11 @@
-#include <iostream>
-#include "steam_api.h"
-#include <Windows.h>
-#include "detours.h"
-
-DWORD WINAPI SteamHijack(LPVOID lpParam);
-void SteamP2P();
+#include "stdafx.h"
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
-	AllocConsole();
-	freopen("CONOUT$", "w", stdout);
-	std::cout << "Better Multiplayer";
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		CreateThread(nullptr, NULL, SteamHijack, nullptr, NULL, nullptr);
+		InitBetterMP();
 		break;
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
@@ -26,21 +17,33 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 }
 
 
-DWORD WINAPI SteamHijack(LPVOID lpParam)
+void InitBetterMP()
+{
+	HookGame();
+	ShowConsole();
+}
+
+void ShowConsole()
+{
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+	std::cout << "Better Multiplayer - Yu-Gi-Oh! Legacy of the Duelist" << std::endl;
+}
+
+void HookGame()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 	DetourAttach((PVOID*)0x1406183A0, SteamP2P);
 	DetourTransactionCommit();
-	return 0;
 }
 
 void SteamP2P()
 {
 	unsigned int msgSize = 0;
 
-	while (SteamNetworking()->IsP2PPacketAvailable(&msgSize))
-	{
-	}
-	if (!SteamNetworking()->IsP2PPacketAvailable(&msgSize)) SteamP2P();
+	//while (SteamNetworking()->IsP2PPacketAvailable(&msgSize))
+	//{
+	//}
+	//if (!SteamNetworking()->IsP2PPacketAvailable(&msgSize)) SteamP2P();
 }
