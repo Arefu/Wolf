@@ -219,10 +219,6 @@ namespace Wolf
             ModView.Show();
         }
 
-        private void disableToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void installToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var OFD = new OpenFileDialog())
@@ -240,8 +236,7 @@ namespace Wolf
                 var CompareSizes = new Dictionary<long, ModFile>();
                 Reader?.Close();
 
-                using (var GetFileSizeReader = new StreamReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC",
-                    FileMode.Open, FileAccess.Read)))
+                using (var GetFileSizeReader = new StreamReader(File.Open($"{Utilities.GetInstallDir()}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
                 {
                     for (var Count = 0; Count < ModFileInfo.Files.Count; Count++)
                     {
@@ -257,14 +252,12 @@ namespace Wolf
 
                             if (new FileInfo(LineData[2]).Name == new FileInfo(ModFileInfo.Files[Count]).Name)
                             {
-                                GetFileSizeReader.BaseStream.Position =
-                                    0; //Because We're Breaking We Need To Reset Stream DUH
+                                GetFileSizeReader.BaseStream.Position = 0; //Because We're Breaking We Need To Reset Stream DUH
                                 GetFileSizeReader.ReadLine();
                                 AllFilesFound = true;
                                 CompareSizes.Add(Utilities.HexToDec(LineData[0]), new ModFile(ModFileInfo, Count));
                                 break;
                             }
-
                             AllFilesFound = false;
                         }
                     }
@@ -272,39 +265,33 @@ namespace Wolf
 
                 if (AllFilesFound == false)
                 {
-                    var Reply = MessageBox.Show("Not All Files Were Found In The TOC File, Do You Want To Contiue?",
-                        "Lost Files Found In Mod!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    var Reply = MessageBox.Show("Not All Files Were Found In The TOC File, Do You Want To Contiue?", "Lost Files Found In Mod!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (Reply == DialogResult.No) return;
                 }
 
                 using (var LogWriter = File.AppendText("Install_Log.log"))
                 {
                     foreach (var ModFile in CompareSizes)
-                        if (ModFile.Key > ModFile.Value.FileSize)
+                        if (ModFile.Key < ModFile.Value.FileSize)
                         {
-                            var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?",
-                                "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            var Reply = MessageBox.Show("File Already In Game Is Bigger, Do You Want To Continue?", "File Size Mismatch!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             if (Reply == DialogResult.No)
                             {
-                                LogWriter.Write(
-                                    $"[{DateTime.Now}]: Didn't Inject {ModFile.Value.FileName}, Discarded By User!\n\r");
+                                LogWriter.Write($"[{DateTime.Now}]: Didn't Inject {ModFile.Value.FileName}, Discarded By User!\n\r");
                                 continue;
                             }
 
-                            LogWriter.Write(
-                                $"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Bigger!\n\r");
+                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} The original file is bigger\n\r");
 
                             //Open DAT, Insert In Right Place...
                         }
                         else
                         {
-                            LogWriter.Write(
-                                $"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
+                            LogWriter.Write($"[{DateTime.Now}]: Injecting {ModFile.Value.FileName} With Size Of {ModFile.Value.FileSize} This File Is Smaller!\n\r");
                             var Sum = 0L;
                             var NullOutSize = 0L;
-                            Reader.Close();
-                            using (Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open,
-                                FileAccess.Read)))
+                            Reader?.Close();
+                            using (Reader = new StreamReader(File.Open($"{InstallDir}\\YGO_DATA.TOC", FileMode.Open, FileAccess.Read)))
                             {
                                 Reader.BaseStream.Position = 0;
                                 Reader.ReadLine();
@@ -326,8 +313,7 @@ namespace Wolf
                                 }
 
                                 Debug.WriteLine(Sum);
-                                using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT",
-                                    FileMode.Open, FileAccess.ReadWrite)))
+                                using (var Writer = new BinaryWriter(File.Open($"{InstallDir}\\YGO_DATA.DAT", FileMode.Open, FileAccess.ReadWrite)))
                                 {
                                     Writer.BaseStream.Position = Sum;
                                     var NullCount = 0L;

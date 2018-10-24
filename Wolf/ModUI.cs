@@ -28,15 +28,12 @@ namespace Wolf
                     var File = new FileInfo(Item);
                     if (File.Directory != null && !File.Directory.FullName.Contains("YGO_DATA"))
                     {
-                        MessageBox.Show(
-                            "YGO_DATA Structure Breach: Refer to Wiki for more Information (Link in clipboard)",
-                            "YGO_DATA Structure Breach!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("YGO_DATA Structure Breach: Refer to Wiki for more Information (Link in clipboard)", "YGO_DATA Structure Breach!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         Clipboard.SetText("https://github.com/Arefu/Wolf/wiki/YGO_DATA-Structure-Breach");
                         return;
                     }
 
-                    listBox1.Items.Add(
-                        $"YGO_DATA{File.FullName.Split(new[] {"YGO_DATA"}, StringSplitOptions.None)[1]}");
+                    listBox1.Items.Add($"YGO_DATA{File.FullName.Split(new[] {"YGO_DATA"}, StringSplitOptions.None)[1]}");
                 }
             }
         }
@@ -84,12 +81,11 @@ namespace Wolf
                     Archive.CreateEntryFromFile(Info.FullName, Info.Name);
                 }
 
-                File.WriteAllText($"{Application.StartupPath}\\{textBox1.Text}.moddta",
-                    new JavaScriptSerializer().Serialize(FileInfo));
+                File.WriteAllText($"{Application.StartupPath}\\{textBox1.Text}.moddta", new JavaScriptSerializer().Serialize(FileInfo));
             }
 
-            MessageBox.Show("Mod Packing Complete!", "Finished Packing", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            MessageBox.Show("Mod Packing Complete!", "Finished Packing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
