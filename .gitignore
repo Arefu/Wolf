@@ -14,12 +14,15 @@
 [Dd]ebugPublic/
 [Rr]eleases/
 x64/
+!bin/Debug/x64/
 x86/
+!bin/Debug/x86/
 build/
 bld/
 YGO_DATA/
 [Oo]bj/
 *.exe.config
+!Blue Eyes White Dragon.exe.config
 *.ipdb
 *.pdb
 *.dat
@@ -222,3 +225,9 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 Wiki Assets/Debug Files/
+
+bin/Debug/cardcropHD400\.jpg\.zib Unpacked/
+bin/Debug/cardcropHD401\.jpg\.zib Unpacked/
+bin/Debug/Resources/Pendulums/
+bin/Debug/Resources/Output/
+bin/Debug/ArtworkMatch.json
