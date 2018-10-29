@@ -23,13 +23,13 @@
 #include "isteammusic.h"
 #include "isteammusicremote.h"
 #include "isteamhttp.h"
+#include "isteamunifiedmessages.h"
 #include "isteamcontroller.h"
 #include "isteamugc.h"
 #include "isteamapplist.h"
 #include "isteamhtmlsurface.h"
 #include "isteaminventory.h"
 #include "isteamvideo.h"
-#include "isteamparentalsettings.h"
 
 
 // Steam API export macro
@@ -82,7 +82,7 @@ S_API void S_CALLTYPE SteamAPI_Shutdown();
 // since the DRM wrapper will ensure that your application was launched properly through Steam.
 S_API bool S_CALLTYPE SteamAPI_RestartAppIfNecessary( uint32 unOwnAppID );
 
-// Many Steam API functions allocate a small amount of thread-local memory for parameter storage.
+// Most Steam API functions allocate some amount of thread-local memory for parameter storage.
 // SteamAPI_ReleaseCurrentThreadMemory() will free API memory associated with the calling thread.
 // This function is also called automatically by SteamAPI_RunCallbacks(), so a single-threaded
 // program never needs to explicitly call this function.
@@ -94,14 +94,11 @@ S_API void S_CALLTYPE SteamAPI_WriteMiniDump( uint32 uStructuredExceptionCode, v
 S_API void S_CALLTYPE SteamAPI_SetMiniDumpComment( const char *pchMsg );
 
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------------//
-// Global accessors for Steamworks C++ APIs. See individual isteam*.h files for details.
-// You should not cache the results of these accessors or pass the result pointers across
-// modules! Different modules may be compiled against different SDK header versions, and
-// the interface pointers could therefore be different across modules. Every line of code
-// which calls into a Steamworks API should retrieve the interface from a global accessor.
-//----------------------------------------------------------------------------------------------------------------------------------------------------------//
-#if !defined( STEAM_API_EXPORTS )
+// If your application contains modules or libraries which could be built against different SDK
+// versions, then you should define VERSION_SAFE_STEAM_API_INTERFACES to enforce that you cannot
+// use the un-versioned global accessors. Instead, always create and use CSteamAPIContext objects
+// to retrieve interface pointers which match the Steamworks SDK headers which match your build.
+#if !defined( VERSION_SAFE_STEAM_API_INTERFACES ) && !defined( STEAM_API_EXPORTS )
 inline ISteamClient *SteamClient();
 inline ISteamUser *SteamUser();
 inline ISteamFriends *SteamFriends();
@@ -114,6 +111,7 @@ inline ISteamMatchmakingServers *SteamMatchmakingServers();
 inline ISteamRemoteStorage *SteamRemoteStorage();
 inline ISteamScreenshots *SteamScreenshots();
 inline ISteamHTTP *SteamHTTP();
+inline ISteamUnifiedMessages *SteamUnifiedMessages();
 inline ISteamController *SteamController();
 inline ISteamUGC *SteamUGC();
 inline ISteamAppList *SteamAppList();
@@ -122,19 +120,20 @@ inline ISteamMusicRemote *SteamMusicRemote();
 inline ISteamHTMLSurface *SteamHTMLSurface();
 inline ISteamInventory *SteamInventory();
 inline ISteamVideo *SteamVideo();
-inline ISteamParentalSettings *SteamParentalSettings();
 #endif // VERSION_SAFE_STEAM_API_INTERFACES
 
 
-// CSteamAPIContext encapsulates the Steamworks API global accessors into
-// a single object. This is DEPRECATED and only remains for compatibility.
+// Every compiled module will have its own inlined definitions of CSteamAPIContext::Init.
+// Do NOT share CSteamAPIContext pointers across modules unless you are sure that they will
+// all be compiled against the same SDK!
 class CSteamAPIContext
 {
 public:
-	// DEPRECATED - there is no benefit to using this over the global accessors
 	CSteamAPIContext() { Clear(); }
 	void Clear();
+
 	bool Init();
+
 	ISteamClient*		SteamClient() const					{ return m_pSteamClient; }
 	ISteamUser*			SteamUser() const					{ return m_pSteamUser; }
 	ISteamFriends*		SteamFriends() const				{ return m_pSteamFriends; }
@@ -147,6 +146,7 @@ public:
 	ISteamRemoteStorage* SteamRemoteStorage() const			{ return m_pSteamRemoteStorage; }
 	ISteamScreenshots*	SteamScreenshots() const			{ return m_pSteamScreenshots; }
 	ISteamHTTP*			SteamHTTP() const					{ return m_pSteamHTTP; }
+	ISteamUnifiedMessages* SteamUnifiedMessages() const		{ return m_pSteamUnifiedMessages; }
 	ISteamController*	SteamController() const				{ return m_pController; }
 	ISteamUGC*			SteamUGC() const					{ return m_pSteamUGC; }
 	ISteamAppList*		SteamAppList() const				{ return m_pSteamAppList; }
@@ -155,8 +155,7 @@ public:
 	ISteamHTMLSurface*	SteamHTMLSurface() const			{ return m_pSteamHTMLSurface; }
 	ISteamInventory*	SteamInventory() const				{ return m_pSteamInventory; }
 	ISteamVideo*		SteamVideo() const					{ return m_pSteamVideo; }
-	ISteamParentalSettings* SteamParentalSettings() const	{ return m_pSteamParentalSettings; }
-	// DEPRECATED - there is no benefit to using this over the global accessors
+
 private:
 	ISteamClient		*m_pSteamClient;
 	ISteamUser			*m_pSteamUser;
@@ -170,6 +169,7 @@ private:
 	ISteamRemoteStorage *m_pSteamRemoteStorage;
 	ISteamScreenshots	*m_pSteamScreenshots;
 	ISteamHTTP			*m_pSteamHTTP;
+	ISteamUnifiedMessages *m_pSteamUnifiedMessages;
 	ISteamController	*m_pController;
 	ISteamUGC			*m_pSteamUGC;
 	ISteamAppList		*m_pSteamAppList;
@@ -178,7 +178,6 @@ private:
 	ISteamHTMLSurface	*m_pSteamHTMLSurface;
 	ISteamInventory		*m_pSteamInventory;
 	ISteamVideo			*m_pSteamVideo;
-	ISteamParentalSettings *m_pSteamParentalSettings;
 };
 
 
@@ -385,7 +384,7 @@ S_API HSteamUser GetHSteamUser();
 
 
 #if defined( VERSION_SAFE_STEAM_API_INTERFACES )
-// exists only for backwards compat with code written against older SDKs
+// backwards compat with older SDKs
 S_API bool S_CALLTYPE SteamAPI_InitSafe();
 #endif
 

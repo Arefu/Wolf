@@ -8,51 +8,49 @@
 #define STEAM_API_INTERNAL_H
 
 S_API HSteamUser SteamAPI_GetHSteamUser();
-S_API void * S_CALLTYPE SteamInternal_ContextInit( void *pContextInitData );
+S_API bool S_CALLTYPE SteamInternal_Init();
 S_API void * S_CALLTYPE SteamInternal_CreateInterface( const char *ver );
 
 #if !defined( STEAM_API_EXPORTS )
 
-inline void S_CALLTYPE SteamInternal_OnContextInit( void* p )
-{
-	((CSteamAPIContext*)p)->Clear();
-	if ( SteamAPI_GetHSteamPipe() )
-		((CSteamAPIContext*)p)->Init();
-}
+#if !defined( VERSION_SAFE_STEAM_API_INTERFACES )
 inline CSteamAPIContext& SteamInternal_ModuleContext()
 {
-	// SteamInternal_ContextInit takes a base pointer for the equivalent of
-	// struct { void (*pFn)(void* pCtx); uintp counter; CSteamAPIContext ctx; }
-	// Do not change layout of 2 + sizeof... or add non-pointer aligned data!
 	// NOTE: declaring "static CSteamAPIConext" creates a large function
 	// which queries the initialization status of the object. We know that
 	// it is pointer-aligned and fully memset with zeros, so just alias a
 	// static buffer of the appropriate size and call it a CSteamAPIContext.
-	static void* s_CallbackCounterAndContext[ 2 + sizeof(CSteamAPIContext)/sizeof(void*) ] = { (void*)&SteamInternal_OnContextInit, 0 };
-	return *(CSteamAPIContext*)SteamInternal_ContextInit( s_CallbackCounterAndContext );
+	static void* ctx[ sizeof(CSteamAPIContext)/sizeof(void*) ];
+	return *(CSteamAPIContext*)ctx;
 }
-
-inline ISteamClient *SteamClient()							{ return SteamInternal_ModuleContext().SteamClient(); }
-inline ISteamUser *SteamUser()								{ return SteamInternal_ModuleContext().SteamUser(); }
-inline ISteamFriends *SteamFriends()						{ return SteamInternal_ModuleContext().SteamFriends(); }
-inline ISteamUtils *SteamUtils()							{ return SteamInternal_ModuleContext().SteamUtils(); }
-inline ISteamMatchmaking *SteamMatchmaking()				{ return SteamInternal_ModuleContext().SteamMatchmaking(); }
-inline ISteamUserStats *SteamUserStats()					{ return SteamInternal_ModuleContext().SteamUserStats(); }
-inline ISteamApps *SteamApps()								{ return SteamInternal_ModuleContext().SteamApps(); }
-inline ISteamMatchmakingServers *SteamMatchmakingServers()	{ return SteamInternal_ModuleContext().SteamMatchmakingServers(); }
-inline ISteamNetworking *SteamNetworking()					{ return SteamInternal_ModuleContext().SteamNetworking(); }
-inline ISteamRemoteStorage *SteamRemoteStorage()			{ return SteamInternal_ModuleContext().SteamRemoteStorage(); }
-inline ISteamScreenshots *SteamScreenshots()				{ return SteamInternal_ModuleContext().SteamScreenshots(); }
-inline ISteamHTTP *SteamHTTP()								{ return SteamInternal_ModuleContext().SteamHTTP(); }
-inline ISteamController *SteamController()					{ return SteamInternal_ModuleContext().SteamController(); }
-inline ISteamUGC *SteamUGC()								{ return SteamInternal_ModuleContext().SteamUGC(); }
-inline ISteamAppList *SteamAppList()						{ return SteamInternal_ModuleContext().SteamAppList(); }
-inline ISteamMusic *SteamMusic()							{ return SteamInternal_ModuleContext().SteamMusic(); }
-inline ISteamMusicRemote *SteamMusicRemote()				{ return SteamInternal_ModuleContext().SteamMusicRemote(); }
-inline ISteamHTMLSurface *SteamHTMLSurface()				{ return SteamInternal_ModuleContext().SteamHTMLSurface(); }
-inline ISteamInventory *SteamInventory()					{ return SteamInternal_ModuleContext().SteamInventory(); }
-inline ISteamVideo *SteamVideo()							{ return SteamInternal_ModuleContext().SteamVideo(); }
-inline ISteamParentalSettings *SteamParentalSettings()		{ return SteamInternal_ModuleContext().SteamParentalSettings(); }
+#define _STEAMINTERNAL_ACCESSOR_BODY( AccessFunc )				\
+		if ( !SteamAPI_GetHSteamPipe() ) return 0;				\
+		CSteamAPIContext &ctx = SteamInternal_ModuleContext();	\
+		if ( !ctx.AccessFunc() ) ctx.Init();					\
+		return ctx.AccessFunc();
+inline ISteamClient *SteamClient()					{ _STEAMINTERNAL_ACCESSOR_BODY( SteamClient ) }
+inline ISteamUser *SteamUser()						{ _STEAMINTERNAL_ACCESSOR_BODY( SteamUser ) }
+inline ISteamFriends *SteamFriends()				{ _STEAMINTERNAL_ACCESSOR_BODY( SteamFriends ) }
+inline ISteamUtils *SteamUtils()					{ _STEAMINTERNAL_ACCESSOR_BODY( SteamUtils ) }
+inline ISteamMatchmaking *SteamMatchmaking()		{ _STEAMINTERNAL_ACCESSOR_BODY( SteamMatchmaking ) }
+inline ISteamUserStats *SteamUserStats()			{ _STEAMINTERNAL_ACCESSOR_BODY( SteamUserStats ) }
+inline ISteamApps *SteamApps()						{ _STEAMINTERNAL_ACCESSOR_BODY( SteamApps ) }
+inline ISteamMatchmakingServers *SteamMatchmakingServers() { _STEAMINTERNAL_ACCESSOR_BODY( SteamMatchmakingServers ) }
+inline ISteamNetworking *SteamNetworking()			{ _STEAMINTERNAL_ACCESSOR_BODY( SteamNetworking ) }
+inline ISteamRemoteStorage *SteamRemoteStorage()	{ _STEAMINTERNAL_ACCESSOR_BODY( SteamRemoteStorage ) }
+inline ISteamScreenshots *SteamScreenshots()		{ _STEAMINTERNAL_ACCESSOR_BODY( SteamScreenshots ) }
+inline ISteamHTTP *SteamHTTP()						{ _STEAMINTERNAL_ACCESSOR_BODY( SteamHTTP ) }
+inline ISteamUnifiedMessages *SteamUnifiedMessages() { _STEAMINTERNAL_ACCESSOR_BODY( SteamUnifiedMessages ) }
+inline ISteamController *SteamController()			{ _STEAMINTERNAL_ACCESSOR_BODY( SteamController ) }
+inline ISteamUGC *SteamUGC()						{ _STEAMINTERNAL_ACCESSOR_BODY( SteamUGC ) }
+inline ISteamAppList *SteamAppList()				{ _STEAMINTERNAL_ACCESSOR_BODY( SteamAppList ) }
+inline ISteamMusic *SteamMusic()					{ _STEAMINTERNAL_ACCESSOR_BODY( SteamMusic ) }
+inline ISteamMusicRemote *SteamMusicRemote()		{ _STEAMINTERNAL_ACCESSOR_BODY( SteamMusicRemote ) }
+inline ISteamHTMLSurface *SteamHTMLSurface()		{ _STEAMINTERNAL_ACCESSOR_BODY( SteamHTMLSurface ) }
+inline ISteamInventory *SteamInventory()			{ _STEAMINTERNAL_ACCESSOR_BODY( SteamInventory ) }
+inline ISteamVideo *SteamVideo()					{ _STEAMINTERNAL_ACCESSOR_BODY( SteamVideo ) }
+#undef _STEAMINTERNAL_ACCESSOR_BODY
+#endif // !defined( VERSION_SAFE_STEAM_API_INTERFACES )
 
 #endif // !defined( STEAM_API_EXPORTS )
 
@@ -72,6 +70,7 @@ inline void CSteamAPIContext::Clear()
 	m_pSteamHTTP = NULL;
 	m_pSteamScreenshots = NULL;
 	m_pSteamMusic = NULL;
+	m_pSteamUnifiedMessages = NULL;
 	m_pController = NULL;
 	m_pSteamUGC = NULL;
 	m_pSteamAppList = NULL;
@@ -79,8 +78,6 @@ inline void CSteamAPIContext::Clear()
 	m_pSteamMusicRemote = NULL;
 	m_pSteamHTMLSurface = NULL;
 	m_pSteamInventory = NULL;
-	m_pSteamVideo = NULL;
-	m_pSteamParentalSettings = NULL;
 }
 
 
@@ -140,6 +137,10 @@ inline bool CSteamAPIContext::Init()
 	if ( !m_pSteamHTTP )
 		return false;
 
+	m_pSteamUnifiedMessages = m_pSteamClient->GetISteamUnifiedMessages( hSteamUser, hSteamPipe, STEAMUNIFIEDMESSAGES_INTERFACE_VERSION );
+	if ( !m_pSteamUnifiedMessages )
+		return false;
+
 	m_pController = m_pSteamClient->GetISteamController( hSteamUser, hSteamPipe, STEAMCONTROLLER_INTERFACE_VERSION );
 	if ( !m_pController )
 		return false;
@@ -170,10 +171,6 @@ inline bool CSteamAPIContext::Init()
 
 	m_pSteamVideo = m_pSteamClient->GetISteamVideo( hSteamUser, hSteamPipe, STEAMVIDEO_INTERFACE_VERSION );
 	if ( !m_pSteamVideo )
-		return false;
-
-	m_pSteamParentalSettings = m_pSteamClient->GetISteamParentalSettings( hSteamUser, hSteamPipe, STEAMPARENTALSETTINGS_INTERFACE_VERSION );
-	if ( !m_pSteamParentalSettings )
 		return false;
 
 	return true;

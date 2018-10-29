@@ -6,10 +6,9 @@
 #include "detours.h"
 #include "steam_api.h"
 
+typedef INT64 (__stdcall* address)();
 
-
-DWORD WINAPI SteamHijack(LPVOID lpParam);
-void SteamP2P();
+__int64 SteamP2P();
 
 
 void ShowConsole();
@@ -17,3 +16,5 @@ void ShowConsole();
 void HookGame();
 //Call From DLLMain
 void InitBetterMP();
+
+DWORD WINAPI SteamHijack(LPVOID);

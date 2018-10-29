@@ -26,7 +26,7 @@ enum EFriendRelationship
 	k_EFriendRelationshipRequestInitiator = 4,
 	k_EFriendRelationshipIgnored = 5,			// this is stored; the user has explicit blocked this other user from comments/chat/etc
 	k_EFriendRelationshipIgnoredFriend = 6,
-	k_EFriendRelationshipSuggested_DEPRECATED = 7,		// was used by the original implementation of the facebook linking feature, but now unused.
+	k_EFriendRelationshipSuggested = 7,
 
 	// keep this updated
 	k_EFriendRelationshipMax = 8,
@@ -80,7 +80,7 @@ enum EFriendFlags
 	k_EFriendFlagRequestingInfo = 0x100,
 	k_EFriendFlagIgnored		= 0x200,
 	k_EFriendFlagIgnoredFriend	= 0x400,
-	// k_EFriendFlagSuggested		= 0x800,	// not used
+	k_EFriendFlagSuggested		= 0x800,
 	k_EFriendFlagChatMember		= 0x1000,
 	k_EFriendFlagAll			= 0xFFFF,
 };
@@ -327,7 +327,7 @@ public:
 
 	// Rich Presence data is automatically shared between friends who are in the same game
 	// Each user has a set of Key/Value pairs
-	// Note the following limits: k_cchMaxRichPresenceKeys, k_cchMaxRichPresenceKeyLength, k_cchMaxRichPresenceValueLength
+	// Up to 20 different keys can be set
 	// There are two magic keys:
 	//		"status"  - a UTF-8 string that will show up in the 'view game info' dialog in the Steam friends list
 	//		"connect" - a UTF-8 string that contains the command-line for how a friend can connect to a game
@@ -388,9 +388,6 @@ public:
 	virtual SteamAPICall_t IsFollowing( CSteamID steamID ) = 0;
 	CALL_RESULT( FriendsEnumerateFollowingList_t )
 	virtual SteamAPICall_t EnumerateFollowingList( uint32 unStartIndex ) = 0;
-
-	virtual bool IsClanPublic( CSteamID steamIDClan ) = 0;
-	virtual bool IsClanOfficialGameGroup( CSteamID steamIDClan ) = 0;
 };
 
 #define STEAMFRIENDS_INTERFACE_VERSION "SteamFriends015"
