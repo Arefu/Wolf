@@ -45,7 +45,7 @@ private:
 
 void LobbyMaker::MakeLobby()
 {
-	std::cout << "Attempting To Make Lobby";
+	std::cout << "Attempting To Make Lobby" << std::endl;
 	SteamAPICall_t hSteamAPICall = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 2);
 	m_LobbyMadeCallResult.Set(hSteamAPICall, this, &LobbyMaker::OnLobbyMaid);
 }
@@ -60,5 +60,5 @@ DWORD WINAPI SteamHijack(LPVOID)
 
 void LobbyMaker::OnLobbyMaid(LobbyCreated_t* LobbyCreated, bool Created)
 {
-	std::cout << "Done!";
+	std::cout << "Lobby ID: " << LobbyCreated->m_ulSteamIDLobby << std::endl;
 }
