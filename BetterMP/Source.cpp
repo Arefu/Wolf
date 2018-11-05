@@ -21,6 +21,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserve
 void InitBetterMP()
 {
 	CreateThread(nullptr, NULL, SteamHijack, nullptr, NULL, nullptr);
+	ShowConsole();
 }
 
 void ShowConsole()
@@ -31,51 +32,33 @@ void ShowConsole()
 	std::cout << "Your SteamID64 Is: " << SteamUser()->GetSteamID().ConvertToUint64() << std::endl;
 }
 
+
+class LobbyMaker
+{
+public:
+	void MakeLobby();
+
+private:
+	void OnLobbyMaid(LobbyCreated_t* LobbyCreated, bool Created);
+	CCallResult<LobbyMaker, LobbyCreated_t> m_LobbyMadeCallResult;
+};
+
+void LobbyMaker::MakeLobby()
+{
+	std::cout << "Attempting To Make Lobby";
+	SteamAPICall_t hSteamAPICall = SteamMatchmaking()->CreateLobby(k_ELobbyTypePublic, 2);
+	m_LobbyMadeCallResult.Set(hSteamAPICall, this, &LobbyMaker::OnLobbyMaid);
+}
+
+
 DWORD WINAPI SteamHijack(LPVOID)
 {
-	ShowConsole();
-
-	CreateThread(nullptr, NULL, WatchForLobby, nullptr, NULL, nullptr);
+	SteamAPI_Init();
+	LobbyMaker().MakeLobby();
 	return 0;
 }
 
-DWORD WINAPI WatchForLobby(LPVOID)
+void LobbyMaker::OnLobbyMaid(LobbyCreated_t* LobbyCreated, bool Created)
 {
-	unsigned int msgSize = 0;
-	while (true)
-	{
-		if (!SteamNetworking()->IsP2PPacketAvailable(&msgSize)) continue;
-
-		CSteamID steamIDRemote;
-		void *packet = malloc(msgSize);
-		unsigned int bytesRead = 0;
-		SteamNetworking()->ReadP2PPacket(packet, msgSize, &bytesRead, &steamIDRemote);
-		std::cout << "Found Lobby! SteamID Of Host: " << steamIDRemote.ConvertToUint64();
-	}
+	std::cout << "Done!";
 }
-
-/*
-
-DWORD WINAPI LongPoll(LPVOID)
-{
-	do
-	{
-		unsigned int msgSize = 0;
-		if (SteamNetworking()->IsP2PPacketAvailable(&msgSize))
-		{
-			while (SteamNetworking()->IsP2PPacketAvailable(&msgSize))
-			{
-				void *packet = malloc(msgSize);
-				CSteamID steamIDRemote;
-				uint32 bytesRead = 0;
-				if (SteamNetworking()->ReadP2PPacket(packet, msgSize, &bytesRead, &steamIDRemote))
-				{
-					SteamMatchmaking()->JoinLobby(steamIDRemote);
-				}
-				free(packet);
-			}
-
-		}
-	} while (true);
-	return 0;
-}*/
