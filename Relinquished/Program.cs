@@ -9,16 +9,24 @@ namespace Relinquished
     internal class Program
     {
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Console.Title = "Relinquished";
+            var ZibFileName = "";
             using (var FileDialog = new OpenFileDialog())
             {
-                FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
-                FileDialog.Filter = "Yu-Gi-Oh! Wolf ZIB File |*.zib";
-                if (FileDialog.ShowDialog() != DialogResult.OK) return;
+                if (!File.Exists($"YGO_DATA\\{ args[0]}"))
+                {
+                    FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
+                    FileDialog.Filter = "Yu-Gi-Oh! Wolf ZIB File |*.zib";
+                    if (FileDialog.ShowDialog() != DialogResult.OK) return;
+                }
+                else
+                {
+                    ZibFileName = $"YGO_DATA\\{args[0]}";
+                }
 
-                var ZibFileName = new FileInfo(FileDialog.FileName).Name;
+                ZibFileName = new FileInfo(FileDialog.FileName).Name;
 
                 if (Directory.Exists($"{ZibFileName} Unpacked") || File.Exists($"{ZibFileName} Unpacked/Index.zib"))
                     return;

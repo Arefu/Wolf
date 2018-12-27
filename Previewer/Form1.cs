@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -24,9 +25,7 @@ namespace Previewer
 
         private void Form1_Load(object Sender, EventArgs Args)
         {
-            //if (Directory.Exists("YGO_DATA")) return;
-            // MessageBox.Show(@"YGO_DATA Not Found! Some Things Might Be A Tad Broken.\nRefer To Wiki For More Info.", @"YGO_DATA Missing!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // Application.Exit();
+        
         }
 
         private void ExitToolStripMenuItem_Click(object Sender, EventArgs Args)
@@ -88,8 +87,8 @@ namespace Previewer
         {
             foreach (ToolStripMenuItem Lang in languageToolStripMenuItem.DropDownItems) Lang.Checked = false;
 
-            ((ToolStripMenuItem) Sender).Checked = true;
-            switch (((ToolStripMenuItem) Sender).Text)
+            ((ToolStripMenuItem)Sender).Checked = true;
+            switch (((ToolStripMenuItem)Sender).Text)
             {
                 case "English":
                     Language = Localized_Text.Language.English;
@@ -166,7 +165,7 @@ namespace Previewer
 
         private void Button1_Click_1(object Sender, EventArgs Args)
         {
-            GlobalIndex = (short) numericUpDown1.Value;
+            GlobalIndex = (short)numericUpDown1.Value;
             LoadCards();
         }
 
