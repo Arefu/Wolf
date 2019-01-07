@@ -15,16 +15,9 @@ namespace Relinquished
             var ZibFileName = "";
             using (var FileDialog = new OpenFileDialog())
             {
-                if (!File.Exists($"YGO_DATA\\{ args[0]}"))
-                {
-                    FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
-                    FileDialog.Filter = "Yu-Gi-Oh! Wolf ZIB File |*.zib";
-                    if (FileDialog.ShowDialog() != DialogResult.OK) return;
-                }
-                else
-                {
-                    ZibFileName = $"YGO_DATA\\{args[0]}";
-                }
+                FileDialog.Title = "Open Yu-Gi-Oh ZIB File...";
+                FileDialog.Filter = "Yu-Gi-Oh! Wolf ZIB File |*.zib";
+                if (FileDialog.ShowDialog() != DialogResult.OK) return;
 
                 ZibFileName = new FileInfo(FileDialog.FileName).Name;
 
