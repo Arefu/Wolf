@@ -43,7 +43,8 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
 
         public void Load()
         {
-            if (string.IsNullOrEmpty(InstallDirectory)) throw new Exception("Invalid directory: " + InstallDirectory);
+            //if (string.IsNullOrEmpty(InstallDirectory)) throw new Exception("Invalid directory: " + InstallDirectory);
+            
 
             var tocPath = Path.Combine(InstallDirectory, "YGO_DATA.toc");
             var datPath = Path.Combine(InstallDirectory, "YGO_DATA.dat");
@@ -328,16 +329,18 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
             {
                 using (var Root = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 {
-                    using (var Key =
-                        Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
+                    using (var Key =Root.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 480650"))
                     {
-                        return Key?.GetValue("InstallLocation").ToString();
+                        if (Key?.GetValue("InstallLocation").ToString() != null)
+                        {
+                            return Key?.GetValue("InstallLocation").ToString();
+                        }
                     }
                 }
             }
             catch (Exception)
             {
-              
+            }
             using (var Ofd = new FolderBrowserDialog())
             {
                 Ofd.Description = "Please Navigate To Your Install Directory";
@@ -349,7 +352,6 @@ namespace Yu_Gi_Oh.File_Handling.LOTD_Files
                 }
 
                 return null;
-            }
             }
         }
     }

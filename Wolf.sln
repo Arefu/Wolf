@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Onomatopaira", "Onomatopaira\Onomatopaira.csproj", "{471F031F-BDBB-48B4-8128-1399723BA10F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -111,6 +111,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commander", "Commander", "{0F102F03-A9F2-4280-BA4E-EEADA13B08D8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Commander", "Commander\Commander.vcxproj", "{A6453ED3-8A7E-4010-9F2A-3818D0C0A46D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blue Eyes White Dragon", "Blue Eyes White Dragon\Blue Eyes White Dragon.csproj", "{86572EAE-20D9-449F-81D8-9BD529A9592F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -340,6 +342,18 @@ Global
 		{A6453ED3-8A7E-4010-9F2A-3818D0C0A46D}.Release|x64.ActiveCfg = Release|x64
 		{A6453ED3-8A7E-4010-9F2A-3818D0C0A46D}.Release|x64.Build.0 = Release|x64
 		{A6453ED3-8A7E-4010-9F2A-3818D0C0A46D}.Release|x86.ActiveCfg = Release|x64
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|x64.Build.0 = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Debug|x86.Build.0 = Debug|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|x64.ActiveCfg = Release|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|x64.Build.0 = Release|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|x86.ActiveCfg = Release|Any CPU
+		{86572EAE-20D9-449F-81D8-9BD529A9592F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
