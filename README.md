@@ -3,7 +3,7 @@
 
 Wolf is a collection of tools that allow you to edit content for [Yu-Gi-Oh! Legacy of the Duelist!](http://store.steampowered.com/app/480650/YuGiOh_Legacy_of_the_Duelist/) on PC.
 
-#These tools DO NOT currently work with the Swich game, if you have the extracted rom data join the Discord linked below.
+# These tools DO NOT currently work with the Swich game, if you have the extracted rom data join the Discord linked below.
 
 There are no present or future plans to port any of these tools to allow editing content from the Play Station 4 or Xbox One, if anyone else feels upto it, by all means! I've documentated everything I know in the Wiki so feel free to check it out on there.
 Even with me saying there are no plans, if someone can provide a legal way to obtain a disk image, I may take a look and see if these tools can be adjusted.
