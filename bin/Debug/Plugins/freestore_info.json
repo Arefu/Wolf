@@ -1,6 +1,0 @@
-{
-  "Name": "FreeStore",
-  "Description": "A Plugin That Stops The Card Store Costing Deck Points",
-  "Injection_Addresses": [ "1406183A0" ],
-  "Depends": [ "Nothing"]
-}
