@@ -34,6 +34,12 @@ namespace Cyclone
                 case "cardcropHD401.jpg.zib":
                     Packer.Pack(ZibFolder);
                     break;
+                case "cardcropHD400.illust_a.jpg.zib":
+                    Packer.Pack(ZibFolder, 0xE750);
+                    break;
+                case "cardcropHD400.illust_j.jpg.zib":
+                    Packer.Pack(ZibFolder, 0x903D0);
+                    break;
                 case "decks.zib":
                     Packer.Pack(ZibFolder, 0x8650);
                     break;
