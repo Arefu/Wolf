@@ -25,6 +25,7 @@ namespace Cyclone
 
             switch (new DirectoryInfo(ZibFolder).Name.Replace(" Unpacked", string.Empty))
             {
+                // PC version .zib files
                 case "busts.zib":
                     Packer.Pack(ZibFolder, 0x2390);
                     break;
@@ -34,17 +35,19 @@ namespace Cyclone
                 case "cardcropHD401.jpg.zib":
                     Packer.Pack(ZibFolder);
                     break;
-                case "cardcropHD400.illust_a.jpg.zib":
-                    Packer.Pack(ZibFolder, 0xE750);
-                    break;
-                case "cardcropHD400.illust_j.jpg.zib":
-                    Packer.Pack(ZibFolder, 0x903D0);
-                    break;
                 case "decks.zib":
                     Packer.Pack(ZibFolder, 0x8650);
                     break;
                 case "packs.zib":
                     Packer.Pack(ZibFolder, 0x750);
+                    break;
+
+                // switch version .zib files
+                case "cardcropHD400.illust_a.jpg.zib":
+                    Packer.Pack(ZibFolder, 0xE750);
+                    break;
+                case "cardcropHD400.illust_j.jpg.zib":
+                    Packer.Pack(ZibFolder, 0x903D0);
                     break;
                 default:
                     throw new Exception("This is either an unsupported ZIB");

@@ -34,6 +34,7 @@ namespace Relinquished
 
                 switch (ZibFileName)
                 {
+                    // PC version .zib files
                     case "cardcropHD400.jpg.zib":
                         OffsetReadSize = 8;
                         SizeReadSize = 8;
@@ -46,19 +47,6 @@ namespace Relinquished
                         SizeReadSize = 8;
                         FileNameReadSize = 48;
                         DataStartOffset = 0xC810;
-                        break;
-                    case "cardcropHD400.illust_a.jpg.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 48;
-                        DataStartOffset = 0xE750;
-                        break;
-
-                    case "cardcropHD400.illust_j.jpg.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 48;
-                        DataStartOffset = 0x903D0;
                         break;
 
                     case "busts.zib":
@@ -81,6 +69,21 @@ namespace Relinquished
                         FileNameReadSize = 56;
                         DataStartOffset = 0x750;
                         break;
+
+                    // Swtich version .zib files
+                    case "cardcropHD400.illust_a.jpg.zib":
+                        OffsetReadSize = 4;
+                        SizeReadSize = 4;
+                        FileNameReadSize = 56;
+                        DataStartOffset = 0xE750;
+                        break;
+                    case "cardcropHD400.illust_j.jpg.zib":
+                        OffsetReadSize = 4;
+                        SizeReadSize = 4;
+                        FileNameReadSize = 56;
+                        DataStartOffset = 0x903D0;
+                        break;
+
                     default:
                         throw new Exception("Not valid ZIB File");
                 }
@@ -94,8 +97,7 @@ namespace Relinquished
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
                         {
                             var CurrentChunk = Reader.ReadBytes(64); //40 In HEX is 64 in DEC
-                            var Chunk = CurrentChunk.Take(OffsetReadSize).ToArray();
-                            var CurrentStartOffset = Utilities.HexToDec(Chunk);
+                            var CurrentStartOffset = Utilities.HexToDec(CurrentChunk.Take(OffsetReadSize).ToArray());
                             CurrentChunk = CurrentChunk.Skip(OffsetReadSize).ToArray();
                             var CurrentFileSize = Utilities.HexToDec(CurrentChunk.Take(SizeReadSize).ToArray(), true);
                             CurrentChunk = CurrentChunk.Skip(SizeReadSize).ToArray();
