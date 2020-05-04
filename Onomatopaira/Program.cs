@@ -54,7 +54,7 @@ namespace Onomatopaira
 
                             line = line.TrimStart(' ');
                             line = Regex.Replace(line, @"  +", " ", RegexOptions.Compiled);
-                            var Data = new FileInformation(line.Split(' '));
+                            var Data = new FileInformation(line.Split(new char[] { ' ' }, 3));
 
                             Utilities.Log(
                                 $"Extracting File: {new FileInfo(Data.FileName).Name} ({Data.FileSize} Bytes)",
