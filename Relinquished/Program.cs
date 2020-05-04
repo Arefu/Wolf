@@ -29,87 +29,43 @@ namespace Relinquished
                 File.SetAttributes($"{ZibFileName} Unpacked/Index.zib",
                     File.GetAttributes($"{ZibFileName} Unpacked/Index.zib") | FileAttributes.Hidden);
 
-                long DataStartOffset = 0x0;
-                int OffsetReadSize = 0x0, SizeReadSize = 0x0, FileNameReadSize = 0x0; //These Should Add Up To 64.
-
-                switch (ZibFileName)
-                {
-                    // PC version .zib files
-                    case "cardcropHD400.jpg.zib":
-                        OffsetReadSize = 8;
-                        SizeReadSize = 8;
-                        FileNameReadSize = 48;
-                        DataStartOffset = 0x69F10;
-                        break;
-
-                    case "cardcropHD401.jpg.zib":
-                        OffsetReadSize = 8;
-                        SizeReadSize = 8;
-                        FileNameReadSize = 48;
-                        DataStartOffset = 0xC810;
-                        break;
-
-                    case "busts.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 56;
-                        DataStartOffset = 0x2390;
-                        break;
-
-                    case "decks.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 56;
-                        DataStartOffset = 0x8650;
-                        break;
-
-                    case "packs.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 56;
-                        DataStartOffset = 0x750;
-                        break;
-
-                    // Swtich version .zib files
-                    case "cardcropHD400.illust_a.jpg.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 56;
-                        DataStartOffset = 0xE750;
-                        break;
-                    case "cardcropHD400.illust_j.jpg.zib":
-                        OffsetReadSize = 4;
-                        SizeReadSize = 4;
-                        FileNameReadSize = 56;
-                        DataStartOffset = 0x903D0;
-                        break;
-
-                    default:
-                        throw new Exception("Not valid ZIB File");
-                }
-
                 using (var IndexWriter = new StreamWriter(File.Open($"{ZibFileName} Unpacked/Index.zib", FileMode.Open,
                     FileAccess.Write)))
                 {
                     using (var Reader =
                         new BinaryReader(File.Open(FileDialog.FileName, FileMode.Open, FileAccess.Read)))
                     {
+                        var DataStartOffset = long.MaxValue;
+                        var ReadSize = 4;
+                        var ZibFileSize = Reader.BaseStream.Length;
                         while (Reader.BaseStream.Position + 64 <= DataStartOffset)
                         {
-                            var CurrentChunk = Reader.ReadBytes(64); //40 In HEX is 64 in DEC
-                            var CurrentStartOffset = Utilities.HexToDec(CurrentChunk.Take(OffsetReadSize).ToArray());
-                            CurrentChunk = CurrentChunk.Skip(OffsetReadSize).ToArray();
-                            var CurrentFileSize = Utilities.HexToDec(CurrentChunk.Take(SizeReadSize).ToArray(), true);
-                            CurrentChunk = CurrentChunk.Skip(SizeReadSize).ToArray();
-                            var CurrentFileName = Utilities.GetText(CurrentChunk.Take(FileNameReadSize).ToArray());
+                            // offset is aligned to 4 bytes
+                            var CurrentStartOffset = (BitConverter.ToUInt32(Reader.ReadBytes(ReadSize).Reverse().ToArray(), 0) / 4) *4;
 
-                            //Start Offsets Are WRONG In ZIB For Some Reason, Or Maybe I Am... (Thanks thomasneff for other files)
-                            if (CurrentFileName == "adriangecko_neutral.png")
-                                CurrentStartOffset = 0x2390;
-                            if (CurrentFileName == "1classic_01a_yugimuto.ydc")
-                                CurrentStartOffset = 0x8650;
-                            if (CurrentFileName == "bpack_BattlePack1.bin")
-                                CurrentStartOffset = 0x750;
+                            if (CurrentStartOffset == 0)
+                            {
+                                if (ReadSize == 4)
+                                {
+                                    // switch to 64 bit header format & try again
+                                    Reader.BaseStream.Seek(0, SeekOrigin.Begin);
+                                    ReadSize = 8;
+                                    continue;
+                                }
+                                else
+                                {
+                                    throw new Exception("Not valid ZIB File");
+                                }
+                            }
+
+                            var CurrentFileSize = (int)BitConverter.ToUInt32(Reader.ReadBytes(ReadSize).Reverse().ToArray(), 0);
+                            var CurrentFileName = Utilities.GetText(Reader.ReadBytes(64 - ReadSize * 2));
+
+                            // sanity check
+                            if (CurrentStartOffset + CurrentFileSize > ZibFileSize) throw new Exception("Not valid ZIB File");
+
+                            // update first known file offset
+                            if (CurrentStartOffset < DataStartOffset) DataStartOffset = CurrentStartOffset;
 
                             Utilities.Log($"Exporting {CurrentFileName} ({CurrentFileSize} Bytes)",
                                 Utilities.Event.Information);
